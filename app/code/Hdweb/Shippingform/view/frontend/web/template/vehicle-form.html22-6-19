@@ -1,0 +1,29 @@
+<div id="custom-vehicle-div" class="section_bg">
+    <div class="checkout_title">
+        <span>vehicle</span>
+    </div>
+    <form id="custom-vehicle-form" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+        <div class="form_filds_custom">
+                <input class="input-text" type="text" data-validate="{required:true}" data-bind=" attr: {placeholder:$t('Vehicle Plate')} "  name="vehicle_plate" id="vehicle_plate"/>
+              <!-- <select id="vehiclelist" name="vehiclelist" data-bind="options: getVehicleList(),  optionsText: 'name', optionsValue: 'value',optionsCaption: $t('Choose Vehicle'), event: { change: changevehicle}">        
+                    </select>
+
+                <select id="vehiclemodel" name="vehiclemodel" data-bind="options: getVehicleModel(),  optionsText: 'name', optionsValue: 'value',optionsCaption: $t('Choose Model'), event: { change: changemodel}">
+                            </select>
+                <select id="vehicleyear" name="vehicleyear" data-bind="options: getVehicleYear(),  optionsText: 'name', optionsValue: 'value',optionsCaption: $t('Choose Year')">
+                            </select> -->
+                <input class="input-text" type="text" data-validate="{required:true}" data-bind=" attr: {placeholder:$t('Vehicle Makes')} "  name="vehiclelist1" id="vehiclelist1" />
+                <input class="input-text" type="text" data-validate="{required:true}" data-bind=" attr: {placeholder:$t('Vehicle Model')} "  name="vehiclemodel1" id="vehiclemodel1" />
+                <input class="input-text" type="text" data-validate="{required:true}" data-bind=" attr: {placeholder:$t('Vehicle Year')} "  name="vehicleyear1" id="vehicleyear1" />         
+        </div>  
+        <!-- <div class="vehicle_checkbox">
+                <input id="same-vehicle" type="checkbox" name="same-vehicle" data-bind="checked: isSameAsVehicle"/>
+                <label for="same-vehicle" class="label">
+                    <span data-bind="i18n: 'Click here to add manually if you don't see your vehicle Make and Model in our database'"></span>
+                    <p>Click here to add manually if you don't see your vehicle Make and Model in our database</p>
+                </label>
+        </div> -->
+    </form>
+
+</div>
+

@@ -1,0 +1,127 @@
+<?php
+$partData = $block->getData();
+$partDetails = $partData['data'];
+$criteriaInfo = $partDetails['criteriaInfo'];
+//echo '<pre>';print_r($partDetails);die;
+?>
+<?php
+if(isset($partDetails['productGroup'])){
+	$productGroupInfo = $partDetails['productGroup'];
+?>
+	<li>
+	<span class="attr-label"><?php echo __('Product Group').':';?></span>
+	<?php foreach($productGroupInfo as $productGroup){?>
+		<strong class="attr-value"><?php echo $productGroup;?></strong>
+	<?php } ?>
+	</li>
+<?php } ?>
+
+<?php
+if(isset($partDetails['status'])){
+	$statusInfo = $partDetails['status'];
+?>
+	<li>
+	<span class="attr-label"><?php echo __('Status').':';?></span>
+	<?php foreach($statusInfo as $status){?>
+		<strong class="attr-value"><?php echo $status;?></strong>
+<?php } ?>
+	</li>
+<?php } ?>
+
+<?php if(isset($partDetails['linkageInfo'])){ ?>
+<?php $linkageInfoInfo = $partDetails['linkageInfo']; ?>
+<?php foreach($linkageInfoInfo as $linkageInfo){?>
+	<li>
+	<span class="attr-label"><?php echo $linkageInfo['criteriaDescription'].':';?></span>
+	<strong class="attr-value"><?php echo $linkageInfo['formattedValue'];?></strong>
+	</li>
+<?php } ?>
+<?php } ?>
+<?php foreach($criteriaInfo as $criteria){?>
+	<li>
+	<span class="attr-label"><?php echo $criteria['criteriaDescription'].':';?></span>
+	<strong class="attr-value"><?php echo $criteria['formattedValue'];?></strong>
+	</li>
+<?php } ?>
+
+<?php
+if(isset($partDetails['gtins'])){
+	$gtinsInfo = $partDetails['gtins'];
+?>
+	<li>
+	<span class="attr-label"><?php echo __('GTIN/EAN').':';?></span>
+	<?php foreach($gtinsInfo as $gtins){?>
+		<strong class="attr-value"><?php echo $gtins;?></strong>
+	<?php } ?>
+	</li>
+<?php } ?>
+<?php
+if(isset($partDetails['quantityPerPackage'])){
+	$quantityPerPackageInfo = $partDetails['quantityPerPackage'];
+?>
+	<li>
+	<span class="attr-label"><?php echo __('Packing Unit').':';?></span>
+	<?php foreach($quantityPerPackageInfo as $quantityPerPackage){?>
+		<strong class="attr-value"><?php echo $quantityPerPackage;?></strong>
+	<?php } ?>
+	</li>
+<?php } ?>
+<?php
+if(isset($partDetails['quantityPerPartPerPackage'])){
+	$quantityPerPartPerPackageInfo = $partDetails['quantityPerPartPerPackage'];
+?>
+	<li>
+	<span class="attr-label"><?php echo __('Quantity Per Packing Unit').':';?></span>
+	<?php foreach($quantityPerPartPerPackageInfo as $quantityPerPartPerPackage){?>
+		<strong class="attr-value"><?php echo $quantityPerPartPerPackage;?></strong>
+	<?php } ?>
+	</li>
+<?php }?>
+
+<?php
+if(isset($partDetails['oemNumbers'])){
+	$oemNumbers = $partDetails['oemNumbers'];
+?>	
+	<li>
+	<span class="attr-label"><?php echo __('OE Numbers').':';?></span>
+	<strong class="attr-value">&nbsp;</strong>
+	</li>
+	<?php foreach($oemNumbers as $oemNumbersArray) {?>
+			<?php foreach($oemNumbersArray as $mfrName => $oemNumbersGroupArray) {?>
+			<li>
+			<span class="attr-label"><?php echo $mfrName;?></span>
+			<strong class="attr-value"><?php echo implode(', ', array_column($oemNumbersGroupArray, 'articleNumber'));?></strong>
+			</li>
+			<?php } ?>	
+	<?php } ?>
+	
+<?php } ?>
+<?php
+if(isset($partDetails['pdf'])){
+	$pdfInfo = $partDetails['pdf'];
+	$i=1;
+?>	
+	<?php foreach($pdfInfo as $pdf){?>
+	<li>
+	<span class="attr-label"><?php echo __('PDF '). $i .':';?></span>
+		<strong class="attr-value">
+			<a href="<?php echo $pdf;?>" target="_blank"><?php echo __('Download PDF');?></a>
+		</strong>
+	</li>	
+		<?php $i++; } ?>
+<?php } ?>
+
+<?php
+if(isset($partDetails['images'])){
+	$imagesInfo = $partDetails['images'];
+	$j=1;
+?>
+	<?php foreach($imagesInfo as $image){?>
+		<li>
+		<span class="attr-label techdoc-img"><?php echo __('Image '). $j .':';?></span>
+		<strong class="attr-value">
+			<a href="<?php echo $image;?>" id="get-techdoc-image_<?php echo $j;?>" target="_blank"><?php echo __('View Image');?></a>
+		</strong>
+		<li>
+		<?php $j++; } ?>
+<?php } ?>

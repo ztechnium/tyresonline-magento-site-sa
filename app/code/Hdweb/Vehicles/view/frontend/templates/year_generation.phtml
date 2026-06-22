@@ -1,0 +1,495 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$vehiclesHelper = $this->helper('Hdweb\Vehicles\Helper\Data');
+$params = $this->getRequest()->getParams();
+$make = $params['make'];
+$model = $params['model'];
+$makeLabel = strtoupper($make);
+$modelLabel = strtoupper($model);
+$wheelApiKey = $vehiclesHelper::WHEEL_SEARCH_APIKEY;
+$modelyear_url = "https://api.wheel-size.com/v2/years/?user_key=".$wheelApiKey."&make=".$make."&model=".$model. "&region=medm";
+$modelyear = file_get_contents($modelyear_url);
+$modelyear =json_decode($modelyear);
+$baseUrl = $this->getBaseUrl();
+
+$generation_url = "https://api.wheel-size.com/v2/generations/?user_key=".$wheelApiKey."&make=".$make."&model=".$model. "&region=medm";
+$generation = file_get_contents($generation_url);
+$generation =json_decode($generation);
+$vehiclesSearchbyFormActionUrl = $vehiclesHelper->getVehiclesSearchbyFormUrl();
+if(isset($generation->data[0]->bodies[0]->image)){
+  $carImage = $generation->data[0]->bodies[0]->image;
+} else {
+  $carImage = '';
+}
+
+$modelParagraph['model_paragraph1'] = '';
+$modelParagraph['model_paragraph2'] = '';
+$modelParagraph['model_paragraph3'] = '';
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$storeId = $storeManager->getStore()->getStoreId();
+$paragraphCollection = $objectManager->create('Hdweb\Vehicles\Model\ResourceModel\Vehicles\Collection');
+$paragraphCollection->addFieldToFilter('store_id', ['eq' => $storeId]);
+$paragraphCollection->addFieldToFilter('make', ['eq' => $make]);
+$paragraphCollection->addFieldToFilter('model', ['eq' => $model]);
+$modelParagraph = $paragraphCollection->getFirstItem();
+?>
+
+<div class="year_generation">
+<div class="section page-banner car-year-banner overflow-hidden">
+  	<div class="cover">
+    <div class="banner-wrap">
+      <div class="tyre-content text-center mx-auto">
+      	<div class="brand-logo">
+      		<img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __($makeLabel.' '.$modelLabel.' Tyres Online');?>" width="300px" height="300px" data-src="<?php echo $this->getViewFileUrl('Hdweb_Vehicles::images/logo/'.$make.'.png'); ?>">
+      	</div>
+      	<div class="width-cover">
+        	<strong class="font-size1 fw-900"><?php echo __($makeLabel.' '.$modelLabel.' TYRES');?></strong>
+        </div>
+        <hr>
+        <h3 class="fw-light"><?php echo __('ANYWHERE IN THE UAE');?></h3>
+      </div>
+    </div>
+
+        <div class="banner-image">
+      <div class="image-wrap picture aspect-custom text-center">
+        <picture>
+	  <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Buy '.$makeLabel.' '.$modelLabel.' Tyres Online');?>" width="1920px" height="943px" data-src="<?php echo $carImage; ?>">
+	</picture>
+      </div>
+    </div>
+
+
+    	
+
+	<?php if(count($modelyear->data) > 0): ?>
+		<div class="year-selection" style="display: none;">
+			<div class="container custom-width-1240">
+			<div class="space-wrap">
+			<h2><?php echo __('SELECT MITSUBISHI PAJERO YEAR');?></h2>
+			<div>
+			<ul class="button-list list-custom row g-3 g-lg-4 row-cols-2 row-cols-sm-3 row-cols-md-5 row-cols-lg-6 row-cols-xl-6 justify-content-center">
+				<?php foreach($modelyear->data as $yearOption): ?>
+					<?php
+					$onclickYear = "getModificationFromYear($yearOption->slug , $yearOption->name)";
+					?>
+					<li>
+						<a href="javascript:void(0)" onclick="<?php echo $onclickYear; ?>" class="button button-block button-primary-100 button-rounded filled-slide-right button-text-overflow"><span><?php echo __($yearOption->name); ?></span></a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		</div>
+		</div>
+		</div>
+	<?php endif; ?>
+
+	<?php if(count($generation->data) > 0): ?>
+		<div class="generation-select">
+			<div class="container custom-width-1240">
+			<div class="space-wrap">
+			<h2><?php echo __('SELECT '.$makeLabel.' '.$modelLabel.' GENERATION'); ?></h2>
+			<div>
+			<ul class="button-list list-custom row g-3 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 justify-content-center">
+				<?php foreach($generation->data as $generation): ?>
+					<?php
+					$onclickgeneration = "getModificationFromGeneration('$generation->slug' , '$generation->name')";
+					?>
+					<li>
+						<a href="javascript:void(0)" onclick="<?php echo $onclickgeneration; ?>" class="button button-block button-primary-100 button-rounded filled-slide-right button-text-overflow"> 
+							<span><?php echo __($generation->name.'['.$generation->start.'..'.$generation->end.']'); ?></span>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		</div>
+	</div>
+</div>
+	<?php endif; ?>
+
+   <div class="modifications hide">
+	<div class="container custom-width-1240">
+    <div class="space-wrap">
+			<h2><?php echo __('SELECT '.$makeLabel.' '.$modelLabel.' ENGINE'); ?></h2>
+			<div>
+		<ul class="button-list list-custom row g-3 row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 justify-content-center"></ul>
+	</div>
+</div>
+	</div>
+</div>
+
+</div>
+</div>
+
+<div class="section about-brand-style2">
+    <?php if($modelParagraph['model_top']): ?>
+        <div class="container custom-width-1400">
+            <div class="content-block">
+                <?php echo __($modelParagraph['model_top']); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if($modelParagraph['model_paragraph1'] || $modelParagraph['model_paragraph2']): ?>
+    <div class="container custom-width-1400">
+	    <div class="content-block">
+            <?php if($modelParagraph['model_paragraph1']): ?>
+                <h2><?php echo __('BUY '.$makeLabel.' '.$modelLabel.' TYRES'); ?></h2>
+                <p><?php echo __($modelParagraph['model_paragraph1']); ?></p>
+            <?php endif; ?>
+            <?php if($modelParagraph['model_paragraph2']): ?>
+                <h2><?php echo __('SHOP '.$makeLabel.' '.$modelLabel.' TYRES ONLINE'); ?></h2>
+                <p><?php echo __($modelParagraph['model_paragraph2']); ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+<div class="vehicles-tyre-size hide">
+
+  <div class="section page-banner car-size-banner overflow-hidden">
+  	<div class="cover">
+
+    <div class="banner-image">
+      <div class="image-wrap picture aspect-custom text-center">
+        <picture>
+	    <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __($makeLabel.' '.$modelLabel.' Tyres Online');?>" width="1920px" height="943px" data-src="<?php echo $carImage; ?>">
+	      </picture>
+      </div>
+    </div>
+
+
+     <div class="content-block">
+     	 <div class="container custom-width-1240">
+     	<h2><?php echo __('SEARCH '.$makeLabel.' '.$modelLabel.' TYRES'); ?></h2>
+     	<p><?php echo __('At TyresOnline, we understand that as a '.$makeLabel.' '.$modelLabel.' owner, you have specific tyre requirements to match your vehicle’s performance and safety needs. Rely on TyresOnline for the right tyres to equip your '.$makeLabel.' '.$modelLabel.', ensuring you continue to drive with confidence and assurance.'); ?></p>
+     </div>
+	</div>
+
+<!-- 	 <div class="tyres-size hide">
+	 	<div class="container custom-width-1240">
+	 		<div class="space-wrap">
+	 			<div>
+   			<ul class="list-custom row g-3 row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 justify-content-center"></ul>
+   		</div>
+   	</div>
+ 		</div>
+   </div> -->
+
+   <div class="tyres-size">
+	 	<div class="container custom-width-1240">
+	 		<div class="space-wrap">
+	 			<div>
+   			<ul class="tyre-list list-custom row g-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 justify-content-center tyre-size-select">
+
+   			</ul>
+   		</div>
+   	</div>
+ 		</div>
+   </div>
+
+   <div class="find-tyre-size">
+   	 <a href="#" data-izimodal-open="#tyre-modal"><?php echo __('Click here to learn how to find your tyre size');?></a>
+   </div>
+
+   <div id="tyre-modal" class="izimodal find-tyre-modal" style="display: none;">
+  	<a href="javascript:void(0)" class="close-modal" data-izimodal-close><svg xmlns="http://www.w3.org/2000/svg" width="34.62" height="34.62" viewBox="0 0 34.62 34.62">
+  <g id="Group_3086" data-name="Group 3086" transform="translate(-1730 -421.38)">
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(1730 421.38)" fill="#fff" stroke="#d70000" stroke-width="2">
+      <circle cx="17.31" cy="17.31" r="17.31" stroke="none"/>
+      <circle cx="17.31" cy="17.31" r="16.31" fill="none"/>
+    </g>
+    <text id="x" transform="translate(1747.311 444.933)" fill="#d70000" font-size="24" font-family="Rubik-Medium, Rubik" font-weight="500" letter-spacing="0.04em"><tspan x="-6.768" y="0">x</tspan></text>
+  </g>
+</svg>
+</a>
+     <div class="content-wrap">
+     	<h3><?php echo __('FIND YOUR TYRE SIZE');?></h3>
+     	<p><?php echo __('A series of numbers such as <b>“205/55 R16”</b> on the sidewall, represents the tyre’s dimensions.');?></p>
+     </div>
+          	 <div class="image-wrap picture aspect-custom text-center">
+          <picture>
+	         <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Find Tyres Size Online');?>" width="1920px" height="943px" data-src="<?= $block->getViewFileUrl('images/section/tyre-size.jpg'); ?>">
+	        </picture>
+          </div>
+ </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+<form id="vehicles-searchby" method="get" action="<?php echo $vehiclesSearchbyFormActionUrl; ?>">
+	<input type="hidden" id="vehicles_front_width" name="width" value="">
+	<input type="hidden" id="vehicles_front_height" name="height" value="">
+	<input type="hidden" id="vehicles_front_rim" name="rim" value="">
+	<input type="hidden" id="vehicles_rear_width" name="width_rear" value="">
+	<input type="hidden" id="vehicles_rear_height" name="height_rear" value="">
+	<input type="hidden" id="vehicles_rear_rim" name="rim_rear" value="">
+</form>
+
+<form id="" action="" method="post">
+	<input type="hidden" id="vehicle_year" name="vehicle_year" value="">
+	<input type="hidden" id="vehicle_generation" name="vehicle_generation" value="">
+</form>
+
+
+
+<script type="text/javascript">
+require([
+	'jquery'
+	],function($){
+});
+function getModificationFromYear(value,label){
+	var make = '<?php echo $make; ?>';
+	var model = '<?php echo $model; ?>';
+	var year = value;
+	jQuery("#vehicle_year").val(value);
+	jQuery.ajax({
+	    type: 'POST',
+	    url: '<?php echo $baseUrl.'vehicles/ajax/getmodificationsfromyear';?>',
+	    data: {make: make, model: model,year: year},
+	    success: function (data) {
+	    	jQuery('.year-selection').hide();
+	    	jQuery('.generation-select').hide();
+	    	jQuery('.modifications ul').html(data.response);
+	    	jQuery('.modifications').show();
+	    }
+  	});
+}
+function getVehicleTyreSizes(value,label){
+	var make = '<?php echo $make; ?>';
+	var model = '<?php echo $model; ?>';
+	var year = jQuery('#vehicle_year').val();
+	var modification = value;
+	jQuery.ajax({
+	    type: 'POST',
+	    url: '<?php echo $baseUrl.'vehicles/ajax/getsearchbymodel';?>',
+	    data: {make: make, model: model,year: year, modification: modification},
+	    success: function (data) {
+	    	jQuery('.modifications').hide();
+	    	jQuery('.year_generation').hide();
+	    	jQuery('.vehicles-tyre-size ul').html(data.enginesTyre);
+	    	jQuery('.vehicles-tyre-size').show();
+	    }
+  	});
+}
+function vehiclesShowProduct(width, height, rim, rear_width, rear_height, rear_rim){
+	jQuery("#vehicles_front_width").val(width);
+    jQuery("#vehicles_front_height").val(height);
+    jQuery("#vehicles_front_rim").val(rim);
+
+    if(rear_width != '')
+    {
+       jQuery("#vehicles_rear_width").val(rear_width);
+    }
+
+    if(rear_height != '')
+    {
+       jQuery("#vehicles_rear_height").val(rear_height);
+    }
+
+    if(rear_rim != '')
+    {
+          jQuery("#vehicles_rear_rim").val(rear_rim);
+    }
+
+    jQuery('#vehicles-searchby').submit();
+}
+function getModificationFromGeneration(value,label){
+	var make = '<?php echo $make; ?>';
+	var model = '<?php echo $model; ?>';
+	var generation = value;
+	jQuery("#vehicle_generation").val(value);
+	jQuery.ajax({
+	    type: 'POST',
+	    url: '<?php echo $baseUrl.'vehicles/ajax/getmodificationsfromgeneration';?>',
+	    data: {make: make, model: model,generation: generation},
+	    success: function (data) {
+	    	jQuery('.year-selection').hide();
+	    	jQuery('.generation-select').hide();
+	    	jQuery('.modifications ul').html(data.response);
+	    	jQuery('.modifications').show();
+	    }
+  	});
+}
+function getVehicleTyreSizesGeneration(value,label){
+	var make = '<?php echo $make; ?>';
+	var model = '<?php echo $model; ?>';
+	var generation = jQuery('#vehicle_generation').val();
+	var modification = value;
+	jQuery.ajax({
+	    type: 'POST',
+	    url: '<?php echo $baseUrl.'vehicles/ajax/getsearchbymodelgeneration';?>',
+	    data: {make: make, model: model,generation: generation, modification: modification},
+	    success: function (data) {
+	    	jQuery('.modifications').hide();
+	    	jQuery('.year_generation').hide();
+	    	jQuery('.vehicles-tyre-size ul').html(data.enginesTyre);
+        jQuery('.tyre-size-select').html(data.enginesTyre);
+	    	jQuery('.vehicles-tyre-size').show();
+	    }
+  	});
+}
+</script>
+
+<script type="text/javascript">
+require(["jquery"], function($) {
+(function($){
+    "use strict";
+    var defaultOptions= {
+        rotateText: null,
+        fontSizeFactor: 0.8,
+        maximumFontSize: null,
+        limitingDimension: "both",
+        horizontalAlign: "center",
+        verticalAlign: "center",
+        textAlign: "center",
+        whiteSpace: "nowrap"
+    };
+
+    $.fn.bigText= function(options) {
+        return this.each(function() {
+            options= $.extend({}, defaultOptions, options);
+            var $this= $(this);
+            var $parent= $this.parent();
+
+            //hides the element to prevent "flashing"
+            $this.css("visibility", "hidden");
+
+            $this.css({
+                display: "inline-block",
+                clear: "both",
+                //'float': "left", //the need to set this is very odd, its due to margin-collapsing. See https://developer.mozilla.org/en-US/docs/Web/CSS/margin_collapsing
+                'font-size': (1000 * options.fontSizeFactor) + "px",
+                //'line-height': "1000px",
+                'white-space': options.whiteSpace,
+                //"text-align": options.textAlign,
+                //position: "relative",
+                //padding: 0,
+                //margin: 0,
+                //left: "50%",
+                //top: "50%"
+            });
+
+            var parentPadding= {
+                left: parseInt($parent.css('padding-left')),
+                top: parseInt($parent.css('padding-top')),
+                right: parseInt($parent.css('padding-right')),
+                bottom: parseInt($parent.css('padding-bottom'))
+            };
+
+            var box= {
+                width: $this.outerWidth(),
+                height: $this.outerHeight()
+            };
+            var rotateCSS= {}
+            if (options.rotateText !== null) {
+                if (typeof options.rotateText !== "number")
+                    throw "bigText error: rotateText value must be a number";
+                var rotate= "rotate(" + options.rotateText + "deg)";
+                rotateCSS= {
+                    "-webkit-transform": rotate,
+                    "-ms-transform": rotate,
+                    "-moz-transform": rotate,
+                    "-o-transform": rotate,
+                    "transform": rotate
+                };
+                $this.css(rotateCSS);
+                //calculating bounding box of the rotated element
+                var sin= Math.abs(Math.sin(options.rotateText * Math.PI / 180));
+                var cos= Math.abs(Math.cos(options.rotateText * Math.PI / 180));
+                box.width= $this.outerWidth() * cos + $this.outerHeight() * sin;
+                box.height= $this.outerWidth() * sin + $this.outerHeight() * cos;
+            }
+
+            var widthFactor= ($parent.innerWidth() - parentPadding.left - parentPadding.right) / box.width;
+            var heightFactor= ($parent.innerHeight() - parentPadding.top - parentPadding.bottom) / box.height;
+            var lineHeight;
+
+            if (options.limitingDimension.toLowerCase() === "width") {
+                lineHeight= Math.floor(widthFactor * 1000);
+                $parent.height(lineHeight);
+            } else if (options.limitingDimension.toLowerCase() === "height") {
+                lineHeight= Math.floor(heightFactor * 1000);
+            } else if (widthFactor < heightFactor)
+                lineHeight= Math.floor(widthFactor * 1000);
+            else if (widthFactor >= heightFactor)
+                lineHeight= Math.floor(heightFactor * 1000);
+
+            var fontSize= lineHeight * options.fontSizeFactor;
+            if (options.maximumFontSize !== null && fontSize > options.maximumFontSize) {
+                fontSize= options.maximumFontSize;
+                lineHeight= fontSize / options.fontSizeFactor;
+            }
+
+
+            $this.css({
+                'font-size': Math.floor(fontSize)  + "px",
+                //'line-height': Math.ceil(lineHeight)  + "px",
+                //'margin-bottom': "0px",
+                //'margin-right': "0px"
+            });
+
+            if (options.limitingDimension.toLowerCase() === "height") {
+                //this option needs the font-size to be set already so $this.width() returns the right size
+                //this +4 is to compensate the rounding erros that can occur due to the calls to Math.floor in the centering code
+                //$parent.width(($this.width() + 4) + "px");
+            }
+            var endCSS= {};
+
+            switch(options.verticalAlign.toLowerCase()) {
+                case "top":
+                    endCSS['top']= "0%";
+                break;
+                case "bottom":
+                    endCSS['top']= "100%";
+                    endCSS['margin-top']= Math.floor(-$this.innerHeight()) + "px";
+                break;
+                default:
+                    endCSS['margin-top']= Math.floor((-$this.innerHeight() / 2)) + "px";
+                break;
+            }
+
+            switch(options.horizontalAlign.toLowerCase()) {
+                case "left":
+                    endCSS['left']= "0%";
+                break;
+                case "right":
+                    endCSS['left']= "100%";
+                    endCSS['margin-left']= Math.floor(-$this.innerWidth()) + "px";
+                break;
+                default:
+                    endCSS['margin-left']= Math.floor((-$this.innerWidth() / 2)) + "px";
+                break;
+            }
+
+
+            //$this.css(endCSS);
+            //shows the element after the work is done
+            $this.css("visibility", "visible");
+        });
+    }
+})(jQuery);
+
+
+$(".font-size1").bigText({
+      limitingDimension: "width",
+});
+
+
+});
+</script>

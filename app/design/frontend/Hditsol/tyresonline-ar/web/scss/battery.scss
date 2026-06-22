@@ -1,0 +1,546 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "sections/blog-slider";
+@import "sections/how-it-work";
+@import "sections/battery-process";
+@import "sections/offer-slider";
+@import "sections/text-block";
+
+@media screen and (min-width: 1199px){
+  .container-full{
+    @include scssont-padding-mix(0px, 120px);
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 992px){
+  .col-lg-44{
+    width: 44%;
+    flex: 0 0 auto;
+  }
+  .col-lg-56{
+    width: 56%;
+    flex: 0 0 auto;
+  }
+}
+
+@mixin banner-height() {
+  min-height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+  @media screen and #{$media-query} {
+    min-height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+  }
+}
+
+@mixin banner-height-mobile() {
+  min-height: calc(100vh - #{get-rem($header-hight)});
+  @media screen and #{$media-query} {
+    min-height: calc(100vh - #{get-vw($header-hight)});
+  }
+}
+
+
+.brakes-banner{
+  @include banner-height();
+  position: relative;
+    .banner-image{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+        .image-wrap{
+            &.picture{
+            padding-top: 47.2%;
+            img{
+                width: auto;
+                max-width: 100%;
+            }
+        }
+    }
+    }
+    .banner-wrap{
+      position: relative;
+      z-index: 1; 
+      .tyre-content{
+        width: fit-content;
+        .font-size1{
+          @include scssont-font-size(89px);
+          line-height: 1;
+          display: block;
+        }
+        .font-size2{
+          @include scssont-font-size(82.5px);
+          line-height: 1;
+          display: block;
+        }
+        h3{
+          @include scssont-font-size(43.75px);
+        }
+        hr{
+           opacity: 1;
+           @include scssont-height(3px);
+           background-color: $red;
+           @include scssont-margin-top(15px);
+           @include scssont-margin-bottom(10px);
+           margin-left: 0.5%;
+           margin-right: 0.5%;
+        }
+      }
+    }
+}
+
+
+
+@media screen and (min-device-height: 700px) and (max-device-height: 3000px) and (orientation : landscape){
+  .brakes-banner{
+    .banner-image{
+      .image-wrap{
+        &.picture{
+          padding-top: 80vh;
+        }
+    }
+   }
+    .banner-wrap{
+      padding-top: 2.07vh;
+      padding-bottom: 0;
+      .contact-info{
+        ul{
+          li{
+            a{
+              font-size: 2.2vh;
+            }
+          }
+        }
+      }
+      .tyre-content{
+        .font-size1{
+          font-size: 5.44vh;
+        }
+        .font-size2{
+          font-size: 8.39vh;
+        }
+        h3{
+          font-size: 5.78vh;
+        }
+      }
+    }
+  }  
+}
+
+@media screen and (max-device-height: 2000px) and (orientation: portrait) {
+  .brakes-banner{
+      .banner-wrap{
+        .contact-info{
+          ul{
+            li{
+              a{
+                font-size: get-rem-sm(15px);
+              }
+            }
+          }
+        }
+        .tyre-content{
+          .font-size1{
+            font-size: get-rem-sm(34px);
+          }
+          .font-size2{
+            font-size: get-rem-sm(52px);
+          }
+          h3{
+            font-size: get-rem-sm(36px);
+          }
+        }
+      }
+  } 
+}
+
+
+@media screen and (max-device-height: 2000px) and (orientation: portrait) {
+  .brakes-banner{
+    min-height: 10px;
+
+    .banner-image{
+      position: relative;
+      margin-top: -13%;
+    }
+  }
+}
+
+@media screen and (max-device-width: 1024px) and (max-device-height: 1023px) and (orientation: landscape) {
+  .brakes-banner{
+    min-height: 10px;
+
+    .banner-image{
+      position: relative;
+      margin-top: -13%;
+    }
+  }
+}
+
+
+
+@include media-breakpoint-down(md){
+.brakes-banner-mobile{
+  .text-block{
+    padding-top: get-rem-sm(20px);
+    padding-bottom: get-rem-sm(20px);
+      h2{
+        font-size: get-rem-sm(37px);
+        margin-top: get-rem-sm(10px);
+        line-height: 1;
+      }
+      h3{
+        font-size: get-rem-sm(31px);
+        color: $red;
+        margin: 0;
+      }
+      p{
+        font-size: get-rem-sm(16px);
+      }
+      img{
+        margin-top: -28px;
+        z-index: -1;
+        position: relative;
+        margin-bottom: -35px;
+      }
+      .call{
+        margin-top: get-rem-sm(30px);
+      }
+  }
+}
+}
+
+@media screen and (max-device-width: 767px) and (orientation: landscape) {
+  .brakes-banner-mobile{
+    height: auto !important;
+  }
+}
+
+// Normal
+@media screen and (max-device-height: 668px) and (orientation: portrait) {
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(32px);
+      }
+      h3{
+        font-size: get-rem-sm(30px);
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(200px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(70px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+
+
+// Mobile Safari
+
+@media screen and (max-device-height: 870px) and (orientation: portrait) {
+  html{
+   .safari{
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(33px);
+      }
+      h3{
+        font-size: get-rem-sm(30px);
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(210px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(100px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+}
+}
+
+@media screen and (max-device-height: 815px) and (orientation: portrait) {
+  html{
+   .safari{
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(33px);
+      }
+      h3{
+        font-size: get-rem-sm(30px);
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(210px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(100px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+}
+}
+
+@media screen and (max-device-height: 668px) and (orientation: portrait) {
+  html{
+   .safari{
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(28px);
+      }
+      h3{
+        font-size: get-rem-sm(26px);
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(190px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(70px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+}
+}
+
+@media screen and (max-device-height: 570px) and (orientation: portrait) {
+  html{
+   .safari{
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(20px);
+      }
+      h3{
+        font-size: get-rem-sm(18px);
+      }
+      p{
+        font-size: get-rem-sm(13px); 
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(160px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(65px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+}
+}
+
+// Mobile Chrome
+@media screen and (max-device-height: 800px) and (orientation: portrait) {
+  html{
+   .chrome{
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(32px);
+      }
+      h3{
+        font-size: get-rem-sm(30px);
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(200px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(90px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+}
+}
+
+@media screen and (max-device-height: 668px) and (orientation: portrait) {
+  html{
+   .chrome{
+   .brakes-banner-mobile{
+    .text-block{
+      h2{
+        font-size: get-rem-sm(32px);
+      }
+      h3{
+        font-size: get-rem-sm(30px);
+      }
+      .middle{
+        img{
+          max-height: get-rem-sm(200px);
+        }
+      }
+      .call{
+        margin-top: get-rem-sm(15px);
+        svg{
+          width: get-rem-sm(70px);
+          height: auto;
+        }
+      }
+    }
+  }
+}
+}
+}
+
+
+@include media-breakpoint-down(md){
+  .offers-banner, .brakes-banner{
+    display: none;
+  }
+}
+
+.battery-online
+{
+  background-color: #F2F2F2;
+  @include scssont-padding-mix(40px, 0px);
+  .text-block{
+    svg{
+      @include scssont-width(82px);
+      @include scssont-margin-bottom(30px);
+    }
+    h1{
+      @include scssont-font-size(58px);
+     
+      br{
+        display: none;
+      }
+    }
+    p{
+      @include scssont-font-size(22px);
+      line-height: 1.5;
+    }
+    .button{
+      @include scssont-margin-top(40px);
+    }
+  }
+}
+
+@include media-breakpoint-down(md){
+  .battery-online{
+    .text-block{
+        h1{
+          font-size: get-rem-sm(32px);
+          margin-bottom: get-rem-sm(20px);
+          br{
+            display: inline;
+          }
+        }
+        svg{
+          width: get-rem-sm(37px);
+        }
+        p{
+          br{
+            display: none;
+          }
+        }
+        .button{
+          margin-top: get-rem-sm(5px);
+        }
+    }
+  } 
+}
+
+.battery-brands{
+  @include scssont-padding-mix(90px, 0px);
+  ul{
+    li{
+      .logo-box{
+        img{
+          @include scssont-max-height(120px);
+          @include transition(ease-in-out, 0.4s);
+          @include scssont-max-width(350px);
+          width: auto;
+          height: auto;
+          &:hover{
+            @include transform(scale(1.05));
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md){
+  .battery-brands{
+    padding: get-rem-sm(14px) 0px;
+    ul{
+      li{
+        width: 50%;
+        margin: get-rem-sm(15px) 0;
+        .logo-box{
+          text-align: center;
+          img{
+            max-width: 85%;
+            max-height: get-rem-sm(57px);
+          }
+        }
+      }
+    } 
+  } 
+}
+
+@include media-breakpoint-between(md, lg) {
+  .battery-brands{
+    ul{
+      li{
+        .logo-box{
+          img{
+            max-height: get-rem-sm(70px);
+            max-width: get-rem-sm(150px);
+          }
+        }
+      }
+    }
+  }
+}

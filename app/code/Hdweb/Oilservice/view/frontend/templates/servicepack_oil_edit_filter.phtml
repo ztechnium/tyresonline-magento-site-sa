@@ -1,0 +1,370 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_productCollection = $block->getCollection();
+$listingHelper = $objectManager->create('Hdweb\Tyrefinder\Helper\Productlisting');
+$currencysymbol = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currency = $currencysymbol->getStore()->getCurrentCurrencyCode();
+$standardDiscount = 15;
+$premiumDiscount = 20;
+$superbDiscount = 25;
+$filterLabel = $block->getFilterLabel();
+$selectedData = $block->getSelectedData();
+$selected_brand_id = '';
+$selected_product_id = '';
+if(count($selectedData) > 0){
+	$selected_brand_id = $selectedData['selected_brand_id'];
+	$selected_product_id = $selectedData['selected_product_id'];
+}
+
+?>
+<?php if (!$_productCollection->count()): ?>
+<div class="checkbox-list fix-item4">
+	<div class="box">
+		<div class="box-title d-flex align-items-center">
+			<h6 class="fs-18"><?php echo $filterLabel['edit_filter_label'];?></h6>
+		</div>
+		<div class="box-body p-0">
+			<div class="scrollbar-inner">
+				<div class="text-block edit-filter-note">
+					<p class="note-msg"><?php echo __('Sorry! We do not have parts for your vehicle.') ?></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php else:?>
+<?php
+$brandIdArray = array();
+$productCollection = array();
+foreach ($_productCollection as $_product) {
+	$brandIds = $_product->getMgsBrand();
+	$brandIdArray[$brandIds][] = $_product->getResource()->getAttribute("mgs_brand")->getFrontend()->getValue($_product);
+	$productCollection[] = $_product;
+}?>
+<?php if(count($brandIdArray) > 0){?>
+	<?php 
+	$serviceclass = '';
+	if(isset($filterLabel['call_from'])){?>
+	<?php 
+	$serviceclass = $filterLabel['call_from'].'-';
+	?>
+	<?php } ?>
+	<div class="checkbox-list fix-item4">
+	   <div class="box">
+		  <div class="box-title d-flex align-items-center">
+			 <h6 class="fs-18"><?php echo $filterLabel['edit_brand_label'];?></h6>
+		  </div>
+		  <div class="box-body p-0">
+			 <div class="scrollbar-inner">
+				<ul class="list-custom product-brands">
+				<?php foreach($brandIdArray as $key => $brand){?>
+				<?php 
+				$brandId = $key;
+				$brandName = $brand[0];	
+				?>
+				<li>
+					<div class="form-check-custom-style2 checklist checkbox oil-edit-div">
+						<input class="radio oil-filter-brand-list <?php if($selected_brand_id == $brandId): ?> active <?php endif ?>" id="<?php echo $serviceclass;?>brand-<?php echo $brandId;?>" <?php if($selected_brand_id == $brandId): ?> checked <?php endif ?> name="oileditradio" type="radio">
+						<label for="<?php echo $serviceclass;?>brand-<?php echo $brandId;?>"><span></span> <span class="text"><?php echo $brandName;?></span></label>
+					</div>
+				</li>
+				<?php } ?> 
+				</ul>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+		
+	<div class="checkbox-list fix-item4">
+	   <div class="box">
+		<div class="box-title d-flex align-items-center">
+		  <h6 class="fs-18"><?php echo $filterLabel['edit_filter_label'];?></h6>
+		</div>
+		<div class="box-body p-0">
+		  <div class="scrollbar-inner">
+			<ul class="list-custom product-filter-items">
+			<?php $i = 1;?>
+			<?php foreach ($productCollection as $product) {?>
+				<?php
+				$price = $listingHelper->getSet1price($product);
+				$customOptions = $objectManager->get('Magento\Catalog\Model\Product\Option')->getProductOptionCollection($product);
+				$optionsPrice = array();
+				$oilPerLitre = $block->getOilLitre();
+				foreach ($customOptions as $o) {
+					foreach ($o->getValues() as $value) {
+						if($value->getTitle() != $oilPerLitre){
+							continue;
+						}else{
+							$optionsPrice[] = $value['price'];
+						}
+					}
+				}
+				if(count($optionsPrice) > 0){
+					$optionPricevalue =  $optionsPrice[0];
+					$totalPrice = $optionPricevalue + $product->getPrice();
+					$multiplyPrice = $totalPrice * 0.05;
+					$customOptionPrice = $totalPrice + $multiplyPrice;
+					$price = number_format($customOptionPrice, 2);
+				}
+				$priceText = $currency.' '.$price;
+				?>
+				<?php
+				$style = "style='display:none;'";
+				$class='';
+				$checked='';
+				if($selected_brand_id != ''){
+					if($selected_brand_id == $product->getMgsBrand()){
+						$class = 'active';
+						$style = "style='display:block;'";
+						if($selected_product_id != '' && $selected_product_id == $product->getId()){
+							$checked='checked';
+						}
+						
+					}
+					
+				}else{
+					$class = '';
+					$style = "style='display:block;'";
+					$checked='';
+				}
+				?>
+				<li class="oil-edit-div-radio radio <?php echo $class;?>" id="<?php echo $serviceclass;?>brand-<?php echo $product->getMgsBrand();?>" <?php echo $style;?>>
+					<div class="form-check-custom-style2">
+					  <input class="radio oil-edit-div-radio-input" id="<?php echo $serviceclass;?>editcheck-<?php echo $i;?>" name="oiloptradio" type="radio" data-product-id="<?php echo $product->getId();?>" data-product-price="<?php echo $price;?>" data-product-sku="<?php echo $product->getSku();?>" data-brand-id="<?php echo $product->getMgsBrand();?>" data-service-type="<?php echo $filterLabel['edit_filter_label'];?>" data-oil-litre="<?php echo $oilPerLitre;?>" <?php echo $checked;?>>
+					  <label for="<?php echo $serviceclass;?>editcheck-<?php echo $i;?>"><span></span> <span class="text"><?php echo $product->getArticleNumber();?></span></label>
+					</div>
+				</li>
+			<?php $i++; } ?>
+			</ul>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="text-block edit-filter-note">
+	  <p><?php echo __($filterLabel['note_text']);?></p>
+	</div>
+<?php } ?>	
+<?php endif;?>
+<script>
+	require(['jquery', 'servicepackjs'], function($, servicepackjs) {
+		var currency = '<?php echo $currency; ?>';
+		var standardDiscount = '<?php echo $standardDiscount; ?>';
+		var premiumDiscount = '<?php echo $premiumDiscount; ?>';
+		var superbDiscount = '<?php echo $superbDiscount; ?>';
+		jQuery('.oil-filter-brand-list[type=radio]').on('change',function() {
+			var brandSelector = jQuery(this).attr('id');
+			jQuery('.oil-filter-brand-list').attr("checked",false);
+			jQuery(this).attr("checked",true);
+			jQuery('.oil-edit-div-radio').removeClass('active');
+			jQuery('.oil-edit-div-radio-input').removeClass('active');
+			jQuery('#'+brandSelector).addClass('active');
+			jQuery('.oil-edit-div-radio#'+brandSelector).addClass('active');
+			jQuery('.oil-edit-div-radio#'+brandSelector+':first').find( ".oil-edit-div-radio-input" ).trigger('click'); //trigger selected first
+			jQuery('.oil-edit-div-radio').hide();
+			jQuery('.oil-edit-div-radio.active').show();
+		});
+	
+	jQuery('.service-packs-main .oil-edit-div-radio-input[type=radio]').on('change',function() {
+		var productId = jQuery(this).attr('data-product-id');
+		var price_amount = jQuery(this).attr('data-product-price');
+		var product_sku = jQuery(this).attr('data-product-sku');
+		var productId = jQuery(this).attr('data-product-id');
+		var brand_id = jQuery(this).attr('data-brand-id');
+		var serviceType = jQuery(this).attr('data-service-type');
+		var total;
+		var price;
+		var sumPrice;
+		
+		price = price_amount;
+		var oilChangePrice = jQuery('.oil-change-right-section .oil-change-basic #product-price-amount').val();
+		var oilFilterPrice = jQuery('.oil-change-right-section .oil-filter-service #product-price-amount').val();
+		var airFilterPrice = jQuery('.oil-change-right-section .oil-air-filter-service #product-price-amount').val();
+		var acFilterPrice = jQuery('.oil-change-right-section .oil-ac-filter-service #product-price-amount').val();
+		
+		if(serviceType == 'Oil Grade'){
+			jQuery('.standard-service-step .oil-change-right-section .price_box_home .price').text(price); 
+			jQuery('.standard-service-step .oil-change-grand-total #final-total').val(price_amount); 	
+			
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #product-price').val(price);
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #product-price-amount').val(price_amount);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #product-id').val(productId); 
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #add-product-id').val(productId); 	
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #product-sku').val(product_sku);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #selected-brand-id').val(brand_id);
+			jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #selected-product-id').val(productId);
+			
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #product-price').val(price);
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #product-price-amount').val(price_amount);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #add-product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #product-sku').val(product_sku);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #selected-brand-id').val(brand_id);
+			jQuery('.premium-service-step .oil-change-right-section .oil-change-basic #selected-product-id').val(productId);
+			
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #product-price').val(price);
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #product-price-amount').val(price_amount);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #add-product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #product-sku').val(product_sku);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #selected-brand-id').val(brand_id);
+			jQuery('.superb-service-step .oil-change-right-section .oil-change-basic #selected-product-id').val(productId);
+			
+			jQuery('.standard-service-step .service-packagestype-form #add-oil-change-product-id').val(productId);
+			jQuery('.premium-service-step .service-packagestype-form #add-oil-change-product-id').val(productId);
+			jQuery('.superb-service-step .service-packagestype-form #add-oil-change-product-id').val(productId);
+			
+		}
+		if(serviceType == 'Oil Filter'){
+			
+			total = parseFloat(oilChangePrice) + parseFloat(price_amount);
+			total = total.toFixed(2);
+			jQuery('.standard-service-step .oil-change-grand-total #final-total').val(total);
+			//total = currency+' '+total;
+			
+			jQuery('.standard-service-step .oil-change-right-section .price_box_home .price').text(total);
+			jQuery('.standard-service-step .oil-change-right-section .oil-filter-service #product-price').val(price);
+			jQuery('.standard-service-step .oil-change-right-section .oil-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-filter-service #product-id').val(productId);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-filter-service #add-product-id').val(productId);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-filter-service #product-sku').val(product_sku);
+			
+			jQuery('.premium-service-step .oil-change-right-section .oil-filter-service #product-price').val(price);
+			jQuery('.premium-service-step .oil-change-right-section .oil-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-filter-service #product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-filter-service #add-product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-filter-service #product-sku').val(product_sku); 
+
+			jQuery('.superb-service-step .oil-change-right-section .oil-filter-service #product-price').val(price);
+			jQuery('.superb-service-step .oil-change-right-section .oil-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-filter-service #product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-filter-service #add-product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-filter-service #product-sku').val(product_sku); 	
+			
+			jQuery('.standard-service-step .service-packagestype-form #add-oil-filter-product-id').val(productId);
+			jQuery('.premium-service-step .service-packagestype-form #add-oil-filter-product-id').val(productId);
+			jQuery('.superb-service-step .service-packagestype-form #add-oil-filter-product-id').val(productId);
+
+		}
+		if(serviceType == 'Air Filter'){
+			total = parseFloat(oilChangePrice) + parseFloat(oilFilterPrice) + parseFloat(price_amount);
+			total = total.toFixed(2);			
+			jQuery('.standard-service-step .oil-change-grand-total #final-total').val(total);
+			//total = currency+' '+total;
+			jQuery('.standard-service-step .oil-change-right-section .price_box_home .price').text(total);
+			
+			jQuery('.standard-service-step .oil-change-right-section .oil-air-filter-service #product-price').val(price);
+			jQuery('.standard-service-step .oil-change-right-section .oil-air-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-air-filter-service #product-id').val(productId);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-air-filter-service #add-product-id').val(productId);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-air-filter-service #product-sku').val(product_sku);   
+			
+			jQuery('.premium-service-step .oil-change-right-section .oil-air-filter-service #product-price').val(price);
+			jQuery('.premium-service-step .oil-change-right-section .oil-air-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-air-filter-service #product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-air-filter-service #add-product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-air-filter-service #product-sku').val(product_sku); 
+			
+			jQuery('.superb-service-step .oil-change-right-section .oil-air-filter-service #product-price').val(price);
+			jQuery('.superb-service-step .oil-change-right-section .oil-air-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-air-filter-service #product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-air-filter-service #add-product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-air-filter-service #product-sku').val(product_sku); 
+			
+			jQuery('.standard-service-step .service-packagestype-form #add-air-filter-product-id').val(productId);
+			jQuery('.premium-service-step .service-packagestype-form #add-air-filter-product-id').val(productId);
+			jQuery('.superb-service-step .service-packagestype-form #add-air-filter-product-id').val(productId);
+		}
+		if(serviceType == 'AC Filter'){
+			total = parseFloat(oilChangePrice) + parseFloat(oilFilterPrice) + parseFloat(airFilterPrice) + parseFloat(price_amount);  
+			total = total.toFixed(2);
+			jQuery('.standard-service-step .oil-change-grand-total #final-total').val(total);
+			//total = currency+' '+total;
+			jQuery('.standard-service-step .oil-change-right-section .price_box_home .price').text(total);
+			
+			jQuery('.standard-service-step .oil-change-right-section .oil-ac-filter-service #product-price').val(price);
+			jQuery('.standard-service-step .oil-change-right-section .oil-ac-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-ac-filter-service #product-id').val(productId);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-ac-filter-service #add-product-id').val(productId);  
+			jQuery('.standard-service-step .oil-change-right-section .oil-ac-filter-service #product-sku').val(product_sku);   
+			
+			jQuery('.premium-service-step .oil-change-right-section .oil-ac-filter-service #product-price').val(price);
+			jQuery('.premium-service-step .oil-change-right-section .oil-ac-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-ac-filter-service #product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-ac-filter-service #add-product-id').val(productId);  
+			jQuery('.premium-service-step .oil-change-right-section .oil-ac-filter-service #product-sku').val(product_sku);
+			
+			jQuery('.superb-service-step .oil-change-right-section .oil-ac-filter-service #product-price').val(price);
+			jQuery('.superb-service-step .oil-change-right-section .oil-ac-filter-service #product-price-amount').val(price_amount);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-ac-filter-service #product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-ac-filter-service #add-product-id').val(productId);  
+			jQuery('.superb-service-step .oil-change-right-section .oil-ac-filter-service #product-sku').val(product_sku);
+			
+			jQuery('.standard-service-step .service-packagestype-form #add-ac-filter-product-id').val(productId);
+			jQuery('.premium-service-step .service-packagestype-form #add-ac-filter-product-id').val(productId);
+			jQuery('.superb-service-step .service-packagestype-form #add-ac-filter-product-id').val(productId);
+		}
+		
+		var oilGradePrice = jQuery('.standard-service-step .oil-change-right-section .oil-change-basic #product-price').val();
+		var oilFilterPrice = jQuery('.standard-service-step .oil-change-right-section .oil-filter-service #product-price').val();
+		var standardPrice =  parseFloat(oilGradePrice) + parseFloat(oilFilterPrice);
+		standardPrice = standardPrice.toFixed(2);
+		
+		var airFilterPrices = jQuery('.premium-service-step .oil-change-right-section .oil-air-filter-service #product-price').val();
+		var premiumPrice =  parseFloat(oilGradePrice) + parseFloat(oilFilterPrice) + parseFloat(airFilterPrices);
+		premiumPrice = premiumPrice.toFixed(2);
+		
+		var acFilterPrices = jQuery('.superb-service-step .oil-change-right-section .oil-ac-filter-service #product-price').val();
+		var superbPrice =  parseFloat(oilGradePrice) + parseFloat(oilFilterPrice) + parseFloat(airFilterPrices) + parseFloat(acFilterPrices);
+		superbPrice = superbPrice.toFixed(2);
+		
+		jQuery('.standard-service-step .oil-change-right-section .price_box_home .price').text(standardPrice); 
+		jQuery('.standard-service-step .oil-change-grand-total #final-total').val(standardPrice);
+		
+		jQuery('.premium-service-step .oil-change-right-section .price_box_home .price').text(premiumPrice); 
+		jQuery('.premium-service-step .oil-change-grand-total #final-total').val(premiumPrice);
+		
+		jQuery('.superb-service-step .oil-change-right-section .price_box_home .price').text(superbPrice); 
+		jQuery('.superb-service-step .oil-change-grand-total #final-total').val(superbPrice);
+		
+		var standardServiceBasePrice = jQuery('#standard-package-base-price').val();
+		var premiumServiceBasePrice = jQuery('#premium-package-base-price').val();
+		var superbServiceBasePrice = jQuery('#superb-package-base-price').val();
+		
+		var standardServiceTotal = parseFloat(standardPrice) + parseFloat(standardServiceBasePrice);
+		standardServiceTotal = standardServiceTotal.toFixed(2);
+		
+		var standardServiceDiscounted = (standardServiceTotal * standardDiscount / 100);
+		standardServiceTotal = standardServiceTotal - standardServiceDiscounted;
+		standardServiceTotal = standardServiceTotal.toFixed(2);
+		
+		var premiumServiceTotal = parseFloat(premiumPrice) + parseFloat(premiumServiceBasePrice);
+		premiumServiceTotal = premiumServiceTotal.toFixed(2);
+		
+		var premiumServiceDiscounted = (premiumServiceTotal * premiumDiscount / 100);
+		premiumServiceTotal = premiumServiceTotal - premiumServiceDiscounted;
+		premiumServiceTotal = premiumServiceTotal.toFixed(2);
+		
+		var superbServiceTotal = parseFloat(superbPrice) + parseFloat(superbServiceBasePrice);
+		superbServiceTotal = superbServiceTotal.toFixed(2);
+		
+		var superbserviceDiscounted = (superbServiceTotal * superbDiscount / 100);
+		superbServiceTotal = superbServiceTotal - superbserviceDiscounted;
+		superbServiceTotal = superbServiceTotal.toFixed(2);
+		
+		jQuery('.compare-service .standard-service-package-price .price').text(standardServiceTotal);
+		jQuery('.compare-service .premium-service-package-price .price').text(premiumServiceTotal);
+		jQuery('.compare-service .superb-service-package-price .price').text(superbServiceTotal);
+	});
+	
+	jQuery('.form-check-custom-style2').click(function () {
+	  if (jQuery(this).children('.checkbox').prop("checked") == true) {
+			jQuery(this).parent('li').addClass('checked');
+	  }
+	  else if (jQuery(this).children('.checkbox').prop("checked") == false) {
+			jQuery(this).parent('li').removeClass('checked');
+	  }
+	});
+		
+	});
+	
+</script>		

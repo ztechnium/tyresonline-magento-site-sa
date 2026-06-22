@@ -1,0 +1,366 @@
+<?php
+$vehiclesHelper = $this->helper('Hdweb\Vehicles\Helper\Data');
+$make = $this->getRequest()->getParam('make');
+$makeLabel = strtoupper($make);
+$route = $this->getRequest()->getParam('route');
+$wheelApiKey = $vehiclesHelper::WHEEL_SEARCH_APIKEY;
+$VehicleModel_url = "https://api.wheel-size.com/v2/models/?user_key=".$wheelApiKey."&make=".$make. "&region=medm";
+$WheelVehicleModel = file_get_contents( $VehicleModel_url);
+$WheelVehicleModel =json_decode($WheelVehicleModel);
+$baseUrl = $this->getBaseUrl();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+$makeParagraph['make_paragraph1'] = '';
+$makeParagraph['make_paragraph2'] = '';
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$storeId = $storeManager->getStore()->getStoreId();
+$paragraphCollection = $objectManager->create('Hdweb\Vehicles\Model\ResourceModel\Vehicles\Collection');
+$paragraphCollection->addFieldToFilter('store_id', ['eq' => $storeId]);
+$paragraphCollection->addFieldToFilter('make', ['eq' => $make]);
+$paragraphCollection->addFieldToFilter('model', ['null' => true]);
+$makeParagraph = $paragraphCollection->getFirstItem();
+
+?>
+
+<div class="section page-banner car-model-banner overflow-hidden" style="background-image: url(<?= $block->getViewFileUrl('images/banner/car-model-banner.jpg'); ?>);">
+  	<!-- <div class="cover viewport-height"> -->
+    <div class="cover">
+    <div class="banner-wrap">
+      <div class="tyre-content text-center mx-auto">
+      	<div class="brand-logo">
+      		<img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __($makeLabel.' Tyres Online');?>" width="300px" height="300px" data-src="<?php echo $this->getViewFileUrl('Hdweb_Vehicles::images/logo/'.$make.'.png'); ?>">
+      	</div>
+      	<div class="width-cover">
+        <strong class="font-size1 fw-900"><?php echo __($makeLabel.' TYRES');?></strong>
+    	</div>
+        <hr>
+        <h3 class="fw-light"><?php echo __('ANYWHERE IN THE UAE');?></h3>
+      </div>
+    </div>
+
+    <div class="content-block">
+        <?php if($makeParagraph['make_top']): ?>
+            <div class="container custom-width-1240">
+                <?php echo __($makeParagraph['make_top']); ?>
+            </div>
+        <?php  endif; ?>
+        <?php if($makeParagraph['make_paragraph1']): ?>
+            <div class="container custom-width-1240">
+                <h1><?php echo __('BUY '.$makeLabel.' TYRES'); ?></h1>
+                <p><?php echo __($makeParagraph['make_paragraph1']); ?></p>
+            </div>
+        <?php endif; ?>
+	</div>
+
+    <?php if(count($WheelVehicleModel->data) > 0): ?>
+	<div class="model">
+	<div class="container custom-width-1240">
+	<div class="space-wrap">
+	<h2><?php echo __('FIND TYRES FOR '.$makeLabel.' MODELS'); ?></h2>
+	<div class="expand-content">
+	<ul class="button-list list-custom row g-3 g-lg-4 row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-3 justify-content-center">
+	<?php foreach($WheelVehicleModel->data as $modelOption): ?>
+		<li>
+        <a href="<?php echo $baseUrl.$route.'/'; ?><?php echo $make.'/'.$modelOption->slug; ?>" class="button button-block button-primary-100 button-rounded filled-slide-right button-text-overflow"><span><?php echo __($modelOption->name); ?></span></a>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+	</div>
+    <div class="toggle_btn"><span class="toggle_text"><?php echo __('Show More +');?></span></div>
+	</div>
+	</div>
+	</div>
+	<?php endif; ?>
+  </div>
+</div>
+
+
+<div class="section about-brand">
+    <div class="container custom-width-1240">
+        <div class="content-block">
+            <div class="tyres-image">
+                <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Buy '.$makeLabel.' Tyres Online');?>" width="300px" height="300px" data-src="<?= $block->getViewFileUrl('images/section/tyre-drawing.jpg'); ?>">
+            </div>
+        </div>
+    </div>
+    <?php if($makeParagraph['make_bottom']): ?>
+        <div class="container custom-width-1240">
+            <div class="content-block">
+                <?php echo __($makeParagraph['make_bottom']); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if($makeParagraph['make_paragraph2']): ?>
+        <div class="container custom-width-1240">
+            <div class="content-block">
+                <h2><?php echo __('SHOP '.$makeLabel.' TYRES ONLINE'); ?></h2>
+                <p><?php echo __($makeParagraph['make_paragraph2']); ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+
+<script type="text/javascript">
+require(["jquery"], function($) {
+(function($){
+    "use strict";
+    var defaultOptions= {
+        rotateText: null,
+        fontSizeFactor: 0.8,
+        maximumFontSize: null,
+        limitingDimension: "both",
+        horizontalAlign: "center",
+        verticalAlign: "center",
+        textAlign: "center",
+        whiteSpace: "nowrap"
+    };
+
+    $.fn.bigText= function(options) {
+        return this.each(function() {
+            options= $.extend({}, defaultOptions, options);
+            var $this= $(this);
+            var $parent= $this.parent();
+
+            //hides the element to prevent "flashing"
+            $this.css("visibility", "hidden");
+
+            $this.css({
+                display: "inline-block",
+                clear: "both",
+                //'float': "left", //the need to set this is very odd, its due to margin-collapsing. See https://developer.mozilla.org/en-US/docs/Web/CSS/margin_collapsing
+                'font-size': (1000 * options.fontSizeFactor) + "px",
+                //'line-height': "1000px",
+                'white-space': options.whiteSpace,
+                //"text-align": options.textAlign,
+                //position: "relative",
+                //padding: 0,
+                //margin: 0,
+                //left: "50%",
+                //top: "50%"
+            });
+
+            var parentPadding= {
+                left: parseInt($parent.css('padding-left')),
+                top: parseInt($parent.css('padding-top')),
+                right: parseInt($parent.css('padding-right')),
+                bottom: parseInt($parent.css('padding-bottom'))
+            };
+
+            var box= {
+                width: $this.outerWidth(),
+                height: $this.outerHeight()
+            };
+            var rotateCSS= {}
+            if (options.rotateText !== null) {
+                if (typeof options.rotateText !== "number")
+                    throw "bigText error: rotateText value must be a number";
+                var rotate= "rotate(" + options.rotateText + "deg)";
+                rotateCSS= {
+                    "-webkit-transform": rotate,
+                    "-ms-transform": rotate,
+                    "-moz-transform": rotate,
+                    "-o-transform": rotate,
+                    "transform": rotate
+                };
+                $this.css(rotateCSS);
+                //calculating bounding box of the rotated element
+                var sin= Math.abs(Math.sin(options.rotateText * Math.PI / 180));
+                var cos= Math.abs(Math.cos(options.rotateText * Math.PI / 180));
+                box.width= $this.outerWidth() * cos + $this.outerHeight() * sin;
+                box.height= $this.outerWidth() * sin + $this.outerHeight() * cos;
+            }
+
+            var widthFactor= ($parent.innerWidth() - parentPadding.left - parentPadding.right) / box.width;
+            var heightFactor= ($parent.innerHeight() - parentPadding.top - parentPadding.bottom) / box.height;
+            var lineHeight;
+
+            if (options.limitingDimension.toLowerCase() === "width") {
+                lineHeight= Math.floor(widthFactor * 1000);
+                $parent.height(lineHeight);
+            } else if (options.limitingDimension.toLowerCase() === "height") {
+                lineHeight= Math.floor(heightFactor * 1000);
+            } else if (widthFactor < heightFactor)
+                lineHeight= Math.floor(widthFactor * 1000);
+            else if (widthFactor >= heightFactor)
+                lineHeight= Math.floor(heightFactor * 1000);
+
+            var fontSize= lineHeight * options.fontSizeFactor;
+            if (options.maximumFontSize !== null && fontSize > options.maximumFontSize) {
+                fontSize= options.maximumFontSize;
+                lineHeight= fontSize / options.fontSizeFactor;
+            }
+
+
+            $this.css({
+                'font-size': Math.floor(fontSize)  + "px",
+                //'line-height': Math.ceil(lineHeight)  + "px",
+                //'margin-bottom': "0px",
+                //'margin-right': "0px"
+            });
+
+            if (options.limitingDimension.toLowerCase() === "height") {
+                //this option needs the font-size to be set already so $this.width() returns the right size
+                //this +4 is to compensate the rounding erros that can occur due to the calls to Math.floor in the centering code
+                //$parent.width(($this.width() + 4) + "px");
+            }
+            var endCSS= {};
+
+            switch(options.verticalAlign.toLowerCase()) {
+                case "top":
+                    endCSS['top']= "0%";
+                break;
+                case "bottom":
+                    endCSS['top']= "100%";
+                    endCSS['margin-top']= Math.floor(-$this.innerHeight()) + "px";
+                break;
+                default:
+                    endCSS['margin-top']= Math.floor((-$this.innerHeight() / 2)) + "px";
+                break;
+            }
+
+            switch(options.horizontalAlign.toLowerCase()) {
+                case "left":
+                    endCSS['left']= "0%";
+                break;
+                case "right":
+                    endCSS['left']= "100%";
+                    endCSS['margin-left']= Math.floor(-$this.innerWidth()) + "px";
+                break;
+                default:
+                    endCSS['margin-left']= Math.floor((-$this.innerWidth() / 2)) + "px";
+                break;
+            }
+
+
+            //$this.css(endCSS);
+            //shows the element after the work is done
+            $this.css("visibility", "visible");
+        });
+    }
+})(jQuery);
+
+
+$(".font-size1").bigText({
+      limitingDimension: "width",
+});
+
+});
+</script>
+
+<script type="text/javascript">
+    require(["jquery"], function($) {
+        $(".toggle_btn").click(function(){
+   $(this).toggleClass("active");
+  $(".expand-content").toggleClass("active");
+
+  if($(".toggle_btn").hasClass("active")){
+    $(".toggle_text").text("Show Less -");
+  }
+  else{
+    $(".toggle_text").text("Show More +");
+  }
+});
+
+$("body").each(function(){  
+if ($('.expand-content ul').children().length > 12 && $(window).width() > 768) {
+   $(".toggle_btn").show();
+} 
+else{
+  $(".toggle_btn").hide();
+}
+
+});
+
+$("body").each(function(){ 
+if ($('.expand-content ul').children().length > 8 && $(window).width() < 767) {
+   $(".toggle_btn").addClass('sm-show');
+} 
+else{
+$(".toggle_btn").addClass('sm-hide');
+}
+});
+
+
+
+});
+
+</script>
+
+
+<style type="text/css">
+    .car-model-banner .model .toggle_btn {
+        cursor: pointer;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 16px;
+        color: #d70000;
+        font-weight: 500;
+    }
+
+    .car-model-banner .model .expand-content {
+        height: 12.717391rem;
+        overflow: hidden;
+    }
+
+    .car-model-banner .model .expand-content.active{
+        height: auto !important;
+    }
+
+    @media screen and (min-width: 1200px) and (max-width: 1499px){
+    .car-model-banner .model .expand-content {
+        height: 14.617391rem;
+    }
+    }
+
+    @media screen and (min-width: 1500px){
+        .car-model-banner .model .expand-content {
+            height: calc(12.647917vw + 2rem);
+        }
+    }
+
+     @media screen and (max-width: 767px){
+        .sm-show{
+            display: block !important;
+        }
+        .sm-hide{
+            display: none !important;
+        }
+     }
+
+.carmakemodel h2 {
+    font-size: 1.3913043478rem;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.0869565217rem;
+    text-transform: uppercase
+}
+
+@media screen and (min-width: 1200px)and (max-width: 1499px) {
+    .carmakemodel h2 {
+        font-size: 1.6842105263rem
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .carmakemodel h2 {
+        font-size: 1.6666666667vw
+    }
+}
+
+@media screen and (min-width: 1200px)and (max-width: 1499px) {
+    .carmakemodel h2 {
+        letter-spacing: 0.1052631579rem
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .carmakemodel h2 {
+        letter-spacing: .1041666667vw
+    }
+}
+     
+</style>

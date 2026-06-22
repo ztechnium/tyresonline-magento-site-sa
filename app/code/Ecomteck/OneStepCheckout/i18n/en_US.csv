@@ -1,0 +1,119 @@
+Field,Field
+Order,Order
+Width,Width
+Icon,Icon
+Validation,Validation
+"Add Field","Add Field"
+"Please Select Field","Please Select Field"
+"For delivery questions.","For delivery questions."
+"We can't find the quote item.","We can't find the quote item."
+"We cannot configure the product.","We cannot configure the product."
+"One-page checkout is turned off.","One-page checkout is turned off."
+"Guest checkout is disabled.","Guest checkout is disabled."
+"E-mail cannot be empty.","E-mail cannot be empty."
+"Starts with field closed","Starts with field closed"
+"Starts with field opened","Starts with field opened"
+"Render field without collapse","Render field without collapse"
+"3 Columns","3 Columns"
+"2 Columns Style 1","2 Columns Style 1"
+"2 Columns Style 2","2 Columns Style 2"
+"Update Cart","Update Cart"
+Qty,Qty
+"This address is also my billing address","This address is also my billing address"
+"Billing Address","Billing Address"
+"Save in address book","Save in address book"
+"My billing and shipping address are the same","My billing and shipping address are the same"
+Update,Update
+Cancel,Cancel
+"Apply Discount","Apply Discount"
+"Cancel coupon","Cancel coupon"
+"Use Coupon Code","Use Coupon Code"
+"Email Address","Email Address"
+"You can create an account after checkout.","You can create an account after checkout."
+Password,Password
+Login,Login
+"You already have an account with us. Sign in or continue as guest.","You already have an account with us. Sign in or continue as guest."
+"Forgot Your Password?","Forgot Your Password?"
+"Gift options","Gift options"
+Message:,Message:
+Edit,Edit
+Delete,Delete
+"Payment Method","Payment Method"
+"No Payment method available.","No Payment method available."
+"Place Order","Place Order"
+"Account Information","Account Information"
+"This address is also my shipping address","This address is also my shipping address"
+"Shipping Address","Shipping Address"
+"Shipping Methods","Shipping Methods"
+"Order Summary","Order Summary"
+"View Details","View Details"
+"Options Details","Options Details"
+"Gift Message (optional)","Gift Message (optional)"
+To:,To:
+From:,From:
+"Please specify a shipping method.","Please specify a shipping method."
+"New Address","New Address"
+"Can not remove item.","Can not remove item."
+"One Step Checkout","One Step Checkout"
+General,General
+"Enable One Step Checkout Solution","Enable One Step Checkout Solution"
+"Router Name","Router Name"
+"Example: checkout.html -> http://example.com/checkout.html","Example: checkout.html -> http://example.com/checkout.html"
+"Default Shipping Method","Default Shipping Method"
+"Default Payment Method","Default Payment Method"
+"Allow Update Product Quantity","Allow Update Product Quantity"
+"Allow Remove Product","Allow Remove Product"
+"Allow Edit Product Option","Allow Edit Product Option"
+"Add Gift Message Per Item","Add Gift Message Per Item"
+"Add Gift Message Per Order","Add Gift Message Per Order"
+"Redirect To Checkout","Redirect To Checkout"
+Display,Display
+"Checkout Page Layout","Checkout Page Layout"
+"Disable Telephone Field","Disable Telephone Field"
+"Disable Company Field","Disable Company Field"
+"Disable Header","Disable Header"
+"Disable Footer","Disable Footer"
+"Disable Login Popup","Disable Login Popup"
+"Move Cart Items","Move Cart Items"
+"Always Show Cart Items","Always Show Cart Items"
+"Move Billing Address Before Shipping Address","Move Billing Address Before Shipping Address"
+"Disable Coupon Code","Disable Coupon Code"
+"Coupon code initial collapse state","Coupon code initial collapse state"
+"Disable Gift Options","Disable Gift Options"
+"Gift options initial collapse state","Gift options initial collapse state"
+"Footer Content","Footer Content"
+"You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.","You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods."
+Shipping,Shipping
+"Hide Shipping Methods","Hide Shipping Methods"
+"Hide Shipping Method Title","Hide Shipping Method Title"
+Colors,Colors
+"Main Color","Main Color"
+"Icon Color","Icon Color"
+Button,Button
+"Gift Message","Gift Message"
+"Order summary background","Order summary background"
+"Shipping methods background","Shipping methods background"
+"Payment methods background","Payment methods background"
+"Account and address background","Account and address background"
+Icons,Icons
+"Account Information Step","Account Information Step"
+"Shipping Address Step","Shipping Address Step"
+"Billing Address Step","Billing Address Step"
+"Shipping Methods Step","Shipping Methods Step"
+"Payment Methods Step","Payment Methods Step"
+"Order Summary Step","Order Summary Step"
+"Geo IP","Geo IP"
+Enabled,Enabled
+"Term and Conditions","Term and Conditions"
+"Checked by Default","Checked by Default"
+Label,Label
+"Popup Content","Popup Content"
+"You can add content for terms popup.","You can add content for terms popup."
+Newsletter,Newsletter
+"Back to Store","Back to Store"
+"Address Autocomplete","Address Autocomplete"
+"Auto Save and fill customer infomation","Auto Save and fill customer infomation"
+"Google Maps API Key","Google Maps API Key"
+"Split Street Fields","Split Street Fields"
+"Field Config","Field Config"
+Customize,Customize

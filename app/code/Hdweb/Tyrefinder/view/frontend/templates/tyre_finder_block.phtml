@@ -1,0 +1,700 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$sizeblockObj     = $block->getLayout()->createBlock('Hdweb\Tyrefinder\Block\Size');
+$vehicleblockObj  = $block->getLayout()->createBlock('Hdweb\Tyrefinder\Block\Vehicle');
+$activeCategories = $block->getActiveCatrgory();
+//echo '<pre>';print_r($activeCategories->getData());die;
+$catalogSearchUrl = $block->getTyreCatalogSearchUrl();
+$autopartsSearchUrl = $block->getAutopartsSearchUrl();
+$tabbyinstallmentmaxvalue = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/tabbyinstallment');
+$tabbyfourday = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/tabbyfourday');
+$cmsPage = $objectManager->get('\Magento\Cms\Model\Page');
+$vehicleSearchType = 'vehicle-search';
+$yearLabel = 'Year';
+
+$brakesCatId = 8; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/brakes_cat_id');
+$oilChangeCatId = 9; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/oilchange_cat_id');
+$batteryCatId = 7; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/battery_cat_id');
+$filtersCatId = 10; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/filters_cat_id');
+
+$categoryId = '';
+$categoryObj = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+//$currentCategoryId = '';
+if ($categoryObj) {
+  $categoryId = $categoryObj->getId();
+}
+if ($cmsPage->getIdentifier() == 'brakes' || $cmsPage->getIdentifier() == 'oil-change' || $cmsPage->getIdentifier() == 'battery' || $cmsPage->getIdentifier() == 'filters' || $cmsPage->getIdentifier() == 'servicepacks' || $categoryId == $brakesCatId || $categoryId == $batteryCatId) {
+  $vehicleSearchType = 'vehicle-engine-search';
+  $yearLabel = 'Engine';
+}
+/* if($cmsPage->getIdentifier() == 'oil-change'){
+	$oilChangeCatId = 9; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/oilchange_cat_id');
+} */
+$isBrakeBatteryPage = 0;
+if ($cmsPage->getIdentifier() == 'brakes' || $cmsPage->getIdentifier() == 'battery' || $categoryId == $brakesCatId || $categoryId == $batteryCatId) {
+  $isBrakeBatteryPage = 1;
+}
+
+$page = $cmsPage->getIdentifier();
+switch ($page) {
+  case 'brakes':
+    $categoryId = $brakesCatId;
+    break;
+  case 'oil-change':
+    $categoryId = $oilChangeCatId;
+    break;
+  case 'battery':
+    $categoryId = $batteryCatId;
+    break;
+  case 'filters':
+    $categoryId = $filtersCatId;
+    break;
+  case 'servicepacks':
+    $categoryId = 'servicepacks';
+    break;
+}
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$getViewFileUrl = $block->getViewFileUrl('images');
+$requestOb = $objectManager->get('Magento\Framework\App\RequestInterface');
+$actionaname = $requestOb->getFullActionName();
+$showTyreFinder = 0;
+if ($actionaname == 'catalog_category_view' || $actionaname == 'brand_brand_patternview' || $cmsPage->getIdentifier() == 'mobile-tyre-fitting-service-in-uae' || $cmsPage->getIdentifier() == 'home' || $cmsPage->getIdentifier() == 'oil-change' || $cmsPage->getIdentifier() == 'servicepacks' || $cmsPage->getIdentifier() == 'brakes' || $cmsPage->getIdentifier() == 'battery') {
+  $showTyreFinder = 1;
+}
+?>
+<!-- Search Overlay -->
+<div class="search-overlay"></div>
+
+<!-- //////// Main Search -->
+<div class="main-search">
+  <div class="container custom-width">
+    <!-- Search by Size -->
+    <?php if ($vehicleSearchType == 'vehicle-search') : ?>
+      <div class="search-wrap search-by-size" id="search-by-size">
+        <form id="finder-size-form" method="get" action="<?php echo $catalogSearchUrl; ?>" name="finder-size-form">
+          <div class="form-group" style="display: none;">
+            <select id="categoryid" name="categoryid" required="">
+              <?php foreach ($activeCategories as $key => $category) { ?>
+                <option data-url="<?php echo $category->getUrl() ?>" value="<?php echo $category->getEntityId() ?>"><?php echo $category->getName() ?></option>
+              <?php } ?>
+            </select>
+          </div>
+          <ul class="list-custom d-flex justify-content-center">
+            <li><span class="button button-outline-primary button-rounded toggle-change search-size-button"><span><?php echo __('Search by Size'); ?></span> <i class="icon d-flex align-items-center justify-content-center" data-search-tab="search-by-vehicle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.625 62.197">
+                    <path id="exchange" d="M89.228,39.8,68.915,19.486A2,2,0,0,0,65.5,20.9v9.529H50a2,2,0,0,0,0,4H67.5a2,2,0,0,0,2-2v-6.7L84.985,41.215,69.5,56.7V50a2,2,0,0,0-2-2H34.487c.014-.96.014-2.188.014-3.766V38.468a2,2,0,0,0-3.414-1.414L10.774,57.367a2,2,0,0,0,0,2.828L31.086,80.51A2,2,0,0,0,34.5,79.1V69.564H50a2,2,0,1,0,0-4H32.5a2,2,0,0,0-2,2v.024c0,.225,0,3.63,0,6.679L15.017,58.781,30.5,43.3c0,2.989,0,6.322,0,6.661A2,2,0,0,0,32.5,52h33v9.529a2,2,0,0,0,3.414,1.414L89.228,42.63A2,2,0,0,0,89.228,39.8Z" transform="translate(-10.188 -18.899)" />
+                  </svg></i></span>
+            </li>
+            <li><span class="button button-outline-dark button-rounded filled-slide-right button-text-overflow frontWidth"><span class="frontWidthLabel"><?php echo __('Width'); ?></span></span></li>
+            <li><span class="button button-outline-dark button-rounded filled-slide-right button-text-overflow frontHeight"><span class="frontHeightLabel"><?php echo __('Height'); ?></span></span></li>
+            <li><span class="button button-outline-dark button-rounded filled-slide-right button-text-overflow frontRim"><span class="frontRimLabel"><?php echo __('Rim Size'); ?></span></span></li>
+            <input type="hidden" id="frontWidthLabel-hidden" name="width" required value="">
+            <input type="hidden" id="frontWidthValue-hidden" value="">
+            <input type="hidden" id="frontHeightLabel-hidden" name="height" required value="">
+            <input type="hidden" id="frontHeightValue-hidden" value="">
+            <input type="hidden" id="frontRimLabel-hidden" name="rim" required value="">
+            <input type="hidden" id="frontRimValue-hidden" value="">
+            <input type="hidden" id="rearWidthLabel-hidden" name="width_rear" value="">
+            <input type="hidden" id="rearWidthValue-hidden" value="">
+            <input type="hidden" id="rearHeightLabel-hidden" name="height_rear" value="">
+            <input type="hidden" id="rearHeightValue-hidden" value="">
+            <input type="hidden" id="rearRimLabel-hidden" name="rim_rear" value="">
+            <input type="hidden" id="rearRimValue-hidden" value="">
+            <input type="hidden" id="rearWidthLabel-text" value="">
+            <input type="hidden" id="rearHeightLabel-text" value="">
+            <input type="hidden" id="rearRimLabel-text" value="">
+            <li class="different-rear d-none"><!-- If hide add class "no-read" -->
+              <div class="form-check-custom-style1">
+                <input class="checkbox" id="is_rear_checked" type="checkbox" value="value1">
+                <label for="is_rear_checked"><?php echo __('different rear tyres?'); ?></label>
+              </div>
+            </li>
+            <li><span onclick="submitTyreSelection()" class="button button-primary-200 button-rounded filled-slide-right search-button"><span><?php echo __('Search'); ?></span></span></li>
+          </ul>
+        </form>
+      </div>
+    <?php endif; ?>
+    <!-- Search by Size End-->
+
+    <!-- Search by Size Vehicle-->
+    <div class="search-wrap search-by-vehicle <?php echo ($vehicleSearchType == 'vehicle-search') ? 'hide' : ''; ?>" id="search-by-vehicle">
+      <form id="finder-vehicle-form" action="<?php echo $catalogSearchUrl; ?>" method="post">
+        <input type="hidden" name="homme_search_vehicle" value="1" />
+        <input type="hidden" class="search_type" value="<?php echo $vehicleSearchType; ?>" />
+        <input type="hidden" class="search_cat_id" value="<?php echo $categoryId; ?>" />
+        <ul class="list-custom d-flex justify-content-center">
+          <li>
+            <span class="button search-button button-outline-primary button-rounded toggle-change search-vehicle-button <?php echo ($isBrakeBatteryPage) ? 'with-autoparts' : ''; ?>">
+              <span><?php echo __('Search by Vehicle'); ?></span>
+              <?php if ($vehicleSearchType == 'vehicle-search') : ?>
+                <i class="icon d-flex align-items-center justify-content-center" data-search-tab="search-by-size"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.625 62.197">
+                    <path id="exchange" d="M89.228,39.8,68.915,19.486A2,2,0,0,0,65.5,20.9v9.529H50a2,2,0,0,0,0,4H67.5a2,2,0,0,0,2-2v-6.7L84.985,41.215,69.5,56.7V50a2,2,0,0,0-2-2H34.487c.014-.96.014-2.188.014-3.766V38.468a2,2,0,0,0-3.414-1.414L10.774,57.367a2,2,0,0,0,0,2.828L31.086,80.51A2,2,0,0,0,34.5,79.1V69.564H50a2,2,0,1,0,0-4H32.5a2,2,0,0,0-2,2v.024c0,.225,0,3.63,0,6.679L15.017,58.781,30.5,43.3c0,2.989,0,6.322,0,6.661A2,2,0,0,0,32.5,52h33v9.529a2,2,0,0,0,3.414,1.414L89.228,42.63A2,2,0,0,0,89.228,39.8Z" transform="translate(-10.188 -18.899)" />
+                  </svg></i>
+              <?php endif; ?>
+              <?php if ($isBrakeBatteryPage) : ?>
+                <i class="icon d-flex align-items-center justify-content-center" data-search-tab="search-by-code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.625 62.197">
+                    <path id="exchange" d="M89.228,39.8,68.915,19.486A2,2,0,0,0,65.5,20.9v9.529H50a2,2,0,0,0,0,4H67.5a2,2,0,0,0,2-2v-6.7L84.985,41.215,69.5,56.7V50a2,2,0,0,0-2-2H34.487c.014-.96.014-2.188.014-3.766V38.468a2,2,0,0,0-3.414-1.414L10.774,57.367a2,2,0,0,0,0,2.828L31.086,80.51A2,2,0,0,0,34.5,79.1V69.564H50a2,2,0,1,0,0-4H32.5a2,2,0,0,0-2,2v.024c0,.225,0,3.63,0,6.679L15.017,58.781,30.5,43.3c0,2.989,0,6.322,0,6.661A2,2,0,0,0,32.5,52h33v9.529a2,2,0,0,0,3.414,1.414L89.228,42.63A2,2,0,0,0,89.228,39.8Z" transform="translate(-10.188 -18.899)" />
+                  </svg></i>
+              <?php endif; ?>
+            </span>
+          </li>
+
+
+          <li><span class="button button-outline-dark button-rounded filled-slide-right button-text-overflow vehicle_make"><span id="vehicle_make"><?php echo __('Vehicle'); ?></span></span></li>
+          <li><span class="button button-outline-dark button-rounded filled-slide-right button-text-overflow vehicle_model disablesearchoption"><span id="vehicle_model"><?php echo __('Model'); ?></span></span></li>
+          <li><span class="button button-outline-dark button-rounded filled-slide-right button-text-overflow vehicle_year disablesearchoption"><span id="vehicle_year"><?php echo __($yearLabel); ?></span></span></li>
+          <li class="different-rear no-read d-none"><!-- If hide add class "no-read" -->
+            <p class="m-0">&nbsp;</p>
+          </li>
+          <li><span href="#" id="submitVehicleForm" onclick="submitVehicleSelection()" class="button button-primary-200 button-rounded filled-slide-right search-button"><span><?php echo __('Search'); ?></span></span></li>
+        </ul>
+        <input type="hidden" id="vehicle_make_hidden" name="vehicle_make" value="">
+        <input type="hidden" id="vehicle_model_hidden" name="vehicle_model" value="">
+        <input type="hidden" id="vehicle_year_hidden" name="vehicle_year" value="">
+        <input type="hidden" id="vehicle_engine_hidden" name="vehicle_engine" value="">
+        <input type="hidden" id="autoparts_page_type" value="<?php echo $isBrakeBatteryPage; ?>">
+      </form>
+    </div>
+    <!-- Search by Size Vehicle End -->
+
+    <!-- Start Search by Code-->
+    <?php if ($isBrakeBatteryPage) : ?>
+      <?php
+      $formUrl = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId)->getUrl();
+      ?>
+      <div class="search-wrap search-by-code hide" id="search-by-code">
+        <form id="finder-vehicle-form" action="<?php echo $formUrl; ?>" method="get">
+          <ul class="list-custom d-flex justify-content-center">
+            <li>
+              <a href="javascript:void(0)" class="button search-button button-outline-primary button-rounded toggle-change search-vehicle-button from-autoparts" href="javascript:void(0)">
+                <span><?php echo __('Search by Code'); ?></span>
+                <i class="icon d-flex align-items-center justify-content-center" data-search-tab="search-by-vehicle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.625 62.197">
+                    <path id="exchange" d="M89.228,39.8,68.915,19.486A2,2,0,0,0,65.5,20.9v9.529H50a2,2,0,0,0,0,4H67.5a2,2,0,0,0,2-2v-6.7L84.985,41.215,69.5,56.7V50a2,2,0,0,0-2-2H34.487c.014-.96.014-2.188.014-3.766V38.468a2,2,0,0,0-3.414-1.414L10.774,57.367a2,2,0,0,0,0,2.828L31.086,80.51A2,2,0,0,0,34.5,79.1V69.564H50a2,2,0,1,0,0-4H32.5a2,2,0,0,0-2,2v.024c0,.225,0,3.63,0,6.679L15.017,58.781,30.5,43.3c0,2.989,0,6.322,0,6.661A2,2,0,0,0,32.5,52h33v9.529a2,2,0,0,0,3.414,1.414L89.228,42.63A2,2,0,0,0,89.228,39.8Z" transform="translate(-10.188 -18.899)" />
+                  </svg></i>
+              </a>
+            </li>
+            <li>
+              <input type="text" class="form-control-outline" placeholder="<?php echo __('Search products'); ?>..." name="article_number" id="article_number" value="" required>
+            </li>
+            <li><button type="submit" class="button button-primary-200 button-rounded filled-slide-right search-button"><span><?php echo __('Search'); ?></span></button></li>
+          </ul>
+        </form>
+      </div>
+    <?php endif; ?>
+    <!-- Search by Code End -->
+
+  </div>
+</div>
+<!-- Main Search End-->
+
+
+
+
+
+
+<!-- //////// Tyre Search block -->
+<div class="search-selection search-by-tyres mx-auto" id="tyre-selection">
+  <div class="search-selection-inner d-flex flex-column">
+    <span class="search-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+        <path d="M315.3 411.3c-6.253 6.253-16.37 6.253-22.63 0L160 278.6l-132.7 132.7c-6.253 6.253-16.37 6.253-22.63 0c-6.253-6.253-6.253-16.37 0-22.63L137.4 256L4.69 123.3c-6.253-6.253-6.253-16.37 0-22.63c6.253-6.253 16.37-6.253 22.63 0L160 233.4l132.7-132.7c6.253-6.253 16.37-6.253 22.63 0c6.253 6.253 6.253 16.37 0 22.63L182.6 256l132.7 132.7C321.6 394.9 321.6 405.1 315.3 411.3z"></path>
+      </svg></span>
+
+    <div>
+
+      <div class="search-selection-wrap">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12">
+            <div class="selection-title tyreselection"> <!-- If Last step. add class "text-center" -->
+              <div class="selected-step"><span>SELECT</span> <span class="search-by-size-front-label">WIDTH</span></div>
+              <div class="crnt-or-frnt"><span class="h3"><?php echo __('Current Size Selection:'); ?></span> <strong class="data-selected selectiondata"></strong></div>
+            </div>
+            <div class="selection-title rear-tyre-selection hide"> <!-- If Last step. add class "text-center" -->
+              <?php /* <div class="selected-step"><span>SELECT</span> <span class="search-by-size-rear-label">WIDTH</span></div> */ ?>
+              <div class="crnt-or-rear"><span class="h3"><?php echo __('Rear Tyre Selection: '); ?></span><strong class="data-selected rearselectiondata"></strong></div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="selection-block">
+
+          <div class="selection-search tyre-size-search-selection">
+            <form action="<?php echo $catalogSearchUrl; ?>" class="tyre-size-search-form" method="GET">
+              <select class="select2-tyre-size-search w-100" multiple="multiple" required oninvalid="this.setCustomValidity('<?php echo __('Please enter tyre size'); ?>')" oninput="setCustomValidity('')">
+              </select>
+              <input type="hidden" id="tyresize-width" name="width" value="" />
+              <input type="hidden" id="tyresize-height" name="height" value="" />
+              <input type="hidden" id="tyresize-rim" name="rim" value="" />
+              <input type="hidden" id="tyresize-rear-width" name="width_rear" value="" />
+              <input type="hidden" id="tyresize-rear-height" name="height_rear" value="" />
+              <input type="hidden" id="tyresize-rear-rim" name="rim_rear" value="" />
+              <button type="submit" class="search-button"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.025 20.023">
+                    <path id="search" d="M78.114,20.545,73.3,15.728a7.57,7.57,0,1,0-2.007,2.007l4.817,4.817a.947.947,0,0,0,1.336,0l.668-.668A.948.948,0,0,0,78.114,20.545ZM67.035,16.208a4.731,4.731,0,1,1,4.731-4.731A4.731,4.731,0,0,1,67.035,16.208Z" transform="translate(-58.95 -3.394)" stroke="#707070" stroke-width="1"></path>
+                  </svg></span></button>
+            </form>
+          </div>
+
+
+          <div class="scrollbar-inner">
+            <div class="section-loader searchloader" style="display: none;">
+              <div class="inner d-flex align-items-center justify-content-center text-center">
+                <div class="spinner mx-auto"></div>
+              </div>
+            </div>
+            <div class="h-100">
+              <div class="front-width_sub-block w-100 tyre_finder_allcontent">
+                <ul class="button-list list-custom d-flex flex-wrap" id="allWidthOptions">
+                  <?php /*
+		<?php foreach ($sizeblockObj->gehomeTytWidthOptions() as $v): ?>
+			<li>
+				<a href="javascript:void(0)" class="button button-primary-grey custom-size button-block button-rounded opacity button-text-overflow" title="<?php echo $v['label'] ?>" onclick="getheight('<?php echo $v['value'] ?>','<?php echo $v['label'] ?>','front')" id ="front-width-<?php echo $v['value'] ?>"><span><?php echo $v['label'] ?></span></a>
+			</li>
+		<?php endforeach;?>
+		*/ ?>
+                </ul>
+              </div>
+              <div class="front-height_sub-block w-100 tyre_finder_allcontent hide">
+                <ul class="button-list list-custom d-flex flex-wrap align-items-center h-100">
+                </ul>
+              </div>
+              <div class="front-rim_sub-block w-100 tyre_finder_allcontent hide">
+                <ul class="button-list list-custom d-flex flex-wrap align-items-center h-100">
+                </ul>
+              </div>
+              <div class="rear-width_sub-block w-100 tyre_finder_allcontent rear_tyre_finder_allcontent hide">
+                <ul class="button-list list-custom d-flex flex-wrap" id="allRearWidthOptions">
+                  <?php /*
+		<?php foreach ($sizeblockObj->gehomeTytWidthOptions() as $v): ?>
+			<li>
+				<a href="javascript:void(0)" class="button button-primary-grey custom-size button-block button-rounded opacity button-text-overflow" title="<?php echo $v['label'] ?>" onclick="getRearheight('<?php echo $v['value'] ?>','<?php echo $v['label'] ?>','rear')" id ="rear-width-<?php echo $v['value'] ?>"><span><?php echo $v['label'] ?></span></a>
+			</li>
+		<?php endforeach;?>
+		*/ ?>
+                </ul>
+              </div>
+              <div class="rear-height_sub-block w-100 tyre_finder_allcontent rear_tyre_finder_allcontent hide">
+                <ul class="button-list list-custom d-flex flex-wrap align-items-center h-100">
+                </ul>
+              </div>
+              <div class="rear-rim_sub-block w-100 tyre_finder_allcontent rear_tyre_finder_allcontent hide">
+                <ul class="button-list list-custom d-flex flex-wrap align-items-center h-100">
+                </ul>
+              </div>
+              <div class="confirm_sub-block w-100 tyre_finder_allcontent hide">
+                <div class="different-rear">
+                  <div class="form-check-custom-style5">
+                    <input class="checkbox" id="is_rear_checked2" type="checkbox" value="value1">
+                    <label for="is_rear_checked2"><?php echo __('different rear tyres?'); ?></label>
+                  </div>
+                </div>
+                <span onclick="submitTyreSelection()" class="button button-primary-100 button-lg button-block button-rounded filled-slide-right text-uppercase"><span><?php echo __('Confirm Selection'); ?></span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-auto">
+      <div class="selection-breadcrumb">
+        <div class="row g-0 justify-content-center justify-content-md-between align-items-center">
+          <div class="col-1 col-sm-1 col-md-auto">
+            <div class="text-center">
+              <span onclick="resetFinderSearchForm()" style="display:none;" class="reset-size-selection"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="58.984" height="59.088" viewBox="0 0 58.984 59.088">
+                    <path id="arrows-repeat-1" d="M20.276,12.11h24.4l-7.148,5.958a1.841,1.841,0,0,0-.663,1.417,1.786,1.786,0,0,0,1.844,1.841,1.833,1.833,0,0,0,1.179-.428l11.06-9.216a1.893,1.893,0,0,0,.665-1.519,1.7,1.7,0,0,0-.662-1.415L39.889-.468A1.829,1.829,0,0,0,38.711-.9a1.843,1.843,0,0,0-1.184,3.258l7.149,6.062h-24.4A20.214,20.214,0,0,0,0,28.6a1.87,1.87,0,0,0,1.843,1.947A1.846,1.846,0,0,0,3.688,28.7,16.607,16.607,0,0,1,20.276,12.11ZM57.141,26.856A1.843,1.843,0,0,0,55.3,28.7,16.585,16.585,0,0,1,38.811,45.289h-24.5l7.148-5.958A1.811,1.811,0,1,0,19.2,36.5L8.138,45.718a1.673,1.673,0,0,0-.765,1.414,1.849,1.849,0,0,0,.662,1.415L19.1,57.763a1.791,1.791,0,0,0,1.077.429,1.843,1.843,0,0,0,1.183-3.258l-7.047-5.958h24.4A20.3,20.3,0,0,0,58.984,28.7,1.849,1.849,0,0,0,57.141,26.856Z" transform="translate(0 0.896)" />
+                  </svg></span><span class="text"><?php echo __('Reset'); ?></span></span>
+            </div>
+          </div>
+          <div class="col-10 col-sm-10 col-md-auto">
+            <div class="steps">
+              <ul class="d-flex list-custom">
+                <li class="col text-center width-step"> <!-- if checked add class "active" -->
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Width'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+                <li class="col text-center height-step">
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Height'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+                <li class="col text-center rim-step">
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Rim'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-1 col-sm-1 col-md-auto">
+            <div class="text-center">
+
+              <span onclick="goback('front-width_sub-block','backrim','front','Width')" style="display:none;" class="allback backwidth"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+              <span onclick="goback('front-height_sub-block','backwidth','front','Height')" style="display:none;" class="allback backprofile"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+
+              <span onclick="goback('front-rim_sub-block','backprofile','front','Rim')" style="display:none;" class="allback backrim"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+
+
+              <span onclick="goback('front-rim_sub-block','backprofile','front','FrontRim')" style="display:none;" class="allback backfromrim"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+
+              <span onclick="goback('rear-width_sub-block','backfromrim','rear','rearWidth')" style="display:none;" class="allback rearbackwidth"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+
+              <span onclick="goback('rear-height_sub-block','rearbackwidth','rear','rearHeight')" style="display:none;" class="allback rearbackprofile"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+
+              <span onclick="goback('rear-rim_sub-block','rearbackprofile','rear','rearRim')" style="display:none;" class="allback rearbackrim"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile bottom breadcrumb -->
+      <div class="selection-breadcrumb-sm d-none">
+        <div class="inner d-flex align-items-center">
+          <?php /* <a href="javascript:void(0)" class="back d-inline-block fw-500"><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path></svg> <?php echo __('BACK');?></a> */ ?>
+          <span onclick="goback('front-width_sub-block','backrim','front','Width')" style="display:none;" class="allback backwidth back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span onclick="goback('front-height_sub-block','backwidth','front','Height')" style="display:none;" class="allback backprofile back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span onclick="goback('front-rim_sub-block','backprofile','front','Rim')" style="display:none;" class="allback backrim back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span onclick="goback('front-rim_sub-block','backprofile','front','FrontRim')" style="display:none;" class="allback backfromrim back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span onclick="goback('rear-width_sub-block','backfromrim','rear','rearWidth')" style="display:none;" class="allback rearbackwidth back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span onclick="goback('rear-height_sub-block','rearbackwidth','rear','rearHeight')" style="display:none;" class="allback rearbackprofile back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span onclick="goback('rear-rim_sub-block','rearbackprofile','rear','rearRim')" style="display:none;" class="allback rearbackrim back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+        </div>
+      </div>
+      <!-- Mobile bottom breadcrumb End-->
+    </div>
+  </div>
+</div>
+<!-- Main Search block End-->
+
+
+
+
+
+
+
+
+
+
+
+<!-- //////// Vehicle Search block -->
+<div class="search-selection search-by-vehicle mx-auto" id="vehicle-selection">
+  <div class="search-selection-inner d-flex flex-column">
+    <span class="search-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+        <path d="M315.3 411.3c-6.253 6.253-16.37 6.253-22.63 0L160 278.6l-132.7 132.7c-6.253 6.253-16.37 6.253-22.63 0c-6.253-6.253-6.253-16.37 0-22.63L137.4 256L4.69 123.3c-6.253-6.253-6.253-16.37 0-22.63c6.253-6.253 16.37-6.253 22.63 0L160 233.4l132.7-132.7c6.253-6.253 16.37-6.253 22.63 0c6.253 6.253 6.253 16.37 0 22.63L182.6 256l132.7 132.7C321.6 394.9 321.6 405.1 315.3 411.3z"></path>
+      </svg>
+    </span>
+    <div>
+      <div class="search-selection-wrap">
+        <div class="selection-title"> <!-- If Last step. add class "text-center" -->
+          <div class="selected-step"><span>SELECT</span> <span class="search-by-vehicle-label">MAKE</span></div>
+          <div class="crnt-or-vehicle">
+            <span class="h3"><?php echo __('Current Vehicle Selection: '); ?></span>
+            <strong class="data-selected vehicleselectiondata"></strong>
+          </div>
+        </div>
+
+        <div class="selection-block">
+
+          <div class="section-search">
+            <input type="text" class="input-text" id="input-search" placeholder="Search Vehicle" title="Search Vehicle">
+            <div class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.025 20.023">
+                <path id="search" d="M78.114,20.545,73.3,15.728a7.57,7.57,0,1,0-2.007,2.007l4.817,4.817a.947.947,0,0,0,1.336,0l.668-.668A.948.948,0,0,0,78.114,20.545ZM67.035,16.208a4.731,4.731,0,1,1,4.731-4.731A4.731,4.731,0,0,1,67.035,16.208Z" transform="translate(-58.95 -3.394)" stroke="#707070" stroke-width="1"></path>
+              </svg>
+            </div>
+          </div>
+
+          <div class="scrollbar-inner">
+            <div class="section-loader searchloader" style="display: none;">
+              <div class="inner d-flex align-items-center justify-content-center text-center">
+                <div class="spinner mx-auto"></div>
+              </div>
+            </div>
+            <div class="inner-wrap h-100">
+              <div class="brand_sub-block w-100 vehicle_finder_modal_allcontent">
+                <ul class="brand-list brand-list-image list-custom row gy-2 g-2" id="searchUL">
+                  <?php /* foreach ($vehicleblockObj->getVehilceMake() as $make): ?>
+				<li class="col">
+					<div class="box hover-transition"><!-- if selected. add class "active" -->
+					<a href="javascript:void(0)" class="d-block" title="<?php echo $make['name_en'] ?>" onclick="getmodel('<?php echo $make['slug'] ?>','<?php echo $make['name_en'] ?>')" id ="make-<?php echo $make['slug'] ?>">
+					  <div class="image car-logo-first-sprite mx-auto <?php echo $make['slug'] ?>"></div>
+					  <span class="title"><?php echo $make['name_en'] ?></span>
+					</a>
+				  </div>
+				</li>
+				<?php endforeach; */ ?>
+                </ul>
+              </div>
+              <?php $listClass = ''; ?>
+              <?php if ($vehicleSearchType == 'vehicle-search') : ?>
+                <?php $listClass = 'brand-list brand-list-button list-custom row gy-2 g-2'; ?>
+              <?php else : ?>
+                <?php $listClass = 'brand-list brand-list-button button-text-overflow-max list-custom row gy-2 g-2 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2'; ?>
+              <?php endif; ?>
+              <div class="vehiclemodel_sub-block w-100 vehicle_finder_modal_allcontent hide">
+                <ul class="<?php echo $listClass; ?>">
+                </ul>
+              </div>
+              <div class="vehicleyear_sub-block w-100 vehicle_finder_modal_allcontent hide">
+                <ul class="<?php echo $listClass; ?>">
+                </ul>
+              </div>
+              <div class="vehiclemodification_sub-block w-100 vehicle_finder_modal_allcontent hide">
+                <ul class="<?php echo $listClass; ?>">
+                </ul>
+              </div>
+              <div class="vehicleengine_sub-block w-100 vehicle_finder_modal_allcontent hide">
+                <ul class="<?php echo $listClass; ?>">
+                </ul>
+              </div>
+
+              <div class="confirm_sub-block w-100 tyre_finder_allcontent hide">
+                <div class="row g-0 justify-content-center">
+                  <div class="col-10 col-sm-6 col-md-5 col-lg-5 text-center">
+                    <span onclick="submitVehicleSelection()" class="button button-primary-100 button-lg button-block button-rounded 01 filled-slide-right text-uppercase fw-500 fst-italic"><span><?php echo __('Confirm Selection'); ?></span></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="confirm_sub-block oilchange_confirm_sub-block w-100 vehicle_finder_modal_allcontent hide">
+                <div class="row g-0 justify-content-center">
+                  <div class="col-10 col-sm-6 col-md-5 col-lg-5 text-center">
+                    <?php if ($isBrakeBatteryPage) : ?>
+                      <a href="javascript:void(0)" onclick="submitVehicleParts()" class="button button-primary-100 button-lg button-block button-rounded filled-slide-right text-uppercase fw-500 fst-italic"><span><?php echo __('Confirm Selection'); ?></span></a>
+                    <?php else : ?>
+                      <span onclick="submitOilChange()" class="button button-primary-100 button-lg button-block button-rounded filled-slide-right text-uppercase fw-500 fst-italic"><span><?php echo __('Confirm Selection'); ?></span></span>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mt-auto">
+      <div class="selection-breadcrumb">
+        <div class="row g-0 justify-content-center justify-content-md-between align-items-center">
+          <div class="col-1 col-sm-1 col-md-auto">
+            <div class="text-center">
+              <span onclick="resetvehicleselection()" style="display:none;" class="reset-vehicle-selection"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="58.984" height="59.088" viewBox="0 0 58.984 59.088">
+                    <path id="arrows-repeat-1" d="M20.276,12.11h24.4l-7.148,5.958a1.841,1.841,0,0,0-.663,1.417,1.786,1.786,0,0,0,1.844,1.841,1.833,1.833,0,0,0,1.179-.428l11.06-9.216a1.893,1.893,0,0,0,.665-1.519,1.7,1.7,0,0,0-.662-1.415L39.889-.468A1.829,1.829,0,0,0,38.711-.9a1.843,1.843,0,0,0-1.184,3.258l7.149,6.062h-24.4A20.214,20.214,0,0,0,0,28.6a1.87,1.87,0,0,0,1.843,1.947A1.846,1.846,0,0,0,3.688,28.7,16.607,16.607,0,0,1,20.276,12.11ZM57.141,26.856A1.843,1.843,0,0,0,55.3,28.7,16.585,16.585,0,0,1,38.811,45.289h-24.5l7.148-5.958A1.811,1.811,0,1,0,19.2,36.5L8.138,45.718a1.673,1.673,0,0,0-.765,1.414,1.849,1.849,0,0,0,.662,1.415L19.1,57.763a1.791,1.791,0,0,0,1.077.429,1.843,1.843,0,0,0,1.183-3.258l-7.047-5.958h24.4A20.3,20.3,0,0,0,58.984,28.7,1.849,1.849,0,0,0,57.141,26.856Z" transform="translate(0 0.896)" />
+                  </svg></span> <span class="text"><?php echo __('Reset'); ?></span></span>
+            </div>
+          </div>
+          <div class="col-10 col-sm-10 col-md-auto">
+            <div class="steps">
+              <ul class="d-flex list-custom">
+                <li class="col text-center make-step"> <!-- if checked add class "active" -->
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Make'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+                <li class="col text-center model-step">
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Model'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+                <li class="col text-center year-step">
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Year'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+                <li class="col text-center engine-step">
+                  <span class="text-center">
+                    <span class="text d-block"><?php echo __('Engine'); ?></span>
+                    <span class="dot"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M443.3 100.7C449.6 106.9 449.6 117.1 443.3 123.3L171.3 395.3C165.1 401.6 154.9 401.6 148.7 395.3L4.686 251.3C-1.562 245.1-1.562 234.9 4.686 228.7C10.93 222.4 21.06 222.4 27.31 228.7L160 361.4L420.7 100.7C426.9 94.44 437.1 94.44 443.3 100.7H443.3z" />
+                        </svg></span></span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-1 col-sm-1 col-md-auto">
+            <div class="text-center">
+
+              <span onclick="vehcilegoback('brand_sub-block','no','vehiclemakeimage','Make')" style="display:none;" class="vehicleallbackbutton vehiclebackmake"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+              <span onclick="vehcilegoback('vehiclemodel_sub-block','vehiclebackmake','vehiclemodelimage','Model')" style="display:none;" class="vehicleallbackbutton vehiclebackmodel"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+              <span onclick="vehcilegoback('vehicleyear_sub-block','vehiclebackmodel','vehicleyearimage','Year')" style="display:none;" class="vehicleallbackbutton vehiclebackyear"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span></span>
+
+              <span onclick="vehcilegoback('vehicle_finder_modal_engine_content','vehiclebackyear','vehicleyearimage','Engine')" style="display:none;" class="vehicleallbackbutton vehiclebackengine">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 35.93">
+                    <path id="backward" d="M19.085,64.676l-18.01,15a3.021,3.021,0,0,0,0,4.617l18,14.919A3.006,3.006,0,0,0,24,96.906v-30A3.006,3.006,0,0,0,19.085,64.676Z" transform="translate(-0.002 -63.979)" />
+                  </svg></span><span class="text"><?php echo __('Back'); ?></span>
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile bottom breadcrumb -->
+      <div class="selection-breadcrumb-sm d-none">
+        <div class="inner d-flex align-items-center">
+          <span style="display:none;" onclick="vehcilegoback('brand_sub-block','no','vehiclemakeimage','Make')" style="display:none;" class="vehicleallbackbutton vehiclebackmake back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span style="display:none;" onclick="vehcilegoback('vehiclemodel_sub-block','vehiclebackmake','vehiclemodelimage','Model')" style="display:none;" class="vehicleallbackbutton vehiclebackmodel back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span style="display:none;" onclick="vehcilegoback('vehicleyear_sub-block','vehiclebackmodel','vehicleyearimage','Year')" style="display:none;" class="vehicleallbackbutton vehiclebackyear back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+          <span style="display:none;" onclick="vehcilegoback('vehicle_finder_modal_engine_content','vehiclebackyear','vehicleyearimage','Engine')" style="display:none;" class="vehicleallbackbutton vehiclebackengine back fw-500"><span><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-circle-left" class="svg-inline--fa fa-chevron-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"></path>
+              </svg> <?php echo __('Back'); ?></span></span>
+        </div>
+      </div>
+      <!-- Mobile bottom breadcrumb End-->
+    </div>
+  </div>
+</div>
+<!-- Main Vehicle block End-->
+
+<script type="text/javascript">
+  var getHeightUrl = '<?php echo $sizeblockObj->getActionUrl('getheight'); ?>';
+  var getRimUrl = '<?php echo $sizeblockObj->getActionUrl('getrim'); ?>';
+  var getCategoryWidthUrl = '<?php echo $sizeblockObj->getActionUrl('getcategorywidth'); ?>';
+  var getMakeUrl = '<?php echo $sizeblockObj->getActionUrl('getvehiclelist'); ?>';
+  var getModelUrl = '<?php echo $sizeblockObj->getActionUrl('getmodel'); ?>';
+  var getyearUrl = '<?php echo $sizeblockObj->getActionUrl('getyear'); ?>';
+  var getengineUrl = '<?php echo $sizeblockObj->getActionUrl('getengine'); ?>';
+  var tabbyinstallmentmaxvalue = "<?php echo $tabbyinstallmentmaxvalue ?>";
+  var tabbyfourday = "<?php echo $tabbyfourday ?>";
+  var techDocMakeUrl = '<?php echo $sizeblockObj->getActionUrl('gettechdocmake'); ?>';
+  var techDocModelUrl = '<?php echo $sizeblockObj->getActionUrl('gettechdocmodel'); ?>';
+  var techDocEngineUrl = '<?php echo $sizeblockObj->getActionUrl('gettechdocengine'); ?>';
+
+  var addVehicleUrl = '<?php echo $sizeblockObj->getActionUrl('addvehicle'); ?>';
+  var autopartsSearchUrl = '<?php echo $autopartsSearchUrl; ?>';
+
+  var brakesCatId = '<?php echo $brakesCatId; ?>';
+  var oilChangeCatId = '<?php echo $oilChangeCatId; ?>';
+  var batteryCatId = '<?php echo $batteryCatId; ?>';
+  var filtersCatId = '<?php echo $filtersCatId; ?>';
+  var getWidthOptionsUrl = '<?php echo $sizeblockObj->getActionUrl('getwidth'); ?>';
+  var getBaseUrl = '<?php echo $this->getBaseUrl(); ?>';
+  var getMediaUrl = '<?php echo $mediaURL; ?>';
+  var getViewFileUrl = '<?php echo $getViewFileUrl; ?>';
+  var SearchbyVehicleTxt = "<?php echo __('Search by Vehicle'); ?>";
+  var SearchbySizeTxt = "<?php echo __('Search by Size'); ?>";
+  var SearchbyCodeTxt = "<?php echo __('Search by Code'); ?>";
+  var EngineTxt = "<?php echo __('Engine'); ?>";
+  var FrontTyreSelectionTxt = "<?php echo __('Front Tyre Selection: '); ?>";
+  var CurrentTyreSelectionTxt = "<?php echo __('Current Size Selection:'); ?>";
+  var RearTyreSelectionTxt = "<?php echo __('Rear Tyre Selection: '); ?>";
+  var WidthTxt = "<?php echo __('Width'); ?>";
+  var HeightTxt = "<?php echo __('Height'); ?>";
+  var RimTxt = "<?php echo __('Rim'); ?>";
+  var MakeTxt = "<?php echo __('Make'); ?>";
+  var ModelTxt = "<?php echo __('Model'); ?>";
+  var YearTxt = "<?php echo __('Year'); ?>";
+  var TyreSizeTxt = "<?php echo __('Tyre Size'); ?>";
+  var VehicleFinderLastPopupNote = "<?php echo __('Note: Most vehicle manufacturer’s produce vehicles with more than one possible size.  We strongly recommend all customers check the tyre size printed on the side wall of their tyres before purchase.'); ?>";
+  var getModificationsUrl = '<?php echo $sizeblockObj->getActionUrl('getmodifications'); ?>';
+  var getSearchByModelUrl = '<?php echo $sizeblockObj->getActionUrl('getsearchbymodel'); ?>';
+  var getTyreSizeUrl = '<?php echo $sizeblockObj->getActionUrl('gettyresize'); ?>';
+</script>
+<script type="text/x-magento-init">
+  {
+            "*": {
+                "tyrefinder": {}
+            }
+        }
+</script>
+<style>
+  .disablesearchoption {
+    pointer-events: none;
+  }
+
+  #vehicle-selection .selection-block li#last-note {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .mobile-tyre-search-finder .tabs-nav ul li.active.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+</style>
+<script type="text/javascript">
+  require(["jquery"], function($) {
+    var showTyreFinder = '<?php echo $showTyreFinder; ?>';
+    if (showTyreFinder == 1) {
+      $("body").addClass('search-bottom-space');
+    } else {
+      $("body").removeClass('search-bottom-space');
+    }
+    //$("body").addClass('search-bottom-space');
+    $("body.cms-battery").removeClass('search-bottom-space');
+
+
+    $(".selection-search-toggle").click(function(event) {
+      $(".inner-wrap").toggleClass("align-items-center");
+    });
+
+  });
+</script>

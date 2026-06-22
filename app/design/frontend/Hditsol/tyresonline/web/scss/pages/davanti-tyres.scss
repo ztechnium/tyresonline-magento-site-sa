@@ -1,0 +1,232 @@
+.cms-davanti-tyres-in-uae{
+  .columns{
+    padding: 0;
+    .column{
+      padding: 0;
+    }
+  }
+}
+
+.top-brand-banner {
+  .banner-image {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 38%;
+      }
+    }
+    .info-video{
+      cursor: pointer;
+      display: block;
+      position: relative;
+      &:after{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: "";
+        background-color: #00000094;
+        opacity: 0;
+        @include transition(ease-in-out, 0.4s);
+      }
+      &:hover{
+        &:after{
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .top-brands-banner {
+    padding: 0;
+  }
+}
+
+.brand-logo {
+  @include scssont-padding-mix(40px, 0px);
+  .image {
+    .seo-title {
+      position: absolute;
+    }
+    img{
+      @include scssont-max-width(600px);
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brand-info-with-logo {
+    padding: get-rem(30px) 0;
+    .brand-logo {
+      img {
+        max-width: 60%;
+      }
+    }
+  }
+}
+
+.brand-accordion-style2 {
+  .accordion {
+    .accordion-item {
+      @include scssont-margin-top(4px);
+      border: none;
+      border-radius: 0;
+      .accordion-header {
+        background-color: #eb5c05;
+        cursor: pointer;
+        .accordion-title {
+          @include scssont-font-size(30px);
+          @include scssont-letter-spacing(4px);
+          display: block;
+          @include scssont-padding(30px, 40px, 30px, 40px);
+          position: relative;
+          color: $white;
+          &:after{
+            content: "";
+            position: absolute;
+            @include scssont-right(40px);
+            top: 50%;
+            @include transform(translateY(-50%));
+            background-repeat: no-repeat;
+            background-position: center;
+            @include scssont-height(35px);
+            @include scssont-width(35px);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"/></svg>');
+          }
+          &.collapsed {
+            &:after{
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>');
+            }
+          }
+        }
+      }
+
+      .accordion-body {
+        @include scssont-padding(40px, 40px, 40px, 40px);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brand-accordion-style2 {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          .accordion-title {
+            font-size: get-rem(20px);
+            .icon {
+              svg {
+                height: get-rem(20px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.brand-accordion-style2 {
+  p {
+    @include scssont-font-size(24px);
+    @include scssont-letter-spacing(3.5px);
+
+  }
+
+  .about-davanti{
+  .text-wrap{
+    h3{
+      @include scssont-font-size(27px);
+      @include scssont-letter-spacing(3.5px);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+   }
+  }
+
+  .certification-davanti{
+    .text-wrap{
+      h3{
+        @include scssont-font-size(27px);
+        @include scssont-letter-spacing(3.5px);
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+     }
+
+     .certificates-list{
+      @include scssont-margin-top(60px);
+     }
+
+     .banner{
+      @include scssont-margin(40px, -40px, -40px, -40px);
+     }
+  }
+  
+
+  .dx-davanti{
+    .text-wrap{
+      h3{
+        @include scssont-font-size(27px);
+        @include scssont-letter-spacing(3.5px);
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .block-logo{
+        @include scssont-margin-left(-53px);
+        @include scssont-margin-top(30px);
+        @include scssont-margin-bottom(30px);
+        img{
+           max-width: 65%;
+        }
+      }
+      h4{
+        font-weight: 900;
+        @include scssont-font-size(24px);
+        @include scssont-letter-spacing(3.5px);
+        @include scssont-margin-bottom(30px);
+      }
+      ul{
+        @include scssont-margin-left(20px);
+        padding: 0;
+        li{
+          @include scssont-font-size(24px);
+          @include scssont-letter-spacing(3.5px);
+          @include scssont-margin-bottom(10px);
+      
+        }
+      }
+     }
+     .image{
+       img{
+         max-width: 65%;
+       }
+     }
+  }
+
+
+
+
+
+
+}
+
+  .brand-banner {
+  .image-wrap {
+    &.aspect-custom {
+      padding-bottom: 50%;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brand-accordion-style2 {
+    p {
+      font-size: get-rem(16px);
+      letter-spacing: 0;
+    }
+  }
+}

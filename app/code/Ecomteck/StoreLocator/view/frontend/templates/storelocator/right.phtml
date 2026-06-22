@@ -1,0 +1,545 @@
+<?php
+/*
+ * Ecomteck_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category  Ecomteck
+ * @package   Ecomteck_StoreLocator
+ * @copyright 2016 Ecomteck
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ * @author    Ecomteck
+ */
+?>
+
+<?php /** @var \Ecomteck\StoreLocator\Block\StoreLocator $block */?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$storeCode = $storeManager->getStore()->getCode();
+$objDate = $objectManager->create('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+$todaydate = $objDate->date()->format('m/d/Y');
+$todayhrs = $objDate->date()->format('H');
+$todayhrs=$todayhrs+1;
+$todayhrs=sprintf("%02d", $todayhrs);
+if($todayhrs >= 24){
+	$todayhrs=00;
+}
+$todaysecond = $objDate->date()->format('i');
+$todayhrssecond=$todayhrs.$todaysecond;
+?>
+<?php $_store = $block->getCurrentStore();?>
+<?php $countryList = $block->storelocatorConfig->getCountries(); ?>
+<?php $storeId = $block->storelocatorConfig->getStoreId(); ?>
+<?php $distanceSteps = $block->storelocatorConfig->getDinstanceSteps();?>
+<?php
+$unit = $block->storelocatorConfig->getUnitOfLengthSettings();
+if($unit == 'km'){
+	$unitText = $block->storelocatorConfig->getTextSettings('kilometer_lang');
+} else {
+	$unitText = $block->storelocatorConfig->getTextSettings('mile_lang');
+}
+?>
+<?php $filters = $block->getFilters();?>
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storePickup = $objectManager->get('Ecomteck\StorePickup\Block\StorePickup');
+$stores=$storePickup->getStorePickupList();
+$storePickupImagepath=$storePickup->getStorePickupMediaPath();
+$allStoreOpeningdatetime='';
+$allStoreOpeningdatetimep=[];
+$allInstallerForMap = array();
+$nofitmentInstallerId = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('installer/general/no_fitment_installer');
+
+$storeCollectionFactory = $objectManager->get('Ecomteck\StoreLocator\Model\ResourceModel\Stores\CollectionFactory');
+$storeCollection = $storeCollectionFactory->create();
+$storeCollection->addActiveFilter();
+	
+/* foreach ($stores as $key => $store) {  
+	
+	$startendtime=array();
+	$opening_hours=json_decode($store['opening_hours']);
+
+	foreach ((array) $opening_hours as $key => $value) {
+		
+      if(isset($value) && !empty($value)) {		
+		   $value=str_replace('[', '', $value);
+		   $value=str_replace(']', '', $value);
+		   $value=str_replace(' ', '', $value);
+		   $value=explode(',', $value);
+		   $value = array_map('trim', $value);
+		   $startendtime[$key]=$value;
+	  }else{
+	  	   $startendtime[]=array();
+	  }
+
+	}
+
+   $allStoreOpeningdatetimep[$store->getStoresId()]=$startendtime;
+	if ($store['stores_id'] != $nofitmentInstallerId) {
+		$allInstallerForMap[] = array($store['name'],$store['address'],$store['latitude'],$store['longitude']);
+	}
+} */
+
+foreach ($storeCollection as $key => $store) {
+	//echo '<pre>';print_r($storesData->getOpeningHoursFormated());
+	$startendtime = array();
+	$opening_hours = $store->getOpeningHoursFormated();
+	
+	$allStoreOpeningdatetimep[$store->getStoresId()] = $opening_hours;
+	if ($store->getStoresId() != $nofitmentInstallerId) {
+		$allInstallerForMap[] = array($store['name'],$store['address'],$store['latitude'],$store['longitude']);
+	}
+}
+
+$cartRef=$this->getCartref();
+$isDisplayDateTime=0;
+if(isset($cartRef) && !empty($cartRef)){
+	$isDisplayDateTime=1;
+}
+?>
+<div class="fitting-location">
+<div class="bh-sl-container">
+	<div id="bh-sl-map-container" class="bh-sl-map-container">
+		<div id="bh-sl-map" class="bh-sl-map"></div>
+	</div>
+</div>
+
+
+   <div class="bh-sl-form-container">
+      <form id="bh-sl-user-location" method="post" action="#">
+         <div class="form-input">
+            <input type="text" id="bh-sl-address" placeholder="<?php echo __('Enter Address')?>" name="bh-sl-address" />
+         </div>
+         <?php /* if($block->storelocatorConfig->getNameSearchSettings()):?>
+         <div class="form-input">
+            <input type="text" id="bh-sl-search" placeholder="<?php echo __('Enter Store Name')?>" name="bh-sl-search" />
+         </div>
+         <?php endif; */ ?>
+         <button id="bh-sl-submit" type="submit"><?php echo __('Search for Installer')?></button>
+         <div class="filter-options" id="narrow-by-list" style="padding-top:20px;" data-role="content" data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'>
+            <div data-role="collapsible" class="filter-options-item" style="width:100%;">
+               <div data-role="title" class="filter-options-title"><?= /* @escapeNotVerified */ __('Filter') ?></div>
+               <div data-role="content">
+                  <div class="bh-sl-filters-container">
+                     <?php if($block->storelocatorConfig->getMaxDistanceSettings() && $distanceSteps):?>
+                     <label><?php echo __('Radius:')?></label>
+                     <select id="bh-sl-maxdistance" name="bh-sl-maxdistance">
+                        <?php foreach($distanceSteps as $step):?>
+                        <option value="<?php echo $step['distance']?>"><?php echo $step['distance']. ' '. $unitText?></option>
+                        <?php endforeach;?>
+                     </select>
+                     <?php endif;?>
+                     <?php foreach($filters as $name => $filter):?>
+                     <?php if($filter['renderer'] == 'checkbox'):?>
+                     <ul id="<?php echo $name?>-filters-container" class="bh-sl-filters">
+                        <li><strong><?php echo $filter['label']?></strong></li>
+                        <?php foreach($filter['items'] as $item):?>
+                        <li>
+                           <label>
+                           <input type="checkbox" name="<?php echo $name?>" value="<?php echo $item['value']?>"> <?php echo $item['label']?>
+                           </label>
+                        </li>
+                        <?php endforeach;?>
+                     </ul>
+                     <?php endif;?>
+                     <?php if($filter['renderer'] == 'select'):?>
+                     <ul id="<?php echo $name?>-filters-container" class="bh-sl-filters">
+                        <li><strong><?php echo $filter['label']?></strong></li>
+                        <li>
+                           <select name="<?php echo $name?>">
+                              <?php foreach($filter['items'] as $item):?>
+                              <option value="<?php echo $item['value']?>"><?php echo $item['label']?></option>
+                              <?php endforeach;?>
+                           </select>
+                        </li>
+                     </ul>
+                     <?php endif;?>
+                     <?php if($filter['renderer'] == 'radio'):?>
+                     <ul id="<?php echo $name?>-filters-container" class="bh-sl-filters">
+                        <li><strong><?php echo $filter['label']?></strong></li>
+                        <?php foreach($filter['items'] as $item):?>
+                        <li>
+                           <label>
+                           <input type="radio" name="<?php echo $name?>" value="<?php echo $item['value']?>"> <?php echo $item['label']?>
+                           </label>
+                        </li>
+                        <?php endforeach;?>
+                     </ul>
+                     <?php endif;?>
+                     <?php endforeach;?>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+
+  <div class="modal-title-custom text-center text-center">
+  	<h2 class="fw-900 text-uppercase"><?php echo __("Fitting Location Choice")?></h2>
+  </div>
+  
+  <div class="location-search-wrap">
+  <div class="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
+    <input id="tyinstaller" name="installerarea" type="text" placeholder="<?php echo __('Enter a location');?>...">
+    <div class="serach-distance" style="display:none;">
+        <select id="serach_distance" class="input_select dropdown-select">
+              <option value="10000" selected>10 Km</option>
+        </select>
+    </div>     
+    <button type="submit" id="calculatedistace" class="action-save button button-primary-200 filled-slide-right text-uppercase"><span><?php echo __('Search Location'); ?></span></button>
+    <div class="view-all-in-map">
+		<a href="javascript:void(0)" class="view-all button button-dark filled-slide-right text-uppercase" data-izimodal-open="#view-map">
+			<span><?php echo __('View All in Map');?></span></a>
+	</div>
+  </div>
+</div>
+
+   <div class="bh-sl-loc-list-wrap scrollbar-inner">
+   	<div class="container-fluid">
+   <div class="bh-sl-loc-list">
+      <ul class="list allInstaller row"></ul>
+      </div>
+   </div>
+   </div>
+
+   <div class="bh-sl-pagination-container">
+      <ol class="bh-sl-pagination"></ol>
+   </div>
+</div>
+
+<div id="view-map" data-izimodal-title="All Installers" class="izimodal-contentmodal-style1" data-izimodal-zindex="20000">
+		<div class="location-map" id="location-map">
+			<div id="map_canvas_all_installer"></div>
+		</div>
+</div>
+
+
+<!-- Start All installer in map model -->
+<!-- <div class="modal fade" id="viewAllInMap" tabindex="-1" role="dialog" aria-labelledby="viewAllInMapLabel" data-backdrop="static">
+	<div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+          <button type="button" class="close btn-close viewAllInMapClose" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+		<div class="modal-body">
+		  <div class="row">
+			<div class="col-md-12 modal_body_map">
+			  
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</div> -->
+
+
+<!-- End All installer in map model -->
+<script src="//maps.googleapis.com/maps/api/js"></script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+
+            "ecomteck_storelocator": <?php echo $block->getJsonConfig()?>
+
+        }
+    }
+</script>
+<?php if(!$isDisplayDateTime) { ?>
+<style type="text/css">
+.storelocator .datetimesubmit{display: none;}
+</style>
+<?php } ?>
+<script type="text/javascript">
+	var storeCode = '<?php echo $storeCode; ?>';
+	/* var alldatetime = {'00.00':'12:00am','00.30':'12:30am','01.00':'01:00am','01.30':'01:30am','02.00':'02:00am','02.30':'02:30am','03.00':'03:00am','03.30':'03:30am','04.00':'04:00am','04.30':'04:30am','05.00':'05:00am','05.30':'05:30am','06.00':'06:00am','06.30':'06:30am','07.00':'07:00am','07.30':'07:30am','08.00':'08:00am','08.30':'08:30am','09.00':'09:00am','09.30':'09:30am','10.00':'10:00am','10.30':'10:30am','11.00':'11:00am','11.30':'11:30am','12.00':'12:00pm','12.30':'12:30pm','13.00':'01:00pm','13.30':'01:30pm','14.00':'02:00pm','14.30':'02:30pm','15.00':'03:00pm','15.30':'03:30pm','16.00':'04:00pm','16.30':'04:30pm','17.00':'05:00pm','17.30':'05:30pm','18.00':'06:00pm','18.30':'06:30pm','19.00':'07:00pm','19.30':'07:30pm','20.00':'08:00pm','20.30':'08:30pm','21.00':'09:00pm','21.30':'09:30pm','22.00':'10:00pm','22.30':'10:30pm','23.00':'11:00pm','23.30':'11:30pm'
+		}; */
+	var alldatetime = {'00.00':'12:00am','01.00':'01:00am','02.00':'02:00am','03.00':'03:00am','04.00':'04:00am','05.00':'05:00am','06.00':'06:00am','07.00':'07:00am','08.00':'08:00am','09.00':'09:00am','10.00':'10:00am','11.00':'11:00am','12.00':'12:00am','13.00':'01:00pm','14.00':'02:00pm','15.00':'03:00pm','16.00':'04:00pm','17.00':'05:00pm','18.00':'06:00pm','19.00':'07:00pm','20.00':'08:00pm','21.00':'09:00pm','22.00':'10:00pm','23.00':'11:00pm','24.00':'12:00pm'
+		};	
+	
+    var todayhrssecond='<?php echo $todayhrssecond ?>';
+    //console.log('time-'+todayhrssecond);
+
+    var todaydate='<?php echo $todaydate ?>';
+    //console.log('date-'+todaydate);
+    var allStoreOpeningdatetimep=<?php echo json_encode($allStoreOpeningdatetimep) ?>;
+	//console.log(allStoreOpeningdatetimep);
+
+
+	require(["jquery", "mage/calendar"], function($){
+		$( document ).ajaxComplete(function( event, xhr, settings ) {
+		    $(".storePickupdatepicker").datepicker({
+	          showMonthAfterYear: false,
+	          dateFormat:'mm/dd/yy',
+	          changeMonth: true,
+	          changeYear: true,
+	          yearRange: '2020:2022',
+	          minDate:0,
+	        });
+	  
+	     	jQuery('.storePickupdatepicker').change(function(){ 
+				var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];  
+				var date = jQuery(this).datepicker('getDate');
+			    var selecteddate=jQuery(this).val();
+			    //var selecctedday=jQuery(this).datepicker('getDate').getDay();
+				var selecctedday = weekdays[date.getDay()];
+			    var storeid=jQuery(this).attr('data-storeid');
+
+			    jQuery('select[data-storetimeid='+storeid+']').empty();
+
+			    /* selecteddate=selecteddate.replace("/", "");
+			    selecteddate=selecteddate.replace("/", "");
+				
+			    todaydate=todaydate.replace("/", "");
+			    todaydate=todaydate.replace("/", ""); */
+			     
+			    var storeStartEnddate=allStoreOpeningdatetimep[storeid][selecctedday];
+
+			    /* var selectedStoreEndDate="00:00";
+			    if(storeStartEnddate != ''){
+			    	storeStartEnddate=storeStartEnddate.toString();
+                  var storeStartEnddateArray = storeStartEnddate.split(","); 
+                  selectedStoreEndDate=storeStartEnddateArray[1];
+                  selectedStoreEndDate=selectedStoreEndDate.replace(/\"/g, "");
+             
+			    }
+
+			    if(selectedStoreEndDate != '00:00') {
+				jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+					 value: 'am',
+					 text: 'AM',
+				 }));
+
+				jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+					 value: 'pm',
+					 text: 'PM',
+				 }));
+			   }else{
+					 jQuery('select[data-storetimeid='+storeid+']')
+				    .find('option')
+				    .remove()
+			   } */
+			   
+			  /* jQuery.each(alldatetime, function(key,value) { 
+				var valueKey=key+value;
+				valueKey=value;
+				
+				if(typeof storeStartEnddate[0] !== "undefined" && typeof storeStartEnddate[1] !== "undefined"){ 
+						var storeStartdate=storeStartEnddate[0];
+						var storeEndDate=storeStartEnddate[1];
+						key=key.replace(".", "");
+						storeStartdate=storeStartdate.replace(":", "");
+						storeEndDate=storeEndDate.replace(":", "");
+						storeStartdate=storeStartdate.replace(/\"/g, "");
+						storeEndDate=storeEndDate.replace(/\"/g, "");
+					
+					   if(key >= storeStartdate   && key <= storeEndDate){ 	
+							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+								 value: valueKey,
+								 text: valueKey,
+							 }));	
+						}else{
+								jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+								 value: valueKey,
+								 text: valueKey,
+								 disabled  : 'disabled',
+							 }));	
+						} 	
+				 }else{
+							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+								 value: valueKey,
+								 text: valueKey,
+								 disabled  : 'disabled',
+							 }));	
+				 }     
+
+			}); */
+
+			var installerTimes = allStoreOpeningdatetimep[storeid][selecctedday];
+			if(typeof installerTimes !== "undefined" && typeof installerTimes !== "undefined"){ 
+				jQuery.each(installerTimes, function(key,timeSlots) {
+					var storeStartTime = timeSlots.split("-");
+					var timeStr = jQuery.trim(storeStartTime[0]);
+					var endtimeStr = jQuery.trim(storeStartTime[1]);
+					const convertTime = timeStr => {
+					   const [time, modifier] = timeStr.split(' ');
+					   let [hours, minutes] = time.split(':');
+					   if (hours === '12') {
+						  hours = '00';
+					   }
+					   if (modifier === 'PM') {
+						  hours = parseInt(hours, 10) + 12;
+					   }
+					   return hours+':'+minutes;
+					};
+					var storeOpentimeStr = convertTime(timeStr);
+					var storeEndtimeStr = convertTime(endtimeStr);
+					
+					var dt = new Date();
+					var currentTime = dt.getHours() + ":" + dt.getMinutes();
+					
+					if(todaydate == selecteddate){
+						//console.log('same date');
+						if(typeof timeSlots != "undefined" && typeof timeSlots != ""){
+							var storestartDate = new Date(selecteddate +' '+ storeOpentimeStr);
+							var storeEndDate = new Date(selecteddate +' '+ currentTime);
+							if(storeEndDate < storestartDate){
+								jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+									 value: timeSlots,
+									 text: timeSlots,
+								 }));
+							}else{
+								//console.log('skip');
+								return;
+							}
+						}else{
+							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+							 value: timeSlots,
+							 text: timeSlots,
+							 disabled  : 'disabled',
+						 }));
+						}
+					}else{
+						//console.log('not same date');
+						if(typeof timeSlots != "undefined" && typeof timeSlots != ""){
+							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+								 value: timeSlots,
+								 text: timeSlots,
+							 }));
+						}else{
+							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+							 value: timeSlots,
+							 text: timeSlots,
+							 disabled  : 'disabled',
+						 }));
+						}
+					}
+					
+				});
+			}else{
+				jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
+					 value: '',
+					 text: 'No time slot is available.',
+					 disabled  : 'disabled',
+				 }));
+			}
+    	    }); 	
+         });
+		 
+		 // Start display all installer marker on the map
+		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
+		
+		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+		  zoom: 9,
+		  center: new google.maps.LatLng(24.90, 55.55),
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		
+		var infowindow = new google.maps.InfoWindow();
+
+		var marker, i;
+		
+		for (i = 0; i < allInstallerlocations.length; i++) {  
+		  marker = new google.maps.Marker({
+			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+			map: map
+		  });
+		  
+		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {  
+			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+			  infowindow.open(map, marker);
+			}
+		  })(marker, i));
+		}
+	  // End display all installer marker on the map
+	  /*one line below is to solve design issue modal over modal*/
+	  /*jQuery('#viewAllInMap').appendTo("body");*/
+	  jQuery(document).on('opening', '#info-video', function (e) {
+			jQuery(this).css({'z-index':'9999'});
+		});
+		 
+    });
+
+    function resetAllInstallerMap(){
+    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
+		
+		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+		  zoom: 9,
+		  center: new google.maps.LatLng(24.90, 55.55),
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		
+		var infowindow = new google.maps.InfoWindow();
+
+		var marker, i;
+		
+		for (i = 0; i < allInstallerlocations.length; i++) {  
+		  marker = new google.maps.Marker({
+			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+			map: map
+		  });
+		  
+		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {  
+			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+			  infowindow.open(map, marker);
+			}
+		  })(marker, i));
+		}
+    }
+    function sortInstallers(selectedMarkerLat,selectedMarkerLng){
+		if(selectedMarkerLat != "" && selectedMarkerLng != "") {
+			/*jQuery(".viewAllInMapClose").trigger("click");*/
+			jQuery('#view-map').iziModal('close');
+			setTimeout(function () {
+			  resetAllInstallerMap();
+			}, 1000)
+			var p1 = new google.maps.LatLng(selectedMarkerLat, selectedMarkerLng);
+			jQuery('.installer').each(function(i, obj) {
+				var p2 = new google.maps.LatLng(jQuery(this).attr('data-lat'), jQuery(this).attr('data-lng'));
+
+				var finalinstallerrdistance=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+
+				finalinstallerrdistance=parseFloat(finalinstallerrdistance);
+				console.log(storeCode);
+				if(storeCode == 'en'){
+					jQuery(this).find('.miles').html(finalinstallerrdistance+' kms');
+				} else {
+					jQuery(this).find('.miles').html(' كيلومترات '+finalinstallerrdistance);
+				}
+			    jQuery(this).find('.distance').show();
+				var selectdistance=jQuery('#serach_distance').val();
+				jQuery(this).removeAttr('data-position');
+				jQuery(this).attr('data-position',finalinstallerrdistance);
+				if(finalinstallerrdistance > selectdistance){
+					
+						jQuery(this).hide();
+				}else{
+						jQuery(this).show();
+				}
+			});
+			
+			jQuery('.installer').sort(function (a, b) {
+				var contentA =parseInt( jQuery(a).attr('data-position'));
+				var contentB =parseInt( jQuery(b).attr('data-position'));
+				return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+			}).appendTo(".allInstaller");
+		} else {
+			jQuery('.installer').each(function(i, obj) {
+			  jQuery(this).show();
+			  jQuery(this).find('.distance').hide();
+			  jQuery(this).find('.miles').html();
+			});
+		}
+	}   
+</script>

@@ -1,0 +1,57 @@
+<!-- ko if: isEnabled() -->
+<form id="form-term-condition">
+    <div class="term-condition">
+        <!-- ko if: isEnabledFirst() -->
+        <div class="field">
+            <div class="control">
+                <input class="checkbox" type="checkbox" data-validate="{'validate-one-required-by-name':true}" data-bind="checked: isCheckedByDefault()" name="term-condition[]" id="term-condition" />
+                <label class="label" for="term-condition">
+                    <a data-bind="i18n: getCheckoutLabel,click:showPopup"></a>
+                </label>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isEnabledTwo() -->
+        <div class="field">
+            <div class="control">
+                <input class="checkbox" type="checkbox" data-validate="{'validate-one-required-by-name':true}" data-bind="checked: isCheckedByDefaultTwo()" name="term-condition[]" id="term-condition-two" />
+                <label class="label" for="term-condition-two">
+                    <a data-bind="i18n: getCheckoutLabelTwo,click:showPopupTwo"></a>
+                </label>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isEnabledThree() -->
+        <div class="field">
+                <div class="control">
+                    <input class="checkbox" type="checkbox" data-validate="{'validate-one-required-by-name':true}" data-bind="checked: isCheckedByDefaultThree()" name="term-condition[]" id="term-condition-three" />
+                    <label class="label" for="term-condition-three">
+                        <a data-bind="i18n: getCheckoutLabelThree,click:showPopupThree"></a>
+                    </label>
+                </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isEnabledFour() -->
+        <div class="field">
+                <div class="control">
+                    <input class="checkbox" type="checkbox" data-validate="{'validate-one-required-by-name':true}" data-bind="checked: isCheckedByDefaultFour()" name="term-condition[]" id="term-condition-four" />
+                    <label class="label" for="term-condition-four">
+                        <a data-bind="i18n: getCheckoutLabelFour,click:showPopupFour"></a>
+                    </label>
+                </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isEnabledFive() -->
+        <div class="field">
+                <div class="control">
+                    <input class="checkbox" type="checkbox" data-validate="{'validate-one-required-by-name':true}" data-bind="checked: isCheckedByDefaultFive()" name="term-condition[]" id="term-condition-five" />
+                    <label class="label" for="term-condition-five">
+                        <a data-bind="i18n: getCheckoutLabelFive,click:showPopupFive"></a>
+                    </label>
+                </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</form>
+
+<!-- /ko -->

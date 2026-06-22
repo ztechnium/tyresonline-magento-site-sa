@@ -1,0 +1,167 @@
+.goodyear-cashback-offer {
+  .page-banner {
+    .banner-image {
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 36%;
+        }
+      }
+    }
+  }
+
+  .warranty-text {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .warranty-text h1 {
+    font-weight: 900;
+    font-size: 26px;
+    text-transform: uppercase;
+  }
+
+  .warranty-text h2 {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 0;
+    font-weight: 500;
+    color: #323232;
+  }
+
+  .warranty-text .button {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 20px;
+    background-color: $red-100;
+    padding: 5px 20px;
+    border-radius: 100px;
+    font-style: italic;
+    margin-top: 22px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1.6;
+    min-height: 1px;
+  }
+
+  .warranty-text .button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .content-block .left{
+    padding-left: 6%;
+  }
+
+  .content-block .left table {
+    border-color: #707070;
+  }
+
+  .content-block .left table tr th{
+    background-color: $red-100;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 900;
+    font-size: 15px;
+    padding: 0.4rem 0.5rem;
+    border-left: 1px solid #fff;
+    vertical-align: middle;
+  }
+
+  .content-block .left table tr th:last-child{
+    border-color: #707070;
+  }
+
+  .content-block .left table tr td{
+    text-align: center;
+    color: #323232;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #e1e1e1;
+    padding: 0.4rem 0.5rem;
+    border-top: 1px solid #707070;
+    vertical-align: middle;
+  }
+
+  .content-block .right-image {
+    text-align: center;
+  }
+
+  .content-block .right-image img {
+    max-width: 370px;
+    width: 100%;
+  }
+
+  .content-block .offer-feacher h5 {
+    font-weight: 900;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    text-transform: uppercase;
+  }
+
+  .content-block .offer-feacher h5 .icon {
+    max-width: 50px;
+    margin-left: 7px;
+    vertical-align: bottom;
+  }
+
+  .content-block .offer-feacher p {
+    font-size: 14px;
+    margin-bottom: 40px;
+    padding: 0;
+    letter-spacing: 0;
+    font-weight: 500;
+    color: #323232;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .goodyear-cashback-offer {
+    .content-block .left{
+      padding-left: 0;
+    }
+  } 
+}
+
+@include media-breakpoint-down(md) {
+  .goodyear-cashback-offer {
+
+    .page-banner {
+      .banner-image {
+        .image-wrap {
+          &.aspect-custom {
+            padding-bottom: 65%;
+          }
+        }
+      }
+    }
+
+    .warranty-text h1 {
+      font-size: 20px;
+    }
+
+    .warranty-text h2 {
+      font-size: 16px;
+    }
+
+    .warranty-text .button {
+      font-size: 14px;
+    }
+
+    .content-block .right-image {
+      margin-top: 5px;
+      margin-bottom: 30px;
+    }
+    .content-block .offer-feacher h5{
+      font-size: 14px;
+    }
+    .content-block .offer-feacher h5 .icon{
+      max-width: 40px;
+    }
+    .content-block .left table tr td, .content-block .left table tr td{
+      font-size: 13px;
+    }
+  }
+}

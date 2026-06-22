@@ -1,0 +1,122 @@
+<?php
+$partData = $block->getData();
+$partDetails = $partData['data'];
+//echo '<pre>';print_r($partDetails);die;
+?>
+<table>
+<?php if(count($partDetails) > 0){?>
+<?php
+$criteriaInfo = $partDetails['criteriaInfo'];
+if(isset($partDetails['productGroup'])){
+	$productGroupInfo = $partDetails['productGroup'];
+?>
+<?php foreach($productGroupInfo as $productGroup){?>
+	<tr>
+		<td><?php echo __('Product Group');?></td>
+		<td><?php echo $productGroup;?></td>
+	</tr>
+<?php } ?>
+<?php } ?>
+
+<?php
+if(isset($partDetails['status'])){
+	$statusInfo = $partDetails['status'];
+?>
+<?php foreach($statusInfo as $status){?>
+	<tr>
+		<td><?php echo __('Status');?></td>
+		<td><?php echo $status;?></td>
+	</tr>
+<?php } ?>
+<?php } ?>
+
+<?php if(isset($partDetails['linkageInfo'])){ ?>
+<?php $linkageInfoInfo = $partDetails['linkageInfo']; ?>
+<?php foreach($linkageInfoInfo as $linkageInfo){?>
+	<tr>
+		<td><?php echo $linkageInfo['criteriaDescription'];?></td>
+		<td><?php echo $linkageInfo['formattedValue'];?></td>
+	</tr>
+<?php } ?>
+<?php } ?>
+<?php foreach($criteriaInfo as $criteria){?>
+	<tr>
+		<td><?php echo $criteria['criteriaDescription'];?></td>
+		<td><?php echo $criteria['formattedValue'];?></td>
+	</tr>
+<?php } ?>
+
+<?php
+if(isset($partDetails['gtins'])){
+	$gtinsInfo = $partDetails['gtins'];
+?>
+	<tr>
+		<td><?php echo __('GTIN/EAN');?></td>
+<?php foreach($gtinsInfo as $gtins){?>
+		<td><?php echo $gtins;?></td>
+<?php } ?>
+	</tr>
+<?php } ?>
+
+<?php
+if(isset($partDetails['quantityPerPackage'])){
+	$quantityPerPackageInfo = $partDetails['quantityPerPackage'];
+?>
+	<tr>
+		<td><?php echo __('Packing Unit');?></td>
+	<?php foreach($quantityPerPackageInfo as $quantityPerPackage){?>
+		<td><?php echo $quantityPerPackage;?></td>
+	<?php } ?>
+	<tr>
+<?php } ?>
+<?php
+if(isset($partDetails['quantityPerPartPerPackage'])){
+	$quantityPerPartPerPackageInfo = $partDetails['quantityPerPartPerPackage'];
+?>
+	<tr>
+		<td><?php echo __('Quantity Per Packing Unit');?></td>
+	<?php foreach($quantityPerPartPerPackageInfo as $quantityPerPartPerPackage){?>
+		<td><?php echo $quantityPerPartPerPackage;?></td>
+	<?php } ?>
+	<tr>
+<?php } ?>
+
+<?php
+if(isset($partDetails['oemNumbers'])){
+	$oemNumbers = $partDetails['oemNumbers'];
+?>	
+	<th><?php echo __('OE Numbers');?></th>
+	<?php foreach($oemNumbers as $oemNumbersArray) {?>
+			<?php foreach($oemNumbersArray as $mfrName => $oemNumbersGroupArray) {?>
+			<tr>
+				<td><?php echo $mfrName;?></td>
+				<td><?php echo implode(', ', array_column($oemNumbersGroupArray, 'articleNumber'));?></td>
+			</tr>
+			<?php } ?>	
+	<?php } ?>
+<?php } ?>
+<?php
+if(isset($partDetails['pdf'])){
+	$pdfInfo = $partDetails['pdf'];
+?>
+	<?php foreach($pdfInfo as $pdf){?>
+		<tr>
+			<td><a href="<?php echo $pdf;?>" target="_blank"><?php echo __('Download PDF');?></a></td>
+		</tr>
+		<?php } ?>
+<?php } ?>
+
+<?php
+if(isset($partDetails['images'])){
+	$imagesInfo = $partDetails['images'];
+?>
+	<?php foreach($imagesInfo as $image){?>
+		<tr>
+			<td><img src="<?php echo $image;?>" target="_blank" alt=""></td>
+		</tr>
+		<?php } ?>
+<?php } ?>
+<?php } else{ ?>
+<p><?php echo __('Information is not available');?></p>
+<?php } ?>
+</table>

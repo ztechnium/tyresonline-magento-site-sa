@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Hdweb. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="hdweb_booking::booking" title="Appointment" module="Hdweb_Booking" sortOrder="10" parent="Hdweb_Core::parent" action="hdweb_booking/items/" resource="Hdweb_Booking::items"/>
+    </menu>
+</config>

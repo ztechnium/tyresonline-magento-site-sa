@@ -1,0 +1,126 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+
+.contact-index-index .columns .column.main {
+  padding-bottom: 0;
+}
+
+.contact-index-index .page-title-wrapper {
+  display: none;
+}
+
+.google-map-custom #store_map {
+  height: 28vw;
+}
+
+.contact-us {
+  padding: 60px 0;
+}
+
+.contact-us .section-title h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.contact-us .section-title {
+  margin-bottom: 30px;
+}
+
+.contact-us .contact-information .office h3,
+.contact-us .contact-information .follow-us h3 {
+  color: #d60000;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.contact-us .contact-information .office ul li {
+  font-size: 16px;
+  margin-bottom: 15px;
+  position: relative;
+  padding-right: 30px;
+}
+
+.contact-us .contact-information .office ul li span {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.contact-us .contact-information .office ul li span svg {
+  width: 20px;
+}
+
+.contact-us .contact-information .office ul li a{
+  direction: ltr;
+}
+
+.contact-us .contact-information .follow-us ul li {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.contact-us .contact-information .follow-us ul li a.link {
+  display: inline-block;
+  background-color: #eee;
+  padding: 8px 15px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.contact-us .contact-information .follow-us ul li a.link i {
+  margin-left: 10px;
+}
+
+.contact-us .contact-information .follow-us ul li a.link svg {
+  height: 20px;
+  fill: #fff;
+}
+
+.contact-us .contact-information .follow-us ul li a.fb {
+  background-color: #1873eb;
+}
+
+.contact-us .contact-information .follow-us ul li a.fb:hover {
+  background-color: #0a5fcf;
+}
+
+.contact-us .contact-information .follow-us ul li a.insta {
+  background-color: #2262aa;
+}
+
+.contact-us .contact-information .follow-us ul li a.insta:hover {
+  background-color: #165499;
+}
+
+.contact-us .contact-form {
+  margin-top: 40px;
+}
+
+@media screen and (max-width:767px) {
+  .contact-us {
+    padding: 40px 0;
+  }
+
+  .contact-us .section-title h1 {
+    font-size: 22px;
+  }
+
+  .contact-us .contact-information .follow-us {
+    margin-top: 20px
+  }
+
+  .google-map-custom #store_map {
+    height: calc(150px + 30vw);
+  }
+}

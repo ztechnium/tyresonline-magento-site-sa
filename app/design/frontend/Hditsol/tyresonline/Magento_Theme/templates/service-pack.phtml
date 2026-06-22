@@ -1,0 +1,1422 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="section page-banner servicepacks-banner">
+  <div class="container-fluid px-0">
+    <div class="banner-wrap">
+      <div class="contact-info mx-auto">
+        <ul class="list-custom d-flex justify-content-center align-items-center">
+        <li><a href="tel:80025589737"><span>800</span> <?php echo __('ALL TYRES');?></a></li>
+          <li><a href="tel:80025589737"><span>800</span> 255 89737</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="banner-image">
+      <div class="image-wrap picture aspect-custom loader text-center"><picture> <source srcset="<?php echo $mediaURL.'images/banner/servicepack.jpg'; ?>"> <img class="lazyload" src="<?php echo $mediaURL.'images/section/blank.png'; ?>" alt="" data-src="<?php echo $mediaURL.'images/banner/servicepack.jpg'; ?>"> </picture></div>
+    </div>
+  </div>
+</div>
+<div class="section search-slider d-md-none">
+  <div class="container">
+    <div class="search-oil-change">
+      <div class="banner-image">
+        <div class="image-wrap picture aspect-custom loader text-center"><picture> <source srcset="<?php echo $mediaURL.'images/banner/oil-change-sm.jpg'; ?>"> <img class="lazyload" src="<?php echo $mediaURL.'images/section/blank.png';?>" alt="<?php echo __('car service in dubai');?>" data-src="<?php echo $mediaURL.'images/banner/oil-change-sm.jpg'; ?>"> </picture></div>
+      </div>
+      <div class="search-wrap">
+        <div class="tabs-nav">
+          <ul class="list-custom d-flex justify-content-center">
+            <li><a href="#"><?php echo __('SEARCH BY VEHICLE');?></a></li>
+          </ul>
+        </div>
+        <div class="tabs-content">
+          <div class="tab-panel">
+            <div class="box">
+              <h4 class="fw-900"><?php echo __('OIL CHANGE');?></h4>
+              <div class="search-form">
+                <div class="row g-2">
+                  <div class="col-4"><a class="button button-white button-rounded button-block filled-slide-right button-text-overflow fw-light"><span>Width</span></a></div>
+                  <div class="col-4"><a class="button button-white button-rounded button-block filled-slide-right button-text-overflow fw-light"><span>Model</span></a></div>
+                  <div class="col-4"><a class="button button-white button-rounded button-block filled-slide-right button-text-overflow fw-light"><span>Year</span></a></div>
+                </div>
+                <div class="submit-bt"><button class="button button-white button-block button-rounded filled-slide-right button-text-overflow fw-normal" type="submit"><span><?php echo __('SEARCH');?></span></button></div>
+                <div class="info-text"><span class="fw-900 dot-animated"><?php echo __('SWIPE');?></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section service-pack compare-oil-change">
+  <div class="container custom-width">
+    <div class="section-title pack-title">
+      <div class="d-flex flex-wrap align-items-center justify-content-center ">
+        <h2 class="fw-900"><?php echo __('CAR SERVICE PACKS');?></h2>
+        <span class="image sprite"></span>
+      </div>
+    </div>
+    <div class="section-title text-center pack-title-compare hide">
+      <h3 class="fw-900 mb-0"><?php echo __('COMPARE');?></h3>
+      <h2 class="fw-900"><?php echo __('SERVICE PACKS');?> <span class="vs d-block d-sm-inline"><?php echo __('VS');?></span> <span class="text-compare"><?php echo __('OIL CHANGE');?></span></h2>
+    </div>
+    <div class="owl-carousel owl-theme service-box-slider owl-dot-style1">
+      <!-- Slider item -->
+      <div class="item">
+        <div class="row justify-content-center">
+          <!-- service col start -->
+          <div class="col-custom oil-change hide order-last order-md-first">
+            <div class="service-wrap">
+              <!-- collapse box hide show -->
+              <div class="collapse-box hover-transition left">
+                <a href="javascript:void(0)" class="toggle d-flex align-items-center justify-content-center">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right"
+                    class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 512">
+                    <path fill="currentColor"
+                      d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z">
+                    </path>
+                  </svg>
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left"
+                    class="svg-inline--fa fa-angle-left fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 512">
+                    <path fill="currentColor"
+                      d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z">
+                    </path>
+                  </svg>
+                </a>
+              </div>
+              <div class="overflow-cover">
+                <div class="row g-0 align-items-end align-items-md-stretch">
+                  <div class="col-12 col-md-6 left-oil-toggle">
+                    <div class="left-part">
+                      <div class="vehicle-info d-none d-md-block">
+                        <div class="box">
+                          <div class="box-title d-flex align-items-center">
+                            <h6><?php echo __('Your Vehicle');?></h6>
+                            <a href="javascript:void(0)" class="icon icon-sprite toi-edit add-vehicle"></a>
+                          </div>
+                          <div class="box-body">
+                            <ul class="list-custom">
+                              <li><strong><?php echo __('Make:');?></strong> <span>AUDI</span></li>
+                              <li><strong><?php echo __('Model:');?></strong> <span>A7 Sportback (4GA, 4...</span></li>
+                              <li><strong><?php echo __('Engine:');?></strong> <span>2.0 TFSI</span></li>
+                              <li><strong><?php echo __('Engine Capacity:');?></strong> <span>4.6L</span></li>
+                            </ul>
+                            <div class="vehicle-image d-flex align-items-center justify-content-center mx-n25">
+                              <img
+                                src="https://webservice.tecalliance.services/pegasus-3-0/documents/22275/DR1103/0?api_key=2BeBXg6D4poD8ex7mow1xebeBBDaHU1aaP8nsVWQbYi1N1bhjxJa"
+                                alt="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- if vehicle not add -->
+                      <!-- <div class="vehicle-info not-vehicle d-none d-md-block">
+                    <div class="box">
+                    <div class="box-title d-flex align-items-center">
+                      <h6>Add Your Vehicle</h6>
+                    </div>
+                    <div class="box-body d-flex align-items-center justify-content-center">
+                      <div class="inner-wrap text-center">
+                        <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><path d="M97.9,49c-0.5-2.2-2.3-2.7-2.3-2.7l-8.2,0.9l-3.9-9.1c-1.6,1.4-3.5,2.5-5.5,3.3l3.2,7.6l-62.4-0.1L26.1,32l0.1-0.2  c0.1-0.2,0.6-1.3,2.5-1.6h21.7c-0.8-1.9-1.4-4-1.7-6.2H28.5h-0.3c-4.9,0.5-7.3,3.7-8,5.7l-7.3,17.4l-7.9-0.8c0,0-1.8,0.5-2.3,2.7  c-0.5,2.2-1.1,6,3.9,7.3l2.7,0.3c-3.3,6.3-6.8,17.5,2.4,27c0.2,0.2,2.5,2,3.7,2.3v5.5c0,2.1,1.7,3.8,3.8,3.8h5  c2.1,0,3.8-1.7,3.8-3.8v-5.2h44.4v5.1c0,2.1,1.7,3.8,3.8,3.8h5.1c2.1,0,3.8-1.7,3.8-3.8v-5.5c1.4-0.4,2.6-1.2,3.5-2.3  C98,74.2,95,63,91.8,56.5l2.3-0.2C99,55,98.4,51.3,97.9,49z M23,70.7c-3.1,0-5.5-2.5-5.5-5.5c0-3.1,2.5-5.5,5.5-5.5  c3.1,0,5.5,2.5,5.5,5.5S26,70.7,23,70.7z M76.5,70.7c-3.1,0-5.5-2.5-5.5-5.5c0-3.1,2.5-5.5,5.5-5.5c3.1,0,5.5,2.5,5.5,5.5  C82.1,68.2,79.6,70.7,76.5,70.7z"></path><path fill="#D60000" d="M69.9,5.9C61.1,5.9,54,13,54,21.7s7.1,15.9,15.9,15.9c8.8,0,15.9-7.1,15.9-15.9S78.6,5.9,69.9,5.9z M76,23.4h-4.4v4.4  c0,0.9-0.8,1.7-1.7,1.7s-1.7-0.8-1.7-1.7v-4.4h-4.4c-0.9,0-1.7-0.8-1.7-1.7s0.8-1.7,1.7-1.7h4.4v-4.4c0-0.9,0.8-1.7,1.7-1.7  s1.7,0.8,1.7,1.7V20H76c0.9,0,1.7,0.8,1.7,1.7S76.9,23.4,76,23.4z"></path></svg>
+                        <div class="w-100"></div>
+                        <a href="javascript:void(0)" class="button button-outline-dark button-sm fw-normal button-rounded filled-slide-right mt-3 add-vehicle"><span>Your Vehicle</span></a>
+                      </div>
+                    </div>
+                    </div>
+                  </div> -->
+                      <div class="enquiry-selection">
+                        <div class="checkbox-list">
+                          <div class="box">
+                            <div class="box-title d-flex align-items-center">
+                              <h6>Your Enquiry</h6>
+                            </div>
+                            <div class="box-body p-0">
+                              <ul class="list-custom last-border-none">
+                                <li class="checked">
+                                  <div class="form-check-custom-style2 disabled">
+                                    <input class="checkbox" id="check1" type="checkbox" checked="">
+                                    <label for="check1"><span></span> <span class="text">Oil Change</span></label>
+                                  </div>
+                                  <a href="javascript:void(0)" data-modal="oilChange"
+                                    class="icon icon-sprite toi-edit"></a>
+                                </li>
+                                <li>
+                                  <div class="form-check-custom-style2">
+                                    <!-- If disabled. add class "disabled" -->
+                                    <input class="checkbox" id="check2" type="checkbox">
+                                    <label for="check2"><span></span> <span class="text">Oil Filter</span></label>
+                                  </div>
+                                  <a href="javascript:void(0)" data-modal="oilFilter"
+                                    class="icon icon-sprite toi-edit"></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="checkbox-list">
+                          <div class="box">
+                            <div class="box-title d-flex align-items-center">
+                              <h6>Depending on your vehicle's mileage <br /> you might need the following</h6>
+                              <span class="icon icon-sprite toi-info-outline hide" data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Depending on your vehicle's mileage you might need the following"></span>
+                            </div>
+                            <div class="box-body p-0">
+                              <ul class="list-custom last-border-none">
+                                <li>
+                                  <div class="form-check-custom-style2">
+                                    <input class="checkbox" id="check4" type="checkbox">
+                                    <label for="check4"><span></span> <span class="text">Air Filter</span></label>
+                                  </div>
+                                  <a href="javascript:void(0)" data-modal="airFilter"
+                                    class="icon icon-sprite toi-edit"></a>
+                                </li>
+                                <li>
+                                  <div class="form-check-custom-style2">
+                                    <input class="checkbox" id="check3" type="checkbox">
+                                    <label for="check3"><span></span> <span class="text">AC Filter</span></label>
+                                  </div>
+                                  <a href="javascript:void(0)" data-modal="acFilter"
+                                    class="icon icon-sprite toi-edit"></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Your Enquiry Mobile -->
+                      <div class="selection-box top-position" id="yourEnquiry">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6>Your Enquiry</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <ul class="list-custom last-border-none">
+                                  <li class="checked">
+                                    <div class="form-check-custom-style2 disabled">
+                                      <input class="checkbox" id="check45345" type="checkbox" checked="">
+                                      <label for="check45345"><span></span> <span class="text">Oil Change</span></label>
+                                    </div>
+                                    <a href="javascript:void(0)" data-modal="oilChange"
+                                      class="icon icon-sprite toi-edit"></a>
+                                  </li>
+                                  <li>
+                                    <div class="form-check-custom-style2">
+                                      <!-- If disabled. add class "disabled" -->
+                                      <input class="checkbox" id="check59856" type="checkbox">
+                                      <label for="check59856"><span></span> <span class="text">Oil Filter</span></label>
+                                    </div>
+                                    <a href="javascript:void(0)" data-modal="oilFilter"
+                                      class="icon icon-sprite toi-edit"></a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6>Depending on your vehicle's mileage <br /> you might need the following</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <ul class="list-custom">
+                                  <li>
+                                    <div class="form-check-custom-style2">
+                                      <input class="checkbox" id="check686756" type="checkbox">
+                                      <label for="check686756"><span></span> <span class="text">Air
+                                          Filter</span></label>
+                                    </div>
+                                    <a href="javascript:void(0)" data-modal="airFilter"
+                                      class="icon icon-sprite toi-edit"></a>
+                                  </li>
+                                  <li>
+                                    <div class="form-check-custom-style2">
+                                      <input class="checkbox" id="check65656" type="checkbox">
+                                      <label for="check65656"><span></span> <span class="text">AC Filter</span></label>
+                                    </div>
+                                    <a href="javascript:void(0)" data-modal="acFilter"
+                                      class="icon icon-sprite toi-edit"></a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Your Enquiry Mobile -->
+                      <!-- Oil Change -->
+                      <div class="selection-box top-position" id="oilChange">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check6" name="r1" type="radio">
+                                        <label for="check6"><span></span> <span class="text">Matrax</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check7" name="r1" type="radio">
+                                        <label for="check7"><span></span> <span class="text">Mobil</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check8" name="r1" type="radio">
+                                        <label for="check8"><span></span> <span class="text">Stop and Go</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check10" name="r2" type="radio">
+                                        <label for="check10"><span></span> <span class="text">5W-30</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check11" name="r2" type="radio">
+                                        <label for="check11"><span></span> <span class="text">5W-40</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check12" name="r2" type="radio">
+                                        <label for="check12"><span></span> <span class="text">5W-50</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check13" name="r2" type="radio">
+                                        <label for="check13"><span></span> <span class="text">5W-60</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check14" name="r2" type="radio">
+                                        <label for="check14"><span></span> <span class="text">5W-60</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing oil brand or oil grade will render same result in Oil Change
+                              selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Oil Change End -->
+                      <!-- Oil Filter -->
+                      <div class="selection-box top-position" id="oilFilter">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Filter Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check16" name="ofb1" type="radio">
+                                        <label for="check16"><span></span> <span class="text">Knecht</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Filter</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check17" name="of1" type="radio">
+                                        <label for="check17"><span></span> <span class="text">OX 387D1</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing oil filter brand or oil filter will render same result in
+                              Oil Filter selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Oil Filter End -->
+                      <!-- Air Filter -->
+                      <div class="selection-box top-position" id="airFilter">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Air Filter Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check18" name="r1" type="radio">
+                                        <label for="check18"><span></span> <span class="text">Knecht</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Air Filter</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check19" name="r2" type="radio">
+                                        <label for="check19"><span></span> <span class="text">LX 2077/3</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing air filter brand or air filter will render same result in
+                              Air Filter selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Air Filter End -->
+                      <!-- AC Filter -->
+                      <div class="selection-box top-position" id="acFilter">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">AC Filter Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check20" name="r1" type="radio">
+                                        <label for="check20"><span></span> <span class="text">Knecht</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">AC Filter</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-inner">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check20" name="r2" type="radio">
+                                        <label for="check20"><span></span> <span class="text">LX 2077/3</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing ac filter brand or ac filter will render same result in AC
+                              Filter selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- AC Filter End -->
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 right-oil-toggle">
+                    <div class="pack-info d-flex flex-wrap justify-content-md-center">
+                      <div class="top align-self-start">
+                        <div class="pack-name">
+                          <h1 class="fw-900 fst-italic mb-0">OIL <br /> CHANGE</h1>
+                          <span class="fst-italic fw-500">CLASSIC</span>
+                        </div>
+                      </div>
+                      <div class="w-100"></div>
+                      <div class="bottom position-relative align-self-start align-self-md-end">
+                        <div class="pack-book">
+                          <p>Check ( <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.803 13.482">
+                              <path id="Check_White" data-name="Check White"
+                                d="M494.238,421.622l1.872,3.634s3.041-7.386,7.838-9.848c-.117,1.759-.585,3.283.234,5.158-2.106.469-6.434,5.745-7.838,8.324-1.989-2.462-4.328-4.338-5.966-4.924Z"
+                                transform="translate(-490.378 -415.408)" fill="#fff" />
+                            </svg> ) to indicate <br /> items to include</p>
+                          <div class="price">
+                            <span class="fst-italic fw-500 d-inline-block">AED</span><strong
+                              class="fw-900 fst-italic">305.68</strong>
+                          </div>
+                          <button type="submit"
+                            class="button button-white button-rounded custom-size filled-slide-up fw-500"><span>BOOK
+                              NOW</span></button>
+                          <a href="javascript:void(0)" data-modal="yourEnquiry"
+                            class="icon icon-sprite toi-info-outline hide"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- service col end -->
+          <!-- compare service col start -->
+          <div class="col-custom compare-service order-first order-md-last">
+            <div class="service-wrap">
+              <!-- collapse box hide show -->
+              <div class="collapse-box hover-transition right">
+                <a href="javascript:void(0)" class="toggle d-flex align-items-center justify-content-center">
+                  <svg aria-hidden="tue" focusable="false" data-prefix="fas" data-icon="angle-left"
+                    class="svg-inline--fa fa-angle-left fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 512">
+                    <path fill="currentColor"
+                      d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z">
+                    </path>
+                  </svg>
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right"
+                    class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 512">
+                    <path fill="currentColor"
+                      d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z">
+                    </path>
+                  </svg>
+                </a>
+              </div>
+              <!-- pack action button -->
+              <div class="pack-action left-position">
+                <ul class="list-custom d-flex justify-content-center d-md-inline">
+                  <li>
+                    <a href="javascript:void(0)" class="service-compare" data-bs-toggle="tooltip"
+                      data-bs-placement="right" title="Compare to oil change">
+                      <div class="icon hover-transition d-flex align-items-center justify-content-center">
+                        <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" data-src="<?php echo $mediaURL.'images/icon/service-compare-red-200.gif'; ?>"
+                          class="lazyload" alt="" />
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" data-izimodal-open="#inquiry" class="email" data-bs-toggle="tooltip"
+                      data-bs-placement="right" title="Email">
+                      <div class="icon hover-transition d-flex align-items-center justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.555 20.262">
+                          <g transform="translate(-52.779 -232.202)">
+                            <path
+                              d="M79.293,241.341h0l-1.948,1.673.016.016-2.184,1.91-.035-.035-4.562,3.918a1.628,1.628,0,0,1-2.047,0l-4.562-3.918-.023.023-2.179-1.914-8.99-7.721v18.564H86.334V235.294Z"
+                              transform="translate(0 -1.394)" fill="currentColor" />
+                            <path d="M85.9,232.2H57.246l14.325,12.3Z" transform="translate(-2.014)"
+                              fill="currentColor" />
+                          </g>
+                        </svg>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" data-izimodal-open="#inquiry" class="download" data-bs-toggle="tooltip"
+                      data-bs-placement="right" title="Download">
+                      <div class="icon hover-transition d-flex align-items-center justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.988 29.649">
+                          <g transform="translate(-68.982 -62.236)">
+                            <path
+                              d="M88.059,91.28H70.894a1.907,1.907,0,0,0-1.349,3.256l8.583,8.583a1.909,1.909,0,0,0,2.7,0l8.582-8.583A1.907,1.907,0,0,0,88.059,91.28Z"
+                              transform="translate(0 -11.791)" fill="currentColor" />
+                            <path
+                              d="M68.983,83.512h0a2.005,2.005,0,0,1,2-2H87.97a2.006,2.006,0,0,1,2,2h0a2.006,2.006,0,0,1-2,2H70.982A2.005,2.005,0,0,1,68.983,83.512Z"
+                              transform="translate(0 -7.825)" fill="currentColor" />
+                            <path
+                              d="M68.983,76.544h0a1.624,1.624,0,0,1,1.619-1.62H88.35a1.624,1.624,0,0,1,1.62,1.62h0a1.624,1.624,0,0,1-1.62,1.62H70.6A1.624,1.624,0,0,1,68.983,76.544Z"
+                              transform="translate(0 -5.151)" fill="currentColor" />
+                            <path
+                              d="M68.983,70.461h0a1.243,1.243,0,0,1,1.24-1.24H88.73a1.243,1.243,0,0,1,1.24,1.24h0a1.243,1.243,0,0,1-1.24,1.24H70.223A1.243,1.243,0,0,1,68.983,70.461Z"
+                              transform="translate(0 -2.836)" fill="currentColor" />
+                            <path
+                              d="M68.983,66.147h0a.862.862,0,0,1,.86-.861H89.109a.862.862,0,0,1,.861.861h0a.862.862,0,0,1-.861.861H69.843A.862.862,0,0,1,68.983,66.147Z"
+                              transform="translate(0 -1.238)" fill="currentColor" />
+                            <path
+                              d="M68.983,62.717h0a.481.481,0,0,1,.481-.481H89.489a.481.481,0,0,1,.481.481h0a.481.481,0,0,1-.481.481H69.464A.481.481,0,0,1,68.983,62.717Z"
+                              transform="translate(0)" fill="currentColor" />
+                          </g>
+                        </svg>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="overflow-cover">
+                <div class="row g-0 align-items-md-stretch">
+                  <div class="col-12 col-md-6 left-services-toggle">
+                    <div class="left-part-cover h-100 d-flex d-md-block flex-wrap">
+                      <!-- show onlay mobile -->
+                      <div class="sm-screen d-flex flex-wrap d-md-none align-self-start">
+                        <!-- Pack name mobile -->
+                        <div class="pack-info w-100 h-auto">
+                          <div class="top">
+                            <div class="pack-name position-relative">
+                              <h1 class="fw-900 fst-italic mb-0">STANDARD SERVICE</h1>
+                              <a href="javascript:void(0)" data-modal="servicePack"
+                                class="icon icon-sprite toi-edit-outline hide"></a>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Pack name mobile end -->
+                        <!-- vehicle mobile -->
+                        <div class="vehicle added w-100 h-auto">
+                          <div class="position-relative d-flex align-items-center justify-content-end">
+                            <span data-izimodal-open="#add-vehicle-modal" class="icon icon-sprite toi-edit"></span>
+                            <div class="vehical-info text-end">
+                              <span class="text fw-500 d-block">My Vehicle</span>
+                              <span class="info fw-500 d-block" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="BMW X5 x Drive 35 i 500x s 100x">BMW X5 x Drive 35 i 500x s 100x</span>
+                            </div>
+                            <span class="icon toi-car">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.479 31.564">
+                                <path id="Path_143" data-name="Path 143"
+                                  d="M373.242,798.446l-.055-1.215c-.018-.875-4.367-.6-4.367-.6a.882.882,0,0,0-.771.693c-.091-.2-.182-.395-.273-.589-.049-.115-.1-.231-.152-.346-1.67-3.674-3.28-6.632-4.543-7.519a5.14,5.14,0,0,0-1.865-.492c-.425-.061-.887-.109-1.294-.134-3.225-.243-5.563-.364-8.916-.364s-5.691.121-8.916.364c-.407.024-.869.073-1.294.134a5.139,5.139,0,0,0-1.865.492c-1.263.887-2.873,3.845-4.543,7.519-.049.115-.1.231-.152.346-.091.194-.182.389-.273.589a.883.883,0,0,0-.771-.693s-4.349-.273-4.367.6l-.055,1.215a.954.954,0,0,0,.68,1.045s2.514.523,2.958.729v.006a8.088,8.088,0,0,0-.541.96s-1.026,1.974-1.257,2.472a6.965,6.965,0,0,0-.395.9,5.626,5.626,0,0,0-.292,1.95v.006a44.256,44.256,0,0,0,.443,4.652v7.161a1.12,1.12,0,0,0,1.124,1.118h3.832a1.115,1.115,0,0,0,1.117-1.118v-3.784h1.512a1.719,1.719,0,0,0,.923-.267l.553-.352a1.7,1.7,0,0,1,.917-.267h21.318a1.7,1.7,0,0,1,.917.267l.553.352a1.72,1.72,0,0,0,.923.267h1.512v3.784a1.115,1.115,0,0,0,1.118,1.118h3.832a1.12,1.12,0,0,0,1.124-1.118v-7.161a44.361,44.361,0,0,0,.443-4.652v-.006a5.622,5.622,0,0,0-.292-1.95,6.961,6.961,0,0,0-.395-.9c-.231-.5-1.257-2.472-1.257-2.472a8.087,8.087,0,0,0-.541-.96v-.006c.443-.206,2.958-.729,2.958-.729A.954.954,0,0,0,373.242,798.446Zm-39.368,9.548a1.789,1.789,0,0,1-1.61-1.628l-.2-1.846a.963.963,0,0,1,.291-.808l.109-.1a.848.848,0,0,1,.887-.194l2.375.856a11.047,11.047,0,0,0,1.178.358,2.123,2.123,0,0,1,1.579,1.792l.255,1.9C336.661,808.2,335.021,808.078,333.874,807.993Zm25.873.006a1.565,1.565,0,0,1-.978.407c-2.108.237-5.824.212-7.762.212s-5.654.024-7.762-.212a1.565,1.565,0,0,1-.978-.407c-.65-.607-.929-2.952-.929-2.952.4.28,5.029.419,9.669.419s9.268-.14,9.669-.419C360.676,805.048,360.4,807.392,359.747,808Zm-23.365-9.882c.018-.073.036-.146.061-.225.036-.146.085-.3.134-.462.134-.431.3-.9.492-1.373a19.718,19.718,0,0,1,2.818-5.181h.006a2.483,2.483,0,0,1,1.664-.741,88.825,88.825,0,0,1,18.9,0,2.483,2.483,0,0,1,1.664.741h.006a19.726,19.726,0,0,1,2.818,5.181c.194.474.358.941.492,1.373.049.158.1.316.134.462.024.079.043.152.061.225C362.358,797.646,339.656,797.646,336.382,798.118Zm33.276,5.594a.963.963,0,0,1,.291.808l-.2,1.846a1.789,1.789,0,0,1-1.61,1.628c-1.148.085-2.788.206-4.865.328l.255-1.9a2.123,2.123,0,0,1,1.579-1.792,11.046,11.046,0,0,0,1.178-.358l2.375-.856a.848.848,0,0,1,.887.194Z"
+                                  transform="translate(-328.767 -787.878)" />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                        <!-- IF Add Vehical -->
+                        <!-- <div class="vehicle added w-100 h-auto">
+                  <div class="position-relative d-flex align-items-center justify-content-end">
+                      <a href="javascript:void(0)" data-izimodal-open="#add-vehicle-modal" class="d-flex align-items-center h-100">
+                      <span class="icon icon-sprite toi-edit"></span>
+                      <span class="text fw-500">Add Vehicle</span>
+                      <i class="icon toi-car">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.479 31.564"> <path id="Path_143" data-name="Path 143" d="M373.242,798.446l-.055-1.215c-.018-.875-4.367-.6-4.367-.6a.882.882,0,0,0-.771.693c-.091-.2-.182-.395-.273-.589-.049-.115-.1-.231-.152-.346-1.67-3.674-3.28-6.632-4.543-7.519a5.14,5.14,0,0,0-1.865-.492c-.425-.061-.887-.109-1.294-.134-3.225-.243-5.563-.364-8.916-.364s-5.691.121-8.916.364c-.407.024-.869.073-1.294.134a5.139,5.139,0,0,0-1.865.492c-1.263.887-2.873,3.845-4.543,7.519-.049.115-.1.231-.152.346-.091.194-.182.389-.273.589a.883.883,0,0,0-.771-.693s-4.349-.273-4.367.6l-.055,1.215a.954.954,0,0,0,.68,1.045s2.514.523,2.958.729v.006a8.088,8.088,0,0,0-.541.96s-1.026,1.974-1.257,2.472a6.965,6.965,0,0,0-.395.9,5.626,5.626,0,0,0-.292,1.95v.006a44.256,44.256,0,0,0,.443,4.652v7.161a1.12,1.12,0,0,0,1.124,1.118h3.832a1.115,1.115,0,0,0,1.117-1.118v-3.784h1.512a1.719,1.719,0,0,0,.923-.267l.553-.352a1.7,1.7,0,0,1,.917-.267h21.318a1.7,1.7,0,0,1,.917.267l.553.352a1.72,1.72,0,0,0,.923.267h1.512v3.784a1.115,1.115,0,0,0,1.118,1.118h3.832a1.12,1.12,0,0,0,1.124-1.118v-7.161a44.361,44.361,0,0,0,.443-4.652v-.006a5.622,5.622,0,0,0-.292-1.95,6.961,6.961,0,0,0-.395-.9c-.231-.5-1.257-2.472-1.257-2.472a8.087,8.087,0,0,0-.541-.96v-.006c.443-.206,2.958-.729,2.958-.729A.954.954,0,0,0,373.242,798.446Zm-39.368,9.548a1.789,1.789,0,0,1-1.61-1.628l-.2-1.846a.963.963,0,0,1,.291-.808l.109-.1a.848.848,0,0,1,.887-.194l2.375.856a11.047,11.047,0,0,0,1.178.358,2.123,2.123,0,0,1,1.579,1.792l.255,1.9C336.661,808.2,335.021,808.078,333.874,807.993Zm25.873.006a1.565,1.565,0,0,1-.978.407c-2.108.237-5.824.212-7.762.212s-5.654.024-7.762-.212a1.565,1.565,0,0,1-.978-.407c-.65-.607-.929-2.952-.929-2.952.4.28,5.029.419,9.669.419s9.268-.14,9.669-.419C360.676,805.048,360.4,807.392,359.747,808Zm-23.365-9.882c.018-.073.036-.146.061-.225.036-.146.085-.3.134-.462.134-.431.3-.9.492-1.373a19.718,19.718,0,0,1,2.818-5.181h.006a2.483,2.483,0,0,1,1.664-.741,88.825,88.825,0,0,1,18.9,0,2.483,2.483,0,0,1,1.664.741h.006a19.726,19.726,0,0,1,2.818,5.181c.194.474.358.941.492,1.373.049.158.1.316.134.462.024.079.043.152.061.225C362.358,797.646,339.656,797.646,336.382,798.118Zm33.276,5.594a.963.963,0,0,1,.291.808l-.2,1.846a1.789,1.789,0,0,1-1.61,1.628c-1.148.085-2.788.206-4.865.328l.255-1.9a2.123,2.123,0,0,1,1.579-1.792,11.046,11.046,0,0,0,1.178-.358l2.375-.856a.848.848,0,0,1,.887.194Z" transform="translate(-328.767 -787.878)"/> </svg>
+                      </i>
+                    </a>
+                    </div>
+                </div>  -->
+                      </div>
+                      <!-- show onlay mobile End -->
+                      <div class="pack-info d-flex flex-wrap justify-content-center">
+                        <div class="top align-self-start d-none d-md-block position-relative">
+                          <div class="pack-name">
+                            <h2 class="fw-900 fst-italic mb-0">STANDARD <br /> SERVICE</h2>
+                            <a href="javascript:void(0)" data-modal="servicePack"
+                              class="icon icon-sprite toi-edit-outline hide"></a>
+                          </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="bottom align-self-end position-relative">
+                          <div class="pack-book">
+                            <div class="price">
+                              <span class="fst-italic fw-500 d-inline-block">AED</span><strong
+                                class="fw-900 fst-italic">778.2</strong>
+                            </div>
+                            <button type="submit"
+                              class="button button-white button-rounded custom-size filled-slide-up fw-500"><span>BOOK
+                                NOW</span></button>
+                            <a href="javascript:void(0)" data-modal="servicesList"
+                              class="icon icon-sprite toi-info-outline hide"></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col col-md-6 right-services-toggle">
+                    <div class="services-selection">
+                      <!-- Services List Start -->
+                      <div class="content-box" id="servicesList">
+                        <a href="javascript:void(0)"
+                          class="box-close bg-color-red d-flex align-items-center justify-content-center d-md-none"><svg
+                            aria-hidden="true" focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <ul class="list-custom services-list d-flex flex-wrap align-items-stretch last-border-none">
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Oil Change <a
+                              href="javascript:void(0)" data-modal="compareOilChange"
+                              class="icon bg-red-600 icon-sprite toi-edit"></a></li>
+                          <!-- if service available. add class "item-inc" -->
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Oil Filter <a
+                              href="javascript:void(0)" data-modal="compareOilFilter"
+                              class="icon bg-red-600 icon-sprite toi-edit"></a></li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Air Filter <a
+                              href="javascript:void(0)" data-modal="compareAirFilter"
+                              class="icon bg-red-600 icon-sprite toi-edit"></a></li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>AC Filter <a
+                              href="javascript:void(0)" data-modal="compareAcFilter"
+                              class="icon bg-red-600 icon-sprite toi-edit"></a></li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Spark Plug Check</li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Brake Pads Check <a
+                              href="javascript:void(0)" data-modal="brakePads"
+                              class="icon bg-red-600 icon-sprite toi-info"></a></li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Computer Diagnostic</li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>AC Gas Top Up</li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Fluids Top Up <a
+                              href="javascript:void(0)" data-modal="fluidsTop"
+                              class="icon bg-red-600 icon-sprite toi-info"></a></li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Windscreen Washer</li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>360<sup>o</sup> Car
+                            Check <a href="javascript:void(0)" data-modal="carCheck360"
+                              class="icon bg-red-600 icon-sprite toi-info"></a></li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Car Wash</li>
+                          <li class="item-inc"><span class="icon icon-sprite toi-status"></span>Car Pick & Drop <a
+                              href="javascript:void(0)" data-modal="carPick"
+                              class="icon bg-red-600 icon-sprite toi-info"></a></li>
+                        </ul>
+                      </div>
+                      <!-- Services List End -->
+                      <!-- Compare Oil Change -->
+                      <div class="selection-box top-position" id="compareOilChange">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check6" name="r1" type="radio">
+                                        <label for="check6"><span></span> <span class="text">Matrax</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check7" name="r1" type="radio">
+                                        <label for="check7"><span></span> <span class="text">Mobil</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check8" name="r1" type="radio">
+                                        <label for="check8"><span></span> <span class="text">Stop and Go</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check10" name="r2" type="radio">
+                                        <label for="check10"><span></span> <span class="text">5W-30</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check11" name="r2" type="radio">
+                                        <label for="check11"><span></span> <span class="text">5W-40</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check12" name="r2" type="radio">
+                                        <label for="check12"><span></span> <span class="text">5W-50</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check13" name="r2" type="radio">
+                                        <label for="check13"><span></span> <span class="text">5W-60</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check14" name="r2" type="radio">
+                                        <label for="check14"><span></span> <span class="text">5W-60</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing oil brand or oil grade will render same result in Oil Change
+                              selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Compare Oil Change End -->
+                      <!-- Compare Oil Filter -->
+                      <div class="selection-box top-position" id="compareOilFilter">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Filter Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check16" name="ofb1" type="radio">
+                                        <label for="check16"><span></span> <span class="text">Knecht</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Oil Filter</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check17" name="of1" type="radio">
+                                        <label for="check17"><span></span> <span class="text">OX 387D1</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing oil filter brand or oil filter will render same result in
+                              Oil Filter selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Compare Oil Filter End -->
+                      <!-- Compare Air Filter -->
+                      <div class="selection-box top-position" id="compareAirFilter">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Air Filter Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check18" name="r1" type="radio">
+                                        <label for="check18"><span></span> <span class="text">Knecht</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Air Filter</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check19" name="r2" type="radio">
+                                        <label for="check19"><span></span> <span class="text">LX 2077/3</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing air filter brand or air filter will render same result in
+                              Air Filter selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Compare Air Filter End -->
+                      <!-- Compare AC Filter -->
+                      <div class="selection-box top-position" id="compareAcFilter">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">AC Filter Brand</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check20" name="r1" type="radio">
+                                        <label for="check20"><span></span> <span class="text">Knecht</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="checkbox-list fix-item4">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">AC Filter</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2">
+                                        <input class="radio" id="check20" name="r2" type="radio">
+                                        <label for="check20"><span></span> <span class="text">LX 2077/3</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-block">
+                            <p>In Comparison mode, changing ac filter brand or ac filter will render same result in AC
+                              Filter selection.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Compare AC Filter End -->
+                      <!-- 360o Car Check -->
+                      <div class="content-box top-position" id="carCheck360">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="box bg-red-600 full-height">
+                            <div class="box-title d-flex align-items-center">
+                              <h6 class="fs-18">360<sup>º</sup> Car Check</h6>
+                            </div>
+                            <div class="box-body padding-20">
+                              <div class="text-block scrollbar-outer scrollbar-style2">
+                                <h6>Vehicle On Floor</h6>
+                                <ul class="list-custom list-text">
+                                  <li>Headlights</li>
+                                  <li>Direction indicator bulbs Position bulbs</li>
+                                  <li>Stop bulbs</li>
+                                  <li>Reverse bulbs</li>
+                                  <li>Fog bulbs</li>
+                                  <li>Fault codes reading</li>
+                                  <li>Wiper blades</li>
+                                  <li>Washer</li>
+                                  <li>Horn</li>
+                                  <li>Warning lights on dashboard Next service</li>
+                                  <li>Handbrake</li>
+                                </ul>
+                                <h6>Engine Bay</h6>
+                                <ul class="list-custom list-text">
+                                  <li>Oil leaks</li>
+                                  <li>Oil level</li>
+                                  <li>Washer level</li>
+                                  <li>Brake fluid condition Brake fluid level</li>
+                                  <li>Coolant leaks</li>
+                                  <li>Coolant level</li>
+                                  <li>Power steering fluid level Accessories belt</li>
+                                  <li>Air filter</li>
+                                  <li>Ac filter</li>
+                                  <li>Battery</li>
+                                </ul>
+                                <h6>Vehicle Half Raised</h6>
+                                <ul class="list-custom list-text">
+                                  <li>Front brake pads</li>
+                                  <li>Front brake discs</li>
+                                  <li>Rear brake pads</li>
+                                  <li>Rear brake discs</li>
+                                  <li>Tyre pressure</li>
+                                  <li>Tyre DOT</li>
+                                  <li>Tyre condition</li>
+                                </ul>
+                                <h6>Vehicle Fully Raised</h6>
+                                <ul class="list-custom list-text mb-0">
+                                  <li>Front socks</li>
+                                  <li>Front suspension lower arm bushes</li>
+                                  <li>Front suspension lower arm ball joint</li>
+                                  <li>Front suspension uppper arm bushes</li>
+                                  <li>Front suspension upper arm ball joint</li>
+                                  <li>Front tie rods</li>
+                                  <li>Front tie rods end</li>
+                                  <li>Stabilizer links</li>
+                                  <li>Stabilizer bushes</li>
+                                  <li>Front boot outer</li>
+                                  <li>Front boot inner</li>
+                                  <li>Front diff mounts</li>
+                                  <li>Front diff leaks</li>
+                                  <li>Engine oil leaks</li>
+                                  <li>Engine mounts</li>
+                                  <li>Power steering leaks</li>
+                                  <li>Coolant leaks</li>
+                                  <li>Exhaust leaks/cracks/mounts</li>
+                                  <li>Transmission leaks</li>
+                                  <li>Transmission mounts</li>
+                                  <li>Transfer case oil leaks</li>
+                                  <li>Propeller shaft joins</li>
+                                  <li>Propeller shaft mount</li>
+                                  <li>Rear diff oil leaks</li>
+                                  <li>Rear diff oil mounts</li>
+                                  <li>Rear boot inner</li>
+                                  <li>Rear boot outer</li>
+                                  <li>Rear shocks</li>
+                                  <li>Rear upper arm</li>
+                                  <li>Rear lower arm</li>
+                                  <li>Fuel leaks</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- 360o Car Check End -->
+                      <!-- Car Pick & Drop -->
+                      <div class="content-box top-position" id="carPick">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="box bg-red-600 full-height">
+                            <div class="box-title d-flex align-items-center">
+                              <h6 class="fs-18">Car Pick & Drop</h6>
+                            </div>
+                            <div class="box-body padding-20">
+                              <div class="text-block scrollbar-outer scrollbar-style2">
+                                <p>A Personal Chauffeur will be assigned to pick up and drop off your car.</p>
+                                <p>At the moment drivers are available only within Dubai territory.</p>
+                                <p>All chauffeurs are safe drivers that abide strictly by the traffic laws in the UAE.
+                                  They have experience in driving all variety of cars, ensuring your car is in safe
+                                  hands with our Drivers.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Car Pick & Drop End -->
+                      <!-- Fluids Top Up -->
+                      <div class="content-box top-position" id="fluidsTop">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="box bg-red-600 full-height">
+                            <div class="box-title d-flex align-items-center">
+                              <h6 class="fs-18">Fluids Top Up</h6>
+                            </div>
+                            <div class="box-body p-0">
+                              <div class="text-block">
+                                <ul class="list-custom services-list list-min-item d-flex flex-wrap">
+                                  <li class="item-inc"><span class="icon icon-sprite toi-status"></span> Coolant</li>
+                                  <li class="item-inc"><span class="icon icon-sprite toi-status"></span> Steering</li>
+                                  <li class="item-inc"><span class="icon icon-sprite toi-status"></span> Gear Box</li>
+                                  <li class="item-inc"><span class="icon icon-sprite toi-status"></span> Differential
+                                  </li>
+                                  <li class="item-inc"><span class="icon icon-sprite toi-status"></span> Brake Fluid
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Fluids Top Up End -->
+                      <!-- Brake Pads Check -->
+                      <div class="content-box top-position" id="brakePads">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="box bg-red-600 full-height">
+                            <div class="box-title d-flex align-items-center">
+                              <h6 class="fs-18">Brake Pads Check</h6>
+                            </div>
+                            <div class="box-body padding-20">
+                              <div class="text-block scrollbar-outer scrollbar-style2">
+                                <p>While inspecting the vehicle, technician may recommend replacing the Brake Pads or
+                                  Brake Disks.</p>
+                                <p>Brake Pads or Disks are quoted separetly, they are not included in the package.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Brake Pads Check End -->
+                      <!-- Service Pack -->
+                      <div class="selection-box top-position" id="servicePack">
+                        <a href="javascript:void(0)"
+                          class="box-close d-flex align-items-center justify-content-center"><svg aria-hidden="true"
+                            focusable="false" data-prefix="fal" data-icon="times"
+                            class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg></a>
+                        <div class="inner">
+                          <div class="checkbox-list">
+                            <div class="box bg-red-600">
+                              <div class="box-title d-flex align-items-center">
+                                <h6 class="fs-18">Select Service Pack</h6>
+                              </div>
+                              <div class="box-body p-0">
+                                <div class="scrollbar-outer scrollbar-style2">
+                                  <ul class="list-custom">
+                                    <li>
+                                      <div class="form-check-custom-style2 text-bold-italic">
+                                        <input class="radio" id="check6" name="r1" type="radio">
+                                        <label for="check6"><span></span> <span class="text">Superb
+                                            Service</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2 text-bold-italic">
+                                        <input class="radio" id="check7" name="r1" type="radio">
+                                        <label for="check7"><span></span> <span class="text">Premium
+                                            Service</span></label>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="form-check-custom-style2 text-bold-italic">
+                                        <input class="radio" id="check8" name="r1" type="radio">
+                                        <label for="check8"><span></span> <span class="text">Standard
+                                            Service</span></label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Service Pack End -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- compare service col end -->
+        </div>
+      </div>
+      <!-- Slider item End-->
+      <!-- Slider item -->
+      <div class="item">
+        <h2>Box 2</h2>
+      </div>
+      <!-- Slider item End-->
+      <!-- Slider item -->
+      <div class="item">
+        <h2>Box 3</h2>
+      </div>
+      <!-- Slider item End-->
+    </div>
+  </div>
+<script type="text/javascript">
+  require([
+    'jquery',
+    'bootstrap',
+    ], function ($, bootstrap) {
+
+    // Service box opn
+    $(".service-compare").click(function (event) {
+      if ($(this).hasClass('disabled')) {
+        iziToast.info({
+          message: 'Please add some services from the pack!',
+          timeout: 3000,
+          position: 'topRight',
+          titleColor: '#fff',
+          messageColor: '#fff',
+          iconColor: '#fff',
+          theme: 'dark',
+          backgroundColor: '#dc3545',
+        });
+      } else {
+        $(".col-custom").toggleClass("open");
+        $(".oil-change").toggleClass("hide");
+        $(this).toggleClass("active");
+        $(this).tooltip('hide');
+      }
+    });
+
+    // Service compare active img change
+    var mediaURL = '<?php echo $mediaURL ?>';
+    $imgred200 = mediaURL + "images/icon/service-compare-red-100.gif";
+    $imgred300 = mediaURL + "images/icon/service-compare-red-200.gif";
+    $(".service-compare").click(function(event) {
+      if ($(this).hasClass('active')){
+          $(".service-compare img").attr("src", $imgred200);
+      } else {
+         $(".service-compare img").attr("src", $imgred300); 
+       }
+    });
+
+    // Service Box Opn arrow and box class change
+    $(".collapse-box.left .toggle").click(function (event) {
+      $(".collapse-box.left .toggle").toggleClass("active");
+      $(".oil-change").toggleClass("half-width");
+      $(".left-oil-toggle").toggle();
+      $(".right-oil-toggle").toggleClass("col-md-6");
+      $(".right-oil-toggle").toggleClass("col-md-12");
+    });
+    $(".collapse-box.right .toggle").click(function (event) {
+      $(".collapse-box.right .toggle").toggleClass("active");
+      $(".compare-service").toggleClass("half-width");
+      $(".right-services-toggle").toggle();
+      $(".right-services-toggle").toggleClass("col-md-6");
+      $(".left-services-toggle").toggleClass("col-md-12");
+    });
+    // Box close service selection show
+    $(".service-compare").click(function (event) {
+      if ($(".compare-service").hasClass('half-width')) {
+        $(".compare-service").removeClass('half-width');
+        $(".right-services-toggle").toggle();
+        $(".right-services-toggle").toggleClass("col-md-6");
+        $(".left-services-toggle").toggleClass("col-md-12");
+        $(".collapse-box.right .toggle").toggleClass("active");
+      } else {
+      }
+    });
+
+    // Title change
+    $(".service-compare").click(function (event) {
+      if ($(".col-custom").hasClass('open')) {
+        $(".pack-title").hide();
+        $(".pack-title-compare").show();
+      } else {
+        $(".pack-title").show();
+        $(".pack-title-compare").hide();
+      }
+    });
+
+    // Service box action button tooltip hide
+    $(".email, .download").click(function (event) {
+      $(this).tooltip('hide');
+    });
+
+    // selection box opn on click
+    $("a[data-modal]").click(function (e) {
+      e.preventDefault();
+      var modalBox = $(this).attr('data-modal');
+      $("#" + modalBox).fadeIn($(this).data());
+    });
+    $(".box-close").click(function () {
+      $(this).parent(".content-box, .selection-box").fadeOut();
+    });
+
+    // services checked Editicon hide show
+    $('.form-check-custom-style2').click(function () {
+      if ($(this).children('.checkbox').prop("checked") == true) {
+        $(this).parent('li').addClass('checked');
+      }
+      else if ($(this).children('.checkbox').prop("checked") == false) {
+        $(this).parent('li').removeClass('checked');
+      }
+    });
+
+    // Add Vehicle
+    $(".add-vehicle").click(function () {
+      $("html, body").animate({ scrollTop: 0 }, 0);
+      //return false;
+    });
+
+    // Service box slider
+    $(function () {
+      var owl = $('.service-box-slider'),
+        owlOptions = {
+          loop: true,
+          margin: 0,
+          nav: false,
+          items: 1,
+          dots: true,
+        };
+      if ($(window).width() < 768) {
+        var owlActive = owl.owlCarousel(owlOptions);
+      } else {
+        owl.addClass('off');
+      }
+      $(window).resize(function () {
+        if ($(window).width() < 768) {
+          if ($('.owl-carousel').hasClass('off')) {
+            var owlActive = owl.owlCarousel(owlOptions);
+            owl.removeClass('off');
+          }
+        } else {
+          if (!$('.owl-carousel').hasClass('off')) {
+            owl.addClass('off').trigger('destroy.owl.carousel');
+            owl.find('.owl-stage-outer').children(':eq(0)').unwrap();
+          }
+        }
+      });
+    });
+});
+</script>

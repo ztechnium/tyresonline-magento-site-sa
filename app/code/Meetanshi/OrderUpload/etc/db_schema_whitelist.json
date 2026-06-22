@@ -1,0 +1,24 @@
+{
+    "meetanshi_orderupload": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "customer_id": true,
+            "file_name": true,
+            "file_path": true,
+            "comment": true,
+            "visible_customer_account": true,
+            "updated_at": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "quote": {
+        "column": {
+            "file_data": true,
+            "order_comment": true
+        }
+    }
+}

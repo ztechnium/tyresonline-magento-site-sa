@@ -1,0 +1,46 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$parent_category_id = 625;
+//$category = $objectManager->create('Magento\Catalog\Model\Category')->load($parent_category_id);
+$baseUrl = $this->getBaseUrl();
+$categoryCollection = $objectManager->get('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+$catCollection = $categoryCollection
+        ->create()
+        ->addAttributeToSelect('parent_id')
+        ->addAttributeToSelect('name')
+        ->addAttributeToFilter('parent_id', $parent_category_id)
+        ->setOrder('name', 'ASC')
+        ->load();
+//echo '<pre>';print_r($catCollection->getData());        
+?>
+<?php if(count($catCollection->getData()) > 0){ ?>
+    <div class="selection-block alltyresize">
+        <div class="selection-search" style="">
+            <input type="text" class="input-text" id="tyresize-input-search" placeholder="<?php echo __('Search here ...');?>" title="<?php echo __('Search here');?>">
+        </div>
+        <ul class="tyresize-list list-custom row gy-2 g-2 row-cols-2 row-cols-sm-3 row-cols-md-5 row-cols-lg-6" id="searchUL">
+        <?php foreach ($catCollection as $subcategories) { ?>
+        <?php  $child = $objectManager->create('Magento\Catalog\Model\Category')->load($subcategories->getId());?>
+            <?php if($child->getId()) { ?>
+                        <?php 
+                        $categoryUrl = $baseUrl.$child->getUrlPath().'.html';
+                        $optionText = $child->getName();
+                        $optionTextNoSpace = str_replace(' ','',$optionText); 
+                        $optionText1 = str_replace('R','',$optionTextNoSpace); 
+                        $optionText2 = str_replace('/','',$optionText1); 
+                        $optionText3 = str_replace('/','',$optionTextNoSpace);
+                        $optionText4 = str_replace('R','/',$optionTextNoSpace);
+                        $optionText5 = str_replace('/',' ',$optionText);
+                        $optionText5 = str_replace('R','',$optionText5);
+                        $optionTextString = $optionTextNoSpace.' '.$optionText2.' '.$optionText3.' '.$optionText4.' '.$optionText5.' '.$optionText;
+                        ?>
+                        <li class="col li-search" data-lookup="<?php echo $optionTextString;?>">
+                            <a href="<?php echo $categoryUrl;?>" class="d-block" title="<?php echo __($child->getName());?>">
+                                <span class="title sizelist"><?php echo __($child->getName());?></span>
+                            </a>
+                        </li>
+            <?php } ?>
+        <?php } ?>
+        </ul>
+    </div>
+<?php } ?>

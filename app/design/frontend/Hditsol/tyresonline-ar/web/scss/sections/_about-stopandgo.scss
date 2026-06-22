@@ -1,0 +1,19 @@
+.about-stopandgo {
+    background-color: $black;
+    @include scssont-padding-top(45px);
+  
+    .content-wrap {
+      @include scssont-padding-bottom(30px);
+      p {
+        color: $white;
+        line-height: 1.8;
+      }
+    }
+  
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 28.5%;
+      }
+    }
+  }
+  

@@ -1,0 +1,47 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+    ->getStore()
+    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseURL = $this->getBaseUrl();
+
+$date = new \DateTime();
+$currentDate = $date->format('Y-m-d');
+$bannerFactory = $objectManager->get(\Mageplaza\BannerSlider\Model\BannerFactory::class);
+$bannerCollection = $bannerFactory->create()->getCollection();
+
+$bannerCollection->addFieldToFilter('status', 1);
+$bannerCollection->getSelect()
+    ->where('from_date is null OR from_date <= ?', $currentDate)
+    ->where('to_date is null OR to_date >= ?', $currentDate);
+$bannerCollection->setOrder('sort_order', 'ASC');
+/* $bannerCollection->setPageSize(6); */
+
+$timeZone = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+$storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getCode();
+?>
+<div class="product-offer-slider d-none d-md-block">
+    <div class="owl-carousel owl-theme owl-nav-style1 owl-dot-style1 slider">
+        <?php foreach ($bannerCollection as $banner) : ?>
+            <?php
+            if ($storeCode == 'en') {
+                $offerImage3 = $banner->getBannerImageThree();
+            } else {
+                $offerImage3 = $banner->getBannerImageThreeAr();
+            }
+            ?>
+            <?php if ($offerImage3) : ?>
+                <div class="item <?php echo $banner->getBannerId(); ?>">
+                    <a class="image-wrap picture loader aspect-custom" href="<?php echo $this->getBaseUrl() . $banner->getUrlBanner(); ?>">
+                        <picture>
+                            <source class="owl-lazy" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" media="(max-width: 767px)" data-srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" />
+                            <source class="owl-lazy" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" media="(min-width: 768px)" data-srcset="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage3; ?>" />
+                            <source class="owl-lazy" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" media="(min-width: 768px)" data-srcset="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage3; ?>" />
+                            <img class="owl-lazy" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="Secure the lowest price gurantee by negotiating for car tyres in UAE" width="1470px" height="137px" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage3; ?>" />
+                        </picture>
+                    </a>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+</div>

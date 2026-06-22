@@ -1,0 +1,22 @@
+<div data-bind="if: isdetailsVisible()" id="custom-shipping-div">
+    <div class="message message-success success" id="custom-shipping-msg" style="display:none"></div>
+    <form id="custom-checkout-form" class="form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+        <fieldset class="fieldset">
+            <span class="step-title" data-bind="i18n: 'Enter Shipping Detail'"></span>
+            <!-- ko foreach: getRegion('custom-checkout-form-fields') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </fieldset>
+        <!-- <button type="reset">
+            <span data-bind="i18n: 'Reset'"></span>
+        </button> -->
+        <!-- <button type="button" data-bind="click: savecustomshippingdata" class="action">
+            <span data-bind="i18n: 'Continue to review Order'"></span>
+        </button> -->
+    </form>
+</div>
+<div class="continue-review-btn" data-bind="if: isdetailsVisible()">
+    <button type="button" data-bind="click: savecustomshippingdata" class="action">
+        <span data-bind="i18n: 'Continue to review Order'"></span>
+    </button>
+</div>

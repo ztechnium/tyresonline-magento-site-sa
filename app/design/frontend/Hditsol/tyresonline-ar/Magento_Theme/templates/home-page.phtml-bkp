@@ -1,0 +1,171 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseURL = $this->getBaseUrl();
+?>
+
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_main_banner_tyres')->toHtml();?>
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('special_offers_slider_home')->toHtml();?>
+<div class="section shop-tyre">
+	<div class="container custom-width">
+		<div class="heading-style5 mb-80 text-center">
+			<h2><?php echo __('SHOP AT TYRESONLINE') ?></h2>
+			<p><?php echo __('The easiest way to buy tyres online, anywhere in the KSA.') ?></p>
+		</div>
+		<div class="row">					
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="box">
+					<div class="box-icon">
+						
+						<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 259" width="260" height="259">
+							<style>
+								.s0 { fill: #ffffff } 
+							</style>
+							<path id="search" fill-rule="evenodd" class="s0" d="m255.5 246l-9.1 9.1c-5 5-13.2 5-18.2 0l-65.8-65.8c-35 23.8-81.1 23.8-116.2 0-47.2-32.1-59.5-96.4-27.4-143.6 32.1-47.2 96.5-59.5 143.7-27.4 47.2 32.1 59.5 96.4 27.4 143.6l65.8 65.8c5 5.1 5 13.3-0.2 18.3zm-86.5-142.1c0-35.7-29-64.6-64.7-64.6-35.7 0-64.6 28.9-64.6 64.6 0 35.7 28.9 64.6 64.6 64.6 35.7 0 64.7-28.9 64.7-64.6z"/>
+						</svg>
+					</div>
+					<div class="text-block">
+						<h2><?php echo __('Shop Tyres') ?></h2>
+						<p class="cw1"><?php echo __('Search by the tyre size or vehicle details, select quantity and add to cart.') ?></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="box">
+					<div class="box-icon">
+
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 1554.07 1187.86" xmlns:xlink="http://www.w3.org/1999/xlink">
+						 <defs>
+						  <style type="text/css">
+						   <![CDATA[
+						    .fil0 {fill:white;fill-rule:nonzero}
+						   ]]>
+						  </style>
+						 </defs>
+						 <g id="Layer_x0020_1">
+						  <metadata id="CorelCorpID_0Corel-Layer"/>
+						  <g id="_3015749563200">
+						   <path class="fil0" d="M1206.61 376.93c0,0 -132.05,18.05 -145.36,19 -13.29,0.96 -13.29,-16.19 -13.29,-16.19l5.9 -29.4c8.57,-29.96 38.49,-44.92 38.49,-44.92 0,0 59.84,-23.5 89.78,-32.04 29.92,-8.55 34.19,25.63 34.19,25.63 0,0 4.54,41.83 4.54,57 0,15.18 -14.25,20.91 -14.25,20.91zm-8.81 150.1c-8.55,22.09 -26.36,34.18 -70.55,39.91 -44.17,5.68 -112.57,11.36 -112.57,11.36 0,0 71.26,-17.09 81.23,-45.59 11.76,-33.61 14.96,-46.32 14.96,-46.32 0,0 4.99,-20.63 -37.76,-20.63 0,0 86.91,-14.28 115.42,-19.96 13.56,-2.7 22.09,-0.73 22.8,11.41 0,0 -4.26,45.87 -13.53,69.82zm-206.7 11.47c0,0 -3.55,29.18 -46.01,32.72 -42.47,3.54 -97.79,7.08 -150.87,7.08 0,0 -103.98,-3.54 -146.46,-7.08 -42.46,-3.54 -46,-32.72 -46,-32.72l-24.79 -79.66c0,0 14.16,31.88 36.29,32.77l366.33 0c22.12,-0.9 36.29,-32.77 36.29,-32.77l-24.78 79.66zm-535.25 28.45c-44.19,-5.73 -61.99,-17.82 -70.54,-39.91 -9.28,-23.95 -13.54,-69.82 -13.54,-69.82 0.71,-12.14 9.24,-14.11 22.8,-11.41 28.51,5.68 115.44,19.96 115.44,19.96 -42.76,0 -37.77,20.63 -37.77,20.63 0,0 3.19,12.71 14.96,46.32 9.97,28.5 81.23,45.59 81.23,45.59 0,0 -68.4,-5.68 -112.57,-11.36zm-95.48 -210.93c0,-15.18 4.54,-57 4.54,-57 0,0 4.27,-34.18 34.19,-25.63 29.92,8.54 89.77,32.04 89.77,32.04 0,0 29.92,14.95 38.47,44.92l5.92 29.4c0,0 0,17.15 -13.29,16.19 -13.31,-0.96 -145.36,-19 -145.36,-19 0,0 -14.25,-5.73 -14.25,-20.91zm126.82 -219.47c11.4,-27.04 51.61,-82.24 62.7,-91.18 14.72,-11.86 31.35,-18.55 54.16,-18.55 21.11,0 153.46,0 172.88,0 0,0 0.85,0 2.38,0 20.29,0 164.53,0 185.72,0 22.79,0 39.42,6.69 54.14,18.55 11.09,8.94 51.31,64.14 62.7,91.18 11.4,27.1 -0.16,34.07 -18.51,34.24 -49.42,0.45 -274.01,1.34 -282.38,1.4 0.14,0 0.24,0 0.24,0l-0.5 0c0,0 0.1,0 0.26,0 -8.12,-0.06 -225.85,-0.96 -275.28,-1.4 -18.34,-0.17 -29.92,-7.14 -18.52,-34.24zm773.43 179.61c-0.22,-0.68 -5.55,-16.7 -15.39,-27.49 -21.82,-23.84 -37.98,-37.22 -64.74,-59.42 -6.45,-5.34 -13.53,-11.19 -21.49,-17.88l-0.2 -0.17c-0.71,-0.5 -2.16,-1.91 -2.06,-3.15l0 -0.23c0.02,-3.31 2.45,-3.26 3.34,-3.26 0.96,0 2.04,0 3.22,0 1.46,0.06 3.11,0.06 4.92,0.12 13.44,0.06 33.58,-0.68 53.67,-7.99 2,-0.61 15.21,-5.57 13.01,-26.48 0.18,-6.57 -3.18,-19.56 -17.31,-22.71 -17.3,-3.88 -52.96,-7.31 -55.34,-7.53 -0.31,-0.06 -1.24,-0.17 -2.48,-0.17 -8.16,-0.06 -13.07,4.22 -13.11,11.47l-0.16 24.34 0.04 0.51c0.04,0.28 0,0.73 -0.02,0.84 -0.04,0 -0.25,0.06 -0.63,0.06l-0.77 0c-2.46,0 -3.48,0 -6.86,-8.6l-0.08 -0.17c-0.18,-0.39 -19.4,-40.87 -45.26,-80.22 -36.94,-56.22 -65.11,-83.37 -125.32,-85.68l-359.16 -2.36c-60.14,1.52 -88.66,28.33 -126.33,84.04 -26.38,39.01 -46.12,79.21 -46.33,79.6l-0.08 0.23c-3.48,8.49 -4.49,8.49 -6.96,8.49l-0.77 0c-0.39,0 -0.59,-0.11 -0.57,-0.05 -0.08,-0.12 -0.12,-0.62 -0.08,-0.84l0.22 -24.9c0.04,-7.2 -4.8,-11.58 -12.96,-11.58 -1.24,-0.06 -2.18,0.06 -2.48,0.12 -2.4,0.17 -38.08,3.15 -55.42,6.8 -14.19,2.98 -17.71,15.91 -17.61,22.49 -2.48,20.86 10.67,26.03 12.66,26.65 19.97,7.59 40.14,8.54 53.54,8.66 1.82,0 3.46,0 4.95,0 1.18,0 2.24,0 3.2,0 0.91,0 3.32,0 3.3,3.32l0 0.22c0.08,1.24 -1.36,2.65 -2.07,3.09l-0.25 0.17c-8.02,6.58 -15.18,12.37 -21.69,17.65 -27.07,21.82 -43.4,34.97 -65.52,58.52 -10,10.68 -15.53,26.65 -15.75,27.32l-0.08 0.28c-14.61,66.56 -6.04,179.22 -5.96,180.4 0.16,1.74 2.79,31.48 11.44,60.94 -0.83,19.45 -2.06,50.37 -2.06,68.02 0,27.1 14.27,41.32 25.67,44.19 11.4,2.87 85.5,4.27 85.5,4.27 0,0 34.2,2.87 34.2,-22.77l0 -10.23c41.4,2.81 84.26,4.72 86.98,4.84 0.65,0.11 3.38,0.39 7.14,0.45 6.7,0.06 16.23,-0.84 23.61,-5.4 11.42,-7.03 20.94,-10.85 38.45,-10.74l335.33 2.19c17.52,0.11 26.99,4.05 38.32,11.24 7.33,4.61 16.83,5.68 23.53,5.68 3.77,0.05 6.5,-0.23 7.14,-0.34 2.57,-0.05 40.44,-1.23 79.32,-3.26l0 8.37c0,25.69 34.19,22.82 34.19,22.82 0,0 74.11,-1.41 85.5,-4.27 11.39,-2.87 25.64,-17.09 25.64,-44.19 0,-11.24 -0.49,-27.94 -1.06,-43.56 15.21,-34.18 19.85,-79.83 20.07,-82.02 0.1,-1.12 10.14,-113.73 -3.61,-180.4l-0.08 -0.34z"/>
+						   <polygon class="fil0" points="196.41,624.29 275.03,624.29 275.03,536.92 196.41,536.92 196.41,383.96 65.33,383.96 65.33,1100.45 -0,1100.45 -0,1187.86 285.96,1187.86 285.96,1100.45 196.41,1100.45 "/>
+						   <polygon class="fil0" points="1488.74,1100.45 1488.74,383.96 1357.69,383.96 1357.69,536.92 1279.04,536.92 1279.04,624.29 1357.69,624.29 1357.69,1100.45 1268.14,1100.45 1268.14,1187.86 1554.07,1187.86 1554.07,1100.45 "/>
+						  </g>
+						 </g>
+						</svg>
+					</div>
+					<div class="text-block">
+						<h2><?php echo __('Tyre Fitment') ?></h2>
+						<p class="cw2"><?php echo __('Select one of our partner installers.') ?></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="box">
+					<div class="box-icon">			
+						<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 225" width="252" height="225">
+							<style>
+								.s0 { fill: #ffffff } 
+							</style>
+							<g id="Layer">
+								<path id="Layer" class="s0" d="m224.7 203.8c0 11.7-9.5 21.1-21.1 21.1-11.7 0-21.1-9.5-21.1-21.1 0-11.7 9.5-21.1 21.1-21.1 11.7 0 21.1 9.4 21.1 21.1z"/>
+								<path id="Layer" class="s0" d="m98.3 203.7c0 11.7-9.5 21.1-21.1 21.1-11.7 0-21.1-9.5-21.1-21.1 0-11.7 9.5-21.1 21.1-21.1 11.6 0 21.1 9.4 21.1 21.1z"/>
+								<path id="Layer" class="s0" d="m140.3 76.4l21.6-22.2 5.3 5.4-26.9 27.6-15.7-16 5.3-5.4z"/>
+								<path id="Layer" fill-rule="evenodd" class="s0" d="m251.8 28.6c-0.1 1.2-0.2 2.3-0.5 3.4l-23.7 84.3c-1.7 6-7.2 10.2-13.5 10.2h-139.2l4 21.1h135.4c5.8 0 10.5 4.7 10.5 10.5 0 5.8-4.7 10.5-10.5 10.5h-144.4c-4.9-0.1-9.1-3.7-10-8.5l-26.5-139h-22.9c-5.9-0.1-10.5-5-10.3-10.9 0.1-5.6 4.7-10.2 10.3-10.3h31.6c5 0.1 9.3 3.6 10.3 8.6l0.7 5.5h184.7c7.9 0.2 14.1 6.7 14 14.6zm-74.1 14.9l-33.7-15.3-33.7 15.3v23c-0.2 21.1 13.5 39.8 33.7 45.9 20.2-6.1 34-24.8 33.7-45.9z"/>
+							</g>
+						</svg>
+					</div>
+					<div class="text-block">
+						<h2><?php echo __('Buy Tyres') ?></h2>
+						<p class="cw3"><?php echo __('Easy checkout and secure payment options.') ?></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section tyre-anywhere">
+  <div class="container custom-width">
+
+    <div class="heading-style6 mb-75 text-center">
+      <h2 class="text-uppercase"><?php echo __('الكفرات <span>في كافة أنحاء السعودية</span>') ?></h2>
+      <p><?php echo __('We\'ve got a great tyre partnership networks all over KSA, this guarantees you the quickest service ever along with the Ultimate customer happiness you ever pictured!') ?></p>
+      <p><?php echo __('Get your tyres replaced with the best prices of high-end tyre brands from all over the world, Don\'t wait any longer!') ?></p>
+    </div>
+
+    <div class="map-image">
+    	<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="100px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/ksa-map.svg" class="lazyload" alt="TyresOnline KSA Map" />
+    </div>
+
+    <div class="bottom-text">
+    	<span class="count"><?php echo __('أكثر من 10') ?></span>
+    	<h3><?php echo __('مركزاً لتركيب الإطارات') ?></h3>
+    </div>
+
+    </div>
+</div>
+
+<?php //echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_brands')->toHtml();?>
+
+<div class="section cars-brand">
+  <div class="container custom-width">
+    <div class="heading-style6 mb-45 text-center">
+      <h2 class="text-uppercase">THE RIGHT TYRES FOR YOUR VEHICLE</h2>
+      <p>Looking for the perfect tyres for your car? TyresOnline has got you covered! Browse through our wide selection of tyres for most brands and models to find the perfect fit for your vehicle.</p>
+    </div>
+    <div class="brand-list">
+      <div class="row row-cols-3 row-cols-sm-3 row-cols-md-5 row-cols-lg-5 row-cols-xl-5 justify-content-center">
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/audi" class="d-block"><span class="image cars-brand-sprite audi"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/bmw" class="d-block"><span class="image cars-brand-sprite bmw"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/chevrolet" class="d-block"><span class="image cars-brand-sprite chevrolet"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/ford" class="d-block"><span class="image cars-brand-sprite ford"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/hyundai" class="d-block"><span class="image cars-brand-sprite hyundai"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/kia" class="d-block"><span class="image cars-brand-sprite kia"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/mazda" class="d-block"><span class="image cars-brand-sprite mazda"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/mercedes" class="d-block"><span class="image cars-brand-sprite mercedes-benz"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/mini" class="d-block"><span class="image cars-brand-sprite mini"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/mitsubishi" class="d-block"><span class="image cars-brand-sprite mitsubishi"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/nissan" class="d-block"><span class="image cars-brand-sprite nissan"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/porsche" class="d-block"><span class="image cars-brand-sprite porsche"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/tesla" class="d-block"><span class="image cars-brand-sprite tesla"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/rolls-royce" class="d-block"><span class="image cars-brand-sprite rolls-royce"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car-tyres/toyota" class="d-block"><span class="image cars-brand-sprite toyota"></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="show-all text-center">
+      <a href="<?php echo $baseURL; ?>car-tyres" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span><?php echo __('ALL CAR BRANDS'); ?></span></a>
+    </div>
+  </div>
+</div>
+
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_blog_slider')->toHtml();?>

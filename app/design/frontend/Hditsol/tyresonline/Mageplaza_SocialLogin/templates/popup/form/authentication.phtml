@@ -1,0 +1,148 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_SocialLogin
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$isDbVehicleList = 1;
+?>
+<div class="social-login authentication">
+<div class="modal-content-wrap">
+    <div class="social-login-customer-authentication" id="social-login-authentication">
+        <div class="logo text-center">
+          <img src="<?= $block->getViewFileUrl('images/Logo-white.svg'); ?>" width="300px" height="56px" alt="Tyres Online">
+        </div>
+        <div class="modal-text-cl text-center">
+            <?php /*
+            <h3 class="mb-0 fw-light"><span>5%</span> <?php echo __('discount'); ?></h3>
+            <p class="fw-light">
+                <?php echo __('on one set of 2 or 4 tyres'); ?> <br>
+                <?php echo __('Just share with us your vehicle details'); ?> <br>
+                <?php echo __('to enhance your experiene on this website'); ?>
+            </p>
+            */ ?>
+        </div>
+        <div class="block-content" aria-labelledby="block-customer-login-heading">
+            <form class="form-customer-login theme-form-style1" id="social-form-login" data-mage-init='{"validation":{}}'>
+                <?= $block->getBlockHtml('formkey') ?>
+                <?php /*
+                <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3">
+                  <div class="col">
+                    <div class="form-group select2-style1">
+                      <select class="select2-social-login-popup form-select" name="add_vehicle_make" id="login-vehicle-select">
+                        <option disabled="" selected=""><?php echo __('Vehicle'); ?></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group select2-style1">
+                      <select class="select2-social-login-popup form-select" name="add_vehicle_model" id="login-model-select" disabled required>
+                        <option disabled="" selected=""><?php echo __('Model'); ?></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group select2-style1">
+                      <select class="select2-social-login-popup form-select" name="add_vehicle_engine" id="login-engine-select" disabled required>
+                        <option disabled="" selected=""><?php echo __('Engine'); ?></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                */ ?>
+                <fieldset class="fieldset login" data-hasrequired="<?= __('* Required Fields') ?>">
+                    <?= $block->getChildHtml('form_before_login_fields') ?>
+                    <div class="form-group email required">
+                        <div class="control">
+                            <input name="username" id="social_login_email" type="email" class="form-control" placeholder="<?= __('Email') ?>"
+                                   value="<?= $block->escapeHtml($block->getUsername()) ?>"<?php if ($block->isAutocompleteDisabled()) :
+                                        ?> autocomplete="off"<?php endif; ?>
+                                   title="<?= __('Email') ?>"
+                                   data-validate="{required:true, 'validate-email':true}">
+                        </div>
+                    </div>
+                    <div class="form-group password required">
+                        <div class="control">
+                            <input name="password" id="social_login_pass" type="password"
+                                   class="form-control" placeholder="<?= __('Password') ?>"
+                                <?= $block->isAutocompleteDisabled() ? ' autocomplete="off"' : '' ?>
+                                   title="<?= __('Password') ?>"
+                                   data-validate="{required:true, 'validate-password':true}">
+                        </div>
+                        <span class="info-text d-block text-end">
+                        <a class="action remind" href="#"><?= __('Forgot Your Password?') ?></a>
+                        </span>
+                    </div>
+                    <?= $block->getChildHtml('form_additional_info') ?>
+                    <div class="d-flex justify-content-between">
+                            <button type="button" class="login action button button-primary button-rounded filled-slide-right fst-italic" id="bnt-social-login-authentication">
+                                <span><?= __('Login') ?></span>
+                            </button>
+                            <?php /*
+                            <button type="button" class="submit action button button-primary button-rounded filled-slide-right fst-italic" id="social-login-add-vehicle-submit"><span><?php echo __('Submit'); ?></span></button>
+                            */ ?>
+                    </div>
+                    <div class="mt-2">
+                        <span class="info-text d-block">
+                            <a class="action create" href="#"><?= __('Create an account?') ?></a>
+                        </span>
+                    </div>
+                </fieldset>
+                <input type="hidden" id="add_vehicle_make_label_login" name="add_vehicle_make_label" value="">
+                <input type="hidden" id="add_vehicle_model_label_login" name="add_vehicle_model_label" value="">
+                <input type="hidden" id="add_vehicle_engine_label_login" name="add_vehicle_engine_label" value="">
+                <input type="hidden" id="is_db_vehiclelist_login" value="<?php echo $isDbVehicleList;?>">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<?php $addVehicleUrl = $this->getBaseUrl().'tyrefinder/ajax/addvehicle'; ?>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+  var emptyVehicleFieldErrTxt = "<?php echo __('Please select vehicle and then proceed!.'); ?>";
+  jQuery('button#social-login-add-vehicle-submit').on('click',function() {
+    var addVehicleUrl = '<?php echo $addVehicleUrl; ?>';
+    var vehicle_make = jQuery('#social-login-popup #login-vehicle-select').find(":selected").val();
+    var vehicle_make_label = jQuery('#social-login-popup #add_vehicle_make_label_login').val();
+    var vehicle_model = jQuery('#social-login-popup #login-model-select').find(":selected").val();
+    var vehicle_model_label = jQuery('#social-login-popup #add_vehicle_model_label_login').val();
+    var vehicle_engine = jQuery('#social-login-popup #login-engine-select').find(":selected").val();
+    var vehicle_engine_label = jQuery('#social-login-popup #add_vehicle_engine_label_login').val();
+    if(vehicle_make !='' && vehicle_model !='' && vehicle_engine !=''){
+      jQuery.ajax({
+        type: 'POST',
+        url: addVehicleUrl,
+        data: {add_vehicle_make: vehicle_make, add_vehicle_make_label: vehicle_make_label, add_vehicle_model: vehicle_model, add_vehicle_model_label: vehicle_model_label, add_vehicle_engine: vehicle_engine, add_vehicle_engine_label: vehicle_engine_label},
+        showLoader: true,
+        success: function (resultData) {
+          location.reload();
+        }
+      });
+    }else{
+      alert(emptyVehicleFieldErrTxt);
+    }
+    
+  });   
+});
+</script>
+

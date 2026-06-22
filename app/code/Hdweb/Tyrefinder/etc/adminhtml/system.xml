@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="hdweb" translate="label" sortOrder="300">
+            <label>Hdweb</label>
+        </tab>
+        <section id="hdweb" translate="label" type="text" sortOrder="1" showInStore="1" showInDefault="1" showInWebsite="1">
+            <class>separator-top</class>
+            <label>Tyrefinder</label>
+            <tab>hdweb</tab>
+            <resource>Hdweb_Tyrefinder::config_tyrefinder</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>General</label>
+                 <field id="car_tyre_category_id" translate="label" type="text" sortOrder="3" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Cart Tyre Category Id</label>   
+                </field>
+                <field id="wheel_protector_product_ids" translate="label" type="text" sortOrder="4" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Wheel Protector Product Ids</label>
+                    <comment>Enter Product Ids comma separated</comment>  
+                </field>
+                <field id="vat_percentage" translate="label" type="text" sortOrder="5" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Vat Percentage</label>
+                </field>
+                <field id="call_us_contact" translate="label" type="text" sortOrder="6" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Call Us Contact Number</label>
+                </field>
+            </group>
+        </section>
+         <section id="carttostorepickup" translate="label" type="text" sortOrder="1" showInStore="1" showInDefault="1" showInWebsite="1">
+            <class>separator-top</class>
+            <label>Cart To Storepickup Page</label>
+            <tab>hdweb</tab>
+            <resource>Hdweb_Tyrefinder::config_tyrefinder</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>General</label>
+                 <field id="enable" translate="label" type="select" sortOrder="3" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Redirect from cart to storepickup page</label> 
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+                </field>
+				<field id="no_fitment_installer" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>No Fitment Installer ID</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

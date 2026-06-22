@@ -1,0 +1,227 @@
+<?php $files = $block->getAttachedFiles(); ?>
+<div class="block block-order-details-view">
+    <div class="admin__page-section-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Order Attachments'); ?></span>
+    </div>
+    <div class="block-content">
+        <img src="<?php echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+             alt="<?php echo __('Loading...'); ?>" class="fileupload-loader"/>
+        <form method="POST" enctype='multipart/form-data'
+              action="<?php echo $block->getUrl('orderupload/orderupload/save'); ?>"
+              data-hasrequired="<?php echo __('* Required Fields') ?>"
+              data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="order_id"
+                   value="<?php echo $block->getOrderId(); ?>"/>
+            <input type="hidden" name="customer_id"
+                   value="<?php echo $block->getCustomerId(); ?>"/>
+            <input type="hidden" name="form_key"
+                   value="<?php echo $block->getFormKey(); ?>"/>
+            <table class="data-table admin__table-primary edit-order-table order-orderupload-table">
+                <thead>
+                <tr class="headings">
+                    <th width="323" class="cell-file">File Name</th>
+                    <th width="168" class="cell-comment">Comment</th>
+                    <th width="183" class="cell-updated">Created On</th>
+                    <th width="302"
+                        class="cell-show">Show on customer account order view page
+                    </th>
+                    <th width="58" class="cell-remove last">Remove</th>
+                </tr>
+                </thead>
+                <tbody id="meetanshi-orderupload-added">
+                <?php foreach ($files as $file): ?>
+                    <tr>
+                        <td>
+                            <span><a target="_blank"
+                                     href="<?php echo $block->pubMediaPath() . $file['file_path']; ?>"><?php echo $file['file_name']; ?></a>
+                            </span>
+                            <input type="hidden"
+                                   name="orderupload[<?php echo $file['id']; ?>][file_exist]"
+                                   value="<?php echo $file['id']; ?>"/>
+                            <input type="hidden"
+                                   name="orderupload[<?php echo $file['id']; ?>][file_name]"
+                                   value="<?php echo $file['file_name']; ?>"/>
+                            <input type="hidden"
+                                   name="orderupload[<?php echo $file['id']; ?>][file_path]"
+                                   value="<?php echo $file['file_path']; ?>"/>
+                        </td>
+                        <td><textarea rows="6" cols="20"
+                                      name="orderupload[<?php echo $file['id']; ?>][comment]"
+                                      title="<?php echo __('Comment') ?>"><?php echo $file['comment']; ?></textarea>
+                        </td>
+                        <td class="cell-updated"><?php echo $file['created_at']; ?></td>
+                        <td>
+                            <div class="admin__actions-switch"
+                                 data-role="switcher">
+                                <input <?php if ($file['visible_customer_account'] == 1):
+                                    echo 'checked';
+                                endif; ?>
+                                        type="checkbox"
+                                        class="admin__actions-switch-checkbox"
+                                        id="M3GTA00<?php echo $file['id']; ?>"
+                                        name="orderupload[<?php echo $file['id']; ?>][visible_customer_account]"
+                                        value="<?php echo $file['visible_customer_account']; ?>">
+                                <label class="admin__actions-switch-label"
+                                       for="M3GTA00<?php echo $file['id']; ?>">
+                                    <span class="admin__actions-switch-text"
+                                          data-text-on="Yes"
+                                          data-text-off="No"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="admin__actions-switch"
+                                 data-role="switcher">
+                                <input type="checkbox"
+                                       class="admin__actions-switch-checkbox"
+                                       id="removeItem<?php echo $file['id']; ?>"
+                                       name="orderupload[<?php echo $file['id']; ?>][remove]" value="1">
+                                <label class="admin__actions-switch-label"
+                                       for="removeItem<?php echo $file['id']; ?>">
+                                        <span class="admin__actions-switch-text"
+                                              data-text-on="Yes"
+                                              data-text-off="No"></span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <script id="meetanshi-orderupload-added-template"
+                        type="text/x-magento-template">
+                    <tr>
+                        <td>
+                            <span><%- fileName %> (<%- fileSize %>)</span>
+                            <input type="hidden"
+                                   name="orderupload[<%- index %>][new_file]"
+                                   value="1"/>
+                            <input type="hidden"
+                                   name="orderupload[<%- index %>][file_name]"
+                                   value="<%- fileName %>"/>
+                            <input type="hidden"
+                                   name="orderupload[<%- index %>][file_path]"
+                                   value="<%- file %>"/>
+                        </td>
+                        <td><textarea rows="6" cols="30"
+                                      name="orderupload[<%- index %>][comment]"
+                                      title="<?php echo __('Comment') ?>"></textarea></td>
+                        <td><%- currentDate %></td>
+                        <td>
+                            <div class="admin__actions-switch"
+                                 data-role="switcher">
+                                <input checked type="checkbox"
+                                       class="admin__actions-switch-checkbox"
+                                       id="M3GTA00<%- index %>"
+                                       name="orderupload[<%- index %>][visible_customer_account]"
+                                       value="1">
+                                <label class="admin__actions-switch-label"
+                                       for="M3GTA00<%- index %>">
+                                    <span class="admin__actions-switch-text"
+                                          data-text-on="Yes"
+                                          data-text-off="No"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="admin__actions-switch"
+                                 data-role="switcher">
+                                <input type="checkbox"
+                                       class="admin__actions-switch-checkbox"
+                                       id="removeItem<%- index %>"
+                                       name="orderupload[<%- index %>][remove]"
+                                       value="1">
+                                <label class="admin__actions-switch-label"
+                                       for="removeItem<%- index %>">
+                                        <span class="admin__actions-switch-text"
+                                              data-text-on="Yes"
+                                              data-text-off="No"></span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </script>
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <div id="drop_file_zone" ondragover="return false"
+                             onclick="document.getElementById('meetanshi-orderupload').click()">
+                            <div id="drag_upload_file">
+                        <span class="meetanshi-file-upload" style="display: block;">
+                            <span id="meetanshi-orderupload-add-link" class="meetanshi-file-upload__link"
+                                  data-switch-title="<?php echo __('Drop files here') ?>"><?php echo __('Drop files here') ?></span>
+                        <input type="file" id="meetanshi-orderupload" name="file[]"
+                               data-url="<?php echo $block->getFileUploadUrl(); ?>" multiple/>
+                        </span>
+                                <span style="font-size: 15px;"><?php echo __('Allowed file types : ' . $block->getFileExtension()); ?></span>
+                            </div>
+                        </div>
+                        <style>
+                            #drop_file_zone {
+                                margin-top: 7px;
+                                margin-bottom: 10px;
+                                background-color: #EEE;
+                                border: #999 3px dashed;
+                                height: 100px;
+                                padding: 8px;
+                                font-size: 18px;
+                            }
+
+                            #meetanshi-orderupload {
+                                display: none;
+                            }
+
+                            #drag_upload_file {
+                                text-align: center;
+                                margin: 15px auto;
+                            }
+
+                            #drag_upload_file span {
+                                text-align: center;
+                            }
+                        </style>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div class="actions-toolbar">
+                            <div class="primary">
+                                <button type="submit"
+                                        title="<?php echo __('Submit') ?>"
+                                        class="action submit primary"
+                                        class="primary" style="float: right;">
+                                    <span><?php echo __('Submit') ?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+
+            </table>
+
+            <div id="meetanshi-orderupload-allowedsize"
+                 style="display: none;"><?php echo $block->allowedDocSizes(); ?></div>
+            <div id="meetanshi-orderupload-maxFileSize"
+                 style="display: none;"><?php echo $block->fileSize(); ?></div>
+            <div id="meetanshi-orderupload-error" style="display: none;"></div>
+            <script type="text/x-magento-init">
+                {
+                    "#meetanshi-orderupload": {
+                        "meetanshiFileUpload": {
+                            "addLink": "#meetanshi-orderupload-add-link",
+                            "itemTemplate": "#meetanshi-orderupload-added-template",
+                            "itemsContainer": "#meetanshi-orderupload-added",
+                            "removeLinks": ".action-item-remove",
+                            "errorContainer": "#meetanshi-orderupload-error",
+                            "allowedSize": "#meetanshi-orderupload-allowedsize",
+                            "maxFileSize": "#meetanshi-orderupload-maxFileSize"
+                        }
+                    }
+                }
+
+            </script>
+        </form>
+    </div>
+</div>

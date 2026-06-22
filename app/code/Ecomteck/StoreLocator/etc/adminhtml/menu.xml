@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category  Ecomteck
+ * @package   Ecomteck_StoreLocator
+ * @copyright 2016 Ecomteck
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ * @author    Ecomteck
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecomteck_StoreLocator::menu"
+            title="Store Pickup"
+            module="Ecomteck_StoreLocator"
+            sortOrder="9999"
+            resource="Ecomteck_StoreLocator::stores"
+            parent="Ecomteck_Core::menu" 
+            dependsOnModule="Ecomteck_Core"
+        />
+        <add id="Ecomteck_StoreLocator::manage_stores"
+            title="Manage Store"
+            module="Ecomteck_StoreLocator"
+            sortOrder="9999"
+            resource="Ecomteck_StoreLocator::stores"
+            parent="Ecomteck_StoreLocator::menu" 
+            dependsOnModule="Ecomteck_Core"
+            action="storelocator/stores"
+        />
+        <add id="Ecomteck_StoreLocator::configuration" 
+            title="Store Locator Configuration" 
+            module="Ecomteck_StoreLocator" 
+            sortOrder="12" 
+            action="adminhtml/system_config/edit/section/ecomteck_storelocator" 
+            resource="Ecomteck_StoreLocator::stores" 
+            parent="Ecomteck_StoreLocator::menu"
+        />                             
+    </menu>
+</config>

@@ -1,0 +1,9 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+?>
+<?php if($category->getCategoryPageTitle()):?>
+<div>
+	<h1 class="category-title h2 text-uppercase fw-bold"><?php echo __($category->getCategoryPageTitle());?></h1>
+</div>
+<?php endif;?>

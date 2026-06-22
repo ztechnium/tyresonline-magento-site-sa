@@ -1,0 +1,249 @@
+.search-slider {
+  margin-bottom: get-rem-sm(40px);
+
+  .search-oil-change {
+    // padding-left: calc(27px - var(--bs-gutter-x,.75rem));
+    // padding-right: calc(27px - var(--bs-gutter-x,.75rem));
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 65%;
+      }
+    }
+    .search-wrap{
+      .tabs-content{
+        .box{
+          @include border-radius-percentage(#{get-rem-sm(10px)}
+        );
+        }
+      }
+    }
+  }
+
+  .search-servicepack {
+    .image-wrap {
+      margin-bottom: get-rem-sm(-40px);
+      &.aspect-custom {
+        padding-bottom: 71%;
+      }
+    }
+    .search-wrap{
+      .tabs-content{
+        .box{
+          @include border-radius-percentage(#{get-rem-sm(10px)}
+        );
+        }
+      }
+    }
+  }
+
+  .search-brakes {
+    .banner-image {
+      margin-bottom: get-rem-sm(-10px);
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 43%;
+        }
+      }
+    }
+  }
+
+  .search-bicycle {
+    .banner-image {
+      margin-bottom: get-rem-sm(-45px);
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 37%;
+        }
+      }
+    }
+  }
+
+  .search-tyres {
+    height: calc(100vh - #{get-rem($header-hight)});
+    padding-top: get-rem-sm(15px);
+    &.height-auto{
+      height: auto;
+      margin-bottom: get-rem-sm(40px);
+    }
+    .banner-image {
+      margin-bottom: get-rem-sm(-40px);
+      position: relative;
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 48%;
+        }
+      }
+      .tyre-size {
+        position: absolute;
+        left: 0;
+        top: get-rem-sm(18px);
+        text-align: center;
+        z-index: 1;
+        width: 100%;
+        span {
+          display: inline-block;
+          img {
+            width: get-rem-sm(90px);
+            transform: rotate(-1deg);
+          }
+        }
+      }
+    }
+  }
+
+  .search-wrap {
+    position: relative;
+    z-index: 1;
+    .tabs-nav {
+      ul {
+        margin-bottom: get-rem-sm(-1px);
+        li {
+          a.fix-width{
+            min-width: get-rem-sm(120px);
+            display: block;
+          }
+          span {
+            background-color: $red-300;
+            padding: 12px;
+            display: block;
+            color: $white;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            height: 100%;
+            @include border-radius-percentage(
+              #{get-rem-sm(10px)} #{get-rem-sm(10px)} #{get-rem-sm(0px)} #{get-rem-sm(
+                  0px
+                )}
+            );
+          }
+          &.active {
+            span {
+              background-color: $red-100;
+            }
+          }
+        }
+      }
+    }
+    .tabs-content {
+      .box {
+        background-color: $red-100;
+        padding: get-rem-sm(20px) get-rem-sm(25px);
+        @include border-radius-percentage(
+          0px 0px #{get-rem-sm(10px)} #{get-rem-sm(10px)}
+        );
+        text-align: center;
+        h4 {
+          color: $white;
+          font-size: get-rem-sm(22px);
+          text-align: center;
+          margin-bottom: get-rem-sm(20px);
+          text-transform: uppercase;
+        }
+        .submit-bt {
+          margin-top: get-rem-sm(20px);
+          .button{
+            span{
+              color: $red-100;
+            }
+            &:hover{
+              span{
+              color: $white;
+              }
+            }
+          }
+        }
+
+        .info-text {
+          margin-top: get-rem-sm(20px);
+          span {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-device-width: 767px) and (orientation : landscape){
+.search-slider {
+  .search-tyres {
+	  height: auto;
+  }
+}
+}
+
+@media screen and (min-device-width: 375px){
+  .search-slider {
+    .search-tyres {
+      .banner-image {
+      .tyre-size {
+        top: get-rem-sm(19px);
+        span{
+          img{
+            width: get-rem-sm(93px);
+          }
+        }
+      }
+      }
+    }
+    }	
+  }
+
+
+@media screen and (min-device-width: 400px) and (max-device-width: 599.98px){
+	.search-slider {
+		.search-tyres {
+		  .banner-image {
+			.tyre-size {
+				top: 4.9vw;
+				span{
+					img{
+						width: 24vw;
+					}
+				}
+			}
+		  }
+		}
+	  }	
+}
+
+@media screen and (min-device-width: 599.99px){
+.search-slider {
+	.search-tyres {
+		.banner-image {
+		.tyre-size {
+			top: get-rem-sm(27px);;
+			span{
+				img{
+					width: get-rem-sm(150px);
+				}
+			}
+		}
+		}
+	}
+	}	
+}
+
+
+@media screen and (max-device-height: 640px){
+  .search-slider{
+    margin-bottom: et-rem-sm(15px);
+    .search-bicycle{
+      .search-wrap{
+        .tabs-content{
+          .box{
+            padding: get-rem-sm(15px) get-rem-sm(25px);
+            h4 {
+              font-size: get-rem-sm(18px);
+              margin-bottom: get-rem-sm(10px);
+            }
+            .submit-bt {
+              margin-top: get-rem-sm(15px);
+            }
+          }
+        }
+      }
+    }
+  }
+  }

@@ -1,0 +1,119 @@
+Field,フィールド
+Order,注文
+Width,幅
+Icon,アイコン
+Validation,検証
+Add Field,フィールドを追加
+Please Select Field,フィールドを選択してください
+For delivery questions.,配送に関する質問。
+We can't find the quote item.,見積もり項目が見つかりません。
+We cannot configure the product.,製品を設定することはできません。
+One-page checkout is turned off.,1ページのチェックアウトはオフになっています。
+Guest checkout is disabled.,ゲストのチェックアウトは無効です。
+E-mail cannot be empty.,電子メールを空にすることはできません。
+Starts with field closed,フィールドクローズから始まる
+Starts with field opened,フィールドが開かれた状態で開始する
+Render field without collapse,折りたたまれていないレンダリングフィールド
+3 Columns,3列
+2 Columns Style 1,2列スタイル1
+2 Columns Style 2,2列スタイル2
+Update Cart,カートの更新
+Qty,数量
+This address is also my billing address,この住所は私の請求先住所です
+Billing Address,請求先住所
+Save in address book,アドレス帳に保存
+My billing and shipping address are the same,請求先住所と配送先住所は同じです
+Update,更新
+Cancel,キャンセル
+Apply Discount,適用割引
+Cancel coupon,クーポンをキャンセル
+Use Coupon Code,クーポンコードを使用する
+Email Address,電子メールアドレス
+You can create an account after checkout.,チェックアウト後にアカウントを作成することができます。
+Password,パスワード
+Login,ログイン
+You already have an account with us. Sign in or continue as guest.,あなたはすでに私たちのアカウントを持っています。サインインするか、ゲストとして続行します。
+Forgot Your Password?,パスワードをお忘れですか？
+Gift options,ギフトオプション
+Message:,メッセージ：
+Edit,編集
+Delete,削除
+Payment Method,支払方法
+No Payment method available.,支払方法はありません。
+Place Order,注文する
+Account Information,口座情報
+This address is also my shipping address,この住所は私の配送先住所です
+Shipping Address,お届け先の住所
+Shipping Methods,輸送方法
+Order Summary,注文の概要
+View Details,詳細を見る
+Options Details,オプションの詳細
+Gift Message (optional),ギフトメッセージ（オプション）
+To:,に：
+From:,から：
+Please specify a shipping method.,配送方法を指定してください。
+New Address,新しいアドレス
+Can not remove item.,アイテムを削除できません。
+One Step Checkout,ワンステップチェックアウト
+General,一般
+Enable One Step Checkout Solution,ワンステップチェックアウトソリューションを有効にする
+Router Name,ルータ名
+Example: checkout.html -> http://example.com/checkout.html,例：checkout.html - > http://example.com/checkout.html
+Default Shipping Method,デフォルト出荷方法
+Default Payment Method,デフォルトの支払い方法
+Allow Update Product Quantity,製品数量の更新を許可する
+Allow Remove Product,製品の削除を許可する
+Allow Edit Product Option,製品オプションの編集を許可する
+Add Gift Message Per Item,アイテムごとにギフトメッセージを追加
+Add Gift Message Per Order,注文ごとにギフトメッセージを追加
+Redirect To Checkout,チェックアウトにリダイレクトする
+Display,表示
+Checkout Page Layout,チェックアウトページのレイアウト
+Disable Telephone Field,電話フィールドを無効にする
+Disable Company Field,会社フィールドを無効にする
+Disable Header,ヘッダーを無効にする
+Disable Footer,フッターを無効にする
+Disable Login Popup,ログインポップアップを無効にする
+Move Cart Items,カートアイテムを移動する
+Always Show Cart Items,常に商品を表示する
+Move Billing Address Before Shipping Address,配送先住所の前に移動する
+Disable Coupon Code,クーポンコードを無効にする
+Coupon code initial collapse state,クーポンコードの初期折りたたみ状態
+Disable Gift Options,ギフトオプションを無効にする
+Gift options initial collapse state,ギフトオプションの初期崩壊状態
+Footer Content,フッターコンテンツ
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,このフィールドを編集して、チェックアウトの右下にコンテンツを追加することができます。これは、サポートされている支払い方法などを表示するのに便利です。
+Shipping,運送
+Hide Shipping Methods,配送方法を隠す
+Hide Shipping Method Title,配送方法タイトルを隠す
+Colors,色
+Main Color,メインカラー
+Icon Color,アイコンの色
+Button,ボタン
+Gift Message,ギフトメッセージ
+Order summary background,注文の概要の背景
+Shipping methods background,配送方法の背景
+Payment methods background,お支払い方法の背景
+Account and address background,アカウントと住所の背景
+Icons,アイコン
+Account Information Step,アカウント情報ステップ
+Shipping Address Step,配送先住所ステップ
+Billing Address Step,請求先住所ステップ
+Shipping Methods Step,配送方法ステップ
+Payment Methods Step,支払方法ステップ
+Order Summary Step,注文概要ステップ
+Geo IP,ジオIP
+Enabled,有効
+Term and Conditions,期間と条件
+Checked by Default,デフォルトでチェックされる
+Label,ラベル
+Popup Content,ポップアップコンテンツ
+You can add content for terms popup.,用語ポップアップのコンテンツを追加できます。
+Newsletter,ニュースレター
+Back to Store,ストアに戻る
+Address Autocomplete,住所オートコンプリート
+Auto Save and fill customer infomation,自動保存して顧客情報を記入する
+Google Maps API Key,Google Maps API Key
+Split Street Fields,ストリートフィールドを分割する
+Field Config,フィールド構成
+Customize,カスタマイズ

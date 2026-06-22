@@ -1,0 +1,184 @@
+<?php
+$params = $this->getRequest()->getParams();
+$helper = $this->helper('MGS\Brand\Helper\Data');
+$collection = $block->getCollection();
+$msgBrandHelper = $this->helper('MGS\Brand\Helper\Data');
+
+$isBattery = 0;
+$isTyres = 0;
+$isSensor = 0;
+$isBrake = 0;
+foreach ($collection as $brand) {
+    if ($brand->getBrandCategory() == 'battery') {
+        $isBattery = 1;
+    } elseif ($brand->getBrandCategory() == 'tyres') {
+        $isTyres = 1;
+    } elseif ($brand->getBrandCategory() == 'sensor') {
+        $isSensor = 1;
+    } elseif ($brand->getBrandCategory() == 'brake_discs' || $brand->getBrandCategory() == 'brake_pads') {
+        $isBrake = 1;
+    }
+}
+?>
+<div class="all-brands">
+    <div class="container custom-width-1170">
+
+        <div class="content-block">
+            <p><strong><?php echo __('The most famous Tyre brands, anywhere in the KSA. All the regions.'); ?></strong></p>
+            <p><?php echo __('TyresOnline is simply the best way to purchase tyres in Saudi Arabia. We ensure that you get the best at a competitive price. Our wide range of quality tyre brands are all available online, making it easy for you to search and find tyres based on your criteria. Why not start with the tyre brand you already trust and feel comfortable with? If your preferred brand is not listed here, you can always reach out to us, our team will do their best to get you the tyre brand you want.'); ?></p> 
+        </div>
+
+        <div class="brand-list-wraper mgs-brands">
+            <?php $flagDigit = false; ?>
+            <?php if ($collection->count()): ?>
+                <?php if($isTyres): ?>
+                    <div class="brand-block">
+                        <div class="brand-title"><?php echo __('Tyre Brands'); ?></div>
+                        <ul class="brand-list row align-items-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
+                            <?php $i=0; foreach ($collection as $brand): $i++; ?>
+                                <?php if($brand->getBrandCategory() == 'tyres'): ?>
+                                    <?php if (isset($params['char']) && $params['char'] != '' && $params['char'] == '0-9') : ?>
+                                        <?php $letter = strtoupper(substr($brand->getName(), 0, 1)); ?>
+                                        <?php if (ctype_digit($letter)): ?>
+                                            <?php $flagDigit = true; ?>
+            								<li class="item col">
+            									<div class="logo-box">
+            										<a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+            											<img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+            										</a>
+            									</div>
+            								</li>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <li class="item col">
+            								<div class="logo-box">
+            									<a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+            										<img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+            									</a>
+            								</div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+                <?php if($isBattery): ?>
+                    <div class="brand-block">
+                        <div class="brand-title"><?php echo __('Battery'); ?></div>
+                        <ul class="brand-list row align-items-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
+                            <?php $i=0; foreach ($collection as $brand): $i++; ?>
+                                <?php if($brand->getBrandCategory() == 'battery'): ?>
+                                    <?php if (isset($params['char']) && $params['char'] != '' && $params['char'] == '0-9') : ?>
+                                        <?php $letter = strtoupper(substr($brand->getName(), 0, 1)); ?>
+                                        <?php if (ctype_digit($letter)): ?>
+                                            <?php $flagDigit = true; ?>
+                                            <li class="item col">
+                                                <div class="logo-box">
+                                                    <a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+                                                        <img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <li class="item col">
+                                            <div class="logo-box">
+                                                <a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+                                                    <img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+                <?php if($isSensor): ?>
+                    <div class="brand-block">
+                        <div class="brand-title"><?php echo __('Sensor'); ?></div>
+                        <ul class="brand-list row align-items-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
+                            <?php $i=0; foreach ($collection as $brand): $i++; ?>
+                                <?php if($brand->getBrandCategory() == 'sensor'): ?>
+                                    <?php if (isset($params['char']) && $params['char'] != '' && $params['char'] == '0-9') : ?>
+                                        <?php $letter = strtoupper(substr($brand->getName(), 0, 1)); ?>
+                                        <?php if (ctype_digit($letter)): ?>
+                                            <?php $flagDigit = true; ?>
+                                            <li class="item col">
+                                                <div class="logo-box">
+                                                    <a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+                                                        <img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <li class="item col">
+                                            <div class="logo-box">
+                                                <a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+                                                    <img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+                <?php if($isBrake): ?>
+                    <div class="brand-block">
+                        <div class="brand-title"><?php echo __('Brake'); ?></div>
+                        <ul class="brand-list row align-items-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
+                            <?php $i=0; foreach ($collection as $brand): $i++; ?>
+                                <?php if($brand->getBrandCategory() == 'brake_discs' || $brand->getBrandCategory() == 'brake_pads'): ?>
+                                    <?php if (isset($params['char']) && $params['char'] != '' && $params['char'] == '0-9') : ?>
+                                        <?php $letter = strtoupper(substr($brand->getName(), 0, 1)); ?>
+                                        <?php if (ctype_digit($letter)): ?>
+                                            <?php $flagDigit = true; ?>
+                                            <li class="item col">
+                                                <div class="logo-box">
+                                                    <a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+                                                        <img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <li class="item col">
+                                            <div class="logo-box">
+                                                <a title="<?php echo __($brand->getName()); ?>" href="<?php echo $msgBrandHelper->getBrandCategoryUrl($brand); ?>">
+                                                    <img alt="<?php echo __($brand->getName()); ?>" src="https://www.tyresonline.sa/media/images/section/blank.png" width="307px" height="96px" data-src="<?php echo $brand->getSmallImageUrl(); ?>" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+
+                <?php if (isset($params['char']) && $params['char'] != '' && $params['char'] == '0-9' && $flagDigit == false): ?>
+                    <script type="text/javascript">
+                        require(['jquery'], function ($) {
+                            $('ul.brand-list').hide();
+                        });
+                    </script>
+                    <div class="message warning">
+                        <div><?php echo __('Have no brands.') ?></div>
+                    </div>
+                <?php endif; ?>
+            <?php else: ?>
+                <div class="message warning">
+                    <div><?php echo __('Have no brands.') ?></div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,571 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+  ->getStore()
+  ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseURL = $this->getBaseUrl();
+$cmsPage = $objectManager->get('\Magento\Cms\Model\Page');
+$httpContext = $objectManager->get(\Magento\Framework\App\Http\Context::class);
+$isCustomerLoggedIn = (bool) $httpContext->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
+$requestOb = $objectManager->get('Magento\Framework\App\RequestInterface');
+$actionaname = $requestOb->getFullActionName();
+$loadHeaderGoogleMaps = in_array($actionaname, ['storelocator_index_index', 'storelocator_view_index'], true);
+
+$autopartsCatPage = 0;
+if ($actionaname == 'catalog_category_view') {
+  $autoPartsCatId = 6; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/autoparts_cat_id');
+  $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+  if ($category->getId() == $autoPartsCatId) {
+    $autopartsCatPage = 1;
+  }
+}
+$googleApiKey = $loadHeaderGoogleMaps
+  ? $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('ecomteck_storelocator/map/api_key')
+  : '';
+?>
+<div class="site-header">
+  <div class="mid-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+
+        <div class="col">
+          <div class="header-left">
+            <div class="logo d-flex align-items-center">
+              <a href="<?php echo $baseURL; ?>" class="d-block" style="display:block;width:300px;max-width:100%;" aria-label="<?php echo __('TyresOnline.ae Home'); ?>">
+                <img src="<?= $block->getViewFileUrl('images/logo/Logo.svg'); ?>" height="57" width="300" style="display:block;width:300px;max-width:100%;height:auto;" alt="<?php echo __('TyresOnline.ae'); ?>" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col order-lg-last">
+          <div class="header-right">
+            <ul class="list-custom d-flex align-items-center justify-content-end">
+
+
+
+
+              <li class="language-switcher d-none d-md-block">
+                <?php echo $this->getChildHtml('store_language'); ?>
+              </li>
+
+              <li class="user-login login-plus-vehicle">
+                <?php if (!$isCustomerLoggedIn) : ?>
+                  <a href="<?php echo $baseURL; ?>customer/account/login" data-izimodal-open="#login-modal" class="d-block usr-logout" title="<?php echo __('Login / Sign Up'); ?>">
+                    <i class="icon toi-user">
+                      <svg data-name="Logged Out User" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 41.468">
+                        <g id="User" transform="translate(0 0)">
+                          <path id="Path_136" data-name="Path 136" d="M225.972,223.394a5.9,5.9,0,0,1-4.688,2.39,6.056,6.056,0,0,1-4.827-2.495c-5.485,1.261-9.346,4.958-9.65,10.929a52.777,52.777,0,0,0,29,0C235.509,228.414,231.414,224.752,225.972,223.394Z" transform="translate(-206.807 -205.727)" />
+                          <path id="Path_137" data-name="Path 137" d="M225.788,213.213c4.239,0,7.674-7.1,7.674-11.34a7.674,7.674,0,1,0-15.348,0C218.114,206.111,221.55,213.213,225.788,213.213Z" transform="translate(-211.288 -194.199)" />
+                        </g>
+                        <g id="Out" transform="translate(6.048 23.847)">
+                          <circle id="Ellipse_13" data-name="Ellipse 13" cx="8.311" cy="8.311" r="8.311" transform="translate(0 0)" fill="#fff" stroke="#d70000" stroke-miterlimit="10" stroke-width="2" />
+                          <g id="Group_233" data-name="Group 233" transform="translate(4.83 3.772)">
+                            <path id="Path_138" data-name="Path 138" d="M227.011,241.474a2.3,2.3,0,1,1,4.605,0v2.3h-4.605Z" transform="translate(-225.691 -239.171)" fill="none" stroke="#d70000" stroke-miterlimit="10" stroke-width="1.5" />
+                            <path id="Path_139" data-name="Path 139" d="M231.515,245.885h-6.339a.453.453,0,0,0-.453.453v4.98a.453.453,0,0,0,.453.453h6.339a.453.453,0,0,0,.452-.453v-4.98A.452.452,0,0,0,231.515,245.885Zm-2.548,3.247v.34a.621.621,0,1,1-1.242,0v-1.288a.614.614,0,0,1,.074-.294.621.621,0,0,1,1.168.294Z" transform="translate(-224.723 -242.412)" fill="#d70000" stroke="rgba(0,0,0,0)" stroke-width="1" />
+                          </g>
+                        </g>
+                      </svg>
+                    </i>
+                  </a>
+                <?php else : ?>
+                  <!-- If User Login -->
+                  <div class="dropdown">
+                    <span class="d-block usr-login dropdown-toggle" title="<?php echo __('My Account'); ?>" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="icon toi-user">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 42.022">
+                          <g id="Logged_In_User" data-name="Logged In User" transform="translate(0 0)">
+                            <g id="User" transform="translate(0 0)">
+                              <path id="Path_136" data-name="Path 136" d="M225.972,223.4a5.867,5.867,0,0,1-4.688,2.431,6.026,6.026,0,0,1-4.827-2.537c-5.485,1.282-9.346,5.043-9.65,11.116a51.921,51.921,0,0,0,29,0C235.509,228.5,231.414,224.777,225.972,223.4Z" transform="translate(-206.807 -205.427)" />
+                              <path id="Path_137" data-name="Path 137" d="M225.788,213.539c4.239,0,7.674-7.223,7.674-11.534a7.675,7.675,0,1,0-15.348,0C218.114,206.316,221.55,213.539,225.788,213.539Z" transform="translate(-211.288 -194.199)" />
+                            </g>
+                            <g id="Out" transform="translate(6.048 24.255)">
+                              <circle id="Ellipse_13" data-name="Ellipse 13" cx="8.383" cy="8.383" r="8.383" transform="translate(0 0)" fill="#fff" stroke="#d70000" stroke-miterlimit="10" stroke-width="2" />
+                              <g id="Group_233" data-name="Group 233" transform="translate(4.83 3.837)">
+                                <path id="Path_138" data-name="Path 138" d="M227.011,241.513a2.3,2.3,0,1,1,4.605,0v2.342h-4.605Z" transform="translate(-225.691 -239.171)" fill="none" stroke="#d70000" stroke-miterlimit="10" stroke-width="1.5" />
+                                <path id="Path_139" data-name="Path 139" d="M231.632,245.885h-6.448a.461.461,0,0,0-.461.461v5.066a.461.461,0,0,0,.461.461h6.448a.46.46,0,0,0,.46-.461v-5.066A.46.46,0,0,0,231.632,245.885Zm-2.592,3.3v.345a.632.632,0,1,1-1.264,0v-1.31a.625.625,0,0,1,.075-.3.632.632,0,0,1,1.188.3Z" transform="translate(-224.723 -242.352)" fill="#d70000" stroke="rgba(0,0,0,0)" stroke-width="1" />
+                              </g>
+                            </g>
+                            <g id="In" transform="translate(6.049 24.255)">
+                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="8.383" cy="8.383" r="8.383" transform="translate(0 0)" fill="#fff" stroke="#d70000" stroke-miterlimit="10" stroke-width="2" />
+                              <g id="Group_232" data-name="Group 232" transform="translate(3.791 4.484)">
+                                <path id="Path_142" data-name="Path 142" d="M225.971,249.322a1.27,1.27,0,0,1-.956-.449l-2.076-2.356a1.685,1.685,0,0,1,0-2.169,1.241,1.241,0,0,1,1.911,0l1.12,1.272,3.588-4.074a1.241,1.241,0,0,1,1.911,0,1.684,1.684,0,0,1,0,2.169l-4.543,5.157A1.27,1.27,0,0,1,225.971,249.322Z" transform="translate(-222.544 -241.097)" fill="#d70000" stroke="rgba(0,0,0,0)" stroke-width="1" />
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </i>
+                    </span>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                      <li><a class="dropdown-item" href="<?php echo $baseURL; ?>customer/account"><?php echo __('My Account'); ?></a></li>
+                      <li><a class="dropdown-item" href="<?php echo $baseURL; ?>customer/account/logout"><?php echo __('Sign Out'); ?></a></li>
+                    </ul>
+                  </div>
+                  <!-- If User Login End -->
+                <?php endif; ?>
+              </li>
+              <li class="cart">
+                <!--  <a href="<?php //echo $this->getBaseUrl().'checkout/cart/'; 
+                                ?>" class="d-block position-relative">
+                  <i class="icon toi-cart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.641 29.903"> <path id="shopping-cart" d="M30.845,17.6,33.606,5.45a1.4,1.4,0,0,0-1.367-1.712H9.3L8.763,1.121A1.4,1.4,0,0,0,7.39,0H1.4A1.4,1.4,0,0,0,0,1.4v.934a1.4,1.4,0,0,0,1.4,1.4H5.483L9.586,23.8a3.271,3.271,0,1,0,3.916.5H25.746a3.27,3.27,0,1,0,3.714-.608l.322-1.418a1.4,1.4,0,0,0-1.367-1.712H12.739l-.382-1.869H29.478A1.4,1.4,0,0,0,30.845,17.6Z"/> </svg>
+                  </i>
+                  <span class="count fw-500"><?php //echo $this->getChildHtml("minicart"); 
+                                              ?></span>
+                </a>  -->
+                <?php //echo $this->getChildHtml("minicart"); 
+                ?>
+                <?php /*<a href="<?php echo $this->getBaseUrl().'checkout/cart/'; ?>" class="d-block position-relative"> */ ?>
+                <i class="icon toi-cart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.641 29.903">
+                    <path id="shopping-cart" d="M30.845,17.6,33.606,5.45a1.4,1.4,0,0,0-1.367-1.712H9.3L8.763,1.121A1.4,1.4,0,0,0,7.39,0H1.4A1.4,1.4,0,0,0,0,1.4v.934a1.4,1.4,0,0,0,1.4,1.4H5.483L9.586,23.8a3.271,3.271,0,1,0,3.916.5H25.746a3.27,3.27,0,1,0,3.714-.608l.322-1.418a1.4,1.4,0,0,0-1.367-1.712H12.739l-.382-1.869H29.478A1.4,1.4,0,0,0,30.845,17.6Z">
+                    </path>
+                  </svg></i>
+                <?php /* </a> */ ?>
+                <?php echo $this->getChildHtml("minicart"); ?>
+              </li>
+              <li class="menu-toggle">
+                <span class="d-block toggle">
+                  <svg class="hamburger-icon" data-name="Menu Compacted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 27">
+                    <g id="Lines">
+                      <rect id="Rectangle_3_copy_2" data-name="Rectangle 3 copy 2" width="46" height="3" rx="1.5" transform="translate(0 24)" />
+                      <rect id="Rectangle_3_copy" data-name="Rectangle 3 copy" width="46" height="3" rx="1.5" transform="translate(0 12)" />
+                      <rect id="Rectangle_3" data-name="Rectangle 3" width="46" height="3" rx="1.5" />
+                    </g>
+                  </svg>
+                  <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.243 31.243">
+                    <g id="cross" transform="translate(-4.879 -4.879)">
+                      <line id="Line_5" data-name="Line 5" x2="27" y2="27" transform="translate(7 7)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                      <line id="Line_6" data-name="Line 6" y1="27" x2="27" transform="translate(7 7)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    </g>
+                  </svg>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto col-xxl-auto">
+          <div class="main-navbar">
+
+            <nav class="navbar-expand-md position-relative" id="navigation">
+              <ul class="navbar-nav fw-500 justify-content-between">
+                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'home') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL,'all-tyres'; ?>" class="nav-link"><?php echo __('Tyres'); ?></a>
+                </li>
+		<li class="nav-item <?php if ($cmsPage->getIdentifier() == 'all-tyre-brands') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL.'all-tyre-brands'; ?>" class="nav-link"><?php echo __('Tyres Brand'); ?></a>
+                </li>
+
+                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'mobile-tyre-fitting-service-in-uae') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'mobile-tyre-fitting-service-in-uae'; ?>" class="nav-link"><?php echo __('Mobile Tyre Fitment'); ?></a>
+                </li>
+                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'battery') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'battery'; ?>" class="nav-link"><?php echo __('Car Battery Replacement'); ?></a>
+                </li>
+                <!-- <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'car-insurance-uae') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'car-insurance-uae'; ?>" class="nav-link"><?php echo __('Car Insurance'); ?></a>
+                </li> -->
+                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'wheel-protectors') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'wheel-protectors'; ?>" class="nav-link"><?php echo __('Wheel Protectors'); ?></a>
+                </li>
+                <?php /* <li class="nav-item <?php if($cmsPage->getIdentifier() == 'oil-change'): ?>active<?php endif ?>">
+           <a href="<?php echo $baseURL.'oil-change'; ?>" class="nav-link"><?php echo __('Oil Change'); ?></a>
+         </li>
+         <li class="nav-item <?php if($cmsPage->getIdentifier() == 'servicepacks'): ?>active<?php endif ?>">
+           <a href="<?php echo $baseURL.'servicepacks'; ?>" class="nav-link"><?php echo __('Service Packs'); ?></a>
+         </li>
+         <li class="nav-item <?php if($cmsPage->getIdentifier() == 'brakes'): ?>active<?php endif ?>">
+           <a href="<?php echo $baseURL.'brakes'; ?>" class="nav-link"><?php echo __('Brakes'); ?></a>
+         </li>
+         <li class="nav-item <?php if($autopartsCatPage): ?>active<?php endif ?>">
+           <a href="<?php echo $baseURL.'all-auto-parts.html'; ?>" class="nav-link"><?php echo __('All Auto Parts'); ?></a>
+         </li> */ ?>
+                <li class="nav-item d-none d-none d-xxl-block <?php if ($actionaname == 'storelocator_index_index') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'storelocator'; ?>" class="nav-link"><?php echo __('Fitting Locations'); ?></a>
+                </li>
+                <li class="nav-item d-none d-none d-xxl-block <?php if ($cmsPage->getIdentifier() == 'promotions-and-offers-on-tyres-uae') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'promotions-and-offers-on-tyres-uae'; ?>" class="nav-link"><?php echo __('Offers'); ?></a>
+                </li>
+                <li class="nav-item d-none d-none d-xxl-block <?php if ($actionaname == 'blog_index_index') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'blog'; ?>" class="nav-link"><?php echo __('Blog'); ?></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_offer')->toHtml();?>
+</div>
+<!-- ///////// Ovelaymenu -->
+<div class="nav-fullscreen">
+  <div class="scrollbar-inner h-100">
+    <div class="nav-wrap">
+      <nav class="navbar">
+        <ul class="navbar-nav mx-auto text-center">
+          <li class="language-switcher d-md-none">
+            <?php echo $this->getChildHtml('store_language'); ?>
+          </li>
+
+
+          <li>
+  <a href="<?php echo $baseURL; ?>all-tyres/car-tyres.html"><?php echo __('All TYRES'); ?></a>
+</li>
+<li>
+  <a href="<?php echo $baseURL . 'mobile-tyre-fitting-service-in-uae'; ?>"><?php echo __('Mobile Tyre Fitment'); ?></a>
+</li>
+<li><a href="<?php echo $baseURL; ?>all-tyre-brands"><?php echo __('TYRES BY BRAND'); ?></a></li>
+<li>
+  <a href="<?php echo $baseURL . 'battery'; ?>"><?php echo __('Car Battery Replacement'); ?></a>
+</li>
+<!-- <li>
+  <a href="<?php echo $baseURL . 'car-insurance-uae'; ?>"><?php echo __('Car Insurance'); ?></a>
+</li> -->
+<li>
+  <a href="<?php echo $baseURL . 'wheel-protectors'; ?>"><?php echo __('Wheel Protectors'); ?></a>
+</li>
+<li>
+  <a href="<?php echo $baseURL . 'storelocator'; ?>"><?php echo __('Fitting Locations'); ?></a>
+</li>
+<li>
+  <a href="<?php echo $baseURL . 'promotions-and-offers-on-tyres-uae'; ?>"><?php echo __('Offers'); ?></a>
+</li>
+<li><a href="<?php echo $baseURL; ?>faqs"><?php echo __('FAQS'); ?></a></li>
+<li><a href="<?php echo $baseURL; ?>about-us"><?php echo __('ABOUT US'); ?></a></li>
+<li><a href="<?php echo $baseURL; ?>contact"><?php echo __('CONTACT US'); ?></a></li>
+<li>
+  <a href="<?php echo $baseURL . 'blog'; ?>"><?php echo __('Blog'); ?></a>
+</li>
+
+
+          <li class="d-lg-none user-login">
+            <?php if (!$isCustomerLoggedIn) : ?>
+              <a href="<?php echo $baseURL; ?>customer/account/login" data-izimodal-open="#login-modal" class="usr-logout" title="<?php echo __('Login / Sign Up'); ?>">
+                <?php echo __('Login / Sign Up'); ?>
+              </a>
+            <?php else : ?>
+              <a href="<?php echo $baseURL; ?>customer/account/" class="usr-login" title="<?php echo __('My Account'); ?>">
+                <?php echo __('My Account'); ?>
+              </a>
+            <?php endif; ?>
+          </li>
+
+        </ul>
+      </nav>
+      <div class="contact-wrap mx-auto d-none">
+        <ul class="list-custom d-flex justify-content-center align-items-center">
+          <li><a href="tel:80025589737"><span>800</span>
+              <?php echo __('ALL TYRES'); ?>
+            </a></li>
+          <li><a href="tel:80025589737"><span>800</span> 255 89737</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Ovelaymenu End -->
+
+<!-- Overlay Start-->
+<div class="overlay"></div>
+<!-- Overlay End -->
+
+<?php
+$showTyreFinder = 0;
+$cmsIdentifier = $cmsPage ? (string)$cmsPage->getIdentifier() : '';
+if (
+  $actionaname == 'catalog_category_view' ||
+  $actionaname == 'brand_brand_patternview' ||
+  $cmsIdentifier == 'mobile-tyre-fitting-service-in-uae' ||
+  $cmsIdentifier == 'oil-change' ||
+  $cmsIdentifier == 'servicepacks' ||
+  $cmsIdentifier == 'brakes' ||
+  $cmsIdentifier == 'battery' ||
+  $cmsIdentifier == 'home'
+) {
+  $showTyreFinder = 1;
+}
+?>
+<?php if ($showTyreFinder == 1): ?>
+<?php echo $this->getLayout()->createBlock("Hdweb\Tyrefinder\Block\Finderpopup")->setTemplate("Hdweb_Tyrefinder::tyre_finder_block.phtml")->toHtml();
+?>
+<?php echo $this->getLayout()->createBlock(\Magento\Framework\View\Element\Template::class)->setTemplate("Hdweb_Tyrefinder::tyre_compare.phtml")->toHtml();
+?>
+<?php endif; ?>
+<?php if ($showTyreFinder == 1 && $cmsIdentifier == 'home'): ?>
+<script type="text/javascript">
+  require(["jquery"], function($) {
+    function loadTyreWidthOptionsIfNeeded() {
+      if ($('#allWidthOptions li').length > 0 && $('#allRearWidthOptions li').length > 0) {
+        return;
+      }
+      if (typeof getWidthOptionsUrl === 'undefined' || !getWidthOptionsUrl) {
+        return;
+      }
+      $('.searchloader').show();
+      $.ajax({
+        url: getWidthOptionsUrl,
+        type: 'POST',
+        data: { format: 'json' },
+        complete: function () {
+          $('.searchloader').hide();
+        },
+        success: function (data) {
+          if (data.status === 'success') {
+            $('#allWidthOptions').html(data.fronthtml);
+            $('#allRearWidthOptions').html(data.rearhtml);
+          }
+        }
+      });
+    }
+
+    function openHomeTyreSizeSearch() {
+      $('#vehicle-selection').fadeOut();
+      $('#tyre-selection').fadeIn();
+      $('#tyre-selection .front-width_sub-block').show();
+      $('html').addClass('scroll-overflow');
+      $('html, body').animate({ scrollTop: 0 }, 0);
+      $('.search-overlay').addClass('open');
+      loadTyreWidthOptionsIfNeeded();
+    }
+
+    $(document).on('click', '.cms-home .tyre-search .search-wrap input, .cms-home .tyre-search .search-wrap .search-icon', function() {
+      openHomeTyreSizeSearch();
+    });
+
+    $(document).on('click', '.cms-home .tyre-search .search-vehicle span', function() {
+      $('#tyre-selection').fadeOut();
+      $('#vehicle-selection').fadeIn();
+      $('#vehicle-selection .brand_sub-block').show();
+      $('html').addClass('scroll-overflow');
+      $('html, body').animate({ scrollTop: 0 }, 0);
+      $('.search-overlay').addClass('open');
+    });
+  });
+</script>
+<?php endif; ?>
+
+<style type="text/css">
+  .toolbar .selected-size {
+    cursor: pointer;
+  }
+</style>
+<?php
+if ($actionaname == 'checkout_index_index') {
+  $cartModel = $objectManager->get('Magento\Checkout\Model\Cart');
+  $quote = $cartModel->getQuote();
+?>
+  <?php if ($quote->getShowVehicleInfo() == 0) { ?>
+    <style type="text/css">
+      .checkout-shipping-method.vehicle-info-block {
+        display: none;
+      }
+    </style>
+  <?php } ?>
+<?php } ?>
+
+
+
+<script type="text/javascript">
+  require(["jquery"], function($) {
+    $('.menu-toggle .toggle').click(function() {
+      $(this).toggleClass('active');
+      $('.nav-fullscreen').toggleClass('open');
+      $('html').toggleClass('scroll-overflow');
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  var body = document.body;
+  var BrowserDetect = {
+    init: function() {
+      this.browser = this.searchString(this.dataBrowser) || "Other";
+      this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown";
+    },
+    searchString: function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var dataString = data[i].string;
+        this.versionSearchString = data[i].subString;
+
+        if (dataString.indexOf(data[i].subString) !== -1) {
+          return data[i].identity;
+        }
+      }
+    },
+    searchVersion: function(dataString) {
+      var index = dataString.indexOf(this.versionSearchString);
+      if (index === -1) {
+        return;
+      }
+
+      var rv = dataString.indexOf("rv:");
+      if (this.versionSearchString === "Trident" && rv !== -1) {
+        return parseFloat(dataString.substring(rv + 3));
+      } else {
+        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+      }
+    },
+
+    dataBrowser: [{
+        string: navigator.userAgent,
+        subString: "Edge",
+        identity: "MS Edge"
+      },
+      {
+        string: navigator.userAgent,
+        subString: "MSIE",
+        identity: "Explorer"
+      },
+      {
+        string: navigator.userAgent,
+        subString: "Trident",
+        identity: "Explorer"
+      },
+      {
+        string: navigator.userAgent,
+        subString: "Firefox",
+        identity: "Firefox"
+      },
+      {
+        string: navigator.userAgent,
+        subString: "Opera",
+        identity: "Opera"
+      },
+      {
+        string: navigator.userAgent,
+        subString: "OPR",
+        identity: "Opera"
+      },
+
+      {
+        string: navigator.userAgent,
+        subString: "Chrome",
+        identity: "Chrome"
+      },
+      {
+        string: navigator.userAgent,
+        subString: "Safari",
+        identity: "Safari"
+      }
+    ]
+  };
+
+  BrowserDetect.init();
+
+  var bv = BrowserDetect.browser;
+  if (bv == "Chrome") {
+    //$("body").addClass("chrome");
+    body.classList.add("chrome");
+  } else if (bv == "Safari") {
+    //$("body").addClass("safari");
+    body.classList.add("safari");
+  } else if (bv == "Firefox") {
+    //$("body").addClass("firefox");
+    body.classList.add("firefox");
+  }
+</script>
+<script>
+  (function () {
+    function getCookieValue(name) {
+      var match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&') + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : '';
+    }
+
+    function getLiveFormKey() {
+      return getCookieValue('form_key') || window.FORM_KEY || '';
+    }
+
+    function syncAllFormKeys(root) {
+      var formKey = getLiveFormKey();
+      if (!formKey) {
+        return;
+      }
+
+      window.FORM_KEY = formKey;
+
+      (root || document).querySelectorAll('input[name="form_key"]').forEach(function (input) {
+        input.value = formKey;
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        syncAllFormKeys(document);
+      });
+    } else {
+      syncAllFormKeys(document);
+    }
+
+    document.addEventListener('submit', function (event) {
+      if (event.target) {
+        syncAllFormKeys(event.target);
+      }
+    }, true);
+
+    document.addEventListener('click', function (event) {
+      var form = event.target && event.target.closest('form');
+      if (form) {
+        syncAllFormKeys(form);
+      }
+    }, true);
+
+    if (window.jQuery && typeof window.jQuery.ajaxPrefilter === 'function') {
+      window.jQuery.ajaxPrefilter(function (options, originalOptions) {
+        var method = (options.type || originalOptions.type || 'GET').toUpperCase();
+        if (method !== 'POST') {
+          return;
+        }
+
+        var formKey = getLiveFormKey();
+        if (!formKey) {
+          return;
+        }
+
+        var reqUrl = options.url || '';
+        if (reqUrl.indexOf('http') === 0 && reqUrl.indexOf(window.location.origin) !== 0) {
+          return;
+        }
+
+        var contentType = options.contentType || originalOptions.contentType || '';
+        var isJsonPayload = /application\/json/i.test(contentType) || (typeof options.data === 'string' && /^\s*[\[{]/.test(options.data));
+        if (isJsonPayload || reqUrl.indexOf('/rest/') !== -1) {
+          return;
+        }
+
+        if (typeof options.data === 'string') {
+          if (/([?&]|^)form_key=/.test(options.data)) {
+            options.data = options.data.replace(/([?&]|^)form_key=[^&]*/g, '$1form_key=' + encodeURIComponent(formKey));
+          } else {
+            options.data += (options.data.length ? '&' : '') + 'form_key=' + encodeURIComponent(formKey);
+          }
+        } else if (options.data && typeof options.data === 'object') {
+          options.data.form_key = formKey;
+        } else {
+          options.data = 'form_key=' + encodeURIComponent(formKey);
+        }
+      });
+    }
+
+    setInterval(function () {
+      syncAllFormKeys(document);
+    }, 2500);
+  })();
+</script>
+<?php if ($loadHeaderGoogleMaps) : ?>
+  <div id="test-map" style="display: none;"></div>
+  <script>
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('test-map'), {
+        center: {
+          lat: 25.1765652,
+          lng: 55.244877
+        },
+        zoom: 8
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $googleApiKey; ?>&libraries=places,geometry&callback=initMap" async defer></script>
+<?php endif; ?>

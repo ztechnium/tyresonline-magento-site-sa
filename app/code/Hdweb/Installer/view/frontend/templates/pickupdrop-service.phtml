@@ -1,0 +1,731 @@
+<?php
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$installerHelper = $this->helper('Hdweb\Installer\Helper\Data');
+$pickupdropOptions = $installerHelper->getCheckoutPickupDropofflist();
+$googleApiKey = $installerHelper::GOOGLE_API_KEY;
+$cartModel = $objectManager->get('Magento\Checkout\Model\Cart');
+$quote = $cartModel->getQuote();
+$fee   = $quote->getFee();
+$quoteInstallerId = $quote->getInstallerId();
+$checkoutSession = $objectManager->get('\Magento\Checkout\Model\Session');
+$cartPickupData = '';
+
+//echo '<pre>';print_r($cartPickupData);
+$class = '';
+$display = 'display:none';
+$submitbtnStyle = 'display:block';
+$cancelbtnStyle = 'display:none';
+$pickup_val = '';
+$pickup_title = '';
+$pickup_location = '';
+$destination_lat = '';
+$destination_lng = '';
+$disabled = '';
+$style = '';
+if($quoteInstallerId != ''){
+	$cartPickupData = $checkoutSession->getCartPickupData();	
+	if($cartPickupData != ''){
+		$class='active';
+		$display = 'display:block;';
+		$submitbtnStyle = 'display:none';
+		$cancelbtnStyle = 'display:block';
+		$pickup_val = $cartPickupData['pickup_val'];
+		$pickup_title = $cartPickupData['pickup_title'];
+		$pickup_location = $cartPickupData['pickup_location'];	
+		$destination_lat = $cartPickupData['destination_lat'];	
+		$destination_lng = $cartPickupData['destination_lng'];	
+		$disabled = 'disabled';
+		$style = 'pointer-events:none';
+	}
+}else{
+	$cartPickupData = $checkoutSession->unsCartPickupData();
+	$disabled = '';
+}
+$checkFullPickupDiscount = $objectManager->create('Hdweb\Installer\Helper\Data')->checkPickupDiscount();
+//echo '<pre>';print_r($checkFullPickupDiscount);die;
+$fullPickupDiscountText = 'For AED 1.5/ per kilometer + AED 15 Fee per trip';
+if($checkFullPickupDiscount['pickup_discount'] == 100){
+	$fullPickupDiscountText = 'Free Pick-Up and Drop-Off service. Only available in Dubai.';
+}
+$fittingText = '';
+$fittingInstallerText = '';
+$selectButtonText = '';
+/* if($checkFullPickupDiscount['is_pickup_discount'] == 1){
+	$fittingText = 'Select Service Location';
+	$fittingInstallerText = 'Service Location Choice';
+} */
+$isServicePackage = $checkFullPickupDiscount['is_service_package'];
+if($isServicePackage == 1){
+	$selectButtonText = 'Select here Service Garage';
+	$fittingText = 'Select Service Location';
+	$fittingInstallerText = 'Service Location Choice';
+}else{
+	$selectButtonText = 'Select here, Mobile Van or Fitment Garage';
+	$fittingText = 'Select Fitting Location';
+	$fittingInstallerText = 'Fitting Location Choice';
+}
+?>
+<?php if($checkFullPickupDiscount['is_pickup_discount'] == 1){?>
+
+<?php } ?>
+<?php
+/* START
+$hasMobileVanTyreService = 0;
+$installerLat = '';
+$installerLng = '';
+if(isset($_COOKIE['mobilevanservice_data'])){
+	$hasMobileVanTyreService = 1;
+	$pickup_store = $quote->getPickupStore();
+	if($pickup_store){
+		$pickup_store_detail = $objectManager->get('Ecomteck\StoreLocator\Model\Stores')->load($pickup_store);
+		$installerLat = $pickup_store_detail->getLatitude();
+		$installerLng = $pickup_store_detail->getLongitude();
+	}
+}
+?>
+<div id="custom-vehicle-div" class="section_bg carpickup-drop <?php echo $class;?>" <?php if ($hasMobileVanTyreService){ echo 'style="display:none;"'; };?>>
+    <div class="checkout_title">
+    	<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-278 377.7 53.3 39.3" style="enable-background:new -278 377.7 53.3 39.3;" xml:space="preserve">
+			<defs>
+				<rect id="SVGID_1_" x="-275.1" y="377.9" width="47.5" height="38.9"/>
+			</defs>
+			<path class="pickupIcon" d="M-231.7,387.1l-2.4-0.2c0.3,0.6,0.6,1.2,0.9,1.8c0.9,2.1,1.4,4.4,1.5,6.7l0,1l0,1.3l-0.1,1.1l-0.2,1.3l-1.9-1
+				c-0.3-2.9-0.6-5.7-0.9-8.6c-0.3-2.5-4.4-2.1-4.1,0.4c0.3,3.2,0.7,6.4,1,9.5c-0.9,1.1-1.3,2.9-1.3,4.8c0,2.9,1.3,5.3,3,6v5.4h8.7
+				V406v-0.7v-9.9L-231.7,387.1z"/>
+			<path class="pickupIcon" d="M-262.7,394.7c0,0.1,0,0.1,0,0.2v3c0,0.1,0,0.1,0,0.2h6.4c-0.2-0.5-0.3-1.1-0.3-1.7s0.1-1.2,0.3-1.7
+				L-262.7,394.7L-262.7,394.7z"/>
+			<path class="pickupIcon" d="M-240,394.7h-6.4c0.2,0.5,0.3,1.1,0.3,1.7s-0.1,1.2-0.3,1.7h6.4c0-0.1,0-0.1,0-0.2v-3
+				C-240.1,394.9-240.1,394.8-240,394.7"/>
+			<path class="pickupIcon" d="M-249.9,407.7c0.1,0,0.1,0,0.2,0v-6.4c-0.5,0.2-1.1,0.3-1.7,0.3s-1.2-0.1-1.7-0.3v6.4c0.1,0,0.1,0,0.2,0
+				H-249.9z"/>
+			<path class="pickupIcon" d="M-247.2,396.4c0-2.3-1.8-4.1-4.1-4.1c-2.3,0-4.1,1.8-4.1,4.1c0,2.3,1.8,4.1,4.1,4.1
+				C-249.1,400.5-247.2,398.7-247.2,396.4 M-248.4,395.1c0.3-0.1,0.6,0.1,0.7,0.4c0.1,0.3-0.1,0.6-0.4,0.7c-0.3,0.1-0.6-0.1-0.7-0.4
+				C-248.9,395.4-248.7,395.1-248.4,395.1 M-251.1,393.2c0.1-0.3,0.4-0.5,0.7-0.4c0.3,0.1,0.5,0.4,0.4,0.7c-0.1,0.3-0.4,0.5-0.7,0.4
+				C-251,393.8-251.1,393.5-251.1,393.2 M-254.3,397.8c-0.3,0.1-0.6-0.1-0.7-0.4c-0.1-0.3,0.1-0.6,0.4-0.7c0.3-0.1,0.6,0.1,0.7,0.4
+				C-253.8,397.4-254,397.7-254.3,397.8 M-254,394.5c-0.2-0.2-0.2-0.6,0-0.8c0.2-0.2,0.6-0.2,0.8,0c0.2,0.2,0.2,0.6,0,0.8
+				C-253.4,394.8-253.8,394.8-254,394.5 M-251.6,399.6c-0.1,0.3-0.4,0.5-0.7,0.4c-0.3-0.1-0.5-0.4-0.4-0.7c0.1-0.3,0.4-0.5,0.7-0.4
+				C-251.7,399-251.6,399.3-251.6,399.6 M-251.4,398.4c-1.1,0-2-0.9-2-2s0.9-2,2-2c1.1,0,2,0.9,2,2S-250.2,398.4-251.4,398.4
+				 M-248.7,399.1c-0.2,0.2-0.6,0.2-0.8,0s-0.2-0.6,0-0.8c0.2-0.2,0.6-0.2,0.8,0C-248.5,398.5-248.5,398.8-248.7,399.1"/>
+			<path class="pickupIcon" d="M-269.7,399.1l0.4-0.3c0,0,0.6-6,0.9-8.3c0.2-1.5,1.4-2.2,2.5-2.2c0.4,0,0.9,0.1,1.3,0.3
+				c2.7-4.5,7.6-7.6,13.2-7.6s10.6,3,13.2,7.6c0.4-0.2,0.8-0.3,1.3-0.3c1.2,0,2.4,0.7,2.5,2.2l0.9,8.3l0.4,0.2
+				c0.1-0.9,0.2-1.7,0.2-2.6c0-10.2-8.3-18.5-18.5-18.5s-18.5,8.3-18.5,18.5C-269.9,397.3-269.8,398.2-269.7,399.1"/>
+			<path class="pickupIcon" d="M-253.6,409.6v0.9c0.7,0.1,1.5,0.2,2.3,0.2s1.5-0.1,2.3-0.2v-0.9c0-0.4-0.3-0.8-0.8-0.8h-3
+				C-253.3,408.8-253.6,409.2-253.6,409.6"/>
+			<path class="pickupIcon" d="M-239.7,406.4c-2.8,3.3-7,5.3-11.6,5.3c-4.6,0-8.8-2.1-11.6-5.3c-0.1,1.1-0.4,2.2-0.8,3.1
+				c-0.1,0.1-0.1,0.3-0.2,0.4c3.3,3.1,7.8,5,12.7,5s9.4-1.9,12.7-5c-0.1-0.1-0.2-0.3-0.2-0.4C-239.3,408.6-239.6,407.5-239.7,406.4"
+				/>
+			<path class="pickupIcon" d="M-264.8,400.5c0.3-3.2,0.7-6.4,1-9.5c0.3-2.5-3.8-2.9-4.1-0.4c-0.3,2.9-0.6,5.7-0.9,8.6l-1.8,1.2l-0.2-1.1
+				l-0.1-1.3l-0.1-1.3l0-1.2c0.1-2.3,0.6-4.5,1.5-6.7c0.3-0.6,0.6-1.2,0.9-1.8l-2.4,0.2l-4.1,8.3v10v0.7v10.8h8.7v-5.4
+				c1.7-0.7,3-3.1,3-6C-263.5,403.4-263.9,401.7-264.8,400.5"/>
+		</svg>
+        <!--<span data-bind="i18n: 'Car Pick-Up and Drop-Off'"><?php // echo __('Car Pick-Up and Drop-Off');?></span>-->
+        <?php echo __('Car Pick-Up and Drop-Off');?>
+    </div>
+    <div class="pickupDropOption">
+    	<span class="km-charges"><?php //echo $fullPickupDiscountText;?></span> 
+    	<span class="km-actions"><label class="yes <?php echo $class;?>"><?php echo __('Yes'); ?></label><label class="no"><?php echo __('No'); ?></label></span>
+    </div>
+    <div class="box-body">
+    <form id="custom-pickup-form" class="form" style="<?php echo $display;?>">
+        <div class="form_filds_custom">
+               <select name="pickup_type" class="select pickup-type" <?php echo $disabled;?>>
+					<?php foreach ($pickupdropOptions as $pickupdropOptionslist) { ?>
+					<?php
+					$selected="";
+					if($pickup_title == $pickupdropOptionslist['label']) {
+					  $selected="selected";
+					}
+					?>
+					<option value="<?php echo $pickupdropOptionslist['value']; ?>" <?php echo $selected; ?>><?php echo __($pickupdropOptionslist['label']); ?></option>
+				<?php } ?>
+				</select>	
+				<div class="field _required">
+					<input class="input-text" type="text" name="pickup_location" placeholder="<?php echo __('Select your location'); ?>" aria-required="true" aria-invalid="false" id="pickup_location" value="<?php echo $pickup_location;?>" <?php echo $disabled;?> />
+				</div>
+			<div class="pickup-map">
+				<a href="javascript:void(0)" class="" id="pickUPMAP" data-toggle="modal" data-target="#pickUPModal" data-lat="<?php echo $destination_lat;?>" data-lng="<?php echo $destination_lng;?>" data-bs-toggle="modal" data-bs-target="#pickUPModal">
+                    <span><?php echo __('Pin On Map'); ?></span>
+                    <img src="<?php echo $this->getViewFileUrl('images/google-maps.png'); ?>">
+                </a>				
+			</div>
+			
+			<button type="button" class="action button button-dark button-rounded filled-slide-right" id="getpickupdropoff" style="<?php echo $submitbtnStyle;?>">
+	            <span><?php echo __('Submit'); ?></span>
+	        </button>
+			<button type="button" class="action button button-primary-100 button-rounded filled-slide-right" id="cancelpickupdropoff" style="<?php echo $cancelbtnStyle;?>">
+	            <span>Cancel</span>
+	        </button>
+			<span class="response_cls pickup-charge">
+				<!-- <span id="response_status"></span> -->
+				<span id="calculated_pickup_distance"></span>	
+				<span id="calculated_pickup_charges"></span>
+<!-- 				<span id="calculated_pickup_duration"></span>	 -->
+			</span>					
+        </div>
+		<div class="sameas-pickup-dropoff">
+			<div class="pickupcheckbox form-check-custom-style2" style="display:none;">
+				<input type="checkbox" id="same-as-pickup" class="checkbox" name="sameaspickup" value="1" checked <?php echo $disabled;?>>
+				<label for="same-as-pickup">
+					<span></span>
+					<span class="text"><?php echo __('Same as Pickup');?></span>
+				</label>
+			</div>
+			<div class="field _required different-pickup" style="display:none;">
+				<input class="input-text" type="text" name="different_pickup_location" placeholder="Select your destination location" aria-required="true" aria-invalid="false" id="different_pickup_location" value="" <?php echo $disabled;?> />
+			</div>
+			<div class="pickup-map different-pickup-map" style="display:none;">
+				<a href="javascript:void(0)" class="" id="dropOffPMAP" data-toggle="modal" data-target="#dropOffModal" data-lat="<?php echo $destination_lat;?>" data-lng="<?php echo $destination_lng;?>" data-bs-toggle="modal" data-bs-target="#dropOffModal">
+                    <img src="<?php echo $this->getViewFileUrl('images/google-maps.png'); ?>">
+                </a>				
+			</div>
+		</div>		
+    </form>
+	<span id="pickup_msg"></span>
+   </div>
+	
+	<input type="hidden" id="pickup_installer_lat" value="<?php echo $installerLat;?>"/>
+	<input type="hidden" id="pickup_installer_lng" value="<?php echo $installerLng;?>"/>
+	<input type="hidden" id="pickup_installer_service" value=""/>
+	<input type="hidden" id="pickup_destination_lat" value=""/>
+	<input type="hidden" id="pickup_destination_lng" value=""/>
+	<input type="hidden" id="different_destination_lat" value=""/>
+	<input type="hidden" id="different_destination_lng" value=""/>
+	<input type="hidden" id="is_different_destination" value=""/>
+</div>
+<!-- start Modal for pickup map -->
+  <div class="modal fade" id="pickUPModal" tabindex="-1" role="dialog" aria-labelledby="pickUPModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-custom-width-lg bs-custom-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-title"><span>Pin On Map</span></div>
+        <span class="close white" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256L7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256L312.1 375z"/></svg></span>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 modal_body_map">
+              <div class="location-map" id="location-map">
+                <div style="width: 600px; height: 450px;" id="map_canvas_pickup_map"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end Modal for pickup map -->
+<!-- start Modal for dropoff map -->
+  <div class="modal fade" id="dropOffModal" tabindex="-1" role="dialog" aria-labelledby="dropOffModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-custom-width-lg bs-custom-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-title"><span>Pin On Map</span></div>
+        <span class="close white" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256L7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256L312.1 375z"/></svg></span>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 modal_body_map">
+              <div class="location-map" id="location-map">
+                <div style="width: 600px; height: 450px;" id="map_canvas_dropoff_map"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end Modal for dropoff map -->
+END */ ?>
+<?php /* <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $googleApiKey;?>&libraries=places,geometry&callback=initMap1" async defer></script> */ ?>
+<script>
+
+function initMap1() { 
+  	
+  	//var searchlatSort="";
+	//var searchlongSort="";
+  	/* var input = document.getElementById('tyinstaller');
+	var autocompleteSearch = new google.maps.places.Autocomplete(input);
+	autocompleteSearch.setComponentRestrictions({'country': ['sa']});
+	google.maps.event.addListener(autocompleteSearch, 'place_changed', function () {
+		var placeSearch = autocompleteSearch.getPlace();
+		searchlatSort=placeSearch.geometry.location.lat();
+		searchlongSort=placeSearch.geometry.location.lng();
+    });
+
+	var input = document.getElementById('pickup_location');
+	var autocomplete = new google.maps.places.Autocomplete(input);
+	autocomplete.setComponentRestrictions({'country': ['sa']});
+	google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		var place = autocomplete.getPlace();
+		searchlat=place.geometry.location.lat();
+		searchlong=place.geometry.location.lng();  
+		
+	   });
+	   
+	var pickup_location = document.getElementById('pickup_location');
+	var pickup_locationautocomplete = new google.maps.places.Autocomplete(pickup_location);
+	pickup_locationautocomplete.setComponentRestrictions({'country': ['sa']});
+	google.maps.event.addListener(pickup_locationautocomplete, 'place_changed', function () {  
+		var place = pickup_locationautocomplete.getPlace();
+		pickup_location_searchlat=place.geometry.location.lat();
+		pickup_location_searchlong=place.geometry.location.lng();
+		//console.log('pickuplocation--'+pickup_location_searchlat+'--'+pickup_location_searchlong);
+		jQuery('#pickup_destination_lat').val(pickup_location_searchlat);
+		jQuery('#pickup_destination_lng').val(pickup_location_searchlong);
+	});
+	
+	var different_pickup_location = document.getElementById('different_pickup_location');
+	var different_pickup_locationautocomplete = new google.maps.places.Autocomplete(different_pickup_location);
+	different_pickup_locationautocomplete.setComponentRestrictions({'country': ['sa']});
+	google.maps.event.addListener(different_pickup_locationautocomplete, 'place_changed', function () {  
+		var place = different_pickup_locationautocomplete.getPlace();
+		pickup_location_searchlat=place.geometry.location.lat();
+		pickup_location_searchlong=place.geometry.location.lng();
+		//console.log('different-pickuplocation--'+pickup_location_searchlat+'--'+pickup_location_searchlong);
+		jQuery('#different_destination_lat').val(pickup_location_searchlat);
+		jQuery('#different_destination_lng').val(pickup_location_searchlong);
+	}); */
+	
+  }
+
+ require(['jquery', 'jquery/ui'], function($){ 
+  var fee = '<?php echo $fee; ?>';
+  var destination_lat = '<?php echo $destination_lat; ?>';
+  var destination_lng = '<?php echo $destination_lng; ?>';
+  jQuery(document).ready(function(){
+	  if(destination_lat != '' || destination_lng != ''){
+		jQuery('#pickup_installer_service').val(1);  
+		jQuery('#pickup_destination_lat').val(destination_lat);
+		jQuery('#pickup_destination_lng').val(destination_lng);
+	  }
+  });	  
+  
+  jQuery(window).on('load', function() {	
+		var fittingText = '<?php echo __($fittingText); ?>';
+		var fittingInstallerText = '<?php echo __($fittingInstallerText); ?>';
+		var isServicePackage = '<?php echo $isServicePackage; ?>';
+		var selectButtonText = '<?php echo __($selectButtonText); ?>';
+		jQuery('#cart-fitting-location .checkout_title span').text(fittingText);	
+		jQuery('.tystoreinstaller .top-installer-text h2').text(fittingInstallerText);
+		jQuery('#cart-installer-location').text(selectButtonText);
+		if(isServicePackage == 1){
+			jQuery('.garage_switch .container_switch').addClass('has-service-package');
+			jQuery('.garage_switch .switch input').prop( "disabled", true );
+			jQuery('.garage_switch .has-service-package label').removeClass('active');
+		}	
+	});
+  var noInstallerErr = '<?php echo __("Please select fitting installer."); ?>';
+  var pickupDropNotAvailable = '<?php echo __("Not available pick-up/drop-off service at this location."); ?>';
+  jQuery(document).on('click', "#custom-vehicle-div .pickupDropOption .yes", function() {
+	var isPickup = jQuery('#pickup_installer_service').val(); 
+	jQuery('#custom-vehicle-div .pickupDropOption .no').removeClass('active');
+	jQuery('#custom-vehicle-div').addClass('no-active');
+	jQuery(this).addClass('active');
+	if(isPickup == 1 && isPickup.length != 0){
+		jQuery('#custom-pickup-form').slideDown('fast');
+		jQuery('#custom-vehicle-div').addClass('active');	
+	}
+	if(isPickup == 0 && isPickup.length != 0){
+		alert(pickupDropNotAvailable);
+		jQuery('#custom-vehicle-div').removeClass('no-active');
+		jQuery(this).removeClass('active');
+	}
+	if(isPickup == '' && isPickup.length == 0){
+		alert(noInstallerErr);
+		jQuery('#custom-vehicle-div').removeClass('no-active');
+		jQuery(this).removeClass('active');
+	}	
+  	
+  });
+  jQuery(document).on('click', "#custom-vehicle-div .pickupDropOption .no", function() {
+	jQuery('#custom-vehicle-div .pickupDropOption .yes').removeClass('active');
+	jQuery(this).addClass('active');  
+  	jQuery('#custom-pickup-form').slideUp('fast');
+	jQuery('#custom-vehicle-div').removeClass('active');
+	jQuery('#custom-vehicle-div').addClass('no-active');
+	jQuery('#cancelpickupdropoff').trigger('click'); // trigger click and remove pickup/dropoff fee
+  });
+  
+	jQuery(document).on('change', 'select[name=pickup_type]', function() {
+		if(this.value == 2){
+			jQuery('.pickupcheckbox').show();
+		}else{
+			jQuery('.pickupcheckbox').hide();
+			jQuery('.different-pickup').hide();
+			jQuery('.different-pickup-map').hide();
+			jQuery('#is_different_destination').val('');
+			jQuery("#same-as-pickup").prop("checked", true);
+		}
+	});
+
+	jQuery('#same-as-pickup').click(function(){
+		if(jQuery(this).prop("checked") == true){
+			jQuery('.different-pickup').hide();
+			jQuery('.different-pickup-map').hide();
+			jQuery('#is_different_destination').val('');
+		}
+		else if(jQuery(this).prop("checked") == false){
+			jQuery('.different-pickup').show();
+			jQuery('.different-pickup-map').show();
+			jQuery('#is_different_destination').val(1);
+		}
+	});
+ });
+</script>
+<script type="text/javascript">
+require([
+    'jquery',
+	'mage/url',
+	'domReady',
+	'mage/storage',
+    'Magento_Checkout/js/action/get-totals',
+	'Magento_Checkout/js/model/quote',
+	'Magento_Checkout/js/model/totals',
+	'Magento_Checkout/js/model/cart/totals-processor/default',
+	'Magento_Checkout/js/action/get-payment-information',
+	'Magento_Ui/js/modal/modal'
+     ], function ($, url, domReady, storage, getTotalsAction, quote, totals, totalsDefaultProvider, getPaymentInformationAction, modal) {
+	'use strict';
+	
+   /* $(document).ready(function(){
+	   $(document).on('click', '#getpickupdropoff', function(){
+		var originLat = $('#pickup_installer_lat').val();
+		var originLng = $('#pickup_installer_lng').val();
+		var destinationLat = $('#pickup_destination_lat').val();
+		var destinationLng = $('#pickup_destination_lng').val();
+		var pickupTitle = $('select[name="pickup_type"] option:selected').text();
+		var pickupVal = $('select[name="pickup_type"] option:selected').val();
+		var isPickup = $('#pickup_installer_service').val();
+		var pickupLocation = $('#pickup_location').val();
+		var applyPickup = 1;
+		var diffDestinationLat = $('#different_destination_lat').val();
+		var diffDestinationLng = $('#different_destination_lng').val();
+		var isdiffDestination = $('#is_different_destination').val();		
+	    var data = {'pickup_service': isPickup, 'pickup_title': pickupTitle, 'pickup_val': pickupVal, 'origin_lat': originLat, 'origin_lng': originLng, 'destination_lat': destinationLat, 'destination_lng': destinationLng, 'is_apply_pickup': applyPickup, 'pickup_location': pickupLocation, 'diff_destination_lat': diffDestinationLat, 'diff_destination_lng': diffDestinationLng, 'is_different_destination': isdiffDestination};
+		 //console.log(data);
+		 if (data) {
+			if(pickupVal != '' && destinationLng != ''){
+				
+				$('body').trigger('processStart');
+                return storage.post(
+                        'installer/ajax/getpickupdropoffcharges',
+                        JSON.stringify(data),
+                        false
+                        ).done(
+                        function (response) {
+                            if (response) {
+                                $.each(response, function (i, v) {         
+                                       // $("#calculated_pickup_distance").html(v.distance);
+                                     //  $("#calculated_pickup_duration").html(v.duration);
+									// $("#calculated_pickup_charges").html(v.charges);
+										$("#calculated_pickup_distance").html(v.distance);
+										$("#calculated_pickup_charges").html(v.charges_text);
+										$("#response_status").html(v.status);
+										$('.fee').find('.price').text(v.charges);
+										
+                                });
+								
+							totalsDefaultProvider.estimateTotals(quote.shippingAddress());	
+                            }
+							$('#getpickupdropoff').hide();
+							$('#cancelpickupdropoff').show();
+							$('#pickup_location').attr('disabled', 'disabled');
+							$('#different_pickup_location').attr('disabled', 'disabled');
+							$('#same-as-pickup').attr('disabled', 'disabled');
+							$('#custom-pickup-form select[name="pickup_type"]').attr('disabled', 'disabled');
+							$('#custom-pickup-form .pickup-map a').attr('style','pointer-events:none;');
+                            $('body').trigger('processStop');
+                        }
+
+                ).fail(
+                        function (response) {
+                        }
+                );
+				
+			 }
+		}
+       });
+	   
+	   $(document).on('click', '#cancelpickupdropoff', function(){
+			var originLat = $('#pickup_installer_lat').val();
+			var originLng = $('#pickup_installer_lng').val();
+			var destinationLat = $('#pickup_destination_lat').val();
+			var destinationLng = $('#pickup_destination_lng').val();
+			var pickupTitle = $('select[name="pickup_type"] option:selected').text();
+			var pickupVal = $('select[name="pickup_type"] option:selected').val();
+			var isPickup = $('#pickup_installer_service').val();
+			var pickupLocation = $('#pickup_location').val();
+			var applyPickup = 0;
+			var diffDestinationLat = $('#different_destination_lat').val();
+			var diffDestinationLng = $('#different_destination_lng').val();
+			var isdiffDestination = $('#is_different_destination').val();			
+			var data = {'pickup_service': isPickup, 'pickup_title': pickupTitle, 'pickup_val': pickupVal, 'origin_lat': originLat, 'origin_lng': originLng, 'destination_lat': destinationLat, 'destination_lng': destinationLng, 'is_apply_pickup': applyPickup, 'pickup_location': pickupLocation, 'diff_destination_lat': diffDestinationLat, 'diff_destination_lng': diffDestinationLng, 'is_different_destination': isdiffDestination};
+			 //console.log(data);
+			 if (data) {
+				if(pickupVal != '' && destinationLng != ''){
+					
+					$('body').trigger('processStart');
+					return storage.post(
+							'installer/ajax/getpickupdropoffcharges',
+							JSON.stringify(data),
+							false
+							).done(
+							function (response) {
+								if (response) {
+									$.each(response, function (i, v) {         
+											$("#calculated_pickup_distance").html(v.distance);
+											$("#calculated_pickup_charges").html(v.charges_text);
+											$("#response_status").html(v.status);
+											$('.fee').find('.price').text(v.charges);
+											
+									});
+									
+									quote.shippingAddress(quote.shippingAddress()); 
+									var deferred = $.Deferred();
+									getTotalsAction([], deferred);
+									 totals.isLoading(true);
+										getPaymentInformationAction(deferred);
+										$.when(deferred).done(function() {
+											totals.isLoading(false);
+										});
+								}
+								$('#getpickupdropoff').show();
+								$('#cancelpickupdropoff').hide();
+								$('#pickup_location').removeAttr('disabled');
+								$('#different_pickup_location').removeAttr('disabled');
+								$('#same-as-pickup').removeAttr('disabled');
+								$('#custom-pickup-form select[name="pickup_type"]').removeAttr('disabled');
+								$('#custom-pickup-form .pickup-map a').attr('style','');
+								$('body').trigger('processStop');
+							}
+
+					).fail(
+							function (response) {
+							}
+					);
+				 }
+			}
+       });
+	   
+      }); */ 
+		/*start for soring installers*/
+	/*	jQuery('#calculatedistace').click(function(){
+			if(searchlongSort != "" && searchlatSort != "" && jQuery('#tyinstaller').val() != "" ) {
+				var p1 = new google.maps.LatLng(searchlatSort, searchlongSort);
+				jQuery('.installer').each(function(i, obj) {
+					var p2 = new google.maps.LatLng(jQuery(this).attr('data-lat'), jQuery(this).attr('data-lng'));
+
+					var finalinstallerrdistance=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+
+					finalinstallerrdistance=parseFloat(finalinstallerrdistance);
+					jQuery(this).find('.miles').html(finalinstallerrdistance+' kms');
+				    jQuery(this).find('.distance').show();
+					var selectdistance=jQuery('#serach_distance').val();
+					jQuery(this).removeAttr('data-position');
+					jQuery(this).attr('data-position',finalinstallerrdistance);
+					if(finalinstallerrdistance > selectdistance){
+						
+							jQuery(this).hide();
+					}else{
+							jQuery(this).show();
+					}
+				});
+				
+				jQuery('.installer').sort(function (a, b) {
+					var contentA =parseInt( jQuery(a).attr('data-position'));
+					var contentB =parseInt( jQuery(b).attr('data-position'));
+					return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+				}).appendTo(".allInstaller");
+				
+				setTimeout(function(){ jQuery('body').trigger('processStop'); }, 3000);
+			}else{
+				jQuery('.installer').each(function(i, obj) {
+				  jQuery(this).show();
+				  jQuery(this).find('.distance').hide();
+				  jQuery(this).find('.miles').html();
+				});
+			}
+		}); */ 
+		/*end for soring installers*/
+		$(document).ready(function() {
+
+          /*start for pickup map*/
+        /*  $('#pickUPModal').on('show.bs.modal', function(event) {
+          	var map;
+			var myMarker;
+			var myLatlng;
+			
+			var pickupLat = $('#pickup_destination_lat').val();
+			var pickupLng = $('#pickup_destination_lng').val();
+			
+			var lat = $('#pickup_installer_lat').val();
+			var lng = $('#pickup_installer_lng').val();
+			
+			if(pickupLat != '' && pickupLng != ''){
+				myLatlng = new google.maps.LatLng(pickupLat, pickupLng);
+			}else{
+				myLatlng = new google.maps.LatLng(lat, lng);
+			}			
+			//myLatlng = new google.maps.LatLng(lat, lng);
+			var geocoder = new google.maps.Geocoder();
+			var infowindow = new google.maps.InfoWindow();
+			//console.log(myLatlng); 
+			var myOptions = {
+			  zoom: 18,
+			  zoomControl: true,
+			  center: myLatlng,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			map = new google.maps.Map(document.getElementById("map_canvas_pickup_map"), myOptions);
+
+			myMarker = new google.maps.Marker({
+				map: map,
+				position: myLatlng,
+				draggable: true
+			});
+		   google.maps.event.addListener(myMarker, 'dragend', function(evt) {
+			  geocoder.geocode({'latLng': myMarker.getPosition()},function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var address_components = results[0].formatted_address;
+						
+						$("#pickup_location").val(address_components);
+                        infowindow.setContent(results[0].formatted_address);
+                        infowindow.open(map, myMarker);
+                    }
+                }  
+			  });
+			  $("#pickup_destination_lat").val(evt.latLng.lat());
+			  $("#pickup_destination_lng").val(evt.latLng.lng());
+			});
+			
+			myMarker.setMap(map);
+			$("#location-map").css("width", "100%");
+			$("#map_canvas_pickup_map").css("width", "100%");
+			google.maps.event.trigger(map, "resize");
+			map.setCenter(myLatlng);
+          }); */ 
+
+          /*end for pickup map*/
+          /*start for dropoff map*/
+        /*  $('#dropOffModal').on('show.bs.modal', function(event) {
+          	var map;
+			var myMarker;
+			var myLatlng;
+			
+			var diffDestiLat = $('#different_destination_lat').val();
+			var diffDestiLng = $('#different_destination_lng').val();
+			
+			var lat = $('#pickup_installer_lat').val();
+			var lng = $('#pickup_installer_lng').val();
+			
+			if(diffDestiLat != '' && diffDestiLng != ''){
+				myLatlng = new google.maps.LatLng(diffDestiLat, diffDestiLng);
+			}else{
+				myLatlng = new google.maps.LatLng(lat, lng);
+			}
+			
+			
+			var geocoder = new google.maps.Geocoder();
+			var infowindow = new google.maps.InfoWindow();
+		
+			var myOptions = {
+			  zoom: 18,
+			  zoomControl: true,
+			  center: myLatlng,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			map = new google.maps.Map(document.getElementById("map_canvas_dropoff_map"), myOptions);
+
+			myMarker = new google.maps.Marker({
+				map: map,
+				position: myLatlng,
+				draggable: true
+			});
+		   google.maps.event.addListener(myMarker, 'dragend', function(evt) {
+			  geocoder.geocode({'latLng': myMarker.getPosition()},function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var address_components = results[0].formatted_address;
+						
+						$("#different_pickup_location").val(address_components);
+                        infowindow.setContent(results[0].formatted_address);
+                        infowindow.open(map, myMarker);
+                    }
+                }  
+			  });  
+			  $("#different_destination_lat").val(evt.latLng.lat());
+			  $("#different_destination_lng").val(evt.latLng.lng());
+			});
+			
+			myMarker.setMap(map);
+			$("#location-map").css("width", "100%");
+			$("#map_canvas_dropoff_map").css("width", "100%");
+			google.maps.event.trigger(map, "resize");
+			map.setCenter(myLatlng);
+          }); */ 
+          
+          /*end for dropoff map*/
+
+        /*  $(document).on('hide.bs.modal','#pickUPModal', function () {
+          	applyPickUpDropOff();
+          });
+          $(document).on('hide.bs.modal','#dropOffModal', function () {
+          	applyPickUpDropOff();
+          });
+
+          function applyPickUpDropOff(){
+          	var originLat = $('#pickup_installer_lat').val();
+			 var originLng = $('#pickup_installer_lng').val();
+			 var destinationLat = $('#pickup_destination_lat').val();
+			 var destinationLng = $('#pickup_destination_lng').val();
+			 var pickupTitle = $('select[name="pickup_type"] option:selected').text();
+			 var pickupVal = $('select[name="pickup_type"] option:selected').val();
+			 var isPickup = $('#pickup_installer_service').val();
+			 var applyPickup = 1;
+			 var pickupLocation = $('#pickup_location').val();
+			 var diffDestinationLat = $('#different_destination_lat').val();
+			 var diffDestinationLng = $('#different_destination_lng').val();
+			 var isdiffDestination = $('#is_different_destination').val();
+			 var data = {'pickup_service': isPickup, 'pickup_title': pickupTitle, 'pickup_val': pickupVal, 'origin_lat': originLat, 'origin_lng': originLng, 'destination_lat': destinationLat, 'destination_lng': destinationLng, 'is_apply_pickup': applyPickup, 'pickup_location': pickupLocation,'diff_destination_lat': diffDestinationLat, 'diff_destination_lng': diffDestinationLng, 'is_different_destination': isdiffDestination};
+			 
+			 if (data) {
+				if(pickupVal != '' && destinationLng != ''){
+					
+					$('body').trigger('processStart');
+					return storage.post(
+							'installer/ajax/getpickupdropoffcharges',
+							JSON.stringify(data),
+							false
+							).done(
+							function (response) {
+								if (response) {
+									$.each(response, function (i, v) {
+											$("#calculated_pickup_distance").html(v.distance);
+											$("#calculated_pickup_charges").html(v.charges_text);
+											$("#response_status").html(v.status);
+											$('.fee').find('.price').text(v.charges);
+											
+									});
+								
+								totalsDefaultProvider.estimateTotals(quote.shippingAddress());
+								}
+								$('#getpickupdropoff').hide();
+								$('#cancelpickupdropoff').show();
+								$('#pickup_location').attr('disabled', 'disabled');
+								$('#different_pickup_location').attr('disabled', 'disabled');
+								$('#same-as-pickup').attr('disabled', 'disabled');
+								$('#custom-pickup-form select[name="pickup_type"]').attr('disabled', 'disabled');
+								$('#custom-pickup-form .pickup-map a').attr('style','pointer-events:none;');
+								$('body').trigger('processStop');
+							}
+
+					).fail(
+						function (response) {
+						}
+					);
+					
+				 }
+			}
+          } */ 
+        });
+    });
+</script>

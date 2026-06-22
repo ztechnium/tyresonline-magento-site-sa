@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Ecomteck.com license that is
+ * available through the world-wide-web at this URL:
+ * https://ecomteck.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_OneStepCheckout
+ * @copyright   Copyright (c) 2018 Ecomteck (https://ecomteck.com/)
+ * @license     https://ecomteck.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_cart_configure"/>
+    <head>
+        <css src="Magento_Swatches::css/swatches.css"/>
+        <css src="jquery/colorpicker/css/colorpicker.css"/>
+    </head>
+    <body>
+        <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="footer-container" remove="true" />
+        <referenceContainer name="page.top" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+        <referenceContainer name="product.info.extrahint" remove="true"/>
+        <referenceContainer name="content.aside" remove="true"/>
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Ecomteck_OneStepCheckout::cart/item/configure/updatecart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Ecomteck_OneStepCheckout::cart/item/configure/updatecart.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

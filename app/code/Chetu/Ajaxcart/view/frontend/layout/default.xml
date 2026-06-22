@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2018 www.chetu.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- <head>
+        <css src="Chetu_Ajaxcart::css/ajaxcart.css"/>
+		<css src="Chetu_Ajaxcart::css/media.css"/>
+		<css src="Chetu_Ajaxcart::css/ajaxsuite.css"/>
+    </head> -->
+    <body>
+        <referenceBlock name="head.additional">
+            <!--block class="Chetu\Ajaxcart\Block\Js" name="ajaxCartJs" as="ajaxCartJs" ifconfig="ajaxcart/general/enabled" /-->
+			<block class="Chetu\Ajaxcart\Block\Js" name="ajaxSuiteJs" as="ajaxSuiteJs" ifconfig="ajaxsuite/general/enabled"/>
+        </referenceBlock>
+		 <referenceContainer name="before.body.end">
+            <block class="Chetu\Ajaxcart\Block\Popup\Wrapper" name="ajaxsuite.popup.wrapper"
+                   template="popup/wrapper.phtml" ifconfig="ajaxsuite/general/enabled" >
+                <block class="Chetu\Ajaxcart\Block\Popup\Popup" name="ajaxsuite.popup.popup"
+                    template="popup/popup.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

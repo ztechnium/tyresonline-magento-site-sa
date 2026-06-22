@@ -1,0 +1,277 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$offerCollection = $block->getBannerCollection();
+$uniqueOfferCategories = [];
+if ($offerCollection->getData()) {
+    foreach ($offerCollection->getData() as $offer) {
+        $offerCategory = $offer['category'];
+        if (!in_array($offerCategory, $uniqueOfferCategories)) {
+            $uniqueOfferCategories[] = $offerCategory;
+        }
+    }
+}
+
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+    ->getStore()
+    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseUrl = $this->getBaseUrl();
+$timeZone = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+$storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getCode();
+?>
+
+<div class="promotions-offers">
+
+
+    <div class="section offers-banner">
+        <div class="container custom-width">
+
+            <div class="content-wrap">
+
+                <h1><?php echo __('Tyre Offers, Promotions, and Deals in KSA'); ?></h1>
+
+                <div class="tyre-search">
+                    <div class="search-wrap">
+                        <input type="text" placeholder="<?php echo __('Search Tyres by Size'); ?>" readonly="" wfd-id="id49">
+                         <div class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.025 20.023">
+                                <path id="search" d="M78.114,20.545,73.3,15.728a7.57,7.57,0,1,0-2.007,2.007l4.817,4.817a.947.947,0,0,0,1.336,0l.668-.668A.948.948,0,0,0,78.114,20.545ZM67.035,16.208a4.731,4.731,0,1,1,4.731-4.731A4.731,4.731,0,0,1,67.035,16.208Z" transform="translate(-58.95 -3.394)" stroke="#707070" stroke-width="1"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="search-vehicle">
+                        <span class="hover-transition"><?php echo __('Search by Vehicle'); ?></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="section offers-list">
+        <div class="container custom-width">
+            <?php if (!empty($uniqueOfferCategories)) : ?>
+                <?php foreach ($uniqueOfferCategories as $uniqueOfferCategory) : ?>
+                    <div class="offers-list-inner">
+                        <?php
+                        $uniqueOfferCategoryUrl = strtolower($uniqueOfferCategory);
+                        $uniqueOfferCategoryUrl = str_replace(' ', '-', $uniqueOfferCategoryUrl);
+                        ?>
+                        <h3><?php echo __($uniqueOfferCategory); ?></h3>
+                        <?php
+                        $offerCollectionCategoryWise = $block->getOfferCollectionFromCategory($uniqueOfferCategory);
+                        ?>
+                        <?php if ($offerCollectionCategoryWise->getData()) : ?>
+                            <div class="row g-3">
+                                <?php foreach ($offerCollectionCategoryWise as $offerCategoryWise) : ?>
+                                    <?php
+                                    if ($offerCategoryWise->getUrlBanner()) {
+                                        $categoryUrl = '';
+                                        $category = $offerCategoryWise->getCategory();
+                                        $categoryUrl = strtolower($category);
+                                        $categoryUrl = str_replace(' ', '-', $categoryUrl);
+                                        $offerUrl = $baseUrl . 'special-offers/' . $categoryUrl . '/' . $offerCategoryWise->getUrlBanner();
+                                    } else {
+                                        $offerUrl = "#";
+                                    }
+                                    if ($storeCode == 'en') {
+                                        $offerTitle = $offerCategoryWise->getTitle();
+                                        $offerImage1 = $offerCategoryWise->getImage();
+                                    } else {
+                                        if ($offerCategoryWise->getTitleAr()) {
+                                            $offerTitle = $offerCategoryWise->getTitleAr();
+                                        } else {
+                                            $offerTitle = $offerCategoryWise->getTitle();
+                                        }
+                                        if ($offerCategoryWise->getImageAr()) {
+                                            $offerImage1 = $offerCategoryWise->getImageAr();
+                                        } else {
+                                            $offerImage1 = $offerCategoryWise->getImage();
+                                        }
+                                    }
+                                    ?>
+                                    <?php if ($offerImage1) : ?>
+                                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                            <div class="box">
+                                                <div class="top d-flex align-items-center justify-content-between">
+                                                    <div class="brand-logo-sm">
+                                                        <?php if ($offerCategoryWise->getBrandLogo()) : ?>
+                                                            <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerCategoryWise->getBrandLogo(); ?>" class="lazyload" alt="<?php echo $offerTitle; ?>" />
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <?php if (isset($offerCategoryWise['to_date']) && $offerCategoryWise['to_date'] != '') : ?>
+                                                        <div class="deal-end"><span>ENDS <?php echo $timeZone->date(new \DateTime($offerCategoryWise['to_date']))->format('M d, Y'); ?></span></div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="box-title d-flex align-items-center justify-content-between">
+                                                    <span><?php echo $offerTitle; ?></span>
+                                                    <span class="link" data-izimodal-open="#offreDetails-<?php echo $offerCategoryWise->getBannerId(); ?>"><?php echo __('Details'); ?></span>
+                                                </div>
+                                                <div class="image-wrap picture loader aspect-custom">
+                                                    <picture>
+                                                        <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage1; ?>" alt="<?php echo $offerTitle; ?>">
+                                                    </picture>
+                                                </div>
+                                                <div class="shownow">
+                                                    <a href="<?php echo $this->getBaseUrl() . $offerCategoryWise->getUrlBanner(); ?>"><?php echo __('SHOP NOW'); ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php foreach ($offerCollectionCategoryWise as $offerCategoryWise) : ?>
+                                <?php
+                                if ($storeCode == 'en') {
+                                    $offerTitle = $offerCategoryWise->getTitle();
+                                    $offerImage2 = $offerCategoryWise->getBannerImageTwo();
+                                    $offerDescription = $offerCategoryWise->getContent();
+                                } else {
+                                    $offerTitle = $offerCategoryWise->getTitleAr();
+                                    $offerImage2 = $offerCategoryWise->getBannerImageTwoAr();
+                                    $offerDescription = $offerCategoryWise->getContentAr();
+                                }
+                                ?>
+                                <!-- offers Modal -->
+                                <!-- loop // >> loop this modal like offers slider and id dynamic id -->
+                                <div id="offreDetails-<?php echo $offerCategoryWise->getBannerId(); ?>" class="iziModal izimodal-offersmodal">
+                                    <div class="modal-content-wrap">
+                                        <span class="button-close" data-izimodal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                                                <path d="M315.3 411.3c-6.253 6.253-16.37 6.253-22.63 0L160 278.6l-132.7 132.7c-6.253 6.253-16.37 6.253-22.63 0c-6.253-6.253-6.253-16.37 0-22.63L137.4 256L4.69 123.3c-6.253-6.253-6.253-16.37 0-22.63c6.253-6.253 16.37-6.253 22.63 0L160 233.4l132.7-132.7c6.253-6.253 16.37-6.253 22.63 0c6.253 6.253 6.253 16.37 0 22.63L182.6 256l132.7 132.7C321.6 394.9 321.6 405.1 315.3 411.3z" />
+                                            </svg></span>
+                                        <div class="modal-title">
+                                            <span class="h3"><?php echo $offerTitle; ?></span>
+                                        </div>
+                                        <div class="image-wrap picture loader aspect-custom">
+                                            <picture>
+                                                <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage2; ?>" alt="<?php echo $offerTitle; ?>">
+                                            </picture>
+                                        </div>
+                                        <div class="text-block">
+                                            <?php echo $offerDescription; ?>
+                                        </div>
+                                        <div class="shopnow">
+                                            <a href="<?php echo $this->getBaseUrl() . $offerCategoryWise->getUrlBanner(); ?>" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span>SHOP NOW</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal -->
+                                <!-- End loop -->
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+
+
+    <div class="section offers-content">
+        <div class="container custom-width">
+
+            <div class="text-block">
+                <h2><?php echo __('Tyre Offers and Promotion - Best Deals in KSA'); ?></h2>
+                <p><?php echo __('Discover unbeatable tyre offers, promotions, and deals at TyresOnline.sa! Our website is your go-to destination for the best tyre prices in Riyadh and across the KSA. We regularly update our promotions to provide you with exceptional value on top-quality tyres. Whether you\'re looking for discounts, special deals, or seasonal promotions, you\'ll find the best tyre deals here. Stay tuned and check back often to take advantage of our latest tyre offers and save big on your next purchase. TyresOnline.sa - your trusted source for all your tyre needs!'); ?></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section shop-tyre">
+        <div class="container custom-width">
+            <div class="heading-style5 mb-80 text-center">
+                <h2><?php echo __('BUY TYRES ONLINE'); ?></h2>
+                <p><?php echo __('The easiest way to buy and install tyres online, anywhere in the KSA.'); ?></p>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <span class="d-block home-shop-tyre">
+                        <div class="box">
+                            <div class="box-icon">
+
+                                <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 259" width="260" height="259">
+                                    <style>
+                                        .s0 {
+                                            fill: #D70000
+                                        }
+                                    </style>
+                                    <path id="search" fill-rule="evenodd" class="s0" d="m255.5 246l-9.1 9.1c-5 5-13.2 5-18.2 0l-65.8-65.8c-35 23.8-81.1 23.8-116.2 0-47.2-32.1-59.5-96.4-27.4-143.6 32.1-47.2 96.5-59.5 143.7-27.4 47.2 32.1 59.5 96.4 27.4 143.6l65.8 65.8c5 5.1 5 13.3-0.2 18.3zm-86.5-142.1c0-35.7-29-64.6-64.7-64.6-35.7 0-64.6 28.9-64.6 64.6 0 35.7 28.9 64.6 64.6 64.6 35.7 0 64.7-28.9 64.7-64.6z" />
+                                </svg>
+                            </div>
+                            <div class="text-block">
+                                <h2><?php echo __('Shop Tyres'); ?></h2>
+                                <p class="cw1"><?php echo __('Search by tyre size or vehicle details, select quantity and add to cart.'); ?> </p>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <a href="<?php echo $baseUrl . 'storelocator'; ?>" class="d-block">
+                        <div class="box">
+                            <div class="box-icon">
+                                <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275 126" width="275" height="126">
+                                    <style>
+                                        .s0 {
+                                            fill: #D70000
+                                        }
+                                    </style>
+                                    <path id="Post_truck_delivery" fill-rule="evenodd" class="s0" d="m274.8 61.4l-7.2 40.6c-0.3 2.1-2.1 3.7-4.2 3.7h-13.1c0.3 10.7-8.1 19.6-18.8 19.9-10.7-0.3-19.1-9.2-18.8-19.9h-119.5c0.3 10.7-8.1 19.6-18.8 19.9-10.7-0.3-19.1-9.2-18.8-19.9h-19c-0.2 0-0.4-0.1-0.6-0.1-2.5-0.4-4.2-2.7-3.8-5.2l2-14.5c0.1-1.1 1.1-2 2.2-2h28.2c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8h-45.8c-2.6-0.1-4.7-2.2-4.6-4.8 0-2.6 2-4.7 4.6-4.8h76.7c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8h-90.1c-2.6-0.1-4.7-2.2-4.6-4.8 0-2.6 2-4.7 4.6-4.8h101.5c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8h-76.7c-2.6-0.1-4.7-2.2-4.6-4.8 0-2.6 2-4.7 4.6-4.8h45.3c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8-0.1 0-29.6 0-29.7 0-1.3-0.2-2.1-1.4-1.9-2.6l1.2-9c0.3-2.7 2.6-4.8 5.4-4.9h176c11.3 0 17.2 25.4 18 26.3l15 15.7 14.2 14.7c1.1 1.3 1.7 3 1.1 4.5zm-16.8-5.4c0.6-0.7 0.6-1.7 0-2.4l-18.3-19.3c-1-1.1-2.4-1.7-3.9-1.7h-14.6c-1 0-1.8 0.8-1.9 1.8l-1.6 17.6q0 0.2 0 0.3c-0.1 2.2 1.6 4 3.8 4.1h35.3c0.4 0 0.8-0.1 1.2-0.4z" />
+                                </svg>
+                            </div>
+                            <div class="text-block">
+                                <h2><?php echo __('Tyre Fitment'); ?></h2>
+                                <p class="cw2"><?php echo __('Select one of our partner installers, or ship them to your doorstep.'); ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <a href="<?php echo $baseUrl; ?>all-tyres/car-tyres.html" class="d-block">
+                        <div class="box">
+                            <div class="box-icon">
+                                <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 225" width="252" height="225">
+                                    <style>
+                                        .s0 {
+                                            fill: #D70000
+                                        }
+                                    </style>
+                                    <g id="Layer">
+                                        <path id="Layer" class="s0" d="m224.7 203.8c0 11.7-9.5 21.1-21.1 21.1-11.7 0-21.1-9.5-21.1-21.1 0-11.7 9.5-21.1 21.1-21.1 11.7 0 21.1 9.4 21.1 21.1z" />
+                                        <path id="Layer" class="s0" d="m98.3 203.7c0 11.7-9.5 21.1-21.1 21.1-11.7 0-21.1-9.5-21.1-21.1 0-11.7 9.5-21.1 21.1-21.1 11.6 0 21.1 9.4 21.1 21.1z" />
+                                        <path id="Layer" class="s0" d="m140.3 76.4l21.6-22.2 5.3 5.4-26.9 27.6-15.7-16 5.3-5.4z" />
+                                        <path id="Layer" fill-rule="evenodd" class="s0" d="m251.8 28.6c-0.1 1.2-0.2 2.3-0.5 3.4l-23.7 84.3c-1.7 6-7.2 10.2-13.5 10.2h-139.2l4 21.1h135.4c5.8 0 10.5 4.7 10.5 10.5 0 5.8-4.7 10.5-10.5 10.5h-144.4c-4.9-0.1-9.1-3.7-10-8.5l-26.5-139h-22.9c-5.9-0.1-10.5-5-10.3-10.9 0.1-5.6 4.7-10.2 10.3-10.3h31.6c5 0.1 9.3 3.6 10.3 8.6l0.7 5.5h184.7c7.9 0.2 14.1 6.7 14 14.6zm-74.1 14.9l-33.7-15.3-33.7 15.3v23c-0.2 21.1 13.5 39.8 33.7 45.9 20.2-6.1 34-24.8 33.7-45.9z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="text-block">
+                                <h2><?php echo __('Buy Tyres'); ?></h2>
+                                <p class="cw3"><?php echo __('Easy checkout and secure payment options.'); ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'izimodal'
+    ], function($, izimodal) {
+        $(document).ready(function() {
+            $(".izimodal-offersmodal").iziModal({
+                width: false,
+                overlayColor: 'rgba(0, 0, 0, 0.9)',
+                radius: false,
+                transitionIn: 'fadeIn'
+            });
+        });
+    });
+</script>

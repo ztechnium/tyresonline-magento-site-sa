@@ -1,0 +1,122 @@
+<?php
+namespace Hdweb\Booking\Controller\Index;
+ 
+use Zend\Log\Filter\Timestamp;
+use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\Controller\ResultFactory;
+ 
+class Post extends \Magento\Framework\App\Action\Action
+{
+    const XML_PATH_EMAIL_RECIPIENT_NAME = 'trans_email/ident_support/name';
+    const XML_PATH_EMAIL_RECIPIENT_EMAIL = 'trans_email/ident_support/email';
+     
+    protected $_inlineTranslation;
+    protected $_transportBuilder;
+    protected $_scopeConfig;
+    protected $_logLoggerInterface;
+     
+    public function __construct(
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
+        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Psr\Log\LoggerInterface $loggerInterface,
+        array $data = []
+         
+        )
+    {
+        $this->_inlineTranslation = $inlineTranslation;
+        $this->_transportBuilder = $transportBuilder;
+        $this->_scopeConfig = $scopeConfig;
+        $this->_logLoggerInterface = $loggerInterface;
+        $this->messageManager = $context->getMessageManager();
+         
+         
+        parent::__construct($context);
+         
+         
+    }
+     
+    public function execute()
+    {
+
+        $objectManager =  \Magento\Framework\App\ObjectManager::getInstance();        
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        $storeid = $storeManager->getStore()->getStoreId(); 
+
+        $post = $this->getRequest()->getPost();
+        // echo "<pre>";print_r($post->getData()); die();
+        try
+        {
+            // Send Mail
+            $this->_inlineTranslation->suspend();
+            $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+
+
+            /*$sender = [
+            'name' =>   $this->_scopeConfig ->getValue('trans_email/ident_general/email',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            'email' => $this->_scopeConfig ->getValue('trans_email/ident_general/name',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            ];*/
+             
+            $sender = [
+                'name' => $this->_scopeConfig ->getValue('trans_email/ident_general/name',\Magento\Store\Model\ScopeInterface::SCOPE_STORE),
+                'email' => $this->_scopeConfig ->getValue('trans_email/ident_general/email',\Magento\Store\Model\ScopeInterface::SCOPE_STORE)
+            ];
+             
+            $sentToEmail = $this->_scopeConfig ->getValue('trans_email/ident_custom2/email',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+             
+            $sentToName = $this->_scopeConfig ->getValue('trans_email/ident_custom2/name',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            
+            $receiveemails[] = $sentToEmail;
+            if(isset($post['email']) && !empty($post['email'])){
+                $receiveemails[] = $post['email'];
+            } 
+            
+            $receiveemails=array_map('trim',$receiveemails);
+
+            $transport = $this->_transportBuilder
+            ->setTemplateIdentifier(15)
+            ->setTemplateOptions(
+                [
+                    'area' => 'frontend',
+                    'store' => $storeid,
+                ]
+                )
+                ->setTemplateVars([
+                    'name'  => $post['name'],
+                    'lname'  => $post['lastname'],
+                    // 'serviceRequestType'  => $post['serviceRequestType'],
+                    'email'  => $post['email'],
+                    // 'mobileCode'  => $post['mobileCode'],
+                    'mobile'  => $post['phonenumber'],
+                    'datetimepicker'  => $post['date'],
+                    'time' => $post['time'],
+                    'comments'  => $post['message'],
+                    'vehicle' => $post['vehicle'],
+                    'location' => $post['location'],
+                    'kilometers' => $post['kilometers']
+
+
+                ])
+                ->setFrom($sender)
+               // ->addTo($sentToEmail,$sentToName)
+                ->addTo($receiveemails)
+                //->addTo('owner@example.com','owner')
+                ->getTransport();
+                 
+                $transport->sendMessage();
+                 
+                $this->_inlineTranslation->resume();
+                $this->messageManager->addSuccess('Email sent successfully');
+                //$this->_redirect('appointment/index/index');
+                $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+                return $resultRedirect;
+                 
+        } catch(\Exception $e){
+            $this->messageManager->addError($e->getMessage());
+            $this->_logLoggerInterface->debug($e->getMessage());
+            exit;
+        }    
+    }
+}

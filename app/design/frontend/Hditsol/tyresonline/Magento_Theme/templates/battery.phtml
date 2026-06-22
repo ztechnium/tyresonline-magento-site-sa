@@ -1,0 +1,390 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$block     = $block->getLayout()->createBlock('Hdweb\Tyrefinder\Block\Finderpopup');
+$catalogSearchUrl = $block->getTyreCatalogSearchUrl();
+$batteryCatId = 7; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/brakes_cat_id');
+$formUrl = $objectManager->create('Magento\Catalog\Model\Category')->load($batteryCatId)->getUrl();
+?>
+
+<div class="section page-banner brakes-banner overflow-hidden">
+  <div class="container-fluid px-0">
+    <div class="banner-wrap">
+      <div class="contact-info mx-auto">
+        <ul class="list-custom d-flex justify-content-center align-items-center">
+          <li><a href="tel:80025589737"><span><?php echo __('CALL TOLL FREE');?></span></a></li>
+          <li><a href="tel:80025589737"><span>800</span> 255 89737</a></li>
+        </ul>
+      </div>
+      <div class="tyre-content text-center mx-auto">
+        <strong class="font-size1 fw-900"><?php echo __('CAR BATTERY');?></strong>
+        <strong class="font-size2 fw-900"><?php echo __('REPLACEMENT');?></strong>
+        <hr>
+        <h3 class="fw-light"><?php echo __('ANYWHERE IN DUBAI');?></h3>
+      </div>
+    </div>
+    <div class="banner-image">
+      <div class="image-wrap picture aspect-custom loader text-center">
+        <picture>
+          <source srcset="<?php echo $mediaURL ;?>images/banner/car-battery-replacement-at-your-location-uae.jpg">
+          <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="894px" data-src="<?php echo $mediaURL ;?>images/banner/car-battery-replacement-at-your-location-uae.jpg" class="lazyload" alt="<?php echo __('Car battery replacement at your location UAE');?>" />
+        </picture>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section brakes-banner-mobile viewport-height d-md-none">
+   <div class="text-block text-center h-100 d-flex flex-wrap justify-content-center">
+      <div class="top w-100 align-self-start">
+      <svg id="Group_2627" data-name="Group 2627" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="54.93" height="41.164" viewBox="0 0 54.93 41.164">
+        <defs>
+          <clipPath id="clip-path">
+            <rect id="Rectangle_152" data-name="Rectangle 152" width="54.93" height="41.164" fill="#d70000"/>
+          </clipPath>
+        </defs>
+        <g id="Group_444" data-name="Group 444" clip-path="url(#clip-path)">
+          <path id="Path_168" data-name="Path 168" d="M1.383,13.391c.065,7.8,0,15.8,0,23.641,0,4.444-.528,4.1,2.664,4.1H51.07c1.039,0,2.411.291,2.478-.836.076-1.282,0-5.153,0-6.735,0-6.65-.093-13.571,0-20.166H32.718l3.052,8.425a.414.414,0,0,1-.4.559H29.956a.458.458,0,0,0-.436.575L31.984,36.17c.061.308-.037.356-.208.1L19.147,19.35V18.277h4.812c.294,0,.43-.234.294-.513l-2.188-4.372ZM48.511,26.128a5.06,5.06,0,1,1-4.376-5.639,5.08,5.08,0,0,1,4.376,5.639M32.456,12.669q9.73.01,19.447.015c1.845,0,2.94.288,2.961-.792.081-4.047.342-4.217-1.294-4.213-.625,0-1.25,0-1.875,0q-10.5,0-21.039.02ZM.055,12.1c.073.611.691.589,1.284.587q10.167-.033,20.36-.024L19.221,7.709q-9.058,0-18.093-.031c-.646,0-1.053.06-1.082.741A34.335,34.335,0,0,0,.055,12.1M44.26,4.871l4.519,0c.044-1.158,0-2.378.007-3.542,0-1.525-.041-1.311-2.231-1.311-2.138,0-2.305-.254-2.3,1.241,0,1.2-.028,2.417.005,3.609m2.6-.723a15.511,15.511,0,0,1-.026-1.913c0-.541-.13-1.4.544-1.356.628.041.473.871.473,1.426s.044,1.312-.017,1.842Zm-40.7.7,4.5.023c.039-1.163,0-2.374.006-3.543,0-1.544-.017-1.311-2.239-1.311A17.213,17.213,0,0,0,6.7.027c-.588.086-.545.643-.543,1.235,0,1.191-.023,2.4,0,3.59m2.664-.719c-.049-.578-.012-1.3-.012-1.9,0-.573-.141-1.385.515-1.358.628.026.481.878.481,1.428A15.027,15.027,0,0,1,9.78,4.149ZM42.755,24.793l-2.346,0,0,1.434,2.368,0,.061,2.314a5.233,5.233,0,0,0,1.42.018l-.031-2.315,2.335-.018V24.794l-2.369,0-.055-2.344H42.724ZM3.808,6.976l9.193,0a5.44,5.44,0,0,0-.065-1.27c-.5-.236-6.392-.114-7.777-.114-1.513,0-1.349-.135-1.351,1.386m38.124,0h9.175c0-1.678.1-1.386-1.566-1.386H43.568c-1.727,0-1.629-.318-1.636,1.386M7.756,26.183c.623.141,5.274.08,6.152.026L13.9,24.8l-6.148-.011Zm-1.933-.125a5.048,5.048,0,1,1,5.589,4.455,5.044,5.044,0,0,1-5.589-4.455" transform="translate(0 0)" fill="#d70000" fill-rule="evenodd"/>
+        </g>
+      </svg>
+
+      <h2 class="fw-900"><?php echo __('CAR BATTERY');?> <br/><?php echo __('REPLACEMENT');?> <br/> <?php echo __('DUBAI');?></h2>
+     </div>
+     <div class="middle align-self-center">
+      <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="375px" height="225px" data-src="<?php echo $mediaURL ;?>images/banner/mobile-car-battery-replacement-at-your-location-uae.jpg" class="lazyload" alt="<?php echo __('Mobile car battery replacement at your location UAE');?>" />
+    </div>
+      <div class="bottom w-100">
+        <h3 class="fw-900"><?php echo __('CALL TOLL FREE');?></h3>
+        <p><?php echo __('Get a car battery or car jumpstart');?> <br/>
+          <?php echo __('at your location in Dubai.');?></p>
+          <div class="call">
+            <a href="https://api.whatsapp.com/send?phone=+97180025589737&amp;text=Hello%20Tyres%20Online" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="119.703" height="119.703" viewBox="0 0 119.703 119.703">
+                <path id="circle-phone" d="M59.852,0A59.852,59.852,0,1,0,119.7,59.852,59.847,59.847,0,0,0,59.852,0ZM89.684,75.165,86.967,86.946A3.635,3.635,0,0,1,83.4,89.777,53.536,53.536,0,0,1,29.935,36.285a3.631,3.631,0,0,1,2.831-3.558L44.545,30.01a3.679,3.679,0,0,1,4.192,2.119l5.433,12.69a3.657,3.657,0,0,1-1.05,4.26L46.829,54.24a40.873,40.873,0,0,0,18.65,18.645l5.148-6.291a3.638,3.638,0,0,1,4.264-1.048l12.681,5.436A3.669,3.669,0,0,1,89.684,75.165Z" fill="#16c300"/>
+              </svg>              
+            </a>
+          </div>
+      </div>
+    </div> 
+  </div>
+
+<div class="section offers-banner">
+  <div class="container-fluid px-0">
+    <div class="owl-carousel owl-theme offer-slider owl-nav-style1 owl-dot-style1">
+      <div class="item">
+        <div class="slide-content">
+          <a href="#" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source srcset="<?php echo $mediaURL ;?>images/banner/looking-for-car-battery-replacement-in-dubai-uae.gif">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/looking-for-car-battery-replacement-in-dubai.gif" class="owl-lazy" alt="<?php echo __('Car not starting, Call 800 255 89737');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/mobile-tyre-fitting-service-in-uae" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/mobile-van-tyre-fitment-in-dubai-by-tyresonline-uae.jpg">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/mobile-van-tyre-fitment-in-dubai-by-tyresonline-uae.jpg" class="owl-lazy" alt="<?php echo __('Tyres at Your Doorstep in Dubai');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>      
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/matrax-tyres-in-uae" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/purchase-matrax-tyres-online-in-uae-at-tyresonline.jpg">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/purchase-matrax-tyres-online-in-uae-at-tyresonline.jpg" class="owl-lazy" alt="<?php echo __('Buy Matrax Tyres 2022 Tyres Online in UAE');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/matrax-tyres-warranty-and-accidental-damage-cover" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/buy-matrax-online-at-tyresonline.gif">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/buy-matrax-online-at-tyresonline.gif" class="owl-lazy" alt="<?php echo __('Matrax Tyres Warranty & Accidental Damage Cover');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section battery-process bg-contain-image lazyload" data-bg="images/bg/Road.jpg">
+  <div class="container custom-width">
+    <div class="heading-style4 mb-80 text-center">
+      <h2><?php echo __('CAR BATTERY REPLACEMENT DUBAI');?></h2>
+      <p><?php echo __('GET A CAR BATTERY OR CAR');?> <br/> <?php echo __('JUMP-START ON THE SPOT');?></p>
+    </div>
+    <div class="row justify-content-center g-0">
+      <div class="col-auto">
+        <div class="box text-center">
+          <div class="image sprite call-img mx-auto"></div>
+          <h3>800 255 89737</h3>
+          <p><?php echo __('Call us toll Free if your car is not');?> <br/> <?php echo __('starting. Share your Car make,');?> <br/> <?php echo __('model, and year. We’ll immediately');?> <br/><?php echo __('dispatch assistance to you.');?></p>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="box text-center">
+          <div class="image sprite fitting-img mx-auto"></div>
+          <h3><?php echo __('30 MINUTES');?></h3>
+          <p><?php echo __('is what it takes our technicians');?> <br/> <?php echo __('to reach your location. Once there');?> <br/> <?php echo __('they will check your car and test <br/> your car battery.');?></p>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="box text-center">
+          <div class="image sprite battery-img mx-auto"></div>
+          <h3><?php echo __('CAR BATTERY');?></h3>
+          <p><?php echo __('replacement is done if needed, or a');?> <br/> <?php echo __('jump-start to your car. Pay securely');?> <br/> <?php echo __('and drive away with a 1 year free');?> <br/> <?php echo __('roadside assistance in Dubai.');?></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section text-block-style2">
+  <div class="container container-full">
+     <div class="row align-items-center">
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-md-none">
+      <div class="text-wrap text-center text-md-start">
+        <h4 class="fw-900"><?php echo __('BEST CAR BATTERY');?> <br/> <?php echo __('REPLACEMENT');?> <br/> <?php echo __('SERVICE IN DUBAI, UAE');?></h4>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-lg-none">
+        <div class="image-wrap picture loader aspect-custom">
+          <picture>
+            <source class="lazyload" srcset="<?php echo $mediaURL ;?>images/section/best-car-battery-replacement-in-uae.jpg">
+            <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1000px" height="700px" data-src="<?php echo $mediaURL ;?>images/section/best-car-battery-replacement-in-uae.jpg" class="lazyload" alt="<?php echo __('Best car battery replacement in UAE');?>" />
+          </picture>
+        </div>
+        <div class="d-md-none text-center mb-4">
+          <a href="tel:80025589737" class="button custom-size button-primary-200 fst-italic button-rounded filled-slide-right"><span>CALL NOW</span></a>
+         </div>
+       </div>
+
+       <div class="col-12 col-sm-12 col-md-12 col-lg-44">
+         <div class="text-wrap">
+           <h4 class="fw-900 d-none d-md-block"><?php echo __('BEST CAR BATTERY REPLACEMENT');?> <br/> <?php echo __('SERVICE IN DUBAI, UAE');?></h4>
+           <div class="toggle-text show-more-height">
+           <p><?php echo __('If you try to start your car and you notice the dashboard lights don’t come on, or don’t hear the engine turning over, it’s likely you have a dead car battery.');?></p>
+           <p><?php echo __('At TyresOnline, we have a team of battery technicians that can be dispatched to your location in no time. Once they reach your location, they will diagnose your car battery and replace your battery on the spot if needed.');?></p>
+           <p><?php echo __('Replacing your car battery with us gives you an extra advantage. From the moment we perform the car battery change, you will be covered with a 1 year roadside assistance. This simply means, that within 1 year, if your car is not starting, we come to you for free.');?></p>
+          </div>
+          <div class="show-more"><?php echo __('Show More +');?></div>
+          <div class="d-none d-md-block">
+           <a href="tel:80025589737" class="button custom-size button-primary-200 fst-italic button-rounded filled-slide-right"><span><?php echo __('CALL NOW');?></span></a>
+          </div>
+         </div>
+       </div>
+
+       <div class="col-12 col-sm-12 col-md-12 col-lg-56 d-none d-lg-block">
+        <div class="image-wrap picture loader aspect-custom">
+          <picture>
+            <source class="lazyload" srcset="<?php echo $mediaURL ;?>images/section/best-car-battery-replacement-in-uae.jpg">
+            <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1000px" height="700px" data-src="<?php echo $mediaURL ;?>images/section/best-car-battery-replacement-in-uae.jpg" class="lazyload" alt="<?php echo __('Best car battery replacement in UAE');?>" />
+          </picture>
+        </div>
+       </div>
+
+     </div>
+  </div>
+</div>
+
+<div class="section bg-black text-block-style3">
+  <div class="container container-full">
+     <div class="row align-items-center justify-content-between">
+       <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+         <div class="text-wrap text-center text-md-start">
+           <h4 class="fw-900"><?php echo __('LOOKING FOR A CAR BATTERY JUMP-START?');?></h4>
+           <p><?php echo __('If you need a car battery boost, you can also count on TyresOnline to reach your location');?> <br/>
+            <?php echo __('In Dubai and jump-start your car.');?></p>
+           <p class="mb-0"><?php echo __('In case your car battery dies after performing the jump-start and your car battery needs to be changed, we will deduct the amount you paid for the jump-start from the car battery price.');?></p>
+           <div class="d-md-none">
+            <a href="tel:80025589737" class="button custom-size button-primary-200 fst-italic button-rounded filled-slide-right"><span><?php echo __('CALL NOW');?></span></a>
+           </div>
+         </div>
+       </div>
+       <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="price-block">
+            <div class="price"><sub><?php echo __('AED');?></sub> <strong>105.00</strong> <span><?php echo __('VAT included');?></span></div>
+            <p><i><?php echo __('Battery jump-start service, value will be');?> <br/> <?php echo __('discounted on future battery purchase.');?></i></p>
+            <div class="d-none d-md-block">
+            <a href="tel:80025589737" class="button custom-size button-primary-200 fst-italic button-rounded filled-slide-right"><span><?php echo __('CALL NOW');?></span></a>
+            </div>
+          </div>
+       </div>
+     </div>
+  </div>
+</div>
+
+<div class="section text-block-style2 padding-sm">
+  <div class="container container-full">
+     <div class="row align-items-center">
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-md-none">
+        <div class="text-wrap text-center text-md-start">
+          <h4 class="fw-900"><?php echo __('Mobile Battery <br/> SERVICE DUBAI,');?>  <br/> <?php echo __('What TO expect?');?></h4>
+          </div>
+        </div>
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-lg-none">
+        <div class="image-wrap picture loader aspect-custom">
+          <picture>
+            <source srcset="<?php echo $mediaURL ;?>images/section/car-battery-tester-diagnosis-at-tyres-online-uae.jpg">
+            <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1000px" height="700px" data-src="<?php echo $mediaURL ;?>images/section/car-battery-tester-diagnosis-at-tyres-online-uae.jpg" class="lazyload" alt="<?php echo __('Car battery tester dianosis at Tyres Online UAE');?>" />
+          </picture>
+        </div>
+       </div>
+
+       <div class="col-12 col-sm-12 col-md-12 col-lg-44">
+         <div class="text-wrap f-20">
+           <h4 class="fw-900 d-none d-md-block"><?php echo __('Mobile Battery SERVICE DUBAI,');?> <br> <?php echo __('What TO expect?');?></h4>
+           <div class="toggle-text show-more-height">
+           <p><?php echo __('In essence if you need an emergency car battery, you can count on us to deliver and install the car battery in Dubai. There is nothing like a fast battery service to get you back on the road again. While we’re there, we will also inspect your car for the following:');?></p>
+           <ul class="list-custom">
+             <li><?php echo __('Car Battery Diagnosis');?></li>
+             <li><?php echo __('Car Battery Terminals Check');?></li>
+             <li><?php echo __('Car Alternator Test');?></li>
+             <li><?php echo __('Car Starter Motor Check');?></li>
+             <li><?php echo __('Car Coolant level Check');?></li>
+             <li><?php echo __('Tyre Inspection');?></li>
+             <li><?php echo __('Tyre Pressure');?></li>
+           </ul>
+           </div>
+           <div class="show-more"><?php echo __('Show More +');?></div>
+           <div class="text-center text-md-start">
+           <a href="tel:80025589737" class="button custom-size button-primary-200 fst-italic button-rounded filled-slide-right"><span><?php echo __('CALL NOW');?></span></a>
+          </div>
+         </div>
+       </div>
+       <div class="col-12 col-sm-12 col-md-12 col-lg-56 d-none d-lg-block">
+        <div class="image-wrap picture loader aspect-custom">
+          <picture>
+            <source srcset="<?php echo $mediaURL ;?>images/section/car-battery-tester-diagnosis-at-tyres-online-uae.jpg">
+            <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1000px" height="700px" data-src="<?php echo $mediaURL ;?>images/section/car-battery-tester-diagnosis-at-tyres-online-uae.jpg" class="lazyload" alt="<?php echo __('Car battery tester dianosis at Tyres Online UAE');?>" />
+          </picture>
+        </div>
+       </div>
+     </div>
+  </div>
+</div>
+
+
+<div class="section battery-online">
+  <div class="container container-full">
+    <div class="text-block text-center">
+      <div class="d-none d-md-block">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.784 73.586">
+        <path id="shopping-cart" d="M75.9,43.306,82.7,13.412A3.449,3.449,0,0,0,79.333,9.2H22.882l-1.317-6.44A3.449,3.449,0,0,0,18.185,0H3.449A3.449,3.449,0,0,0,0,3.449v2.3A3.449,3.449,0,0,0,3.449,9.2H13.493l10.1,49.359a8.049,8.049,0,1,0,9.636,1.231H63.356a8.046,8.046,0,1,0,9.14-1.5L73.29,54.8a3.449,3.449,0,0,0-3.364-4.214H31.348l-.941-4.6H72.539A3.449,3.449,0,0,0,75.9,43.306Z"/>
+      </svg>
+    </div>
+      <h1 class="fw-900"><?php echo __('ORDER');?> <br/> <?php echo __('A CAR BATTERY');?> <br/> <?php echo __('ONLINE?');?> </h1>
+      <div class="d-md-none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.784 73.586">
+          <path id="shopping-cart" d="M75.9,43.306,82.7,13.412A3.449,3.449,0,0,0,79.333,9.2H22.882l-1.317-6.44A3.449,3.449,0,0,0,18.185,0H3.449A3.449,3.449,0,0,0,0,3.449v2.3A3.449,3.449,0,0,0,3.449,9.2H13.493l10.1,49.359a8.049,8.049,0,1,0,9.636,1.231H63.356a8.046,8.046,0,1,0,9.14-1.5L73.29,54.8a3.449,3.449,0,0,0-3.364-4.214H31.348l-.941-4.6H72.539A3.449,3.449,0,0,0,75.9,43.306Z"/>
+        </svg>
+      </div>
+      <p><?php echo __('On TyresOnline, you can also search and order online using our battery shop.');?> <br/>
+        <?php echo __('You can select to have your car battery delivered and fitted at a preferred garage,');?> <br/>
+        <?php echo __('Or simply have the car battery delivered to your door step.');?></p>
+        <span onclick="submitVehicleSelection()" class="button button-primary-200 fst-italic button-xxl button-rounded filled-slide-right text-uppercase"><span><?php echo __('Shop Now');?></span></span>
+    </div>
+  </div>
+</div>
+
+
+<div class="section battery-brands">
+  <div class="container container-full">
+    <ul class="list-custom d-flex flex-wrap align-items-center justify-content-between">
+      <li>
+        <div class="logo-box">
+            <a href="/en/all-auto-parts/battery.html?mgs_brand=Bosch">
+              <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="345px" height="79px" data-src="<?php echo $mediaURL ;?>images/brands/bosch-car-battery.png" class="lazyload" alt="<?php echo __('Bosch car battery at Tyres Online UAE');?>" />
+            </a>
+        </div>
+      </li>
+      <li class="order-md-last">
+        <div class="logo-box">
+            <a href="/en/all-auto-parts/battery.html">
+              <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="389px" height="116px" data-src="<?php echo $mediaURL ;?>images/brands/matrax-energy-car-battery.png" class="lazyload" alt="<?php echo __('Matrax car battery at Tyres Online UAE');?>" />
+            </a>
+        </div>
+      </li>
+      <li>
+        <div class="logo-box">
+            <a href="/en/all-auto-parts/battery.html?mgs_brand=AB+Power">
+              <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="187px" height="132px" data-src="<?php echo $mediaURL ;?>images/brands/ab-power-cor-battery.png" class="lazyload" alt="<?php echo __('AB Power car battery at Tyres Online UAE');?>" />
+            </a>
+        </div>
+      </li>
+      <li>
+        <div class="logo-box">
+            <a href="/en/all-auto-parts/battery.html">
+              <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="289px" height="144px" data-src="<?php echo $mediaURL ;?>images/brands/tuflong-car-battery.png" class="lazyload" alt="<?php echo __('Tuflong car battery at Tyres Online UAE');?>" />
+            </a>
+        </div>
+      </li>
+    </ul>
+    </div>
+  </div>
+
+
+  <div class="section bg-black text-block-style4">
+    <div class="container container-full">
+       <div class="row align-items-center justify-content-between">
+         <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+           <div class="text-wrap">
+             <h4 class="fw-900"><?php echo __('THE IMPORTANCE');?> <br/> <?php echo __('OF A CAR BATTERY');?></h4>
+             <div class="image text-center d-md-none">
+              <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="306px" height="229px" data-src="<?php echo $mediaURL ;?>images/icon/battery.png" class="lazyload" alt="<?php echo __('Importance of Car Battery');?>" />
+            </div>
+            <div class="toggle-text show-more-height">
+             <p><?php echo __('The car battery is the central power hub of the vehicle which powers all of the electrical components in it. It also stores electricity, sending out jolts to every single electrical component. Without battery power, your car won’t start. Aside from this obvious function, the battery also acts as a stabilizer of the voltage (a term used for the energy supply) to keep the engine running. In other words, it does everything to keep the car and all of its components running.');?></p>
+             <p><?php echo __('The process of how the battery transmits electricity to other parts is simple to understand. It converts chemical energy into electrical energy, powering the vehicle and delivering voltage to the starter. That is why many refer to car batteries as the little boxes that power the vehicle. On average, a battery lasts from 3 to 5 years, but bad driving habits as well as exposure to extreme elements can shorten its lifespan.');?></p>
+            </div>
+            <div class="show-more"><?php echo __('Show More +');?></div>
+           </div>
+         </div>
+         <div class="col-12 col-sm-12 col-md-4 col-lg-3 d-none d-md-block">
+            <div class="image text-center">
+              <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="306px" height="229px" data-src="<?php echo $mediaURL ;?>images/icon/battery.png" class="lazyload" alt="<?php echo __('Importance of Car Battery');?>" />
+            </div>
+         </div>
+       </div>
+    </div>
+  </div>
+
+
+
+<script>
+require(["jquery"], function($) {
+$(".show-more").click(function () {
+if($(this).parent(".text-wrap").find('.toggle-text').hasClass("show-more-height")) {
+$(this).text("Show Less -");
+} else {
+$(this).text("Show More +");
+}
+$(this).parent(".text-wrap").find('.toggle-text').toggleClass("show-more-height");
+});
+});
+</script>

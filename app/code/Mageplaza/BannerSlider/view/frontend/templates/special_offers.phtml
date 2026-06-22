@@ -1,0 +1,88 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$offerCollection = $block->getBannerCollection();
+$uniqueOfferCategories = [];
+if ($offerCollection->getData()) {
+    foreach ($offerCollection->getData() as $offer) {
+        $offerCategory = $offer['category'];
+        if (!in_array($offerCategory, $uniqueOfferCategories)) {
+            $uniqueOfferCategories[] = $offerCategory;
+        }
+    }
+}
+
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+    ->getStore()
+    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseUrl = $this->getBaseUrl();
+
+$categoryName = $this->getRequest()->getParam('category');
+/* echo '<pre>';
+print_r($uniqueOfferCategories);
+die((__FILE__) . '-->' . (__FUNCTION__) . '--Line(' . (__LINE__) . ')'); */
+$timeZone = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+?>
+<?php if (!empty($uniqueOfferCategories)) : ?>
+    <div class="">
+        <?php //foreach ($uniqueOfferCategories as $uniqueOfferCategory) : 
+        ?>
+        <?php
+        //$uniqueOfferCategoryUrl = strtolower($uniqueOfferCategory);
+        //$uniqueOfferCategoryUrl = str_replace(' ', '-', $uniqueOfferCategoryUrl);
+        ?>
+        <!-- <a href="<?php //echo $this->getBaseUrl() . 'special-offers/' . $uniqueOfferCategoryUrl; 
+                        ?>"><button class=""><?php //echo $uniqueOfferCategory; 
+                                                ?></button></a> -->
+        <?php //endforeach; 
+        ?>
+    </div>
+    <?php foreach ($uniqueOfferCategories as $uniqueOfferCategory) : ?>
+        <?php
+        $uniqueOfferCategoryUrl = strtolower($uniqueOfferCategory);
+        $uniqueOfferCategoryUrl = str_replace(' ', '-', $uniqueOfferCategoryUrl);
+        ?>
+        <a href="<?php echo $this->getBaseUrl() . 'special-offers/' . $uniqueOfferCategoryUrl; ?>"><button class=""><?php echo $uniqueOfferCategory; ?></button></a>
+        <?php
+        $offerCollectionCategoryWise = $block->getOfferCollectionFromCategory($uniqueOfferCategory);
+        ?>
+        <?php if ($offerCollectionCategoryWise->getData()) : ?>
+            <div class="">
+                <?php foreach ($offerCollectionCategoryWise as $offerCategoryWise) : ?>
+                    <?php
+                    if ($offerCategoryWise->getUrlBanner()) {
+                        $categoryUrl = '';
+                        $category = $offerCategoryWise->getCategory();
+                        $categoryUrl = strtolower($category);
+                        $categoryUrl = str_replace(' ', '-', $categoryUrl);
+                        $offerUrl = $baseUrl . 'special-offers/' . $categoryUrl . '/' . $offerCategoryWise->getUrlBanner();
+                    } else {
+                        $offerUrl = "#";
+                    }
+                    ?>
+                    <div class="item">
+                        <div class="box">
+                            <div class="top d-flex align-items-center justify-content-between">
+                                <div class="brand-logo">
+                                    <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerCategoryWise->getBrandLogo(); ?>" class="lazyload" alt="<?php echo $offerCategoryWise->getTitle(); ?>" />
+                                </div>
+                                <div class="deal-end"><span>ENDS <?php echo $timeZone->date(new \DateTime($offerCategoryWise['to_date']))->format('M d, Y'); ?></span></div>
+                            </div>
+                            <div class="box-title d-flex align-items-center justify-content-between">
+                                <span><?php echo $offerCategoryWise->getTitle(); ?></span>
+                                <span class="link" data-izimodal-open="#offreDetails-01">Details</span>
+                            </div>
+                            <div class="image-wrap picture loader aspect-custom">
+                                <picture>
+                                    <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerCategoryWise->getImage(); ?>" alt="<?php echo $offerCategoryWise->getTitle(); ?>">
+                                </picture>
+                            </div>
+                            <div class="shownow">
+                                <a href="#">SHOP NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>

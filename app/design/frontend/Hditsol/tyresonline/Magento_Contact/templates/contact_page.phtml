@@ -1,0 +1,109 @@
+<?php
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediapath= $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="google-map-custom">
+	<div id="store_map"></div>
+</div>
+
+<div class="contact-us">
+<div class="container custom-width-1170">
+
+	<div class="section-title text-center text-uppercase">
+		<h1><?php echo __('Get in touch, send us an e-mail or call us'); ?></h1>
+	</div>
+    
+    <div class="contact-information">
+	<div class="row">
+
+
+		<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+			<div class="office">
+			<h3><?php echo __('Head Office'); ?></h3>
+			<ul class="list-custom">
+			<li><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M272 192C272 236.2 236.2 272 192 272C147.8 272 112 236.2 112 192C112 147.8 147.8 112 192 112C236.2 112 272 147.8 272 192zM192 240C218.5 240 240 218.5 240 192C240 165.5 218.5 144 192 144C165.5 144 144 165.5 144 192C144 218.5 165.5 240 192 240zM384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192H384zM192 32C103.6 32 32 103.6 32 192C32 207.6 37.43 229 48.56 255.4C59.47 281.3 74.8 309.4 92.14 337.5C126.2 392.8 166.6 445.7 192 477.6C217.4 445.7 257.8 392.8 291.9 337.5C309.2 309.4 324.5 281.3 335.4 255.4C346.6 229 352 207.6 352 192C352 103.6 280.4 32 192 32z"/></svg></span><strong><?php echo __('Fares Al Toruk Company'); ?></strong><br><?php echo __('Second floor, Bridgestone Bldg. Al Sharafeyah, Palestine St. Jeddah, KSA'); ?></li>
+			<li><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M240 112C240 103.2 247.2 96 256 96C264.8 96 272 103.2 272 112V247.4L360.9 306.7C368.2 311.6 370.2 321.5 365.3 328.9C360.4 336.2 350.5 338.2 343.1 333.3L247.1 269.3C242.7 266.3 239.1 261.3 239.1 256L240 112zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM32 256C32 379.7 132.3 480 256 480C379.7 480 480 379.7 480 256C480 132.3 379.7 32 256 32C132.3 32 32 132.3 32 256z"/></svg></span><?php echo __('Sunday to Thursday: 09:00 AM to 05:00 PM'); ?></li>
+			<li><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M240 112C240 103.2 247.2 96 256 96C264.8 96 272 103.2 272 112V247.4L360.9 306.7C368.2 311.6 370.2 321.5 365.3 328.9C360.4 336.2 350.5 338.2 343.1 333.3L247.1 269.3C242.7 266.3 239.1 261.3 239.1 256L240 112zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM32 256C32 379.7 132.3 480 256 480C379.7 480 480 379.7 480 256C480 132.3 379.7 32 256 32C132.3 32 32 132.3 32 256z"/></svg></span><?php echo __('Friday and Saturday - Closed'); ?></li>
+
+
+			<?php /* <li><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M484.6 330.6C484.6 330.6 484.6 330.6 484.6 330.6l-101.8-43.66c-18.5-7.688-40.2-2.375-52.75 13.08l-33.14 40.47C244.2 311.8 200.3 267.9 171.6 215.2l40.52-33.19c15.67-12.92 20.83-34.16 12.84-52.84L181.4 27.37C172.7 7.279 150.8-3.737 129.6 1.154L35.17 23.06C14.47 27.78 0 45.9 0 67.12C0 312.4 199.6 512 444.9 512c21.23 0 39.41-14.44 44.17-35.13l21.8-94.47C515.7 361.1 504.7 339.3 484.6 330.6zM457.9 469.7c-1.375 5.969-6.844 10.31-12.98 10.31c-227.7 0-412.9-185.2-412.9-412.9c0-6.188 4.234-11.48 10.34-12.88l94.41-21.91c1-.2344 2-.3438 2.984-.3438c5.234 0 10.11 3.094 12.25 8.031l43.58 101.7C197.9 147.2 196.4 153.5 191.8 157.3L141.3 198.7C135.6 203.4 133.8 211.4 137.1 218.1c33.38 67.81 89.11 123.5 156.9 156.9c6.641 3.313 14.73 1.531 19.44-4.219l41.39-50.5c3.703-4.563 10.16-6.063 15.5-3.844l101.6 43.56c5.906 2.563 9.156 8.969 7.719 15.22L457.9 469.7z"/></svg></span>
+				<a href="tel:8002440211" dir="ltr">800 244 0211</a></li> */ ?>
+			<li><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 128C0 92.65 28.65 64 64 64H448C483.3 64 512 92.65 512 128V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V128zM32 128V167.9L227.6 311.3C244.5 323.7 267.5 323.7 284.4 311.3L480 167.9V128C480 110.3 465.7 96 448 96H63.1C46.33 96 31.1 110.3 31.1 128H32zM32 207.6V384C32 401.7 46.33 416 64 416H448C465.7 416 480 401.7 480 384V207.6L303.3 337.1C275.1 357.8 236.9 357.8 208.7 337.1L32 207.6z"/></svg></span>
+				<a href="mailto:customercare@tyresonline.sa">customercare@tyresonline.sa</a></li>				
+		    </ul>
+		    </div>
+		</div>
+
+
+		<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+			<div class="follow-us" style="display:none;">
+			<h3><?php echo __('Follow Us'); ?></h3>
+			<ul class="list-custom sosial-links d-flex">
+			<li><a class="link fb" href="https://www.facebook.com/" target="_blank"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg></i><span>Facebook</span></a></li>
+			<li><a class="link insta" href="https://www.instagram.com/" target="_blank"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></i><span>Instagram</span></a></li>
+		    </ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	<div class="contact-form theme-form-style2">
+			<?php //include ($block->getTemplateFile('Magento_Contact::form.phtml')) ?>
+			<form 
+				action="<?php echo $block->getBaseUrl(); ?>contact/index/post"
+				id="contact-form"
+				method="post"
+				data-hasrequired="<?php echo __('* Required Fields') ?>"
+				data-mage-init='{"validation":{}}'>
+				<fieldset class="fieldset mb-0">
+					<fieldset class="fieldset row mb-0">
+
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="field name required">
+							<div class="control">
+								<input placeholder="<?php echo __('Your Name') ?>" name="name" id="name" title="<?php echo __('Name') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+							</div>
+						</div>
+						</div>
+
+					   <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="field telephone">
+							<div class="control">
+								<input placeholder="<?php echo __('Phone') ?>" name="telephone" id="telephone" title="<?php echo __('Phone Number') ?>" value="" class="input-text" type="text" />
+							</div>
+						</div>
+					   </div>
+
+					   <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="field email required">
+							<div class="control">
+								<input placeholder="<?php echo __('Your Email') ?>" name="email" id="email" title="<?php echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+							</div>
+						</div>
+					  </div>
+
+ 						<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="field comment required">
+							<div class="control">
+								<textarea placeholder="<?php echo __('Comment') ?>" name="comment" id="comment" title="<?php echo __('What’s on your mind?') ?>" class="input-text" cols="5" rows="7" data-validate="{required:true}"></textarea>
+							</div>
+						</div>
+					</div>
+
+						<?php echo $block->getChildHtml('form.additional.info'); ?>
+						<!-- </div> -->
+					</fieldset>
+				</fieldset>
+					<div class="primary">
+						<input type="hidden" name="hideit" id="hideit" value="" />
+						<button type="submit" title="<?php echo __('Submit') ?>" class="action submit button button-dark button-rounded filled-slide-right fw-normal text-uppercase">
+						<span><?php echo __('Send Message') ?></span>
+						</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

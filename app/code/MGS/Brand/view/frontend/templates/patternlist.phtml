@@ -1,0 +1,59 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$mediaUrl =$storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$brandPatternList = $block->getPatternbyBrand();
+/*$brandDetail = $block->getBrand();*/
+$currentUrl = $block->getRequest()->getUriString();
+$brand = $block->getCurrentBrand();
+$img = '';
+$mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="brand-tyre-list">
+	<div class="row g-3 g-lg-4 row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
+	<?php foreach($brandPatternList as $brandPatternListData):?>
+		<div class="col">
+	    	<div class="box">
+	        	<div class="logo">
+	            	<!-- <span class="image sprite pirelli"></span> -->
+	            	<?php if ($img = $brand->getImageUrl()):?>
+						<img src="<?php echo $mediaUrl.'images/section/blank.png'; ?>" width="309px" height="89px" alt="" class="new_tyre_logo lazyload" data-src="<?php echo $img; ?>"/>
+					<?php endif;?>
+	          	</div>
+	          	<div class="procuct-title">
+	            	<h4 class="fw-bold"><?php echo __($brandPatternListData->getPattern());?></h4>
+	          	</div>
+	          	<div class="product-image">
+	            	<div class="image-wrap picture aspect-custom loader text-center">
+	              		<picture>
+	                		<source class="lazyload" srcset="<?php echo $mediaUrl.$brandPatternListData->getImage();?>">
+	                		<img src="<?php echo $mediaUrl.'images/section/blank.png'; ?>" width="350px" height="500px" data-src="<?php echo $mediaUrl.$brandPatternListData->getImage();?>" class="lazyload" alt="" />
+	              		</picture>
+	            	</div>
+	          	</div>
+	          	<div class="product-details">
+	            	<span class="d-block text">
+	            		<?php
+		            		$longString = $brandPatternListData->getShortDescription();
+							$truncated = $longString;
+							$truncated = str_replace(["<p>","</p>"], "", $truncated);
+							echo $truncated;
+	            		?>
+	            	</span>
+	            	<?php
+						$patternUrl = '';
+						if(substr($currentUrl , -1)=='/'){
+							$patternUrl = $currentUrl.$brandPatternListData->getUrlKey();
+						}else{
+							$patternUrl = $currentUrl.'/'.$brandPatternListData->getUrlKey();
+						}
+					 ?>
+	            	<a href="<?php echo $patternUrl;?>" class="button button-sm button-primary-200 button-rounded filled-slide-right fw-light text-uppercase"><span><?php echo __('more details'); ?></span></a>
+	          	</div>
+	        </div>
+	    </div>
+	<?php endforeach;?>
+	</div>
+</div>

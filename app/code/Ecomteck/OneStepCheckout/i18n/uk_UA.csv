@@ -1,0 +1,119 @@
+Field,Поле
+Order,Замовлення
+Width,Ширина
+Icon,Іконка
+Validation,Перевірка
+Add Field,Додати поле
+Please Select Field,"Будь-ласка, виберіть поле"
+For delivery questions.,Для питань доставки.
+We can't find the quote item.,Ми не можемо знайти елемент презентації.
+We cannot configure the product.,Ми не можемо налаштувати продукт.
+One-page checkout is turned off.,One-page checkout вимкнено.
+Guest checkout is disabled.,Квитанція гостя вимкнена.
+E-mail cannot be empty.,Електронна пошта не може бути порожньою.
+Starts with field closed,Починається з полем закрито
+Starts with field opened,Починається з відкритого поля
+Render field without collapse,Відтворити поле без колапсу
+3 Columns,3 стовпці
+2 Columns Style 1,2 стилі стилю 1
+2 Columns Style 2,Стилі 2 Стилі 2
+Update Cart,Оновити кошик
+Qty,Кол
+This address is also my billing address,Ця адреса також є моєю платіжною адресою
+Billing Address,Платіжна адреса
+Save in address book,Зберегти в адресній книзі
+My billing and shipping address are the same,Моя платіжна адреса та адреса доставки є однаковими
+Update,Оновити
+Cancel,Скасувати
+Apply Discount,Застосувати знижку
+Cancel coupon,Скасувати купон
+Use Coupon Code,Використовувати купонний код
+Email Address,Адреса електронної пошти
+You can create an account after checkout.,Ви можете створити обліковий запис після оформлення замовлення.
+Password,Пароль
+Login,Увійти
+You already have an account with us. Sign in or continue as guest.,У вас вже є обліковий запис у нас. Увійдіть або продовжуйте користуватися гостем.
+Forgot Your Password?,Забули свій пароль?
+Gift options,Подарункові варіанти
+Message:,Повідомлення:
+Edit,Редагувати
+Delete,Видалити
+Payment Method,Метод оплати
+No Payment method available.,Немає способу оплати.
+Place Order,Зробити замовлення
+Account Information,Інформація про обліковий запис
+This address is also my shipping address,Ця адреса також є моєю адресою доставки
+Shipping Address,Адреса доставки
+Shipping Methods,Способи доставки
+Order Summary,Підсумок Замовлення
+View Details,Докладніше
+Options Details,Параметри Деталі
+Gift Message (optional),Подарункове повідомлення (необов'язково)
+To:,Щоб:
+From:,Від:
+Please specify a shipping method.,"Будь ласка, вкажіть спосіб доставки."
+New Address,Нова адреса
+Can not remove item.,Не вдається видалити елемент.
+One Step Checkout,One Step Checkout
+General,Генерал
+Enable One Step Checkout Solution,Увімкнути рішення для перевірки одного кроку
+Router Name,Назва маршрутизатора
+Example: checkout.html -> http://example.com/checkout.html,Приклад: checkout.html -> http://example.com/checkout.html
+Default Shipping Method,Стандартний метод доставки
+Default Payment Method,Стандартний метод платежу
+Allow Update Product Quantity,Дозволити оновити кількість продукту
+Allow Remove Product,Дозволити видалення продукту
+Allow Edit Product Option,Дозволити редагувати варіант продукту
+Add Gift Message Per Item,Додайте подарункові повідомлення на елемент
+Add Gift Message Per Order,Додайте подарункові повідомлення за замовленням
+Redirect To Checkout,Переадресовувати на оформлення
+Display,Дисплей
+Checkout Page Layout,Макет оформлення оформлення замовлення
+Disable Telephone Field,Вимкнути поле телефону
+Disable Company Field,Вимкнути поле компанії
+Disable Header,Відключити заголовок
+Disable Footer,Вимкнути нижній колонтитул
+Disable Login Popup,Відключити вхідні спливаючі вікна
+Move Cart Items,Перемістити елементи кошика
+Always Show Cart Items,Завжди показувати елементи кошика
+Move Billing Address Before Shipping Address,Перемістити платіжну адресу до адреси доставки
+Disable Coupon Code,Вимкнути код купона
+Coupon code initial collapse state,Код купонного початкового колапсу стану
+Disable Gift Options,Вимкнути параметри подарунків
+Gift options initial collapse state,Параметри подарунків початкового колапсу стану
+Footer Content,Вміст нижнього колонтитула
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,"Ви можете редагувати це поле, щоб додати вміст у нижній правій частині кошика. Це корисно для відображення таких речей, як підтримувані способи оплати."
+Shipping,Доставка
+Hide Shipping Methods,Сховати способи доставки
+Hide Shipping Method Title,Сховати назву методу доставки
+Colors,Кольори
+Main Color,Основний колір
+Icon Color,Колір піктограми
+Button,Кнопка
+Gift Message,Подарункове повідомлення
+Order summary background,Резюме резюме замовлення
+Shipping methods background,Способи доставки фона
+Payment methods background,Способи оплати фон
+Account and address background,Рахунок облікового запису та адреси
+Icons,Іконки
+Account Information Step,Крок Інформація про обліковий запис
+Shipping Address Step,Адреса квитка на доставку
+Billing Address Step,Платіжний адреса кроку
+Shipping Methods Step,Етапи доставки
+Payment Methods Step,Кроки способів оплати
+Order Summary Step,Кінцевий огляд замовлення
+Geo IP,Geo IP
+Enabled,Увімкнено
+Term and Conditions,Термін та умови
+Checked by Default,Перевірено за замовчуванням
+Label,Етикетка
+Popup Content,Вміст спливаючих вікон
+You can add content for terms popup.,Ви можете додати вміст для спливаючих вікон.
+Newsletter,Інформаційний бюлетень
+Back to Store,Повернутися до магазину
+Address Autocomplete,Автозаповнення адреси
+Auto Save and fill customer infomation,Автозаповнення та заповнення інформації про клієнтів
+Google Maps API Key,Ключ API Google Maps
+Split Street Fields,Спліт Стріт Поля
+Field Config,Поле конфігурації
+Customize,Налаштувати

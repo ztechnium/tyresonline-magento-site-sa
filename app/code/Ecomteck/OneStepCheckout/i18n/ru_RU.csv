@@ -1,0 +1,119 @@
+Field,поле
+Order,порядок
+Width,Ширина
+Icon,Значок
+Validation,Проверка
+Add Field,Добавить поле
+Please Select Field,Выберите поле
+For delivery questions.,По вопросам доставки.
+We can't find the quote item.,Мы не можем найти элемент котировки.
+We cannot configure the product.,Мы не можем настроить продукт.
+One-page checkout is turned off.,Одностраничная проверка выключена.
+Guest checkout is disabled.,Проверка гостей отключена.
+E-mail cannot be empty.,Электронная почта не может быть пустым.
+Starts with field closed,Начинается с закрытого поля
+Starts with field opened,Начинается с открытого поля
+Render field without collapse,Отдавать поле без коллапса
+3 Columns,3 столбца
+2 Columns Style 1,2 Стиль колонок 1
+2 Columns Style 2,2 Columns Style 2
+Update Cart,Обновить корзину
+Qty,Кол-во
+This address is also my billing address,Этот адрес также является моим платежным адресом
+Billing Address,Платежный адрес
+Save in address book,Сохранить в адресной книге
+My billing and shipping address are the same,Мой адрес фактурирования и доставки одинаковый
+Update,Обновить
+Cancel,Отмена
+Apply Discount,Применить скидку
+Cancel coupon,Отменить купон
+Use Coupon Code,Использовать код купона
+Email Address,Адрес электронной почты
+You can create an account after checkout.,Вы можете создать учетную запись после проверки.
+Password,пароль
+Login,Авторизоваться
+You already have an account with us. Sign in or continue as guest.,У вас уже есть учетная запись. Войдите или продолжите гость.
+Forgot Your Password?,Забыли пароль?
+Gift options,Варианты подарка
+Message:,Сообщение:
+Edit,редактировать
+Delete,Удалить
+Payment Method,Способ оплаты
+No Payment method available.,Нет Способ оплаты.
+Place Order,Разместить заказ
+Account Information,Информация об аккаунте
+This address is also my shipping address,Этот адрес также мой адрес доставки
+Shipping Address,Адрес доставки
+Shipping Methods,Методы доставки
+Order Summary,итог заказа
+View Details,Посмотреть детали
+Options Details,Опции Подробнее
+Gift Message (optional),Подарочное сообщение (необязательно)
+To:,"Для того, чтобы:"
+From:,Из:
+Please specify a shipping method.,Укажите способ доставки.
+New Address,Новый адрес
+Can not remove item.,Не удается удалить элемент.
+One Step Checkout,Одноэтапная проверка
+General,Генеральная
+Enable One Step Checkout Solution,Включить одноэтапное решение
+Router Name,Имя маршрутизатора
+Example: checkout.html -> http://example.com/checkout.html,Пример: checkout.html -> http://example.com/checkout.html
+Default Shipping Method,Метод доставки по умолчанию
+Default Payment Method,Метод оплаты по умолчанию
+Allow Update Product Quantity,Разрешить обновление количества продукта
+Allow Remove Product,Разрешить удаление продукта
+Allow Edit Product Option,Разрешить изменение параметра продукта
+Add Gift Message Per Item,Добавить подарочное сообщение за элемент
+Add Gift Message Per Order,Добавить подарочное сообщение за заказ
+Redirect To Checkout,Перенаправление на заказ
+Display,дисплей
+Checkout Page Layout,Оформление макета страницы
+Disable Telephone Field,Отключить телефонное поле
+Disable Company Field,Отключить поле компании
+Disable Header,Отключить заголовок
+Disable Footer,Отключить нижний
+Disable Login Popup,Отключить всплывающее окно входа
+Move Cart Items,Переместить элементы корзины
+Always Show Cart Items,Всегда показывать элементы корзины
+Move Billing Address Before Shipping Address,Переместить платежный адрес перед адресом доставки
+Disable Coupon Code,Отключить код купона
+Coupon code initial collapse state,Состояние начального коллапса кода купона
+Disable Gift Options,Отключить параметры подарка
+Gift options initial collapse state,Параметры исходного состояния сложения
+Footer Content,Нижний колонтитул
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,"Вы можете отредактировать это поле, чтобы добавить контент в нижнюю правую часть вашего заказа. Это полезно для отображения таких вещей, как поддерживаемые способы оплаты."
+Shipping,Перевозка
+Hide Shipping Methods,Скрыть методы доставки
+Hide Shipping Method Title,Скрыть название метода доставки
+Colors,Цвета
+Main Color,Основной цвет
+Icon Color,Цвет значков
+Button,кнопка
+Gift Message,Подарочное сообщение
+Order summary background,Обозначить резюме фона
+Shipping methods background,Способ доставки
+Payment methods background,Способы оплаты
+Account and address background,История аккаунта и адреса
+Icons,Иконки
+Account Information Step,Шаг с информацией об учетной записи
+Shipping Address Step,Шаг адреса доставки
+Billing Address Step,Шаг адреса фактуры
+Shipping Methods Step,Методы доставки
+Payment Methods Step,Способы оплаты Шаг
+Order Summary Step,Сводка по порядку
+Geo IP,Geo IP
+Enabled,Включено
+Term and Conditions,Срок и условия
+Checked by Default,Проверено по умолчанию
+Label,метка
+Popup Content,Всплывающее содержимое
+You can add content for terms popup.,Вы можете добавить контент для всплывающих окон.
+Newsletter,Новостная рассылка
+Back to Store,Вернуться в магазин
+Address Autocomplete,Автозаполнение адреса
+Auto Save and fill customer infomation,Автосохранение и заполнение информации о клиентах
+Google Maps API Key,Ключ API Карт Google
+Split Street Fields,Сплит-стрит
+Field Config,Конфигурация поля
+Customize,Настроить

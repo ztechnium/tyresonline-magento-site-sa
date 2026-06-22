@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="mt_pdftemplates_attribute" resource="default" engine="innodb"  comment="PDF Attribute">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="element_id" unsigned="true" nullable="true" comment="Element ID"/>
+        <column xsi:type="varchar" name="attribute_key" length="255" nullable="true" comment="Attribute Key"/>
+        <column xsi:type="text" name="attribute_value" nullable="true" comment="Attribute Value"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="mt_pdftemplates_element" resource="default" engine="innodb"  comment="PDF Element">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="template_id" unsigned="false" nullable="true" comment="Template ID"/>
+        <column xsi:type="int" name="page_id" unsigned="false" nullable="true" comment="Page ID"/>
+        <column xsi:type="varchar" name="type" length="50" nullable="true" comment="Element Type"/>
+        <column xsi:type="varchar" name="uid" length="50" nullable="true" comment="Unique Element ID"/>
+        <column xsi:type="int" name="sort_order" unsigned="false" nullable="true" comment="Sort Order"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="mt_pdftemplates_template" resource="default" engine="innodb"  comment="PDF Template">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="true" comment="Store ID"/>
+        <column xsi:type="varchar" name="type" length="20" nullable="true" comment="Template Type"/>
+        <column xsi:type="varchar" name="locale" length="20" nullable="true" comment="Locale"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="true" comment="Template Name"/>
+        <column xsi:type="varchar" name="design" length="255" nullable="true" comment="Template Design"/>
+        <column xsi:type="varchar" name="size" length="50" nullable="true" comment="Paper Size"/>
+        <column xsi:type="smallint" name="ppi" unsigned="true" nullable="true"  comment="PPI"/>
+        <column xsi:type="tinyint" name="hide_overflow" unsigned="true" nullable="true"  comment="Hide Overflow"/>
+        <column xsi:type="varchar" name="footer_height" length="6" nullable="true" comment="Footer Height"/>
+        <column xsi:type="varchar" name="header_height" length="6" nullable="true" comment="Header Height"/>
+        <column xsi:type="datetime" name="updated_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated at"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="mt_pdftemplates_template_page" resource="default" engine="innodb"  comment="PDF Attribute">
+        <column xsi:type="int" name="parent_template_id" unsigned="true" nullable="false" comment="Parent Template ID"/>
+        <column xsi:type="int" name="template_id" unsigned="true" nullable="false" comment="Template ID"/>
+        <column xsi:type="smallint" name="sort_order" unsigned="true" nullable="true" comment="Sort Order"/>
+
+    </table>
+
+    <table name="mt_pdftemplates_translate" resource="default" engine="innodb"  comment="Translates">
+        <column xsi:type="int" name="template_id" unsigned="true" nullable="false" comment="Template ID"/>
+        <column xsi:type="varchar" name="code" length="255" nullable="false" comment="Key"/>
+        <column xsi:type="text" name="label" nullable="false" comment="Value"/>
+    </table>
+
+</schema>

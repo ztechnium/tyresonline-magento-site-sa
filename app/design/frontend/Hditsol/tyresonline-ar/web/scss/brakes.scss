@@ -1,0 +1,147 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "sections/blog-slider";
+@import "sections/how-it-work";
+@import "sections/about-stopandgo";
+@import "sections/tyre-buy-process";
+@import "sections/offer-slider";
+@import "sections/search-slider";
+@import "sections/text-block";
+
+@mixin banner-height() {
+  height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+  @media screen and #{$media-query} {
+    height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+  }
+}
+
+.brakes-banner{
+  @include banner-height();
+    .banner-image{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+        .image-wrap{
+            &.picture{
+            padding-bottom: 62vh;
+            img{
+                width: auto;
+                max-width: 100%;
+            }
+        }
+    }
+    }
+    .banner-wrap{ 
+      .tyre-content{
+        width: fit-content;
+        span{
+          @include scssont-font-size(163px);
+          line-height: 0.87;
+          display: block;
+        }
+        h3{
+          @include scssont-font-size(43.75px);
+          @include scssont-letter-spacing(11.8px);
+        }
+        hr{
+            opacity: 1;
+            @include scssont-height(3px);
+            background-color: $red;
+            @include scssont-margin-top(5px);
+           @include scssont-margin-bottom(12px);
+        }
+      }
+    }
+}
+
+@media screen and (min-width: 1025px) and (max-height:1080px) and (orientation: landscape) {
+  .brakes-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 60vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-height: 960px) and (orientation: landscape) {
+  .brakes-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 63vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-height: 768px) and (orientation: landscape) {
+  .brakes-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 58vh;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 1025px) and (max-height: 650px) and (orientation: landscape) {
+  .brakes-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 54vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) and (orientation: landscape) {
+  .brakes-banner {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  .brakes-banner {
+    height: auto;
+    .banner-image {
+      position: relative;
+      margin-top: get-rem-sm(30px);
+      .image-wrap {
+        &.picture {
+          padding-bottom: 32vh;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md){
+    .brakes-banner{
+      display: none;
+    }
+  }
+
+.tyrebuy-process{
+    background-position: 0px 55%;
+}

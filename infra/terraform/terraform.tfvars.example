@@ -1,0 +1,18 @@
+aws_region = "eu-north-1"
+project    = "tyresonline-sa-prod"
+
+# Mirror AE staging network placement
+ae_reference_db_identifier    = "tyresonline-ae-stg-rds"
+ae_reference_redis_cluster_id = "tyresonline-ae-stg-redis"
+
+ec2_instance_type = "t3.xlarge"
+ec2_key_name      = "staging-key-tyresonline"
+db_instance_class = "db.t3.medium"
+db_name           = "tyresonline_sa"
+db_username       = "magento"
+db_password       = "CHANGE_ME_STRONG_PASSWORD"
+
+domain_name = "www.tyresonline.sa"
+
+# Restrict SSH to your office IP in production
+allowed_ssh_cidr = "0.0.0.0/0"

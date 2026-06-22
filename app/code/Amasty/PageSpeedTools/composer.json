@@ -1,0 +1,21 @@
+{
+    "name": "amasty/module-page-speed-tools",
+    "description": "Google Page Speed Tools by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.13.4"
+    },
+    "type": "magento2-module",
+    "version": "1.0.7",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\PageSpeedTools\\": ""
+        }
+    }
+}

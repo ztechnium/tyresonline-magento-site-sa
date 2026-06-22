@@ -1,0 +1,119 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$store = $storeManager->getStore();
+$baseUrl = $store->getBaseUrl();
+//$blogCollection =  $objectManager->create('Hdweb\Core\Helper\Data')->getWpblogList();
+//echo '<pre>'; print_r($blogCollection);die((__FILE__).'-->'.(__FUNCTION__).'--Line('. (__LINE__).')');
+?>
+<div class="section blog-list">
+  <div class="container custom-width">
+    <div class="heading-style2 mb-50 text-center">
+      <h2 class="text-uppercase"><?php echo __('Blog'); ?></h2>
+    </div>
+    <div class="row justify-content-center px-lg-4">
+      <div class="col-12 col-lg-11">
+        <div class="owl-carousel owl-theme blog-list-slider owl-nav-style2 owl-dot-style1">
+          <div class="item">
+            <article class="article-wrap">
+              <div class="image-wrap picture loader aspect-custom">
+                <picture>
+                  <source class="owl-lazy" srcset="<?php echo $mediaURL.'images/blog/b1.jpg'; ?>">
+                  <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" width="640px" height="423px" data-src="<?php echo $mediaURL.'images/blog/b1.jpg'; ?>" class="owl-lazy" alt="How To Maintain A Car You Don’t Use Often" />
+                </picture>
+              </div>
+              <div class="content text-center">
+                <span class="date">17 Aug, 2021</span>
+                <h4>How To Maintain A Car You Don’t Use Often</h4>
+                <p>Many people in the UAE have vehicles that they rarely drive or not use often. These can be anything from second cars to seasonal cars, or vehicles dr... <a href="#">Read More</a></p>
+              </div>
+            </article>
+          </div>
+          <div class="item">
+            <article class="article-wrap">
+              <div class="image-wrap picture loader aspect-custom">
+                <picture>
+                  <source class="owl-lazy" srcset="<?php echo $mediaURL.'images/blog/b2.jpg'; ?>">
+                  <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" width="640px" height="423px" data-src="<?php echo $mediaURL.'images/blog/b2.jpg'; ?>" class="owl-lazy" alt="How To Maintain A Car You Don’t Use Often" />
+                </picture>
+              </div>
+              <div class="content text-center">
+                <span class="date">17 Aug, 2021</span>
+                <h4>How To Maintain A Car You Don’t Use Often</h4>
+                <p>Many people in the UAE have vehicles that they rarely drive or not use often. These can be anything from second cars to seasonal cars, or vehicles dr... <a href="#">Read More</a></p>
+              </div>
+            </article>
+          </div>
+          <div class="item">
+            <article class="article-wrap">
+              <div class="image-wrap picture loader aspect-custom">
+                <picture>
+                  <source class="owl-lazy" srcset="<?php echo $mediaURL.'images/blog/b3.jpg'; ?>">
+                  <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" width="640px" height="423px" data-src="<?php echo $mediaURL.'images/blog/b3.jpg'; ?>" class="owl-lazy" alt="How To Maintain A Car You Don’t Use Often" />
+                </picture>
+              </div>
+              <div class="content text-center">
+                <span class="date">17 Aug, 2021</span>
+                <h4>How To Maintain A Car You Don’t Use Often</h4>
+                <p>Many people in the UAE have vehicles that they rarely drive or not use often. These can be anything from second cars to seasonal cars, or vehicles dr... <a href="#">Read More</a></p>
+              </div>
+            </article>
+          </div>
+          <div class="item">
+            <article class="article-wrap">
+              <div class="image-wrap picture loader aspect-custom">
+                <picture>
+                  <source class="owl-lazy" srcset="<?php echo $mediaURL.'images/blog/b1.jpg'; ?>">
+                  <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" width="640px" height="423px" data-src="<?php echo $mediaURL.'images/blog/b1.jpg'; ?>" class="owl-lazy" alt="How To Maintain A Car You Don’t Use Often" />
+                </picture>
+              </div>
+              <div class="content text-center">
+                <span class="date">17 Aug, 2021</span>
+                <h4>How To Maintain A Car You Don’t Use Often</h4>
+                <p>Many people in the UAE have vehicles that they rarely drive or not use often. These can be anything from second cars to seasonal cars, or vehicles dr... <a href="#">Read More</a></p>
+              </div>
+            </article>
+          </div>
+          <div class="item">
+            <article class="article-wrap">
+              <div class="image-wrap picture loader aspect-custom">
+                <picture>
+                  <source class="owl-lazy" srcset="<?php echo $mediaURL.'images/blog/b2.jpg'; ?>">
+                  <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" width="640px" height="423px" data-src="<?php echo $mediaURL.'images/blog/b2.jpg'; ?>" class="owl-lazy" alt="How To Maintain A Car You Don’t Use Often" />
+                </picture>
+              </div>
+              <div class="content text-center">
+                <span class="date">17 Aug, 2021</span>
+                <h4>How To Maintain A Car You Don’t Use Often</h4>
+                <p>Many people in the UAE have vehicles that they rarely drive or not use often. These can be anything from second cars to seasonal cars, or vehicles dr... <a href="#">Read More</a></p>
+              </div>
+            </article>
+          </div>
+          <div class="item">
+            <article class="article-wrap">
+              <div class="image-wrap picture loader aspect-custom">
+                <picture>
+                  <source class="owl-lazy" srcset="<?php echo $mediaURL.'images/blog/b3.jpg'; ?>">
+                  <img src="<?php echo $mediaURL.'images/section/blank.png'; ?>" width="640px" height="423px" data-src="<?php echo $mediaURL.'images/blog/b3.jpg'; ?>" class="owl-lazy" alt="How To Maintain A Car You Don’t Use Often" />
+                </picture>
+              </div>
+              <div class="content text-center">
+                <span class="date">17 Aug, 2021</span>
+                <h4>How To Maintain A Car You Don’t Use Often</h4>
+                <p>Many people in the UAE have vehicles that they rarely drive or not use often. These can be anything from second cars to seasonal cars, or vehicles dr... <a href="#">Read More</a></p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="more-link text-center">
+      <a href="#" class="link fw-bold hover-border-animated"><?php echo __('See All'); ?></a>
+    </div>
+  </div>
+</div>

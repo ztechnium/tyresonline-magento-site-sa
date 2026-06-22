@@ -1,0 +1,48 @@
+<?php $baseUrl = $block->getBaseUrl(); ?>
+<div class="orderupload-item-dv">
+    <?php
+    $pubMediaUrl = $block->getMediaUrl();
+    $orderUploads = $block->getCollection();
+
+    if (($orderUploads->count() > 0) && $block->isValid()):
+        ?>
+        <table class="data table table-order-items history order-orderupload-table">
+            <thead>
+            <tr class="headings">
+                <th class="cell"><?php echo __('# Order Id'); ?></th>
+                <th class="cell"><?php echo __('File Name'); ?></th>
+                <th class="cell"><?php echo __('Comment'); ?></th>
+                <th class="cell last"><?php echo __('Created On'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($orderUploads as $orderUpload): ?>
+                <tr>
+                    <td>
+                        <a href="<?php echo $block->getBaseUrl() . 'sales/order/view/order_id/' . $orderUpload->getData('order_id'); ?>"><?php echo $block->getOrderId($orderUpload->getData('order_id')); ?></a>
+                    </td>
+                    <td>
+                        <a target="_blank"
+                           href="<?php echo $block->pubMediaPath() . $orderUpload->getFilePath(); ?>"><?php echo $orderUpload->getFileName(); ?></a>
+                    </td>
+                    <td>
+                        <?php echo $orderUpload->getData('comment'); ?>
+                    </td>
+                    <td>
+                        <?php echo $orderUpload->getData('created_at'); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php
+    else:
+        echo __('No records found');
+    endif;
+    ?>
+</div>
+<br/>
+<div style="clear:both"></div>
+<?php if ($block->getPagerHtml()): ?>
+    <?php echo $block->getPagerHtml(); ?>
+<?php endif ?>

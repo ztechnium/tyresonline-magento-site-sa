@@ -1,0 +1,886 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+
+$pirelli-color: #fd0;
+$bridgestone-color: #ee1921;
+$goodyear-color: #374ba1;
+$continental-color: #fe9900;
+$matrax-color: #C49E4E;
+
+
+.brand-brand-view{
+  .columns{
+    padding: 0;
+    .column{
+      padding: 0;
+    }
+  }
+}
+
+.tyre-brands {
+  @include scssont-padding(35px, 35px, 35px, 35px);
+  .banner-image {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 38%;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .tyre-brands {
+    padding: 0;
+  }
+}
+
+.brand-info-with-logo {
+  padding-top: 0.5%;
+  padding-bottom: 1.5%;
+  .brand-logo {
+    .seo-title {
+      position: absolute;
+    }
+    img{
+      width: 100%;
+    }
+  }
+  .text-block {
+    @include scssont-padding-left(20px);
+    h2 {
+      @include scssont-font-size(28px);
+    }
+    p {
+      @include scssont-font-size(20px);
+      font-weight: 500;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brand-info-with-logo {
+    padding: get-rem(30px) 0;
+    .brand-logo {
+      img {
+        max-width: 60%;
+      }
+    }
+    .text-block {
+      text-align: center;
+      margin-top: get-rem(30px);
+      padding: 0;
+    }
+  }
+}
+
+.brand-accordion {
+  .accordion {
+    .accordion-item {
+      border: none;
+      border-radius: 0;
+      .accordion-header {
+        background-color: $red-200;
+        cursor: pointer;
+        .accordion-title {
+          @include scssont-font-size(28px);
+          @include scssont-letter-spacing(4px);
+          display: block;
+          @include scssont-padding(30px, 30px, 30px, 0px);
+          position: relative;
+          color: $white;
+          &:after{
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            @include transform(translateY(-50%));
+            background-repeat: no-repeat;
+            background-position: center;
+            @include scssont-height(35px);
+            @include scssont-width(35px);
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"/></svg>');
+          }
+          &.collapsed {
+            &:after{
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>');
+            }
+          }
+        }
+      }
+
+      .accordion-body {
+        @include scssont-padding(60px, 0px, 60px, 0px);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brand-accordion {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          .accordion-title {
+            font-size: get-rem(20px);
+            .icon {
+              svg {
+                height: get-rem(20px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.brand-accordion {
+  p {
+    @include scssont-font-size(20px);
+    line-height: 1.8;
+    margin-bottom: 1.7rem;
+    @include scssont-letter-spacing(3px);
+  }
+  .about-brand {
+    .about-facts {
+      @include scssont-margin-top(60px);
+      .left-text {
+        h3 {
+          @include scssont-font-size(28px);
+          @include scssont-letter-spacing(4px);
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+        ul {
+          margin: 0;
+          @include scssont-margin-top(30px);
+          padding: 0;
+          @include scssont-padding-left(18px);
+          list-style-type: disc;
+          li {
+            @include scssont-font-size(20px);
+            @include scssont-margin-bottom(20px);
+            @include scssont-letter-spacing(3px);
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+
+  .brand-tyre {
+    .brand-tyre-list {
+      @include scssont-margin-top(30px);
+      .box {
+        @include scssont-padding(10px, 0px, 0px, 0px);
+        text-align: center;
+        background-color: #fff;
+        border: solid #757575;
+        @include scssont-border-width(1px);
+        @include scssont-border-radius(15px);
+        @include box-shadow(0.407px 0.914px 5px 0px rgb(46 46 46 / 25%));
+        height: 100%;
+        overflow: hidden;
+        @include transition(ease-in-out, 0.4s);
+        .logo {
+          img {
+            @include scssont-height(40px);
+            margin: auto;
+          }
+        }
+        .procuct-title {
+          @include scssont-margin-top(10px);
+          h4 {
+            @include scssont-font-size(20px);
+          }
+        }
+        .product-image {
+          @include scssont-padding(10px, 20px, 0px, 20px);
+          overflow: hidden;
+          @include scssont-max-height(160px);
+          .image-wrap {
+            &.aspect-custom {
+              padding-top: 150%;
+            }
+          }
+        }
+        .product-details {
+          @include scssont-padding(15px, 20px, 15px, 20px);
+          background-color: $lightgrey;
+          position: relative;
+          @include scssont-min-height(160px);
+          border-top: solid #757575;
+          @include scssont-border-width(1px);
+          span {
+            &.text {
+              @include scssont-font-size(14px);
+            }
+          }
+          .button {
+            position: absolute;
+            @include scssont-bottom(15px);
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: fit-content;
+          }
+        }
+        &:hover {
+          @include box-shadow(0.407px 0.914px 15px 0px rgb(46 46 46 / 35%));
+        }
+      }
+    }
+  }
+
+  .brand-distributer {
+    .image-wrap {
+      @include scssont-max-width(350px);
+      margin: auto;
+    }
+  }
+
+  .brand-certificate {
+    .banner-image {
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 28%;
+        }
+      }
+    }
+
+    .text-wrap{
+      ul{
+        @include scssont-padding(0px, 0px, 0px, 20px);
+        @include scssont-font-size(20px);
+        @include scssont-letter-spacing(1px);
+        li{
+          @include scssont-margin-bottom(30px);
+        }
+      }
+    }
+
+    .certificates-list {
+      .box{
+        text-align: center;
+        @include scssont-margin-bottom(50px);
+        @include scssont-padding(0px, 30px, 0px, 30px);
+        img{
+          @include scssont-max-height(180px);
+          height: auto;
+          width: auto;
+        }
+      }
+    }
+  }
+
+  .brand-partners {
+    .brand-list {
+      ul {
+        li {
+          @include scssont-margin-bottom(30px);
+          .box {
+            text-align: center;
+            img{
+              @include scssont-max-height(90px);
+              height: auto;
+              width: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+  .brand-banner {
+  .image-wrap {
+    &.aspect-custom {
+      padding-bottom: 50%;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brand-accordion {
+    p {
+      font-size: get-rem(16px);
+      letter-spacing: 0;
+    }
+
+    .brand-tyre {
+      .brand-tyre-list {
+        .box {
+          text-align: center;
+          .product-details {
+            span {
+              &.text {
+                font-size: get-rem(12px);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .brand-certificate {
+      .certificates-list {
+        margin: get-rem(20px) 0 0;
+      }
+    }
+  }
+}
+
+
+// Pirelli
+.brand-pirelli {
+  .brand-accordion {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          background-color: $pirelli-color;
+          .accordion-title {
+            color: $black;
+            &:after{
+              background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"/></svg>');
+            }
+            &.collapsed {
+              &:after{
+              background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// Bridgestone
+.brand-bridgestone {
+  .brand-accordion {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          background-color: $bridgestone-color;
+        }
+      }
+    }
+  }
+}
+
+// Goodyear
+.brand-goodyear {
+  .brand-accordion {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          background-color: $goodyear-color;
+        }
+      }
+    }
+  }
+
+  .brand-info-with-logo {
+    .text-block {
+      padding-right: 10%;
+    }
+}
+}
+
+@include media-breakpoint-down(xl){
+  .brand-goodyear {
+    .brand-info-with-logo {
+      .text-block {
+        padding-right: 0%;
+      }
+  }
+  }
+}
+
+
+// Continental
+.brand-continental {
+  .brand-accordion {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          background-color: $continental-color;
+        }
+      }
+    }
+    .brand-distributer{
+      .image-wrap{
+         max-width: 100%;
+      }
+    }
+  }
+}
+
+
+// Continental
+.brand-matrax {
+  --bs-gutter-x: 0.75rem;
+  .tyre-brands {
+    .container-fluid{
+      padding: 0;
+    }
+    .banner-image {
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 36.5%;
+        }
+      }
+    }
+  } 
+
+  .brand-info-with-logo{
+    .col-md-5{
+      width: 28%;
+    }
+    .col-md-7{
+      width: 72%;
+    }
+    .text-block {
+      h2 {
+        @include scssont-font-size(34px);
+        margin-bottom: 0;
+      }
+      p {
+        @include scssont-font-size(18px);
+        font-weight: 400;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+  .brand-accordion {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          background-color: $matrax-color;
+          .accordion-title {
+            @include scssont-font-size(32px);
+            @include scssont-letter-spacing(0.5px);
+            @include scssont-padding(34px, 35px, 34px, 0px);
+            &:after{
+              @include scssont-height(18px);
+              @include scssont-width(18px);
+            }
+          }
+        }
+
+        .accordion-body {
+          @include scssont-padding(35px, 0px, 35px, 0px);
+        }
+      }
+    }
+    .brand-distributer{
+      .image-wrap{
+         max-width: 100%;
+      }
+    }
+    p{
+      @include scssont-font-size(18px);
+      font-weight: 400;
+      line-height: 1.6;
+      @include scssont-letter-spacing(0.5px);
+    }
+
+    .certificates-list {
+      .box{
+        text-align: center;
+        margin-bottom: 0;
+        padding: 0;
+        img{
+          @include scssont-max-height(100px);   
+        }
+      }
+    }
+  }
+
+  .brand-banner {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 37.7%;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+.brand-matrax {
+  --bs-gutter-x: 0;
+  .tyre-brands {
+    padding: 0;
+  } 
+
+  .brand-info-with-logo{
+    padding: 30px 1.5rem;
+    .col-md-5{
+      width: 100%;
+    }
+    .col-md-7{
+      width: 100%;
+    }
+    .text-block {
+      h2 {
+        font-size: get-rem-sm(22px);
+        margin-bottom: get-rem-sm(20px);
+      }
+    }
+  }
+  .brand-accordion {
+    .custom-width{
+      max-width: 100%;
+      padding: 0px 1.5rem;
+    }
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          background-color: $matrax-color;
+          .accordion-title {
+            font-size: get-rem-sm(20px);
+          }
+        }
+      }
+    }
+    .certificates-list {
+      li{
+        width: 50%;
+        text-align: center;
+        margin-bottom: get-rem-sm(30px);
+      }
+      .box{
+        text-align: center;
+        margin-bottom: 0;
+        padding: 0;
+        img{
+          @include scssont-max-height(100px);   
+        }
+      }
+    }
+  }
+
+  .brand-banner {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 71%;
+      }
+    }
+  }
+}
+}
+
+
+@include media-breakpoint-between(md, lg) {
+  .brand-matrax {
+  .brand-accordion {
+  .certificates-list {
+    .box{
+      img{
+        max-height: get-rem-sm(40px);
+      }
+    }
+  }
+}
+}
+}
+
+@include media-breakpoint-between(lg, xl) {
+  .brand-matrax {
+  .brand-accordion {
+  .certificates-list {
+    .box{
+      img{
+        max-height: get-rem-sm(60px);
+      }
+    }
+  }
+}
+}
+}
+
+@include media-breakpoint-between(xl, xxl) {
+  .brand-matrax {
+  .brand-accordion {
+  .certificates-list {
+    .box{
+      img{
+        max-height: get-rem-sm(70px);
+      }
+    }
+  }
+}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Pattern View
+
+.brand-brand-patternview{
+  .columns{
+    padding: 0;
+    .column{
+      padding: 0;
+    }
+  }
+}
+
+.pattern-product{
+  @include scssont-padding(60px, 0px, 60px, 0px);
+
+  .product-info{
+    .product-info-wrap{
+      position: relative;
+      @include scssont-margin-bottom(50px);
+      .product-brand{
+        img{
+          @include scssont-max-height(55px);
+          height: auto;
+          width: auto;
+        }
+      }
+      .product-title{
+        @include scssont-margin-top(20px);
+        h1{
+          font-weight: 900;
+          @include scssont-font-size(35px);
+        }
+      } 
+      .additional-info{
+        @include scssont-font-size(20px);
+        line-height: 1.5;
+        max-width: 60%;
+        @include scssont-min-height(300px);
+        .right_img{
+          position: absolute;
+          right: 0;
+          top: 0;
+          @include scssont-width(500px);
+        }
+      }
+    }
+  }
+
+  .all-tyres{
+
+    .products{
+      @include scssont-margin-mix(25px, 0px);
+    }
+    
+    .section-title{
+      @include scssont-margin-bottom(40px);
+      h2{
+        font-weight: 900;
+        @include scssont-font-size(35px);
+      }
+    }
+
+    .block-title{
+      background: #646464;
+      color: #fff;
+      font-weight: 600;
+      @include scssont-border-radius(100px);
+      @include scssont-padding(8px, 15px, 8px, 15px);
+    }
+  }
+
+  .performance{
+    @include scssont-margin-bottom(50px);
+    h2{
+      @include scssont-margin-bottom(40px);
+      font-weight: 900;
+      @include scssont-font-size(35px);
+      text-transform: uppercase;
+    }
+
+    .performance-progress{
+      .progress-box{
+        @include scssont-margin-bottom(10px);
+        .progress-icon{
+          .name{
+            text-transform: uppercase;
+            display: block;
+            @include scssont-margin-left(15px);
+          }
+          .icon{
+            @include scssont-height(38px);
+            @include scssont-width(38px);
+            background-position: 0.8% 14.6%;
+            background-size: 2700%;
+            &.dry{
+              background-position: 38.6% 22%;
+              background-size: 1284%;
+            }
+            &.comfort{
+              background-position: 49.4% 22%;
+              background-size: 1284%;  
+            }
+            &.wet{
+              background-position: 59.9% 22%;
+              background-size: 1284%;   
+            }
+            &.mileage{
+              background-position: 38.9% 32.7%;
+              background-size: 1284%;   
+            }
+            &.sport{
+              background-position: 49.1% 32.5%;
+              background-size: 1284%;   
+            }
+          }
+        }
+        .progress-bar-graph{
+          width: 65%;
+          padding-right: 5%;
+          ul{
+            li{
+              width: 10%;
+              @include scssont-height(25px);
+              background-color: #ccc;
+              border: solid #fff;
+              @include scssont-border-width(1.5px);
+              color: #0000;
+              text-indent: -99999%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+// Rating Mixin
+// 10 item set
+$rating: 10;
+
+@mixin rating-bar {
+  @for $i from 1 through $rating {
+    [data-value='#{$i}'] .graph-item:nth-of-type(-n+#{$i}) { 
+      background-color: #d51f26 !important; 
+    }
+  }
+}
+@include rating-bar;
+
+@include media-breakpoint-down(md){
+.pattern-product{
+  padding: get-rem(30px) 0;
+
+  .product-info{
+    .product-info-wrap{
+      text-align: center;
+      .product-title{
+        h1{
+          font-size: get-rem(24px);
+        }
+      }
+      .additional-info {
+        max-width: 100%;
+        .right_img{
+          position: relative;
+          width: 100%;
+          img{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .performance{
+    h2{
+      font-size: get-rem(24px);
+      text-align: center;
+    }
+
+    .performance-progress{
+      .progress-box{
+        .progress-bar-graph{
+          width: 100%;
+          padding-right: 0;
+          margin-top: get-rem(10px);
+        }
+      }
+    }
+  }
+
+  .all-tyres{
+    .section-title{
+      text-align: center;
+      h2{
+        font-size: get-rem(24px);
+      }
+    }
+  }
+
+}
+}
+
+
+@include media-breakpoint-between(md, lg) {
+  .pattern-product{
+  .product-info{
+    .product-info-wrap{
+      .product-title{
+        h1{
+          font-size: get-rem(28px);
+        }
+      }
+      .additional-info {
+        .right_img{
+          width: get-rem(350px);
+          img{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }  
+
+  .performance{
+    h2{
+      font-size: get-rem(28px);
+    }
+  }
+
+  .all-tyres{
+    .section-title{
+      h2{
+        font-size: get-rem(28px);
+      }
+    }
+  }
+}
+}
+
+
+.page-footer{
+  margin-top: 0px;
+}

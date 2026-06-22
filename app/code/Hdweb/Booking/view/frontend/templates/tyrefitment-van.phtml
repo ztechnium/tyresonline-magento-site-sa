@@ -1,0 +1,248 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager  = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$baseUrl       = $storeManager->getStore()->getBaseUrl();
+$booking = $this->helper('Hdweb\Booking\Helper\Data');
+$dates = $booking->getDates();
+$default_lat = '25.2064083';
+$default_lng = '55.2683773';
+$gmapApiKey = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('ecomteck_storelocator/map/api_key');
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+$mobileService_productid = 5156;
+$mobileService_product = $objectManager->create('Magento\Catalog\Model\Product')->load($mobileService_productid);
+$mobileServiceAddToCartUrl = $listBlock->getAddToCartUrl($mobileService_product);
+?>
+<!-- Start Mobile var service modal -->
+<div id="mobilevanservice" class="izimodal mobilevanservice izimodal-style1" style="display: none;">
+  <a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close></a>
+     <div class="modal-content-wrap">
+      <div class="schedule-auto-service">
+        <h2><?php echo __('Select your location in Dubai') ?></h2>
+        <p><strong><?php echo __('Select your vehicle’s location, and schedule the time for the service.'); ?></strong></p>
+        <p><span><?php echo __('One of our agents will contact you to confirm location and time.'); ?></span></p>
+      </div>
+
+      <div class="schedule-auto-service-form">
+      <form class="" action="#" id="mobilevanservice-form" method="post" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+        <div class="row">
+          <div class="col-12">
+              <div class="form-group">
+                <input placeholder="<?php echo __('Enter your Location');?>" class="form-control input-text" type="text" name="mobilevanservice_location" title="<?php echo __('Enter your Location');?>" data-validate="{required:true}" aria-required="true" aria-invalid="false" id="mobilevanservice_location" value="" autocomplete="off"/>
+              </div>
+            </div>
+          <div class="col-12">
+              <div class="form-group">
+                <a href="javascript:void(0)" id="pickUPMAP" class="custom-input" data-toggle="modal" data-target="#pickUPModal" data-lat="<?php echo $default_lat;?>" data-lng="<?php echo $default_lng;?>" data-bs-toggle="modal" data-bs-target="#pickUPModal"><?php echo __('Select Location from a Map');?></a>
+              </div>
+            </div>
+          <div class="col-6">
+            <div class="form-group">
+            	<select placeholder="mobilevanservice_date" name="mobilevanservice_date" id="mobilevanservice_date" class="select1 form-control" data-validate="{required:true}" value="" aria-required="true" aria-invalid="false" autocomplete="off">
+					<option value=""> <?php echo __('Date');?> </option>
+				  	<?php foreach ($dates as $key => $value) { ?>
+					<option value="<?php echo $value ?>"><?php echo $value ?></option>
+				  	<?php  }?>             
+				</select>
+            </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                <select placeholder="time" name="mobilevanservice_time" id="mobilevanservice_time" class="select1 form-control" data-validate="{required:true}" value="" aria-required="true" aria-invalid="false" autocomplete="off">
+				  <option value=""><?php echo __('Time');?></option>
+				</select>
+              </div>
+            </div>
+          <div class="col-12">
+              <div class="form-group">
+                <textarea placeholder="<?php echo __('Additional Notes');?>" class="input-text form-control" id="mobilevanservice_notes" rows="3" data-validate="{required:true}" aria-required="true" aria-invalid="false"></textarea>
+              </div>
+            </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="action submit primary" title="<?php echo __('Confirm Selection') ?>"><span><?php echo __('Confirm Selection') ?></span></button>
+        </div>
+        <input type="hidden" id="mobilevanservice_location_lat" value=""/>
+		<input type="hidden" id="mobilevanservice_location_lng" value=""/>
+		<input type="hidden" id="mobilevanservice_address" value=""/>
+      </form>
+
+	  <form data-role="tocart-form" class="mobilevanserviceaddtocart-form" id="mobilevanserviceaddtocart" action="<?php echo $mobileServiceAddToCartUrl; ?>" method="post" style="display:none;"> 
+			<?php echo $block->getBlockHtml('formkey')?>
+			<input type="hidden" name="qty" class="1">
+			<button type="submit"  class="action primary tocart"><?php echo __('Book Now') ?></button>
+	  </form>
+
+	  </div>
+  </div>
+</div>
+<!-- End Mobile var service modal -->
+<!-- start Modal for pickup map -->
+  <div class="modal fade" id="pickUPModal" tabindex="-1" role="dialog" aria-labelledby="pickUPModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-custom-width-lg bs-custom-modal" role="document">
+      <div class="modal-content">
+      	<div class="modal-title"><span>Select Location from a Map</span></div>
+      	<span class="close white" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256L7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256L312.1 375z"></path></svg></span>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 modal_body_map">
+              <div class="location-map" id="location-map">
+                <div style="width: 600px; height: 450px;" id="map_canvas_pickup_map"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end Modal for pickup map -->
+
+<script>
+  function initialize() { 
+	var mobilevanservice_location = document.getElementById('mobilevanservice_location');
+	var mobilevanservice_locationautocomplete = new google.maps.places.Autocomplete(mobilevanservice_location);
+	mobilevanservice_locationautocomplete.setComponentRestrictions({'country': ['ae']});
+	google.maps.event.addListener(mobilevanservice_locationautocomplete, 'place_changed', function () {
+		var place = mobilevanservice_locationautocomplete.getPlace();
+		mobilevanservice_location_searchlat=place.geometry.location.lat();
+		mobilevanservice_location_searchlong=place.geometry.location.lng();
+		jQuery('#mobilevanservice_location_lat').val(mobilevanservice_location_searchlat);
+		jQuery('#mobilevanservice_location_lng').val(mobilevanservice_location_searchlong);
+		var inputAddress = jQuery('#mobilevanservice_location').val();
+		jQuery('#mobilevanservice_address').val(inputAddress);
+	});
+  }
+</script>
+<script type="text/javascript">
+    require(['jquery',
+    	 'owlcarousel',
+    	 'mage/validation'
+    	 ], function ($) {
+        $('.serviceloction-slider .owl-carousel').owlCarousel({
+            loop:false,
+           rewind: true,
+            margin:0,
+            nav:false,
+            dots:false,
+            items:3,
+            responsive:{
+                0:{
+                    items:1,
+                   loop:true
+                },
+                479:{
+                    items:1,
+                   loop:true
+                },
+                575.99:{
+                    items:2,
+                   loop:true
+                },
+                767.99:{
+                    items:3,
+                    loop:true
+                }
+            }
+        });
+
+        var getMobileVanServiceDatesUrl = '<?php echo $block->getUrl('booking/index/mobilevanservicedates'); ?>';
+		jQuery('#mobilevanservice_date').on('change', function (e) {
+			var dateSelected = this.value;
+			if(dateSelected != ''){
+				jQuery.ajax({
+				  type: 'POST',
+				  url: getMobileVanServiceDatesUrl,
+				  data: {mobilevanservice_date: dateSelected},
+				  success: function (data) {
+					if(data.status == 'success'){ 
+						jQuery('#mobilevanservice_time').html(data.request);
+					} else {
+						alert("Error");
+					};
+				 }
+				});
+			}
+		});
+		initialize();
+		$('#pickUPModal').on('show.bs.modal', function(event) {
+			var map;
+			var myMarker;
+			var myLatlng;
+			var lat = <?php echo $default_lat; ?>;
+			var lng = <?php echo $default_lng; ?>;
+			var selectedLocationLat = jQuery('#mobilevanservice_location_lat').val();
+			var selectedLocationLng = jQuery('#mobilevanservice_location_lng').val();
+			if(selectedLocationLat != '' && selectedLocationLng != ''){
+				myLatlng = new google.maps.LatLng(selectedLocationLat, selectedLocationLng);
+			}else{
+				myLatlng = new google.maps.LatLng(lat, lng);
+			}
+			var geocoder = new google.maps.Geocoder();
+			var infowindow = new google.maps.InfoWindow();
+			var myOptions = {
+			  zoom: 15,
+			  zoomControl: true,
+			  center: myLatlng,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			map = new google.maps.Map(document.getElementById("map_canvas_pickup_map"), myOptions);
+
+			myMarker = new google.maps.Marker({
+				map: map,
+				position: myLatlng,
+				draggable: true
+			});
+		   google.maps.event.addListener(myMarker, 'dragend', function(evt) {
+			  geocoder.geocode({'latLng': myMarker.getPosition()},function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if (results[0]) {
+						var address_components = results[0].formatted_address;
+						$("#mobilevanservice_location").val(address_components);
+						$("#mobilevanservice_address").val(address_components);
+						infowindow.setContent(results[0].formatted_address);
+						infowindow.open(map, myMarker);
+					}
+				}  
+			  });  
+			  $("#mobilevanservice_location_lat").val(evt.latLng.lat());
+			  $("#mobilevanservice_location_lng").val(evt.latLng.lng());
+			});
+			
+			myMarker.setMap(map);
+			$("#location-map").css("width", "100%");
+			$("#map_canvas_pickup_map").css("width", "100%");
+			$('#mypickupModal').modal('show');
+			google.maps.event.trigger(map, "resize");
+			map.setCenter(myLatlng);
+		});
+
+		var dataForm = jQuery('#mobilevanservice-form');
+  		dataForm.mage('validation', {});
+		
+		jQuery('#mobilevanservice-form').submit(function(e){
+			var status = dataForm.validation('isValid'); //validates form and returns boolean
+			var mobileVanServiceUrl = '<?php echo $block->getUrl('booking/index/setmobilevanservice'); ?>';
+			if(status) {
+				var selectedAddress = jQuery('#mobilevanservice_address').val();
+				var selectedLocationLat = jQuery('#mobilevanservice_location_lat').val();
+				var selectedLocationLng = jQuery('#mobilevanservice_location_lng').val();
+				var selectedDate = jQuery('#mobilevanservice_date').val();
+				var selectedTime = jQuery('#mobilevanservice_time').val();
+				var selectedNotes = jQuery('#mobilevanservice_notes').val();
+				jQuery('#mobilevanserviceaddtocart button.tocart').trigger('click');
+				jQuery('.iziModal-button-close').trigger('click');
+				jQuery.ajax({
+				  type: 'POST',
+				  url: mobileVanServiceUrl,
+				  data: {mobilevanservice_address: selectedAddress, mobilevanservice_location_lat: selectedLocationLat, mobilevanservice_location_lng: selectedLocationLng, mobilevanservice_date: selectedDate, mobilevanservice_time: selectedTime, mobilevanservice_notes: selectedNotes},
+				  success: function (data) {
+					if(data.success == true ){ 
+					} else {
+					};
+				 }
+				});
+				e.preventDefault();
+			}
+		});
+    });
+</script>

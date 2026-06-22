@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck_Map adminhtml menu configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Ecomteck
+ * @package   Ecomteck_StorePickup
+ * @author    Ecomteck <ecomteck@gmail.com>
+ * @copyright 2016 Ecomteck
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecomteck_StorePickup::configuration" 
+            title="Store Pickup Shipping Configuration" 
+            module="Ecomteck_StorePickup" 
+            sortOrder="50" 
+            action="adminhtml/system_config/edit/section/carriers/storepickup" 
+            resource="Ecomteck_StorePickup::config"
+            parent="Ecomteck_StoreLocator::menu"/>
+    </menu>
+</config>

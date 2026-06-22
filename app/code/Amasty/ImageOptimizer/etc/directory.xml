@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_MediaGalleryApi:etc/directory.xsd">
+    <exclude>
+        <patterns>
+            <pattern name="amoptimizer_dump">/^amasty\/amoptimizer_dump/</pattern>
+            <pattern name="amoptmobile">/^amasty\/amoptmobile/</pattern>
+            <pattern name="amopttablet">/^amasty\/amopttablet/</pattern>
+            <pattern name="amoptwebp">/^amasty\/webp/</pattern>
+        </patterns>
+    </exclude>
+</config>

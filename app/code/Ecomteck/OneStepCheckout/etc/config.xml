@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Ecomteck.com license that is
+ * available through the world-wide-web at this URL:
+ * https://ecomteck.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_OneStepCheckout
+ * @copyright   Copyright (c) 2018 Ecomteck (https://ecomteck.com/)
+ * @license     https://ecomteck.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <one_step_checkout>
+            <module>
+                <type>0</type>
+            </module>
+            <general>
+                <enable>1</enable>
+                <router_name>checkout</router_name>
+                <default_shipping_method>flatrate_flatrate</default_shipping_method>
+                <default_payment_method>checkmo</default_payment_method>
+                <allow_update_product_qty>1</allow_update_product_qty>
+                <allow_remove_product>1</allow_remove_product>
+                <add_gift_message_per_item>1</add_gift_message_per_item>
+                <add_gift_message_per_order>1</add_gift_message_per_order>
+                <allow_edit_product_option>1</allow_edit_product_option>
+                <redirect_to_checkout>0</redirect_to_checkout>
+            </general>
+            <display>
+                <layout>3columns</layout>
+                <disable_company>1</disable_company>
+                <disable_telephone>0</disable_telephone>
+                <disable_header>1</disable_header>
+                <disable_footer>1</disable_footer>
+                <disable_copyright>1</disable_copyright>
+                <display_logo>1</display_logo>
+                <disable_login_popup>1</disable_login_popup>
+                <move_cart_items>1</move_cart_items>
+                <always_show_cart_items>1</always_show_cart_items>
+                <move_billing_before_shipping>0</move_billing_before_shipping>
+                <uncheck_billing_is_same_shipping>0</uncheck_billing_is_same_shipping>
+                <disable_coupon_code>0</disable_coupon_code>
+                <coupon_code_collapse_state>0</coupon_code_collapse_state>
+                <disable_gift_options>0</disable_gift_options>
+                <gift_options_collapse_state>0</gift_options_collapse_state>
+            </display>
+            <shipping>
+                <hide_shipping_methods>0</hide_shipping_methods>
+                <hide_shipping_title>1</hide_shipping_title>
+            </shipping>
+            <colors>
+                <main>#333333</main>
+                <icon>#333333</icon>
+                <button>#333333</button>
+                <gift_message>red</gift_message>
+                <order_summary_background>#f8f8f8</order_summary_background>
+                <shipping_methods_background>#ffffff</shipping_methods_background>
+                <payment_methods_background>#ffffff</payment_methods_background>
+                <account_address_background>#ffffff</account_address_background>
+            </colors>
+            <geo_ip>
+                <enabled>1</enabled>
+            </geo_ip>
+            <newsletter>
+                <enabled>1</enabled>
+                <checked>0</checked>
+                <label>Sign Up for Our Newsletter</label>
+            </newsletter>
+            <back_to_store>
+                <enabled>0</enabled>
+                <label>Back to Store</label>
+            </back_to_store>
+            <auto_complete>
+                <enabled>1</enabled>
+                <auto_save_fill_customer_info>1</auto_save_fill_customer_info>
+                <split_street_fields>1</split_street_fields>
+                <api_key>AIzaSyC4Ev9qYJ8GqyOMV7vekTpzEDkCcR6wa3w</api_key>
+            </auto_complete>
+            <field_order>
+                <firstname>20</firstname>
+                <middlename>30</middlename>
+                <lastname>40</lastname>
+                <company>60</company>
+                <street>70</street>
+                <city>80</city>
+                <region_id>100</region_id>
+                <postcode>110</postcode>
+                <country_id>115</country_id>
+                <telephone>120</telephone>
+                <vat_id>140</vat_id>
+            </field_order>
+            <icons>
+                <account_information>f007</account_information>
+                <shipping_address>f2b9</shipping_address>
+                <billing_address>f2b9</billing_address>
+                <shipping_methods>f0d1</shipping_methods>
+                <payment_methods>f09d</payment_methods>
+                <order_summary>f058</order_summary>
+            </icons>
+        </one_step_checkout>
+    </default>
+</config>

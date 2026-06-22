@@ -1,0 +1,132 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager  = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$baseUrl       = $storeManager->getStore()->getBaseUrl();
+?>
+
+<div class="bottom-block">
+<button type="submit" data-izimodal-open="#getQuote-modal" title="<?php echo __('Submit') ?>" data-toggle="modal" data-target="#staroncar" class="button button-primary-200 button-rounded filled-slide-right text-uppercase fw-500" id="staroncar-get-quote">
+	<span><?php echo __('Get a Quote') ?></span>
+</button>
+</div>
+
+<!-- Start Get a Quote  Modal -->
+<div id="getQuote-modal" class="izimodal izimodal-style4" style="display: none;">
+  <a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close></a>
+  <div class="modal-content-wrap">
+    <div class="appointment-form">
+      <form class="theme-form-style3 form contact"
+      	action="<?php echo $block->getBaseUrl(); ?>booking/index/staroncar"
+      	id="staroncar-form"
+		method="post"
+		data-hasrequired="<?php echo __('* Required Fields') ?>"
+		data-mage-init='{"validation":{}}'>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="group-title">
+                <p><?php echo __('Contact Information') ?></p>
+              </div>
+            </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input placeholder="<?php echo __('First Name'); ?>" name="name" id="name" title="<?php echo __('First Name') ?>" value="" class="input-text form-control" type="text" data-validate="{required:true}"/>
+              </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input placeholder="<?php echo __('Last Name'); ?>" name="lastname" id="lastname" title="<?php echo __('Last Name') ?>" value="" class="input-text form-control lastname-staroncar" type="text" data-validate="{required:true}"/>
+              </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+              <input placeholder="<?php echo __('Phone Number'); ?>" name="phonenumber" id="phonenumber" title="<?php echo __('Phone Number') ?>" value="" class="input-text form-control" type="text" data-validate="{required:true}"/>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input placeholder="<?php echo __('Email'); ?>" name="email" id="email" title="<?php echo __('Email') ?>" value="" class="input-text cms-margin-bottom form-control" type="text" data-validate="{required:true}"/>
+              </div>
+            </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="group-title">
+                <p><?php echo __('Car Details') ?></p>
+              </div>
+            </div>
+          <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+              <div class="form-group">
+                <input  placeholder="<?php echo __('Make'); ?>" name="make" id="make" title="<?php echo __('Make') ?>" value="" class="input-text form-control" type="text" data-validate="{required:true}"/>
+              </div>
+            </div>
+          <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+              <div class="form-group">
+                <input  placeholder="<?php echo __('Model'); ?>" name="model" id="model" title="<?php echo __('Model') ?>" value="" class="input-text form-control" type="text" data-validate="{required:true}"/>
+              </div>
+            </div>
+          <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+              <div class="form-group">
+                <input  placeholder="<?php echo __('Year'); ?>" name="year" id="year" title="<?php echo __('Year') ?>" value="" class="input-text form-control" type="text" data-validate="{required:true}"/>
+              </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="group-title">
+                <p><?php echo __('Service Details') ?></p>
+              </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group">
+                <div class="checkbox">
+                <label for="starlight-headliner"><?php echo __('Starlight Headliner'); ?></label>
+                <input type="checkbox" name="service[]" id="starlight-headliner" class="" title="Starlight Headliner" value="Starlight Headliner" data-validate="{required:true}">
+                </div>
+              </div>
+            </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group">
+                <div class="checkbox">
+                <label for="headliner-repairs"><?php echo __('Headliner Repairs'); ?></label>
+                <input type="checkbox" name="service[]" id="headliner-repairs" class="" title="Headliner Repairs" value="Headliner Repairs" data-validate="{required:true}">
+               </div>
+              </div>
+            </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group">
+                <div class="checkbox mb-4 mb-md-0">
+                <label for="auto-upholstery"><?php echo __('Auto Upholstery'); ?></label>
+                <input type="checkbox" name="service[]" id="auto-upholstery" class="" title="Auto Upholstery" value="Auto Upholstery" data-validate="{required:true}">
+              </div>
+              </div>
+            </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <textarea  placeholder="<?php echo __('Comment'); ?>" rows="6" name="message" id="message" title="<?php echo __('Comment') ?>" value="" class="input-text"  data-validate="{required:true}"></textarea>
+              </div>
+            </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" id="submitStarOnCar" class="button button-outline-white button-rounded filled-slide-right fw-500 text-uppercase submit" onclick="beforeSubmitStarOnCar();"><span><?php echo __('Get a Quote'); ?></span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function beforeSubmitStarOnCar()
+  {
+    var name = jQuery("#name").val();
+    var lastname = jQuery(".lastname-staroncar").val();
+    var phonenumber = jQuery("#phonenumber").val();
+    var email = jQuery("#email").val();
+    var make = jQuery("#make").val();
+    var model = jQuery("#model").val();
+    var year = jQuery("#year").val();
+    var service = jQuery("input[name='service[]'").is(":checked");
+    var message = jQuery("#message").val();
+    if (name != '' && lastname != '' && phonenumber != '' && email != '' && make != '' && model != '' && year != '' && service != false && message != '') {
+      document.getElementById("submitStarOnCar").disabled = true;
+      jQuery("#staroncar-form").submit();  
+    }
+    
+  }
+</script>

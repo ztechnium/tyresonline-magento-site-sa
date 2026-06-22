@@ -1,0 +1,100 @@
+table.order-orderupload-table {
+    border-collapse: collapse;
+}
+table.order-orderupload-table th{
+    background: #fff;
+}
+table.order-orderupload-table td, table.order-orderupload-table th, table.order-orderupload-table tr {
+    border: 1px solid #eaeaea;
+    text-align: center;
+    vertical-align: middle;
+}
+table.order-orderupload-table td textarea{
+    height: 70px;
+}
+span.meetanshi-file-upload + .actions-toolbar { 
+    margin-top: 15px;
+}
+.pages {
+    text-align: right;
+}
+.admin__actions-switch {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+.admin__actions-switch-checkbox{
+	    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+} 
+[class*='admin__'] + label, [class*='admin__'] + label:after, [class*='admin__'] + label:before, [class*='admin__']:before, [class*='admin__']:after {
+    box-sizing: border-box;
+}
+.admin__actions-switch-label { 
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    position: relative;
+    user-select: none;
+    vertical-align: middle;
+}
+.admin__actions-switch-label:before, .admin__actions-switch-label:after {
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 0;
+}
+.admin__actions-switch-label:before {
+    background: #fff;
+    border: 1px solid #aaa6a0;
+    border-radius: 100%;
+    content: '';
+    display: block;
+    height: 22px;
+    transition: left .2s ease-in 0s;
+    width: 22px;
+    z-index: 1;
+}
+.admin__actions-switch-label:after {
+    background: #e3e3e3;
+    border: 1px solid #aaa6a0;
+    border-radius: 12px;
+    content: '';
+    display: block;
+    height: 22px;
+    transition: background .2s ease-in 0s;
+    vertical-align: middle;
+    width: 37px;
+    z-index: 0;
+}
+.admin__actions-switch-text:before {
+    content: attr(data-text-off);
+    padding-left: 47px;
+    white-space: nowrap;
+}
+.admin__actions-switch-checkbox:checked + .admin__actions-switch-label .admin__actions-switch-text:before {
+    content: attr(data-text-on);
+}
+.admin__actions-switch-checkbox:checked + .admin__actions-switch-label:before {
+    left: 15px;
+}
+.admin__actions-switch-checkbox:checked + .admin__actions-switch-label:after {
+    background: #79a22e;
+}
+
+.fileupload-loader{
+	display:none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}

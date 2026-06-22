@@ -1,0 +1,117 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+$autoPartsList = 0;
+$autoPartsCatId = 6; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/autoparts_cat_id');
+$batteryCatId = 7; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/battery_cat_id');
+$brakesCatId = 8; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/brakes_cat_id');
+$oilChangeCatId = 9; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/oilchange_cat_id');
+$filtersCatId = 10; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/filters_cat_id');
+$sparkPlugCatId = 11; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/sparkplug_cat_id');
+if ($category->getId() == $autoPartsCatId || $category->getId() == $batteryCatId || 
+    $category->getId() == $brakesCatId || $category->getId() == $oilChangeCatId || $category->getId() == $filtersCatId || $category->getId() == $sparkPlugCatId) {
+    $autoPartsList = 1;
+}
+$params = $this->getRequest()->getParams();
+if (isset($params['width_rear']) && $params['width_rear'] != '') {
+  $bundle = 0;
+} else {
+  $bundle = 0;
+}
+?>
+<?php if ($block->isEnabledViewSwitcher()) :?>
+  <?php if($autoPartsList == 0): ?>
+    <?php if($bundle == 0): ?>
+      <div class="modes">
+          <div class="d-flex justify-content-end">
+          <?php $_modes = $block->getModes(); ?>
+          <?php if ($_modes && count($_modes) > 1) :?>
+              <strong class="modes-label" id="modes-label"><?= $block->escapeHtml(__('View as')) ?></strong>
+              <?php foreach ($block->getModes() as $_code => $_label) :?>
+                  <?php if ($block->isModeActive($_code)) :?>
+                      <strong data-bs-toggle="tooltip" data-bs-placement="top" title="<?= $block->escapeHtmlAttr($_label) ?>"
+                              class="mode active <?= $block->escapeHtmlAttr(strtolower($_code)) ?>-mode"
+                              data-value="<?= $block->escapeHtmlAttr(strtolower($_code)) ?>">
+                         <svg class="icon-list" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                          x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                          <rect x="5.236" y="6.583" width="9.903" height="3"></rect>
+                          <rect x="5.236" y="1.958" width="9.903" height="3"></rect>
+                          <rect x="5.236" y="11.042" width="9.903" height="3"></rect>
+                          <rect x="0.861" y="6.583" width="3.125" height="3"></rect>
+                          <rect x="0.861" y="1.958" width="3.125" height="3"></rect>
+                          <rect x="0.861" y="11.042" width="3.125" height="3"></rect>
+                        </svg>
+                        <svg class="icon-grid" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                          x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+                          <g>
+                            <g>
+                              <rect x="4" y="4" width="6" height="6"></rect>
+                              <rect x="13" y="4" width="6" height="6"></rect>
+                              <rect x="22" y="4" width="6" height="6"></rect>
+                              <rect x="4" y="13" width="6" height="6"></rect>
+                              <rect x="13" y="13" width="6" height="6"></rect>
+                              <rect x="22" y="13" width="6" height="6"></rect>
+                              <rect x="4" y="22" width="6" height="6"></rect>
+                              <rect x="13" y="22" width="6" height="6"></rect>
+                              <rect x="22" y="22" width="6" height="6"></rect>
+                            </g>
+                          </g>
+                        </svg>
+                      </strong>
+                  <?php else :?>
+                      <a class="mode <?= $block->escapeHtmlAttr(strtolower($_code)) ?>-mode"
+                         title="<?= $block->escapeHtmlAttr($_label) ?>"
+                         href="#"
+                         data-role="mode-switcher"
+                         data-value="<?= $block->escapeHtmlAttr(strtolower($_code)) ?>"
+                         id="mode-<?= $block->escapeHtmlAttr(strtolower($_code)) ?>"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="top"
+                         aria-labelledby="modes-label mode-<?= $block->escapeHtmlAttr(strtolower($_code)) ?>">
+                         <svg class="icon-list" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                          x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                          <rect x="5.236" y="6.583" width="9.903" height="3"></rect>
+                          <rect x="5.236" y="1.958" width="9.903" height="3"></rect>
+                          <rect x="5.236" y="11.042" width="9.903" height="3"></rect>
+                          <rect x="0.861" y="6.583" width="3.125" height="3"></rect>
+                          <rect x="0.861" y="1.958" width="3.125" height="3"></rect>
+                          <rect x="0.861" y="11.042" width="3.125" height="3"></rect>
+                        </svg>
+                        <svg class="icon-grid" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                          x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+                          <g>
+                            <g>
+                              <rect x="4" y="4" width="6" height="6"></rect>
+                              <rect x="13" y="4" width="6" height="6"></rect>
+                              <rect x="22" y="4" width="6" height="6"></rect>
+                              <rect x="4" y="13" width="6" height="6"></rect>
+                              <rect x="13" y="13" width="6" height="6"></rect>
+                              <rect x="22" y="13" width="6" height="6"></rect>
+                              <rect x="4" y="22" width="6" height="6"></rect>
+                              <rect x="13" y="22" width="6" height="6"></rect>
+                              <rect x="22" y="22" width="6" height="6"></rect>
+                            </g>
+                          </g>
+                        </svg>
+                      </a>
+                  <?php endif; ?>
+              <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+<?php endif; ?>

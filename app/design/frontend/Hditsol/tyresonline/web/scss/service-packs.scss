@@ -1,0 +1,275 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "sections/blog-slider";
+@import "sections/search-slider";
+@import "sections/services-pack";
+@import "sections/how-it-work";
+@import "sections/about-stopandgo";
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@600;700;800;900&display=swap');
+
+@mixin banner-height() {
+  height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+  @media screen and #{$media-query} {
+    height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+  }
+}
+
+.oil-change-banner {
+  @include banner-height();
+  .banner-image {
+    .image-wrap {
+      &.picture {
+        padding-bottom: 34.8%;
+        img{
+          width: auto;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  .banner-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    width: fit-content;
+    margin: auto;
+  }
+}
+
+
+@media screen and (min-width: 1025px) and (max-height: 768px) and (orientation: landscape) {
+  .oil-change-banner {
+    .banner-wrap {
+      .contact-info {
+        ul {
+          li {
+            a {
+              font-size: get-rem-sm(30px);
+            }
+          }
+        }
+      }
+    }
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 32%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-height: 686px) and (orientation: landscape) {
+  .oil-change-banner {
+    .banner-wrap {
+      .contact-info {
+        ul {
+          li {
+            a {
+              font-size: get-rem-sm(20px);
+            }
+          }
+        }
+      }
+    }
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 27%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .oil-change-banner {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  .oil-change-banner {
+    height: auto;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width: 1024px){
+  .oil-change-banner{
+     .banner-wrap{
+       .contact-info{
+        ul{
+          li{
+            a{
+              font-size: get-vw(38px);
+            }
+          }
+        }
+       }
+     }
+     .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 38%;
+        }
+      }
+    }
+  }
+}
+
+
+
+.servicepacks-banner {
+  @include scssont-padding-top(25px);
+  @include banner-height();
+  .banner-image {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 66vh;
+        img{
+          width: auto;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  .banner-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: fit-content;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-height: 1080px) and (orientation: landscape) {
+  .servicepacks-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 68vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-height: 960px) and (orientation: landscape) {
+  .servicepacks-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 65vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-height: 768px) and (orientation: landscape) {
+  .servicepacks-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 61vh;
+        }
+      }
+    }
+    .banner-wrap {
+      .contact-info {
+        ul {
+          li {
+            a {
+              font-size: get-rem-sm(27px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 1025px) and (max-height: 650px) and (orientation: landscape) {
+  .servicepacks-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-bottom: 56vh;
+        }
+      }
+    }
+    .banner-wrap {
+      .contact-info {
+        ul {
+          li {
+            a {
+              font-size: get-rem-sm(22px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) and (orientation: landscape) {
+  .servicepacks-banner {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  .servicepacks-banner {
+    height: auto;
+  }
+}
+
+@include media-breakpoint-down(md){
+  .oil-change-banner, .servicepacks-banner{
+    display: none;
+  }
+}
+
+
+
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  html {
+    .safari {
+      &.cms-servicepacks, &.cms-oil-change{
+        .search-slider {
+          height: calc(100vh - #{get-rem($header-hight)} - #{$safari-bottom-bar-height} + 10px - #{get-rem-sm(40px)});
+        }
+      }
+    }
+  }
+
+  html {
+    .chrome {
+      &.cms-servicepacks, &.cms-oil-change{
+        .search-slider {
+          height: calc(100vh - #{get-rem($header-hight)} - #{$chrome-bottom-bar-height} + 10px - #{get-rem-sm(40px)});
+        }
+      }
+    }
+  }
+}

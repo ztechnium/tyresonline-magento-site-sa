@@ -1,0 +1,115 @@
+.how-it-work-sprite {
+  background: url("#{$mediapath}/section/how-it-work.png") no-repeat;
+}
+
+.how-it-work-sprite2{
+  background: url("#{$mediapath}/section/how-it-work-style2.png") no-repeat;
+}
+
+.how-it-work {
+    @include scssont-padding-top(70px);
+    @include scssont-padding-bottom(140px);
+    .box {
+      .image {
+        @include scssont-height(234px);
+        @include scssont-width(322px);
+        background-size: 440%;
+        &.book {
+          background-position: 2.2% 0;
+        }
+        &.dropoff {
+          background-position: 35.2% 0;
+        }
+        &.oilchange {
+          background-position: 67.5% 0;
+        }
+        &.handover {
+          background-position: 99.2% 0;
+        }
+      }
+      .content {
+        @include scssont-margin-top(20px);
+        p {
+          //@extend .fs-18;
+        }
+      }
+    }
+  }
+  
+  @include media-breakpoint-down(lg){
+    .how-it-work{
+      padding: get-rem(50px) 0;
+      .heading-style3{
+        text-align: center;
+      }
+      .box{
+        margin-bottom: get-rem(40px);
+      }
+    }
+  }
+  
+  @include media-breakpoint-between(sm, xl) {
+   .how-it-work {
+    .box {
+      .image {
+        @include scssont-height(140px);
+        @include scssont-width(180px);
+      }
+    }
+  }
+  }
+
+
+
+  .how-it-work-style2 {
+    @include scssont-padding-top(70px);
+    @include scssont-padding-bottom(140px);
+    .box {
+      .image {
+        @include scssont-height(234px);
+        @include scssont-width(322px);
+        background-size: 440%;
+        &.book {
+          background-position: 2.2% 0;
+        }
+        &.dropoff {
+          background-position: 35.2% 0;
+        }
+        &.oilchange {
+          background-position: 67.5% 0;
+        }
+        &.handover {
+          background-position: 99.2% 0;
+        }
+      }
+      .content {
+        @include scssont-margin-top(20px);
+        p {
+          //@extend .fs-18;
+        }
+      }
+    }
+  }
+  
+  @include media-breakpoint-down(lg){
+    .how-it-work-style2{
+      padding: get-rem(50px) 0;
+      .heading-style3{
+        text-align: center;
+      }
+      .box{
+        margin-bottom: get-rem(40px);
+      }
+    }
+  }
+  
+  @include media-breakpoint-between(sm, xl) {
+   .how-it-work-style2 {
+    .box {
+      .image {
+        @include scssont-height(140px);
+        @include scssont-width(180px);
+      }
+    }
+  }
+  }

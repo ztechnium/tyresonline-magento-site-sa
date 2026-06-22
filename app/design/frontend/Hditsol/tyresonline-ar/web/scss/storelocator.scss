@@ -1,0 +1,173 @@
+.storelocator {
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.storelocator .page-title {
+  margin-bottom: 30px;
+}
+
+.storelocator .location-search-wrap {
+  background-color: #eee;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.storelocator .location-search-wrap input {
+  background-color: #eee;
+  border: 1px solid #eee;
+  padding: 5px 15px;
+  height: 47px;
+  font-weight: bold;
+  color: #000;
+  border-radius: 10px 0px 0px 10px;
+  border-right: 0;
+  width: calc(100% - 170px);
+}
+
+.storelocator .location-search-wrap .action-save {
+  height: 47px;
+  width: 170px;
+  background-color: #d60000;
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.storelocator .location-search-wrap .action-save:hover {
+  background-color: #000;
+}
+
+.storelocator .location-search-wrap .serach-distance {
+  margin-right: 10px;
+}
+
+.storelocator .location-search-wrap .serach-distance .input_select {
+  background-color: #eee;
+  border: 1px solid #b3b3b3;
+  padding: 5px 15px;
+  height: 47px;
+  font-weight: bold;
+  color: #000;
+  min-width: 140px;
+  border-radius: 10px;
+}
+
+.storelocator .installer-list {
+  margin-top: 30px;
+}
+
+.storelocator .installer-list .installer {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  height: calc(100% - 20px);
+  margin-bottom: 20px;
+}
+
+.storelocator .installer-list .installer:hover {
+  border-color: #000;
+}
+
+.storelocator .installer-list .installer .installer_detail {
+  position: relative;
+  height: 100%;
+  padding-bottom: 43px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title {
+  padding: 15px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .installer_name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .upper_left {
+  margin-top: 8px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .distance {
+  padding-left: 28px;
+  font-weight: 600;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .address {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .address .location-icon {
+  width: 18px;
+  margin-left: 10px;
+  display: block;
+  text-align: center;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .address svg {
+  height: 18px;
+}
+
+.storelocator .installer-list .installer .installer_detail .shop_timing_block {
+  margin-top: 15px;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.storelocator .installer-list .installer .installer_detail .shop_timing_block .installer_date_time div {
+  margin-bottom: 5px;
+}
+
+.storelocator .installer-list .installer .installer_detail .shop_timing_block .installer_date_time .icon {
+  width: 18px;
+  margin-left: 10px;
+  display: block;
+  text-align: center;
+}
+
+.storelocator .installer-list .installer .installer_detail .shop_timing_block .installer_date_time .icon svg {
+  height: 15px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer-action-custom {
+  background-color: #eee;
+  padding: 5px 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #ddd;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer-action-custom .google-map-direction img {
+  width: 32px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer-action-custom .google-map-direction span {
+  font-weight: 600;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer-action-custom:hover .google-map-direction img {
+  animation: pulse 1s linear infinite;
+}
+
+@media screen and (max-width:767px) {
+  .storelocator {
+    padding-top: 30px;
+  }
+
+  .storelocator .location-search-wrap input {
+    width: calc(100% - 0px);
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+}

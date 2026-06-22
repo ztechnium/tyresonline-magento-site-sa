@@ -1,0 +1,119 @@
+Field,Champ
+Order,Commande
+Width,Largeur
+Icon,Icône
+Validation,Validation
+Add Field,Ajouter le champ
+Please Select Field,Veuillez sélectionner un champ
+For delivery questions.,Pour les questions de livraison.
+We can't find the quote item.,Nous ne pouvons pas trouver l'article de citation.
+We cannot configure the product.,Nous ne pouvons pas configurer le produit.
+One-page checkout is turned off.,La vérification d'une page est désactivée.
+Guest checkout is disabled.,La vérification de l'invité est désactivée.
+E-mail cannot be empty.,Le courrier électronique ne peut pas être vide.
+Starts with field closed,Commence par champ fermé
+Starts with field opened,Commence avec le champ ouvert
+Render field without collapse,Champ de rendu sans effondrement
+3 Columns,3 colonnes
+2 Columns Style 1,2 colonnes Style 1
+2 Columns Style 2,2 colonnes Style 2
+Update Cart,Mise à jour panier
+Qty,Quantité
+This address is also my billing address,Cette adresse est aussi mon adresse de facturation
+Billing Address,Adresse de facturation
+Save in address book,Enregistrer dans le carnet d'adresses
+My billing and shipping address are the same,Mon adresse de facturation et d'expédition est la même
+Update,Mettre à jour
+Cancel,Annuler
+Apply Discount,Appliquer une remise
+Cancel coupon,Annuler le coupon
+Use Coupon Code,Utilisez le code de coupon
+Email Address,Adresse e-mail
+You can create an account after checkout.,Vous pouvez créer un compte après votre commande.
+Password,Mot de passe
+Login,S'identifier
+You already have an account with us. Sign in or continue as guest.,Vous avez déjà un compte avec nous. Connectez-vous ou continuez en tant qu'invité.
+Forgot Your Password?,Mot de passe oublié?
+Gift options,Options cadeaux
+Message:,Message:
+Edit,modifier
+Delete,Effacer
+Payment Method,Mode de paiement
+No Payment method available.,Aucun mode de paiement disponible.
+Place Order,Passer la commande
+Account Information,Information sur le compte
+This address is also my shipping address,Cette adresse est aussi mon adresse de livraison
+Shipping Address,Adresse de livraison
+Shipping Methods,méthodes de livraison
+Order Summary,Récapitulatif de la commande
+View Details,Voir les détails
+Options Details,Détails des options
+Gift Message (optional),Message cadeau (facultatif)
+To:,À:
+From:,De:
+Please specify a shipping method.,Veuillez préciser une méthode de livraison.
+New Address,Nouvelle adresse
+Can not remove item.,Impossible de supprimer l'article.
+One Step Checkout,Vérification en une étape
+General,Général
+Enable One Step Checkout Solution,Activer la solution de vérification en une étape
+Router Name,Nom du routeur
+Example: checkout.html -> http://example.com/checkout.html,Exemple: checkout.html -> http://example.com/checkout.html
+Default Shipping Method,Méthode d'expédition par défaut
+Default Payment Method,Méthode de paiement par défaut
+Allow Update Product Quantity,Autoriser la mise à jour du produit
+Allow Remove Product,Autoriser le retrait du produit
+Allow Edit Product Option,Autoriser l'option Modifier le produit
+Add Gift Message Per Item,Ajouter un message cadeau par article
+Add Gift Message Per Order,Ajouter un message cadeau par commande
+Redirect To Checkout,Redirect To Checkout
+Display,Afficher
+Checkout Page Layout,Commander la mise en page
+Disable Telephone Field,Désactiver le champ téléphonique
+Disable Company Field,Désactiver le champ de la société
+Disable Header,Désactiver l'en-tête
+Disable Footer,Désactiver le pied de page
+Disable Login Popup,Désactiver le popup de connexion
+Move Cart Items,Déplacer les articles du panier
+Always Show Cart Items,Toujours afficher les articles du panier
+Move Billing Address Before Shipping Address,Déplacer l'adresse de facturation avant l'adresse de livraison
+Disable Coupon Code,Désactiver le code de coupon
+Coupon code initial collapse state,Etat initial du code de coupon
+Disable Gift Options,Désactiver les options de cadeau
+Gift options initial collapse state,Options de réduction des cadeaux
+Footer Content,Contenu du pied de page
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,Vous pouvez modifier ce champ pour ajouter du contenu en bas à droite de votre commande. Ceci est utile pour afficher des éléments tels que les méthodes de paiement prises en charge.
+Shipping,livraison
+Hide Shipping Methods,Masquer les méthodes de livraison
+Hide Shipping Method Title,Masquer le titre de la méthode d'expédition
+Colors,Couleurs
+Main Color,Couleur principale
+Icon Color,Couleur de l'icône
+Button,Bouton
+Gift Message,Message de cadeau
+Order summary background,Contexte de la commande
+Shipping methods background,Contexte des méthodes d'expédition
+Payment methods background,Contexte des méthodes de paiement
+Account and address background,Fond de compte et adresse
+Icons,Des icônes
+Account Information Step,Étape Informations sur le compte
+Shipping Address Step,Étape d'expédition
+Billing Address Step,Étape de l'adresse de facturation
+Shipping Methods Step,Méthodes d'expédition Étape
+Payment Methods Step,Méthodes de paiement
+Order Summary Step,Étape récapitulative de la commande
+Geo IP,Geo IP
+Enabled,Activée
+Term and Conditions,Termes et conditions
+Checked by Default,Vérifié par défaut
+Label,Étiquette
+Popup Content,Contenu du popup
+You can add content for terms popup.,Vous pouvez ajouter du contenu pour les termes popup.
+Newsletter,Bulletin
+Back to Store,Retour à la boutique
+Address Autocomplete,Adresse de saisie automatique
+Auto Save and fill customer infomation,Auto Enregistrer et remplir les informations client
+Google Maps API Key,Clé API Google Maps
+Split Street Fields,Champs de rue séparés
+Field Config,Config de champ
+Customize,Personnaliser

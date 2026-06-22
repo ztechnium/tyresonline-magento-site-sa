@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="hdwebcore_general_oilservice_email_template" label="Oil Change / Service Packs Email Template" file="notify_oilservice.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_rnr_notify_email_template" label="RNR Notify Email Template" file="notify_rnr.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_rfc_notify_email_template" label="RFC Notify Email Template" file="notify_rfc.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_sales_margin_notify_email_template" label="Sales Margin Notify Email Template" file="notify_sales_margin.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_void_order_notify_email_template" label="Void Order Notify Email Template" file="notify_void_order.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_admin_invoice_notify_email_template" label="Admin Invoice Notify Email Template" file="notify_admin_invoice.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_staroncar_notify_email_template" label="Star On Car Notify Email Template" file="notify_staroncar.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_installation_complete_notify_email_template" label="Installation Complete Notify Email Template" file="notify_installation_complete.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_social_login_register_notify_email_template" label="Social Login / Register Notify Email Template" file="notify_social_login_register.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_oil_service_enquiry_email_template" label="Oil Change / Service Packs Enquiry Email Template" file="notify_oilservice_enquiry.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_google_review_notify_email_template" label="Google Review Notify Email Template" file="notify_google_review.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_custom_abandonedcart_email_template" label="Custom Abandoned Cart Email Template" file="custom_abandonedcart_email_template.html" type="html" module="Hdweb_Core" area="frontend"/>
+    <template id="hdwebcore_general_custom_abandonedcart_remind_email_template" label="Custom Abandoned Cart Remind Email Template" file="custom_abandonedcart_remind_email_template.html" type="html" module="Hdweb_Core" area="frontend"/>
+</config>

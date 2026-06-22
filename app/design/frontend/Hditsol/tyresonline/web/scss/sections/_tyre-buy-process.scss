@@ -1,0 +1,98 @@
+.tyrebuy-process{
+    @include scssont-padding-top(100px);
+    @include scssont-padding-bottom(50px);
+    background-position: 0px 30%;
+    .box{
+        @include scssont-padding-mix(0px, 55px);
+        .image{
+          @include scssont-width(332px);
+          @include scssont-height(124px);
+          background-size: 240%;
+          &.search-img{
+            background-position: 0.7% 1%;
+          }
+          &.fitting-img{
+            background-position: 1% 10.7%;
+          }
+          &.order-img{
+            background-position: 0.7% 20.8%;
+          }
+        }
+    h3{
+        @include scssont-font-size(28px);
+         color: $red;
+         font-weight: 900;
+         @include scssont-letter-spacing(2px);
+         @include scssont-margin-top(28px);
+         @include scssont-margin-bottom(10px);
+     }
+     p{
+       @include scssont-font-size(20px); 
+     }
+    }
+
+    .content-wrap{
+        @include scssont-margin-top(70px);
+        h3{
+         font-weight: 900;
+         @include scssont-letter-spacing(3.5px);
+         line-height: 1.4;
+         color: $red-200;
+        }
+        p{
+            @include scssont-font-size(28px);
+            @include scssont-letter-spacing(3.5px);
+        }
+    }
+}
+
+@include media-breakpoint-between(md, xl){
+  .tyrebuy-process{
+    .box{
+       padding: 0px 1rem;
+    }
+}
+}
+
+.tyrebuy-process-mobile{
+    padding-top: 40px;
+
+    .box{
+        .image{
+          max-width: 290px;
+          height: 60px;
+          background-size: 185%;
+          &.search-img{
+            background-position: 96% 1.9%;
+          }
+          &.fitting-img{
+            background-position: 96% 8%;
+          }
+          &.order-img{
+            background-position: 96% 14%;
+          }
+        }
+    }
+
+        .content-wrap{
+        margin-top: 30px;
+        h3{
+         font-weight: 900;
+         letter-spacing: 3.5px;
+         line-height: 1.4;
+         color: $red-200;
+         font-size: 20px;
+        }
+        p{
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+    }
+}
+
+
+@include media-breakpoint-down(md){
+  .tyrebuy-process{
+      display: none;
+  }
+}

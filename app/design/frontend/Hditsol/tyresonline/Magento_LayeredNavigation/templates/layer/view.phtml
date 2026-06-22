@@ -1,0 +1,125 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
+<?php $moduleManager = $objectManager->get('\Magento\Framework\Module\Manager'); ?>
+<?php $mgsAjaxLayerConfigHelper = $this->helper('MGS\Ajaxlayernavigation\Helper\Config'); ?>
+
+<?php if ($block->canShowBlock()): ?>
+    <div class="block filter mgs-filter" id="layered-filter-block" data-mage-init='{"collapsible":{"openedState": "active", "collapsible": true, "active": false, "collateral": { "openedState": "filter-active", "element": "body" } }}'>
+        <?php $filtered = count($block->getLayer()->getState()->getFilters()) ?>
+        <div class="block-title filter-title d-none" data-count="<?php /* @escapeNotVerified */ echo $filtered; ?>">
+            <strong class="title" data-role="title"><span class="icon pe-7s-edit"></span></strong>
+        </div>
+        <div class="block-content filter-content">
+             <a href="javascript:void(0)" class="filter-close hide"><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 464c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm94.8-285.3L281.5 256l69.3 69.3c4.7 4.7 4.7 12.3 0 17l-8.5 8.5c-4.7 4.7-12.3 4.7-17 0L256 281.5l-69.3 69.3c-4.7 4.7-12.3 4.7-17 0l-8.5-8.5c-4.7-4.7-4.7-12.3 0-17l69.3-69.3-69.3-69.3c-4.7-4.7-4.7-12.3 0-17l8.5-8.5c4.7-4.7 12.3-4.7 17 0l69.3 69.3 69.3-69.3c4.7-4.7 12.3-4.7 17 0l8.5 8.5c4.6 4.7 4.6 12.3 0 17z"></path></svg></a>
+          <div class="sidebar-title">
+            <h4 class="fw-bold mb-0"><?php echo __('Filter Options'); ?></h4>
+          </div>
+          	<?php
+          		/*start to show filters*/
+          		$_filters = $block->getLayer()->getState()->getFilters();
+          		$_state = [];
+				foreach ($_filters as $_filter) {
+					$filterName = $_filter->getName();
+					if (is_object($filterName)) {
+						$filterName = $filterName->getText();
+					}
+					$_state[$filterName][] = [
+						"label" => $_filter->getLabel(),
+						"url" => $_filter->getRemoveUrl()
+					];
+				}
+				/*end to show filters*/
+          	?>
+          	<!-- start to show filters -->
+            <?php
+            unset($_state['Width']);
+            unset($_state['Height']);
+            unset($_state['Rim']);
+            ?>
+          	<?php if(!empty($_state)): ?>
+	            <div class="filtered-option">
+	              <ul class="list-custom d-flex flex-wrap align-items-center">
+	                <?php foreach ($_state as $_filterName => $_items): ?>
+							<?php foreach ($_items as $_filter): ?>
+								<?php
+									$label = $block->stripTags($_filter['label']);
+									$removeUrl = $_filter['url'];
+								 ?>
+                                <li class="filter <?php echo $block->escapeHtml(__(strtolower($_filterName))); ?>">
+									<span href="javascript:void(0)" class="tag state-item-remove"><?php echo $label ?>
+										<a href="<?php echo $removeUrl ?>" class="close state-item-remove-url">&#x2715</a>
+									</span>
+								</li>
+                                
+							<?php endforeach; ?>
+					<?php endforeach; ?>
+	              </ul>
+	              <div class="text-end">
+                    <a href="<?php /* @escapeNotVerified */ echo $mgsAjaxLayerConfigHelper->getClearAllUrl() ?>" class="filter-active-item-clear-all clear-all"><?php echo __('Clear All'); ?></a>
+	              </div>
+	            </div>
+        	<?php endif; ?>
+            <!-- end to show filters -->
+
+            <div class="block-filter-content">
+                <?php echo $block->getChildHtml('state') ?>
+                <?php $wrapOptions = false; ?>
+                <?php foreach ($block->getFilters() as $filter): ?>
+				<?php  if($filter->getName() != __('Category')) : ?>
+            <?php if ($filter->getItemsCount()): ?>
+            <?php if (!$wrapOptions): ?>
+                <div class="filter-options" id="narrow-by-list">
+                    <?php  $wrapOptions = true; endif; ?>
+                    <?php if($filter->getName() == 'Brand' || $filter->getName() == 'Categories'): ?>
+                        <div data-role="collapsible" class="filter-options-item <?php echo strtolower($filter->getName()); ?>"  data-mage-init='{
+                        "collapsible":{
+                            "collapsible": true,
+                            "openedState": "active",
+                            "active": true
+                        }}'>
+                    <?php else: ?>
+                        <div data-role="collapsible" class="filter-options-item <?php echo strtolower($filter->getName()); ?>"  data-mage-init='{
+                        "collapsible":{
+                            "collapsible": true,
+                            "openedState": "active",
+                            "active": false
+                        }}'>
+                    <?php endif; ?>
+                            <div data-role="title" class="filter-options-title"><?php echo __($filter->getName()); ?></div>
+                            <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                        </div>
+                    <?php endif; ?>
+					<?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php if ($wrapOptions): ?>
+                </div>
+            <?php else: ?>
+                <script>
+                    require([
+                        'jquery'
+                    ], function ($) {
+                        $('#layered-filter-block').addClass('filter-no-options');
+                    });
+                </script>
+				<style>
+				.sidebar .filter{display: none;}
+				</style>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

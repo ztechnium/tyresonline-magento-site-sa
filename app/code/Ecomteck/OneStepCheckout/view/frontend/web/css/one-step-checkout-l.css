@@ -1,0 +1,103 @@
+/**
+* Copyright © 2017 Ecomteck. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+  #onestepcheckout-page .page-main {
+    max-width: 1280px;
+  }
+  #onestepcheckout-page .opc-wrapper .form-login {
+    border-bottom: none;
+  }
+  #onestepcheckout-page .opc-sidebar {
+    display: block;
+    width: 33.33%;
+    float: right;
+  }
+  #onestepcheckout-page .opc-wrapper {
+    width: 66.67%;
+    margin-bottom: 0px;
+    padding-right: 0;
+    border: none!important;
+  }
+  #onestepcheckout-page .opc-block-summary .items-in-cart {
+    margin-bottom: 20px;
+  }
+  #onestepcheckout-page .opc-wrapper .step-title {
+    padding-bottom: 0px;
+  }
+  #onestepcheckout-page #checkout {
+    clear: both;
+    margin-bottom: 40px;
+  }
+  #onestepcheckout-page #welcome,
+  #onestepcheckout-page #payment,
+  #onestepcheckout-page #shipping,
+  #onestepcheckout-page #opc-shipping_method,
+  #onestepcheckout-page li.step,
+  #onestepcheckout-page #opc-summary {
+    width: 50%;
+  }
+  #onestepcheckout-page .opc-block-summary {
+    width: 100%;
+  }
+  #onestepcheckout-page #opc-sidebar {
+    width: 33.33%;
+    float: left;
+  }
+  #onestepcheckout-page .opc-wrapper .form-login,
+  #onestepcheckout-page .opc-wrapper .form-shipping-address,
+  #onestepcheckout-page .opc-wrapper .methods-shipping {
+    background-color: transparent;
+  }
+  #onestepcheckout-page .opc-block-shipping-information {
+    padding-right: 0px;
+  }
+  #onestepcheckout-page .logo-container .logo {
+    margin: 20px auto;
+    width: 200px;
+  }
+  #onestepcheckout-page .opc-wrapper .form-login {
+    padding-bottom: 0px;
+  }
+  #onestepcheckout-page .one-step-checkout-footer-wrapper {
+    margin-top: -35px;
+    margin-bottom: 40px;
+  }
+  #onestepcheckout-page .opc-wrapper .form-shipping-address {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #onestepcheckout-page #opc-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  #checkout-shipping-method-load table > thead {
+      display: none;
+  }
+  #onestepcheckout-page input[type="radio"] {
+      min-height: auto;
+  }
+  .payment-option.discount-code .form-discount .actions-toolbar .action {
+      padding: 8px 28px;
+  }
+  .payment-option.discount-code .form-discount .actions-toolbar > div {
+      margin-right: 0px;
+      margin-top: 0px;
+      height: 40px;
+  }
+  .payment-option.discount-code .payment-option-title:after{display:none;}
+  .table-checkout-shipping-method tbody td {
+      border: 0px solid!important;
+      border-top: 1px solid #cccccc!important;
+  }
+  .table-checkout-shipping-method tbody tr:first-child td {
+      border-top: none!important;
+  }
+
+  .checkout-agreement button {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0px 0px;
+  }

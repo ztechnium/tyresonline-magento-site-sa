@@ -1,0 +1,151 @@
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v21/iJWKBXyIfDnIV7nBrXw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+  color: $font-color;
+  @include scssont-font-size(16px);
+  line-height: $line-height;
+  font-family: $font-family-rubik;
+  font-weight: $heading-font-weight;
+  letter-spacing: $letter-spacing;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+   height: auto;
+   overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+a {
+  text-decoration: none;
+  color: $font-color;
+  @include transition(ease-in-out, 0.5s);
+  &:hover, &:focus, &.active{
+    text-decoration: none;
+    outline: none;
+  }
+  &:hover{
+    color: $red;
+  }
+  &:visited{
+    color: $black; 
+  }
+}
+
+button {
+  @include transition(ease-in-out, 0.5s);
+}
+
+textarea, button, input, input[type="checkbox"]{
+  outline: none;
+  @include box-shadow(none);
+  &:focus{
+    outline: none;
+    @include box-shadow(none);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $heading-font-weight;
+  font-family: $font-family-rubik;
+}
+
+h1,
+.h1 {
+  @include scssont-font-size($h1-heading-font-size);
+}
+
+h2,
+.h2 {
+  @include scssont-font-size($h2-heading-font-size);
+}
+
+h3,
+.h3 {
+  @include scssont-font-size($h3-heading-font-size);
+}
+
+h4,
+.h4 {
+  @include scssont-font-size($h4-heading-font-size);
+}
+
+h5,
+.h5 {
+  @include scssont-font-size($h5-heading-font-size);
+}
+
+h6,
+.h6 {
+  @include scssont-font-size($h6-heading-font-size);
+}
+
+ul, ol{
+  li{
+    margin-bottom: 0;
+  }
+}

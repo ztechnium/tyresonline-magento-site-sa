@@ -1,0 +1,12 @@
+<?php //echo $block->getGridHtml() ?>
+<div class="import-shipping">
+  <div class="header">
+    <h4>CSV File:</h4>
+  </div>
+<?php $postUrl = 'https://www.tyresonline.ae/tyadmin/rfc/rfcimport/save/'?>
+  <form class="import-shipping-form" action="<?= $postUrl ?>" method="POST" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <input type="file" required class="required-entry" name="csv" />
+    <button type="submit">Import</button>
+  </form>
+</div>

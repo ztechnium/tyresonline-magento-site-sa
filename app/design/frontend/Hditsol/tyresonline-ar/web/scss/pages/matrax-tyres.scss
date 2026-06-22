@@ -1,0 +1,149 @@
+.matrax-warranty-cover {
+  .page-banner {
+    .banner-image {
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 36%;
+        }
+      }
+    }
+  }
+
+  .warranty-text {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+
+  .warranty-text h2 {
+    font-weight: 900;
+    font-size: 28px;
+  }
+
+  .warranty-text p {
+    text-align: center;
+    font-size: 15px;
+    
+  }
+
+  .warranty-text .button {
+    display: inline-block;
+    font-weight: 900;
+    font-size: 23px;
+    background-color: #C49E4E;
+    padding: 6px 20px;
+    border-radius: 100px;
+    font-style: italic;
+    margin-top: 22px;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .warranty-text .button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .content-block .right-image {
+    text-align: center;
+  }
+
+  .content-block .right-image img {
+    max-width: 380px;
+    width: 100%;
+    margin-bottom: -20px;
+  }
+
+  .content-block .left h5 {
+    font-weight: 900;
+    font-size: 18px;
+    margin-bottom: 25px;
+    margin-top: 0;
+  }
+
+  .content-block .left p {
+    font-size: 15px;
+    margin-bottom: 35px;
+    padding: 0;
+    
+  }
+
+  .content-block .bottom {
+    margin-top: 60px;
+  }
+
+  .content-block .bottom h6 {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .content-block .bottom ul {
+    margin-bottom: 40px;
+  }
+
+  .content-block .bottom ul li {
+    font-size: 15px;
+    position: relative;
+    padding-right: 12px;
+    
+    margin-bottom: 5px;
+  }
+
+  .content-block .bottom ul li:before {
+    content: "•";
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+
+  .brand-banner {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 37.7%;
+      }
+    }
+  }
+
+
+}
+
+
+
+@include media-breakpoint-down(md) {
+  .matrax-warranty-cover {
+    .brand-banner {
+      .image-wrap {
+        &.aspect-custom {
+          padding-bottom: 71%;
+        }
+      }
+    }
+
+    .page-banner {
+      .banner-image {
+        .image-wrap {
+          &.aspect-custom {
+            padding-bottom: 64%;
+          }
+        }
+      }
+    }
+
+    .warranty-text h2 {
+      font-size: 20px;
+    }
+
+    .warranty-text .button {
+      font-size: 18px;
+    }
+
+    .content-block .left {
+      text-align: center;
+    }
+
+    .content-block .right-image {
+      margin-top: 30px;
+    }
+
+  }
+}

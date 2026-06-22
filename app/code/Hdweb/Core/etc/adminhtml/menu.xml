@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Hdweb_Core::parent" title="Hdweb" module="Hdweb_Core" sortOrder="20" resource="Hdweb_Core::parent"/>        
+    </menu>
+</config>

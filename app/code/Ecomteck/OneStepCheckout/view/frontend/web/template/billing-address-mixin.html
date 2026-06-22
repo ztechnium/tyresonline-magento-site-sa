@@ -1,0 +1,23 @@
+<if args="!quoteIsVirtual()">
+    <div class="checkout-billing-address">
+        <div class="billing-address-same-as-shipping-block field choice" data-bind="visible: canUseShippingAddress()">
+            <input type="checkbox" name="billing-address-same-as-shipping"
+                    data-bind="checked: isAddressSameAsShipping, click: useShippingAddress, attr: {id: 'billing-address-same-as-shipping'}"/>
+            <label data-bind="attr: {for: 'billing-address-same-as-shipping'}">
+                <span data-bind="i18n: 'This address is also my billing address'"></span>
+            </label>
+        </div>
+        <fieldset class="fieldset">
+            <!-- ko template: 'Ecomteck_OneStepCheckout/billing-address-mixin/list' --><!-- /ko -->
+            <!-- ko template: 'Ecomteck_OneStepCheckout/billing-address-mixin/form' --><!-- /ko -->
+        </fieldset>
+    </div>
+</if>
+<if args="quoteIsVirtual()">
+    <div class="checkout-billing-address">
+        <fieldset class="fieldset">
+            <!-- ko template: 'Ecomteck_OneStepCheckout/billing-address-mixin/list' --><!-- /ko -->
+            <!-- ko template: 'Ecomteck_OneStepCheckout/billing-address-mixin/form' --><!-- /ko -->
+        </fieldset>
+    </div>
+</if>

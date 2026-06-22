@@ -1,0 +1,5 @@
+﻿{
+  "Description": "Domain ownership verification file for Microsoft 365 - place in the website root",
+  "Domain": "tyresonline.sa",
+  "Id": "7fcfb1ca-a585-492b-a38d-e96755c94a43"
+}

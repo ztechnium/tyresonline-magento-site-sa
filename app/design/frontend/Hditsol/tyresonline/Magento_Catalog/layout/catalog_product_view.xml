@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="css/product-details.css" media="all"/>
+		<css src="css/product-list.css" media="all"/>
+	</head>
+	<body>
+		<referenceBlock name="product.info.review" remove="true" />
+		<referenceBlock name="ecomteck.storelocator.product.availability" remove="true" />
+		<referenceBlock name="view.addto.compare" remove="true" />
+		<referenceBlock name="breadcrumbs" remove="true" />
+		<referenceBlock name="product.info" remove="true" />
+		<referenceContainer name="content">
+			<container name="product.attribute.info" label="Product attribute container" htmlTag="div" htmlClass="product-add-form">
+				<block class="Magento\Catalog\Block\Product\View" name="catalog.product.view.custom" template="Magento_Catalog::product/view/custom_attribute.phtml" before="-" />  
+			</container>
+			<block class="Magento\Catalog\Block\Product\View" after="product.info.details" name="product-extra" template="Magento_Catalog::product/view/alloygator-wheel-detail-block.phtml"/>		
+			<block class="Magento\Catalog\Block\Product\View" name="product-custom-related-products" template="Magento_Catalog::product/view/custom-related-product.phtml"/>
+		</referenceContainer>
+		<move element="product.attribute.info" destination="product.info.main"  before="product.info.price"/>
+		<move element="product-custom-related-products" destination="content" after="catalog.product.view.custom"/>
+	</body>
+</page>

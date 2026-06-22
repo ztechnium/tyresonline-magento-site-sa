@@ -1,0 +1,12 @@
+<h2>
+    <?php echo __("Payment is processing, please wait for few seconds.")?>
+</h2>
+
+<?php echo $block->getForm()?>
+<script>
+    require(['jquery', 'jquery/ui'], function($){
+        jQuery(document).ready( function() {
+            $( "#WorldpayHpForm" ).submit();
+        });
+    });
+</script>

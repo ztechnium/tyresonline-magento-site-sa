@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="sales_order_place_after" instance="Meetanshi\OrderUpload\Observer\SalesOrderPlaceAfter"/>
+    </event>
+    <event name="email_order_set_template_vars_before">
+        <observer name="set_template_vars" instance="Meetanshi\OrderUpload\Observer\SetEmailTemplateVariables"/>
+    </event>
+    <!--<event name="email_order_set_template_variables">
+        <observer name="set_template_vars" instance="Meetanshi\OrderUpload\Observer\SetEmailTemplateVariables"/>
+    </event>-->
+</config>

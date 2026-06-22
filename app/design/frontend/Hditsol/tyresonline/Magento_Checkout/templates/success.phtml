@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$orderFactory = $objectManager->get('Magento\Sales\Model\OrderFactory');
+$order = $orderFactory->create()->loadByIncrementId($block->getOrderId());
+$currencysymbol = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currency = $currencysymbol->getStore()->getCurrentCurrencyCode();
+?>
+<div class="checkout-success text-center">
+    <?php if ($block->getOrderId()) :?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= $block->escapeHtml(__('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeUrl($block->getViewOrderUrl()), $block->getOrderId())), ['a', 'strong']) ?></p>
+        <?php  else :?>
+            <p><?= $block->escapeHtml(__('Your order # is: <span>%1</span>.', $block->getOrderId()), ['span']) ?></p>
+        <?php endif;?>
+            <p><?= $block->escapeHtml(__('We\'ll email you an order confirmation with details and tracking info.')) ?></p>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="text-center">
+        <div class="primary">
+            <a class="button button-lg button-primary-100 text-uppercase button-rounded filled-slide-right continue" href="<?= $block->escapeUrl($block->getContinueUrl()) ?>"><span><?= $block->escapeHtml(__('Continue Shopping')) ?></span></a>
+        </div>
+    </div>
+</div>
+<?php /* <script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW123456789',
+      'value': <?php echo $order->getGrandTotal();?>,
+      'currency': '<?php echo $currency;?>',
+      'transaction_id': '<?php echo $block->getOrderId();?>'
+  });
+</script> */ ?>

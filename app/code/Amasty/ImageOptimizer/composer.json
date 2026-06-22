@@ -1,0 +1,22 @@
+{
+    "name": "amasty/module-image-optimizer",
+    "description": "Image Optimizer by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.13.3",
+        "amasty/module-page-speed-tools": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.5",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ImageOptimizer\\": ""
+        }
+    }
+}

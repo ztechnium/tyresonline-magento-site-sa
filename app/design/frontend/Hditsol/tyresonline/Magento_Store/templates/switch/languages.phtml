@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Store\Block\Switcher $block */
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<?php if (count($block->getStores())>1) : ?>
+    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
+    <div class="switcher language switcher-language" data-ui-id="language-switcher" id="switcher-language<?= $block->escapeHtmlAttr($id) ?>">
+        <?php /* <strong class="label switcher-label"><span><?= $block->escapeHtml(__('Language')) ?></span></strong> */ ?>
+        <div class="actions dropdown options switcher-options">
+            <div class="action toggle switcher-trigger"
+                 id="switcher-language-trigger<?= $block->escapeHtmlAttr($id) ?>"
+                 data-mage-init='{"dropdown":{}}'
+                 data-toggle="dropdown"
+                 data-trigger-keypress-button="true">
+                <?php /* <strong class="view-<?= $block->escapeHtml($block->getCurrentStoreCode()) ?>">
+                    <span><?= $block->escapeHtml($block->getStoreName()) ?></span>
+                </strong> */ ?>
+            </div>
+            <ul class="dropdown switcher-dropdown"
+                data-target="dropdown">
+                <?php foreach ($block->getStores() as $_lang) : ?>
+                    <?php if ($_lang->getId() != $block->getCurrentStoreId()) : ?>
+                        <li class="view-<?= $block->escapeHtml($_lang->getCode()) ?> switcher-option">
+                            <a href="<?= $block->escapeUrl($block->getViewModel()->getTargetStoreRedirectUrl($_lang)) ?>">
+                                <span><?= $block->escapeHtml(__($_lang->getName())) ?></span>
+                                <?php
+                                 if ($_lang->getLocaleCode() == 'ar_SA') {
+                                     $flgImg = $mediaURL.'images/icon/Flag-KSA.svg';
+                                }elseif ($_lang->getLocaleCode() == 'en_US') {
+                                     $flgImg = $mediaURL.'images/icon/Flag-Eng.svg';
+                                } 
+                               
+                                ?>
+                                <img class="language_flag_img" src="<?php echo $flgImg; ?>" width="30px" height="30px" alt="Flag">
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

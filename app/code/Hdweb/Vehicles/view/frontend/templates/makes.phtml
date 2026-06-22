@@ -1,0 +1,108 @@
+<?php
+$vehiclesHelper = $this->helper('Hdweb\Vehicles\Helper\Data');
+$route = $this->getRequest()->getParam('route');
+$wheelApiKey = $vehiclesHelper::WHEEL_SEARCH_APIKEY;
+$vehicleMakes_url = "https://api.wheel-size.com/v2/makes/?user_key=".$wheelApiKey."&region=medm";
+$vehicleMakes = file_get_contents($vehicleMakes_url);
+$vehicleMakes =json_decode($vehicleMakes);
+$baseUrl = $this->getBaseUrl();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+
+
+<div class="section page-banner car-tyres-banner overflow-hidden">
+  	<div class="cover d-flex flex-column justify-content-center viewport-height">
+    <div class="banner-wrap">
+      <div class="tyre-content text-center mx-auto">
+        <strong class="font-size1 fw-900"><?php echo __('CAR TYRES');?></strong>
+        <hr>
+        <h3 class="fw-light"><?php echo __('ANYWHERE IN THE UAE');?></h3>
+      </div>
+    </div>
+    <div class="banner-image">
+      <div class="image-wrap picture aspect-custom text-center">
+        <picture>
+	  	<source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/car-tyres-banner.jpg'); ?>">
+	  <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Buy Car Tyres Online in UAE');?>" width="1920px" height="943px" data-src="<?= $block->getViewFileUrl('images/banner/car-tyres-banner.jpg'); ?>">
+	</picture>
+      </div>
+    </div>
+
+
+     <div class="content-block">
+     	 <div class="container custom-width-1240 carmake">
+     	<h2><?php echo __('BUY CAR TYRES');?></h2>
+     	<p><?php echo __('Searching for a match for your car on TyresOnline has never been easier. We designed a way that enables you to search and buy car tyres for your specific vehicle make, model, year, and engine. Choose TyresOnline for a seamless experience and buy car tyres online with confidence, knowing you’ve found the ideal match for your vehicle’s needs.');?></p>
+     </div>
+	</div>
+  </div>
+</div>
+
+
+
+<div class="section vehicles-selection">
+	<div class="container custom-width-1240">
+
+          <div class="content-block">
+     	<h2><?php echo __('FIND CAR TYRES');?></h2>
+     	<p><?php echo __('TyresOnline has got you covered! We offer a wide variety of car tyres for most vehicle brands and models. No more driving around to different tyre shops – find car tyres online with TyresOnline today!');?></p>
+     </div>
+
+		<div class="make">
+			<div class="scrollbar-inner">
+			<ul class="brand-list list-custom row gy-2 g-2 row-cols-3 row-cols-sm-4 row-cols-md-6 row-cols-lg-6">
+				<?php foreach($vehicleMakes->data as $vehicle): ?>
+					<li class="col">
+						<div class="box">
+							<a href="<?php echo $baseUrl.$route.'/'; ?><?php echo $vehicle->slug; ?>" class="d-block">
+								<div class="image mx-auto hover-transition">
+									<img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-src="<?php echo $vehicle->logo; ?>" alt="<?php echo __($vehicle->name.' Car Tyres Online');?>" />
+								</div>
+								<span><?php echo __($vehicle->name); ?></span>
+							</a>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		   </div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+.carmake h2 {
+    font-size: 1.3913043478rem;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.0869565217rem;
+    text-transform: uppercase
+}
+
+@media screen and (min-width: 1200px)and (max-width: 1499px) {
+    .carmake h2 {
+        font-size: 1.6842105263rem
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .carmake h2 {
+        font-size: 1.6666666667vw
+    }
+}
+
+@media screen and (min-width: 1200px)and (max-width: 1499px) {
+    .carmake h2 {
+        letter-spacing: 0.1052631579rem
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .carmake h2 {
+        letter-spacing: .1041666667vw
+    }
+}
+	
+</style>

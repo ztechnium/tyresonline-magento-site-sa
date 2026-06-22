@@ -1,0 +1,332 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_SocialLogin
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="social-login block-container create" style="display: none">
+    <div class="modal-content-wrap">
+        <div class="block-content create-content">
+            <div class="logo text-center">
+              <img src="<?= $block->getViewFileUrl('images/Logo-white.svg'); ?>" alt="">
+            </div>
+            <div class="modal-text-cl text-center">
+                <?php /*
+                <h3 class="mb-0 fw-light"><?php echo __('Additional'); ?> <span>5%</span> <?php echo __('discount?'); ?></h3>
+                <p class="fw-light">
+                    <?php echo __('Valid on accessories, battery and oil change.'); ?><br>
+                    <?php echo __('Just create an account by choosing a password,'); ?><br>
+                    <?php echo __('or simply login with your facebook or Google account.'); ?>
+                </p>
+                */ ?>
+            </div>
+            <?php echo $this->getLayout()
+                ->createBlock('Mageplaza\SocialLogin\Block\Popup\Social')
+                ->setTemplate('Mageplaza_SocialLogin::popup/form/authentication/social.phtml')
+                ->toHtml();
+            ?>
+            <?= $block->getChildHtml('form_fields_before') ?>
+            <?= $block->getChildHtml('customer.form.register.extra') ?>
+            <form class="form-customer-create theme-form-style1" id="social-form-create">
+                <fieldset class="fieldset create info">
+                    <input type="hidden" name="success_url" value="<?= $block->getSuccessUrl() ?>"/>
+                    <input type="hidden" name="error_url" value="<?= $block->getErrorUrl() ?>"/>
+                    <?php /*echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml()*/ ?>
+                    <div class="row">
+                    <div class="col-6">
+                    <div class="form-group field-name-firstname required">
+                        <div class="control">
+                            <input placeholder="<?php echo __('First Name') ?>" type="text" id="firstname" name="firstname" value="" title="<?php echo __('First Name') ?>" class="form-control required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                        </div>
+                    </div>
+                    </div>
+                     <div class="col-6">
+                    <div class="form-group field-name-lastname required">
+                        <div class="control">
+                            <input placeholder="<?php echo __('Last Name') ?>" type="text" id="lastname" name="lastname" value="" title="<?php echo __('Last Name') ?>" class="form-control required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                        </div>
+                    </div>
+                    </div>
+                     
+                     <div class="col-12">
+                    <div class="form-group required">
+                        <div class="control">
+                            <input type="email" name="email" id="email_address_create"
+                                   placeholder="<?php echo __('e-mail'); ?>"
+                                   value=""
+                                   title="<?= __('Email') ?>" class="form-control"
+                                   data-validate="{required:true, 'validate-email':true}"/>
+                        </div>
+                    </div>
+                    </div>
+                     </div>
+                    <?php if ($block->isNewsletterEnabled()) : ?>
+                        <div class="field choice newsletter d-none">
+                            <input type="checkbox" class="checkbox" name="is_subscribed"
+                                   title="<?= __('Sign Up for Newsletter') ?>" value="1"
+                                   id="is_subscribed"/>
+                            <label for="is_subscribed"
+                                   class="label"><span><?= __('Sign Up for Newsletter') ?></span></label>
+                        </div>
+                        <?= $block->getChildHtml('customer.form.register.newsletter') ?>
+                    <?php endif ?>
+                    <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+                    <?php if ($_dob->isEnabled()) : ?>
+                        <div class="field date field-dob">
+                            <label class="label" for="dob"><span><?= __('Date of Birth') ?></span></label>
+                            <div class="control customer-dob">
+                                <input type="text" name="mp_sociallogin_dob" id="mp_sociallogin_dob" value="" class="" data-validate="{"validate-date":{"dateFormat":"M\/d\/Y"}}"/>
+                                <script type="text/javascript">
+                                    require(["jquery", "mage/calendar"], function($){
+                                        $("#mp_sociallogin_dob").calendar({
+                                            showsTime: false,
+                                            dateFormat: "M/d/Y",
+                                            buttonImage: "<?= /* @noEscape */ $_dob->getViewFileUrl('Magento_Theme::calendar.png')?>",
+                                            yearRange: "-120y:c+nn",
+                                            buttonText: "Select Date",
+                                            maxDate: "-1d",
+                                            changeMonth: true,
+                                            changeYear: true,
+                                            showOn: "both"
+                                        })
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    <?php endif ?>
+                    <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+                    <?php if ($_taxvat->isEnabled()) : ?>
+                        <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+                    <?php endif ?>
+                    <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+                    <?php if ($_gender->isEnabled()) : ?>
+                        <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+                    <?php endif ?>
+                </fieldset>
+                <?php if ($block->getShowAddressFields()) : ?>
+                    <fieldset class="fieldset address">
+                        <legend class="legend"><span><?= __('Address Information') ?></span></legend>
+                        <br>
+                        <input type="hidden" name="create_address" value="1"/>
+                        <div class="field company">
+                            <label for="company" class="label"><span><?= __('Company') ?></span></label>
+                            <div class="control">
+                                <input type="text" name="company" id="company"
+                                       value="<?= $block->escapeHtml($block->getFormData()->getCompany()) ?>"
+                                       title="<?= __('Company') ?>"
+                                       class="input-text <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('company') ?>"/>
+                            </div>
+                        </div>
+                        <div class="field telephone">
+                            <label for="telephone" class="label"><span><?= __('Phone Number') ?></span></label>
+                            <div class="control">
+                                <input type="text" name="telephone" id="telephone"
+                                       value="<?= $block->escapeHtml($block->getFormData()->getTelephone()) ?>"
+                                       title="<?= __('Phone Number') ?>"
+                                       class="input-text <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>"/>
+                            </div>
+                        </div>
+
+                        <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+                        <div class="field street required">
+                            <label for="street_1" class="label"><span><?= __('Street Address') ?></span></label>
+                            <div class="control">
+                                <input type="text" name="street[]"
+                                       value="<?= $block->escapeHtml($block->getFormData()->getStreet(0)) ?>"
+                                       title="<?= __('Street Address') ?>" id="street_1"
+                                       class="input-text <?= $_streetValidationClass ?>"/>
+                                <div class="nested">
+                                    <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                                    <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++) : ?>
+                                        <div class="field additional">
+                                            <label class="label"
+                                                   for="street_<?= $_i ?>"><span><?= __('Address') ?></span></label>
+                                            <div class="control">
+                                                <input type="text" name="street[]"
+                                                       value="<?= $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>"
+                                                       title="<?= __('Street Address %1', $_i) ?>"
+                                                       id="street_<?= $_i ?>"
+                                                       class="input-text <?= $_streetValidationClass ?>"/>
+                                            </div>
+                                        </div>
+                                    <?php endfor; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label for="city" class="label"><span><?= __('City') ?></span></label>
+                            <div class="control">
+                                <input type="text" name="city"
+                                       value="<?= $block->escapeHtml($block->getFormData()->getCity()) ?>"
+                                       id="city"
+                                       title="<?= __('City') ?>"
+                                       class="input-text <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>"/>
+                            </div>
+                        </div>
+                        <div class="field region required">
+                            <label for="region_id" class="label"><span><?= __('State/Province') ?></span></label>
+                            <div class="control">
+                                <select id="region_id" name="region_id" title="<?= __('State/Province') ?>"
+                                        class="validate-select" style="display:none;">
+                                    <option value=""><?= __('Please select a region, state or province.') ?></option>
+                                </select>
+                                <input type="text" id="region" name="region"
+                                       value="<?= $block->escapeHtml($block->getRegion()) ?>"
+                                       title="<?= __('State/Province') ?>"
+                                       class="input-text <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
+                                       style="display:none;"/>
+                            </div>
+                        </div>
+                        <div class="field zip required">
+                            <label for="zip" class="label"><span><?= __('Zip/Postal Code') ?></span></label>
+                            <div class="control">
+                                <input type="text" name="postcode"
+                                       value="<?= $block->escapeHtml($block->getFormData()->getPostcode()) ?>"
+                                       title="<?= __('Zip/Postal Code') ?>" id="zip"
+                                       class="input-text validate-zip-international <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>">
+                            </div>
+                        </div>
+                        <div class="field country required">
+                            <label for="country" class="label"><span><?= __('Country') ?></span></label>
+                            <div class="control"><?= $block->getCountryHtmlSelect() ?></div>
+                        </div>
+
+                        <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes'); ?>
+                        <?php if ($addressAttributes) : ?>
+                            <?php $addressAttributes->setEntityType('customer_address'); ?>
+                            <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]'); ?>
+                            <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address'); ?>
+                            <?= $addressAttributes->setShowContainer(false)->toHtml() ?>
+                        <?php endif; ?>
+                        <input type="hidden" name="default_billing" value="1">
+                        <input type="hidden" name="default_shipping" value="1">
+                    </fieldset>
+                <?php endif; ?>
+                <fieldset class="fieldset create account" data-hasrequired="<?= __('* Required Fields') ?>">
+                    <div class="row">
+                    <div class="col-6">
+                    <div class="form-group password required">
+                        <div class="control">
+                            <input type="password"
+                                   name="password"
+                                   id="password-social"
+                                   placeholder="<?= __('Password') ?>"
+                                   title="<?= __('Password') ?>"
+                                   class="form-control"
+                                   data-validate="{required:true, 'validate-password':true}" autocomplete="off"/>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                    <div class="form-group confirmation required">
+                        <div class="control">
+                            <input type="password"
+                                   name="password_confirmation"
+                                   placeholder="<?= __('Confirm Password') ?>"
+                                   title="<?= __('Confirm Password') ?>" id="password-confirmation-social"
+                                   class="form-control" data-validate="{required:true, equalTo:'#password-social'}"
+                                   autocomplete="off"/>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+                    <?= $block->getChildHtml('form_additional_info') ?>
+                </fieldset>
+                <div class="text-center">
+                        <button type="button" id="button-create-social" class="action create button button-primary button-rounded filled-slide-right fst-italic"
+                                title="<?= __('Create an Account') ?>">
+                            <span><?= __('Submit') ?></span>
+                        </button>
+
+                      <div class="back-button">
+                            <a class="action back" href="#"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256c0 141.4 114.6 256 256 256s256-114.6 256-256c0-141.4-114.6-256-256-256S0 114.6 0 256zM246.1 129.2C252.1 131.7 256 137.5 256 144v64h96c17.67 0 32 14.33 32 32v32c0 17.67-14.33 32-32 32h-96v64c0 6.469-3.891 12.31-9.875 14.78c-5.984 2.484-12.86 1.109-17.44-3.469l-112-112c-6.248-6.248-6.248-16.38 0-22.62l112-112C233.3 128.1 240.1 126.7 246.1 129.2z"/></svg></span></a>
+                      </div>
+                </div>
+            </form>
+            <script>
+                require([
+                    'jquery',
+                    'mage/mage'
+                ], function ($) {
+                    var dataForm = $('#social-form-create'),
+                        ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+
+                    dataForm.mage('validation', {
+                        <?php if ($_dob->isEnabled()) : ?>
+                        errorPlacement: function (error, element) {
+                            if (element.prop('id').search('full') !== -1) {
+                                var dobElement = $(element).parents('.customer-dob'),
+                                    errorClass = error.prop('class');
+                                error.insertAfter(element.parent());
+                                dobElement.find('.validate-custom').addClass(errorClass)
+                                    .after('<div class="' + errorClass + '"></div>');
+                            } else {
+                                error.insertAfter(element);
+                            }
+                        },
+                        ignore: ':hidden:not(' + ignore + ')'
+                        <?php else : ?>
+                        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+                        <?php endif ?>
+                    });
+                });
+            </script>
+            <?php if ($block->getShowAddressFields()) : ?>
+                <script type="text/x-magento-init">
+                    {
+                        "#country": {
+                            "regionUpdater": {
+                                "optionalRegionAllowed": <?= $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+                                "regionListId": "#region_id",
+                                "regionInputId": "#region",
+                                "postcodeId": "#zip",
+                                "form": "#form-validate",
+                                "regionJson": <?= $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                                "defaultRegion": "<?= $block->getFormData()->getRegionId() ?>",
+                                "countriesWithOptionalZip": <?= $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+                            }
+                        }
+                    }
+
+                </script>
+            <?php endif; ?>
+        </div>
+        <div class="block-content create-success-content" style="display:none;">
+            <div class="logo text-center">
+            <img src="<?php echo $mediaUrl.'images/logo/Logo-white.svg'; ?>" />
+            </div>
+
+             <div class="account-verification-content">
+          <div class="modal-text-cl text-center">
+            <h3 class="mb-0 fw-light"><?php echo __('Your Account has been created') ?></h3>
+            <p class="fw-light">Please verify your account by clicking the link <br> sent to your email.</p>
+            <div class="text-center mt-4">
+              <button type="button" class="action login button button-primary button-rounded filled-slide-right fst-italic" id="bnt-social-login-callback">
+                        <span><?php echo __('Login');?></span>
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
+</div>

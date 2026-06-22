@@ -1,0 +1,76 @@
+<div data-bind="visible: canVisibleFileUpload">
+    <div class="payment-option _collapsible opc-payment-additional discount-code"
+         data-bind="mageInit: {'collapsible':{'openedState': '_active'}}">
+        <div class="payment-option-title field choice" data-role="title">
+            <span class="action action-toggle" id="block-attachment-heading" role="heading" aria-level="2">
+                <!-- ko i18n: 'Order Attachment'--><!-- /ko -->
+            </span>
+        </div>
+        <div class="payment-option-content" data-role="content">
+            <div class="payment-option-inner">
+
+                <div class="field">
+                    <div class="control">
+                        <div id="drop_file_zone" ondragover="return false" onclick="document.getElementById('fileupload').click();" data-bind="fileUpload: uploadFile, event: {change: selectFiles , drop: drop}">
+                            <div id="drag_upload_file">
+                                <p><!-- ko i18n: 'Drop files here'--><!-- /ko --></p>
+                                <p id="file_types" style="font-size: 15px;"></p>
+                                <input type="file" name="file[]" id="fileupload" multiple>
+                            </div>
+                        </div>
+                        <div class="filePreview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .filePreview {
+            margin-top: 10px;
+        }
+        span.remove-btn {
+            margin-left: 20px;
+        }
+        #fileupload{
+            display: none;
+        }
+        #drop_file_zone {
+            background-color: #EEE;
+            border: #999 3px dashed;
+            height: 100px;
+            padding: 8px;
+            font-size: 18px;
+        }
+        #drag_upload_file {
+            margin:20px auto;
+        }
+        #drag_upload_file p {
+            text-align: center;
+        }
+    </style>
+</div>
+<div data-bind="visible: canAllowComment">
+    <div class="payment-option _collapsible opc-payment-additional discount-code"
+         data-bind="mageInit: {'collapsible':{'openedState': '_active'}}">
+        <div class="payment-option-title field choice" data-role="title">
+            <span class="action action-toggle" id="block-comment-heading" role="heading" aria-level="2">
+                <!-- ko i18n: 'Leave Comment'--><!-- /ko -->
+            </span>
+        </div>
+        <div class="payment-option-content" data-role="content">
+            <form class="form form-discount" id="comment-form">
+                <div class="payment-option-inner">
+                    <div class="field">
+                        <label class="label" for="comment-code">
+                            <span data-bind="i18n: 'Enter comment'"></span>
+                        </label>
+                        <div class="control">
+                            <textarea class="input-text" id="comment-code" name="comment-code" rows="2" maxlength="200"
+                                      data-bind="attr:{placeholder: $t('Enter comment')} "></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Ecomteck.com license that is
+ * available through the world-wide-web at this URL:
+ * https://ecomteck.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_OneStepCheckout
+ * @copyright   Copyright (c) 2018 Ecomteck (https://ecomteck.com/)
+ * @license     https://ecomteck.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <css src="Ecomteck_OneStepCheckout::css/one-step-checkout-m.css" />
+        <css src="Ecomteck_OneStepCheckout::css/one-step-checkout-l.css" media="screen and (min-width: 768px)"/> -->
+		<remove src="Ecomteck_OneStepCheckout::css/one-step-checkout.css"/>
+		<css src="css/one-step-checkout.css"/>
+        <css src="Ecomteck_Core::css/fontawesome/css/fontawesome-all.min.css" />
+    </head>
+    <body>
+        <attribute name="id" value="onestepcheckout-page"/>
+        <referenceContainer name="page.wrapper">
+            <container name="logo-container" htmlTag="div" htmlClass="logo-container" before="-">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="onestepcheckout-logo" before="-" ifconfig="one_step_checkout/display/disable_header">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">189</argument>
+                        <argument name="logo_img_height" xsi:type="number">64</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="main">
+            <container name="checkout.messages" htmlTag="div" htmlClass="checkout-messages" before="onestepcheckout.logo">
+                <block class="Magento\Framework\View\Element\Template" name="ajax.message.placeholder" template="Magento_Theme::html/messages.phtml"/>
+                <block class="Magento\Framework\View\Element\Messages" name="messages" as="messages" template="Magento_Theme::messages.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="head.additional">
+            <block class="Ecomteck\OneStepCheckout\Block\Customizer"
+                   name="one_step_checkout_customizer"
+                   template="customizer.phtml" />
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Magento\GiftMessage\Block\Cart\GiftOptions" name="onestepcheckout.gift_options" template="Ecomteck_OneStepCheckout::gift-message/gift_options.phtml" cacheable="false"></block>
+            <container name="cleancheckout_footer_wrapper" after="checkout.root" htmlTag="div" htmlClass="one-step-checkout-footer-wrapper">
+                <block class="Ecomteck\OneStepCheckout\Block\BackToStore"
+                       name="one_step_checkout_back_to_store"
+                       template="back-to-store.phtml"
+                       ifconfig="one_step_checkout/back_to_store/enabled" />
+
+                <block class="Ecomteck\OneStepCheckout\Block\Footer"
+                       name="one_step_checkout_footer"
+                       after="one_step_checkout_back_to_store"
+                       template="footer.phtml" />
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="before-form" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="autocomplete" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/autocomplete</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="shippingAdditional" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="displayArea" xsi:type="string">shippingAdditional</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="shipping_fee" xsi:type="array">
+                                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="discount" xsi:type="array">
+                                                                    <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                </item>
+                                                                <item name="reward" xsi:type="array">
+                                                                    <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/sidebar</item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/summary</item>
+                                            </item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="cart_items" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="details" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/summary/items/details</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/summary/items/details</item>
+                                                            </item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="thumbnail" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/summary/items/details/thumbnail</item>
+                                                                </item>
+                                                                <item name="giftOptionsCartItem" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/summary/items/gift-message</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/summary/items/details/gift-message-item-level</item>
+                                                                        <item name="formTemplate" xsi:type="string">Ecomteck_OneStepCheckout/summary/items/details/gift-message-form</item>
+                                                                    </item>
+                                                                    <item name="displayArea" xsi:type="string">after_qty</item>
+                                                                </item>
+                                                                <item name="editItem" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/summary/items/edit</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/summary/items/details/edit</item>
+                                                                        <item name="formTemplate" xsi:type="string">Ecomteck_OneStepCheckout/summary/items/details/edit/form</item>
+                                                                    </item>
+                                                                    <item name="displayArea" xsi:type="string">after_qty</item>
+                                                                </item>
+                                                                <item name="removeItem" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/summary/items/remove</item>
+                                                                    <item name="displayArea" xsi:type="string">after_qty</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="shipping-information" xsi:type="array">
+                                            <item name="config" xsi:type="array">
+                                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                                            </item>
+                                        </item>
+                                        <item name="after-sidebar" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="displayArea" xsi:type="string">after-sidebar</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="discount" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/discount</item>
+                                                    <item name="sortOrder" xsi:type="string">10</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/discount</item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="errors" xsi:type="array">
+                                                            <item name="sortOrder" xsi:type="string">0</item>
+                                                            <item name="component" xsi:type="string">Magento_SalesRule/js/view/payment/discount-messages</item>
+                                                            <item name="displayArea" xsi:type="string">messages</item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+
+                                                <item name="giftOptionsCart" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/gift-message</item>
+                                                    <item name="sortOrder" xsi:type="string">20</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="template" xsi:type="string">Ecomteck_OneStepCheckout/gift-message</item>
+                                                        <item name="formTemplate" xsi:type="string">Magento_GiftMessage/gift-message-form</item>
+                                                    </item>
+                                                </item>
+
+                                                <item name="newsletter" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/newsletter</item>
+                                                    <item name="sortOrder" xsi:type="string">30</item>
+                                                </item>
+                                                <item name="terms" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_CheckoutAgreements/js/view/checkout-agreements</item>
+                                                    <item name="sortOrder" xsi:type="string">100</item>
+                                                    <item name="displayArea" xsi:type="string">before-place-order</item>
+                                                    <item name="dataScope" xsi:type="string">checkoutAgreements</item>
+                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                </item>
+                                                <item name="terms-validator" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/terms/validation</item>
+                                                </item>
+                                                <item name="placeorder" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Ecomteck_OneStepCheckout/js/view/placeorder</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">checkoutProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="sortOrder" xsi:type="string">20000</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

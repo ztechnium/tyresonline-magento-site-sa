@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="hdweb" translate="label" sortOrder="300">
+            <label>Hdweb</label>
+        </tab>
+        <section id="hdwebcore" translate="label" type="text" sortOrder="1" showInStore="1" showInDefault="1" showInWebsite="1">
+            <class>separator-top</class>
+            <label>Email Template Settings</label>
+            <tab>hdweb</tab>
+            <resource>Hdweb_Core::config_core</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>Email Template</label>
+                <field id="oilservice_email_template" translate="label" type="select" sortOrder="1" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Oil Change / Service Packs Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+                <field id="rnr_notify_email_template" translate="label" type="select" sortOrder="2" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>RNR Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="rfc_notify_email_template" translate="label" type="select" sortOrder="3" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>RFC Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="sales_margin_notify_email_template" translate="label" type="select" sortOrder="4" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Sales Margin Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="void_order_notify_email_template" translate="label" type="select" sortOrder="5" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Void Order Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="admin_invoice_notify_email_template" translate="label" type="select" sortOrder="6" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Admin Invoice Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="staroncar_notify_email_template" translate="label" type="select" sortOrder="7" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Star On Car Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="installation_complete_notify_email_template" translate="label" type="select" sortOrder="8" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Installation Complete Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="social_login_register_notify_email_template" translate="label" type="select" sortOrder="9" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Social Login / Register Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="oil_service_enquiry_email_template" translate="label" type="select" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Oil Change / Service Packs Enquiry Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="google_review_notify_email_template" translate="label" type="select" sortOrder="11" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Google Review Notify Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+                <field id="custom_abandonedcart_email_template" translate="label" type="select" sortOrder="12" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Custom Abandoned Cart Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+                <field id="custom_abandonedcart_remind_email_template" translate="label" type="select" sortOrder="13" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Custom Abandoned Cart Remind Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+            </group>
+        </section>
+		<section id="hdwebinvoice" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Invoice Email Configuration</label>
+            <tab>hdweb</tab>
+            <resource>Hdweb_Core::config_core</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+				<field id="custom_invoice_email_receipant" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Custom Invoice Email Copy To</label>
+					<comment>Comma-separated.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

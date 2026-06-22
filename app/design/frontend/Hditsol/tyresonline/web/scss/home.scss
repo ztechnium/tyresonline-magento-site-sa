@@ -1,0 +1,898 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "sections/blog-slider";
+@import "sections/tyre-buy-process";
+@import "sections/offer-slider";
+@import "sections/search-slider";
+
+
+@include media-breakpoint-down(md) {
+  .cms-home{
+    .page.messages{
+      position: absolute;
+      left: 0;
+      top: 74px;
+      z-index: 9;
+      .message{
+        margin: 0rem 0;
+      }
+    }
+  }
+}
+
+
+@mixin banner-height() {
+  min-height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+  @media screen and #{$media-query} {
+    min-height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+  }
+}
+
+.tyres-banner {
+  @include banner-height();
+  position: relative;
+  .banner-image {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    .image-wrap {
+      &.picture {
+        padding-top: 29.8%;
+        img {
+          width: auto;
+          max-width: 100%;
+        }
+      }
+    }
+    .tyre-size{
+      position: absolute;
+      left: 0;
+      top: 11.3vh;
+      text-align: center;
+      z-index: 1;
+      width: 100%;
+      span{
+        display: inline-block;
+        margin-left: 1.3vw;
+        img{
+          width: 43vh;
+        }
+      }
+    }
+  }
+  .banner-wrap {
+    .tyre-content {
+      width: fit-content;
+      span {
+        @include scssont-font-size(200px);
+        line-height: 0.87;
+        display: block;
+      }
+      h3 {
+        @include scssont-font-size(43.75px);
+        @include scssont-letter-spacing(11.8px);
+      }
+      hr {
+        opacity: 1;
+        @include scssont-height(3px);
+        background-color: $red;
+        @include scssont-margin-top(5px);
+        @include scssont-margin-bottom(12px);
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 3000px) and (orientation : landscape){
+  .tyres-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-top: 54vh;
+        }
+      }
+    }
+    .banner-wrap {
+      .contact-info{
+        ul{
+          li{
+            a{
+              font-size: 3.79vh;
+            }
+          }
+        }
+      }
+      .tyre-content {
+        span{
+          font-size: 18.51vh;
+        }
+        h3 {
+          font-size: 3.98vh;
+          letter-spacing: 1.20vh;
+          margin-right: -7px !important;
+        }
+        hr {
+          margin-top: 0.46vh; 
+          margin-bottom: 1.38vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 1080px) and (orientation : landscape){
+  .tyres-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-top: 53vh;
+        }
+      }
+    }
+  }
+}
+
+ @media screen and (max-height: 1080px) and (min-width: 2001px) and (orientation : landscape){
+   .tyres-banner {
+     .banner-image {
+       .image-wrap {
+         &.picture {
+           padding-top: 39vh;
+         }
+       }
+       .tyre-size{
+         top: 8.2vh;
+         span{
+           margin-left: 0.7vw;
+           img{
+             width: 29vh;
+           }
+         }
+       }
+     }
+   }
+ }
+
+@media screen and (max-height: 900px) and (orientation : landscape){
+  .tyres-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-top: 54vh;
+        }
+      }
+      .tyre-size{
+        top: 11.8vh;
+        span{
+          margin-left: 1.4vw;
+          img{
+            width: 41vh;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 800px) and (orientation : landscape){
+  .tyres-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-top: 57vh;
+        }
+      }
+      .tyre-size{
+        top: 21.5vh;
+        span{
+          margin-left: 1.4vw;
+          img{
+            width: 50vh;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 700px) and (orientation : landscape){
+  .tyres-banner {
+    .banner-image {
+      .image-wrap {
+        &.picture {
+          padding-top: 54vh;
+        }
+      }
+      .tyre-size{
+        top: 20.5vh;
+        span{
+        img{
+          width: 47vh;
+        }
+       }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (orientation: portrait) {
+  .tyres-banner {
+     min-height: 10px;
+    .banner-image {
+      position: relative;
+      margin-top: get-rem-sm(25px);
+      .tyre-size{
+        top: get-rem-sm(50px);
+        span{
+          margin-left: get-rem-sm(13px);
+          img{
+            width: get-rem-sm(190px);
+          }
+        }
+      }
+    }
+  }
+}
+
+.brand-sprite{
+  background: url("#{$mediapath}/section/Brands.png") no-repeat;
+}
+
+.brands {
+  background-color: #fdf2f2;
+  @include scssont-padding(220px, 0px, 100px, 0px);
+  .heading-style6{
+    p{
+      margin-left: auto;
+      margin-right: auto;
+      @include scssont-max-width(915px);
+    }
+  }
+  .brand-list {
+    padding: 0 10%;
+    .box {
+      a{
+        &:hover{
+          filter: grayscale(1);
+        }
+      }
+      @include scssont-margin-bottom(35px);
+      .image {
+        @include scssont-padding-bottom(60px);
+        background-size: 214%;
+        @include scssont-max-width(217px);
+        margin: auto;
+        display: block;
+        &.continental {
+          background-position: 5.9% 38%;
+        }
+        &.pirelli {
+          background-position: 5.9% 12.7%;
+        }
+        &.michelin {
+          background-position: 5.9% 29.8%;
+        }
+        &.bfgoodrich {
+          background-position: 5.9% 67.1%;
+        }
+        &.dunlop {
+          background-position: 5.9% 60.1%;
+        }
+        &.bridgestone {
+          background-position: 5.9% 20.7%;
+        }
+        &.coopertires {
+          background-position: 97% 36.9%;
+        }
+        &.nitto {
+          background-position: 1.8% 84%;
+        }
+        &.roadstone {
+          background-position: 1.8% 66.6%;
+        }
+        &.goodyear {
+          background-position: 5.9% 45.9%;
+        }
+        &.nexen {
+          background-position: 5.9% 89%;
+        }
+        &.hankok {
+          background-position: 5.9% 80.5%;
+        }
+        &.matrax {
+          background-position: 5.9% 3%;
+        }
+        &.yokoma {
+          background-position: 5.9% 53.4%;
+        }
+        &.mastercraft {
+          background-position: 5.9% 74%;
+        }
+        &.kumho {
+          background-position: 5.9% 98%;
+        }
+        &.falken {
+          background-position: 98% 1.3%;
+        }
+      }
+    }
+  }
+  .show-all {
+    @include scssont-margin-top(70px);
+    .button {
+      span {
+        @include scssont-width(280px);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .brands {
+    .brand-list{
+      padding: 0;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brands {
+    padding-top: get-rem-sm(100px);
+    padding-bottom: get-rem-sm(40px);
+  }
+}
+
+.welcome {
+  .image-wrap {
+    &.aspect-custom {
+      padding-bottom: 67%;
+    }
+  }
+
+  .heading-style6{
+    p{
+      margin-left: auto;
+      margin-right: auto;
+      &.cw1{
+        @include scssont-max-width(480px);
+      }
+      &.cw2{
+        @include scssont-max-width(275px);
+      }
+    }
+  }
+
+  .banner-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    @include scssont-padding-left(15px);
+    @include scssont-padding-right(15px);
+    .top {
+      @include scssont-padding-top(60px);
+      .shape{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        top: 0;
+        @include scssont-margin-top(-115px);
+        img{
+          @include scssont-height(115px);
+          width: auto;
+        }
+      }
+    }
+
+    .bottom {
+      @include scssont-padding-bottom(45px);
+      .shape{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        bottom: 0;
+        @include scssont-margin-bottom(-140px);
+        img{
+          @include scssont-height(140px);
+          width: auto;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .welcome {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 96%;
+      }
+    }
+    .banner-content {
+       .top{
+        padding-top: get-rem-sm(25px);
+        .shape{
+          margin-top: get-rem-sm(-45px);
+          img{
+            height: get-rem-sm(45px);
+          }
+        }
+       }
+       .bottom{
+        padding-bottom: get-rem-sm(25px);
+        .shape{
+          margin-bottom: get-rem-sm(-70px);
+          img{
+            height: get-rem-sm(70px);
+          }
+        }
+       }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .welcome {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 137%;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-between(md, xl) {
+  .welcome {
+    .image-wrap {
+      &.aspect-custom {
+        padding-bottom: 90%;
+      }
+    }
+    .banner-content {
+      
+    }
+  }
+}
+
+.services {
+  padding: 0 0 30px;
+  .box {
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    @include border-radius-percentage(26px);
+    border: 8px solid #f8f6f6;
+    box-shadow: 0px 2px 8px rgb(0 0 0 / 19%);
+    margin: 10px 0;
+    .image {
+      height: 110px;
+      background-size: 775%;
+      width: 110px;
+      &.tyres-icon {
+        background-position: 33.1% 31.5%;
+      }
+      &.oil-change-icon {
+        background-position: 33.2% 43%;
+      }
+      &.service-pack-icon {
+        background-position: 33.3% 53.2%;
+      }
+      &.brakes-icon {
+        background-position: 34% 64.7%;
+      }
+      &.battery-icon {
+        background-position: 34.6% 75.5%;
+      }
+      &.wheel-icon {
+        background-position: 34.9% 85.8%;
+      }
+      &.discounts-icon {
+        background-position: 35.2% 96.3%;
+      }
+    }
+    .title {
+      font-size: 19px;
+      font-style: italic;
+      letter-spacing: 3px;
+      margin-top: 10px;
+      position: relative;
+      .dot{
+        animation: pulse 1s linear infinite;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: block;
+        position: absolute;
+        top: 3px;
+        right: 0;
+        left: 0;
+        margin: auto;
+        z-index: -1;
+      }
+    }
+  }
+}
+
+@mixin services-mobile-height() {
+  height: calc(100vh - #{get-rem($header-hight)} - 76vw);
+}
+
+.viewport-height{
+  .services-mobile{
+    @include services-mobile-height();
+  }
+}
+
+.services-mobile{
+  padding: get-rem-sm(10px) 0;
+  .services-list{
+    padding: 0 get-rem-sm(20px);
+    .box{
+      text-align: center;
+      margin-bottom: get-rem-sm(10px);
+      a, span{
+        display: block;
+        color: $black;
+      }
+      .icon{
+        svg, img{
+          width: get-rem-sm(80px);
+          @include border-radius-percentage(50%);
+        }
+        &.animated{
+          svg, img{
+           //animation: pulse 1s linear infinite;
+          }
+        }
+      }
+      .title{
+        margin-top: get-rem-sm(5px);
+        position: relative;
+        min-height: get-rem-sm(32px);
+        strong{
+            font-size: get-rem-sm(12px);
+            font-weight: 500;
+            display: block;
+        }
+      }
+    }
+    .hide{
+      display: block;
+    }
+    .toggle-icon{
+      text-align: center;
+      display: none;
+      span{
+        svg{
+          width: get-rem-sm(15px);
+        }
+      }
+    }
+  }
+}
+
+// all device
+@media screen and (max-width: 359px) and (orientation: portrait) {
+  .services-mobile{
+    .services-list{
+      padding: 0;
+    }
+  }
+}
+
+
+// Safari
+@media screen and (max-height: 671px) and (orientation: portrait) {
+  html{
+    .safari{
+      .services-mobile{
+        .services-list{
+          .row{
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 670px) and (orientation: portrait) {
+  html{
+    .safari{
+      .services-mobile{
+        padding: get-rem-sm(10px) 0 get-rem-sm(20px);
+        .services-list{
+          .box{
+            .icon{
+              svg, img{
+                width: get-rem-sm(80px);
+              }
+            }
+          }
+          .hide{
+            display: none;
+          }
+          .toggle-icon{
+            display: block;
+            margin-top: get-rem-sm(10px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 570px) and (orientation: portrait) {
+  html{
+    .safari{
+      .services-mobile{
+        padding: get-rem-sm(10px) 0 get-rem-sm(20px);
+        .services-list{
+          .box{
+            margin-bottom: 0;
+            .icon{
+              svg, img{
+                width: get-rem-sm(75px);
+              }
+            }
+            .title{
+              strong{
+                font-size: get-rem-sm(10px);
+              }
+            }
+          }
+          .hide{
+            display: none;
+          }
+          .toggle-icon{
+            display: block;
+            margin-top: get-rem-sm(0px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 530px) and (orientation: portrait) {
+  html{
+    .safari{
+      .services-mobile{
+        padding: get-rem-sm(10px) 0 get-rem-sm(20px);
+        .services-list{
+          .box{
+            margin-bottom: 0;
+            .icon{
+              svg, img{
+                width: get-rem-sm(55px);
+              }
+            }
+            .title{
+              strong{
+                font-size: get-rem-sm(10px);
+              }
+            }
+          }
+          .hide{
+            display: none;
+          }
+          .toggle-icon{
+            display: block;
+            margin-top: get-rem-sm(0px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Chrome
+@media screen and (max-height: 640px) and (orientation: portrait) {
+  html{
+    .chrome{
+      .services-mobile{
+        padding: get-rem-sm(10px) 0 get-rem-sm(20px);
+        .services-list{
+          .box{
+            margin-bottom: 0;
+            .icon{
+              svg, img{
+                width: get-rem-sm(55px);
+              }
+            }
+            .title{
+              strong{
+                font-size: get-rem-sm(10px);
+              }
+            }
+          }
+          .hide{
+            display: none;
+          }
+          .toggle-icon{
+            display: block;
+            margin-top: get-rem-sm(0px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .viewport-height{
+    .services-mobile{
+      height: auto;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .tyres-banner,
+  .main-search {
+    display: none;
+  }
+}
+
+
+.offer-services-cover{
+  &.position-active{
+      .offers-banner-mobile{
+        @include order(3);
+        margin-top: 0;
+        border-top: get-rem-sm(1px) solid #ccc;
+        .offer-slider{
+          margin-top: get-rem-sm(-40px);
+        }
+      }  
+      .mobile-tyre-search-finder{
+        @include order(1);
+      } 
+      .services-mobile{
+        @include order(2);
+      }
+  }
+}
+
+
+@media screen and (max-width: 767px) and (orientation : landscape){
+  .offer-services-cover{
+    &.position-active{
+        .offers-banner-mobile{
+          margin-top: get-rem-sm(40px);
+        }  
+      }
+    }
+}
+
+.shop-tyre{
+  background-color: $red-100;
+  @include scssont-padding-top(100px);
+  @include scssont-padding-bottom(120px);
+  .heading-style5{
+    p{
+      @include scssont-max-width(480px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .box{
+    text-align: center;
+    .box-icon{
+      @include scssont-margin-bottom(35px);
+      svg{
+        @include scssont-height(50px);
+        width: auto;
+      }
+    }
+    .text-block{
+      h4{
+        color: $white;
+        font-weight: 900;
+        @include scssont-font-size(32px);
+      }
+      p{
+        color: $white;
+        @include scssont-font-size(18px);
+        margin-left: auto;
+        margin-right: auto;
+        &.cw1{
+          @include scssont-max-width(350px);
+        }
+        &.cw2{
+          @include scssont-max-width(450px);
+        }
+        &.cw3{
+          @include scssont-max-width(235px);
+        }
+      }
+    }
+  }
+
+}
+
+@include media-breakpoint-down(md) {
+  .shop-tyre{
+    padding: get-rem-sm(40px) 0;
+    .box{
+      margin-bottom: get-rem-sm(30px);
+    }
+  }
+}
+
+
+.tyre-anywhere{
+  @include scssont-padding-top(75px);
+  @include scssont-padding-bottom(100px);
+  @include scssont-margin-bottom(100px);
+  .heading-style6{
+    p{
+      @include scssont-max-width(760px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .map-image{
+    text-align: center;
+    img{
+      height: auto;
+      @include scssont-width(480px); 
+    }
+  }
+
+  .bottom-text{
+    text-align: center;
+    @include scssont-margin-top(80px);
+    .count{
+      @include scssont-font-size(72px); 
+      @include scssont-letter-spacing(6px);
+      color: $red-100;
+      font-weight: 900;
+      line-height: 0.8;
+    }
+    h3{
+      @include scssont-font-size(32px);
+      font-weight: 900;
+      letter-spacing: 3.5px;
+      line-height: 1.4;
+      @include scssont-max-width(320px);
+      margin-left: auto;
+      margin-right: auto;
+      span{
+        color: $red-200;
+      }
+    }
+  }
+}
+
+
+@include media-breakpoint-down(md) {
+  .tyre-anywhere{
+    padding: get-rem-sm(40px) 0;
+    .bottom-text{
+      .count{
+        font-size: get-rem-sm(40px);
+      }
+      h3{
+        font-size: get-rem-sm(18px); 
+      }
+    }
+  }
+}

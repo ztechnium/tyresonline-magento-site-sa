@@ -1,0 +1,25 @@
+{
+    "name": "ecomteck/magento2-module-one-step-checkout",
+    "description": "Magento 2 One Step Checkout.",
+    "type": "magento2-module",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Ecomteck\\OneStepCheckout\\": ""
+        }
+    },
+    "version": "1.0.1",
+    "require": {
+        "ecomteck/module-core" : "1.0.*",
+        "ecomteck/module-delivery-date" : "^2.0.2",
+        "ecomteck/magento2-order-comments" : "1.0.*",
+        "ecomteck/magento-2-social-login" : "1.*",
+        "geoip2/geoip2": "^2.0",
+        "hybridauth/hybridauth" : "^3.0"
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
+}

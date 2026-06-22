@@ -1,0 +1,1648 @@
+@mixin search-input-width() {
+    width: calc(#{get-rem(405px)} + #{get-rem(46px)});
+    @media screen and #{$media-query} {
+      width: calc(#{get-vw(405px)} + #{get-vw(46px)});
+    }
+}
+
+.main-search {
+    background-color: #fff;
+    border-top: solid $red-200;
+    @include scssont-border-width(2px);
+    @include scssont-padding-mix(30px, 0px);
+    width: 100%;
+    z-index: 94;
+    position: fixed;
+    bottom: 0;
+    display: none;
+    ul {
+      li {
+        @include scssont-margin-mix(0px, 10px);
+        .button:not(.search-button):not(.toggle-change) {
+          font-weight: 500;
+        }
+        .button {
+          &.toggle-fix {
+            @include scssont-min-width(255px);
+            font-style: italic;
+            text-transform: uppercase;
+          }
+        }
+        .form-control-outline{
+          @include scssont-border-radius(100px);
+          background-color: $white;
+          border: solid $black;
+          @include scssont-border-width(1px);
+          @include scssont-height($button-height);
+          @include scssont-padding(5px, 30px, 5px, 30px);
+          font-family: $font-family-rubik;
+          font-weight: 500;
+          color: $black;
+          @include scssont-font-size(18px);
+          @include search-input-width();
+          @include placeholder {
+            color: $black;
+          }
+        }
+        .button {
+          &.search-button {
+            font-style: italic;
+          }
+        }
+        .button {
+          &.button-primary-200 {
+            letter-spacing: 0px;
+          }
+        }
+        .button{
+          &.toggle-change{
+           font-style: italic;
+           text-transform: uppercase;
+           @include scssont-min-width(300px);
+           text-align: left;
+           border: solid $red;
+           @include scssont-border-width(1px);
+           span{
+             z-index: 3;
+           }
+           &:before{
+           height: 100%;
+           width: 0;
+           right: 0;
+           }
+           .icon{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            @include scssont-width(50px);
+            border-left: solid $red;
+            @include scssont-border-width(1px);
+            z-index: 4;
+            svg{
+              @include scssont-width(35px);
+              @include transition(ease-in-out, 0.4s);
+            }
+           }
+          }
+          &.btAnimate{
+            .icon{
+            svg{
+            transform: scale(1.1);
+            }
+            }
+            &:before{
+            right: auto;
+            left: 0;
+            width: 100%;
+            }
+          }
+  
+           &.search-size-button{
+             background-color: $red;
+             span{
+               color: $white;
+             }
+             &:before{
+              background-color: $white;
+             }
+             .icon{
+              background-color: $white;
+              svg{
+                fill: $red;
+              }
+             }
+            &.btAnimate{
+              &:hover{
+                span{
+                color: $black; 
+                }
+              }
+            }
+           }
+  
+           &.search-size-button{
+             background-color: $red;
+             span{
+               color: $white;
+             }
+             &:before{
+              background-color: $white;
+             }
+             .icon{
+              background-color: $white;
+              svg{
+                fill: $red;
+              }
+             }
+            &.btAnimate{
+              &:hover{
+                span{
+                color: $black; 
+                }
+              }
+            }
+           }
+           &.search-vehicle-button{
+             span{
+               color: $red;
+             }
+             &:before{
+              background-color: $red;
+             }
+             .icon{
+              background-color: $red;
+              border-color: $white;
+              svg{
+                fill: $white;
+              }
+             }
+            &.btAnimate{
+              &:hover{
+                span{
+                color: $white; 
+                }
+              }
+            }
+           }
+        }
+        &.different-rear {
+          text-align: center;
+          position: relative;
+          @include scssont-min-width(95px);
+          .form-check-custom-style1 {
+            position: absolute;
+            bottom: 0;
+            margin: auto;
+            left: 0;
+            right: 0;
+          }
+        }
+        &.no-read {
+          & > * {
+            visibility: hidden;
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  .catalog-category-view, .brand-brand-patternview, .cms-mobile-tyre-fitting-service-in-uae, .cms-home, .cms-oil-change, .cms-servicepacks, .cms-brakes {
+    .main-search{
+      display: block;
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .catalog-category-view, .brand-brand-patternview, .cms-mobile-tyre-fitting-service-in-uae, .cms-home, .cms-oil-change, .cms-servicepacks, .cms-brakes {
+      .main-search{
+        display: none;
+      }
+    }
+  }
+  
+  
+  .cms-brakes, .categorypath-all-auto-parts-brakes{
+  .main-search{
+    ul{
+      li{
+        &.different-rear{
+          display: none;
+        }
+      }
+    }  
+  }
+  }
+  
+  
+  .cms-servicepacks, .cms-oil-change{
+    .main-search{
+      ul{
+        li{
+          &.different-rear{
+            display: none;
+          }
+          .button{
+            &.toggle-change{
+              background-color: $red;
+              text-align: center;
+              span{
+                color: $white;
+              }
+            }
+          }
+        }
+      }  
+    }
+    }
+  
+  
+  
+  @mixin search-top() {
+    top: calc(#{get-rem($header-hight)} + #{get-rem($menu-hight)});
+    @media screen and #{$media-query} {
+      top: calc(#{get-vw($header-hight)} + #{get-vw($menu-hight)});
+    }
+  }
+  
+  .search-selection {
+    position: absolute;
+    left: 0;
+    right: 0;
+    @include search-top();
+    @include border-radius-percentage(40px);
+    z-index: 9;
+    border: solid $black;
+    @include scssont-border-width(2px);
+    border-top: none;
+    max-width: 60%;
+    background-color: $white;
+    padding-left: 4%;
+    @include scssont-padding-top(15px);
+    @include scssont-padding-bottom(15px);
+    border-top-left-radius: 0;
+    -ms-border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -ms-border-top-right-radius: 0;
+    display: none;
+    z-index: 95;
+  
+    .search-close {
+      position: absolute;
+      @include scssont-right(15px);
+      @include scssont-top(15px);
+      cursor: pointer;
+      @include transition(ease-in-out, 0.4s);
+      &:hover {
+        @include transform(rotate(180deg));
+      }
+      svg {
+        @include scssont-height(30px);
+      }
+    }
+  
+    .selection-search-toggle {
+      position: absolute;
+      @include scssont-right(65px);
+      @include scssont-top(15px);
+      cursor: pointer;
+      svg {
+        @include scssont-height(30px);
+        @include transition(ease-in-out, 0.4s);
+      }
+      &:hover {
+        svg{
+          fill: $red;
+        }
+      }
+    }
+  
+  
+    .search-selection-wrap {
+      .selection-title {
+        @include scssont-margin-bottom(25px);
+        p {
+          font-style: italic;
+          @include scssont-font-size(16px);
+        }
+      }
+      .selection-block {
+        @include scssont-margin-bottom(20px);
+        .selection-search{
+          padding: 0 calc(8% + 0.25rem) 0 0.25rem;
+          @include scssont-margin-right(20px);
+          @include scssont-margin-bottom(15px);
+          @include scssont-margin-top(-5px);
+          .input-text{
+            background: #eee;
+            padding: 8px 10px;
+            border: 1px solid #eee;
+            height: auto;
+            margin: 0;
+            border-radius: 0;
+            vertical-align: middle;
+            width: 100%;
+            min-height: 40px;
+            font-weight: 600;
+            
+            max-width: calc(50% - 0.25rem);
+          }
+        }
+        .confirm_sub-block{
+          .button{
+            span{
+              @include scssont-padding(10px, 30px, 10px, 30px);
+              @include scssont-min-height(30px);
+            }
+          }
+        }
+        .scrollbar-inner{
+          height: 12.9vw;
+          padding-right: 8%;
+          @include scssont-margin-right(20px);
+        }
+        .button-list {
+          li {
+            width: calc(11.11% - 0.4%);
+            margin: 0 0.2%;
+            @include scssont-margin-bottom(10px);
+            .button {
+              font-weight: 500;
+              span {
+                @include scssont-font-size(16px);
+              }
+            }
+          }
+        }
+  
+        .brand-list {
+          li {
+            margin-top: 0;
+            margin-bottom: var(--bs-gutter-y);
+            .box {
+              border: solid $lightgrey-100;
+              @include scssont-border-width(2px);
+              @include scssont-border-radius(15px);
+              text-align: center;
+              @include scssont-padding(5px, 5px, 5px, 5px);
+              max-width: 90%;
+              margin: auto;
+              .image {
+                @include scssont-min-height(95px);
+              }
+              span {
+                &.title {
+                  @include scssont-margin-top(5px);
+                  display: block;
+                  font-weight: 500;
+                  @include scssont-font-size(14px);
+                }
+              }
+              &:hover,
+              &.active {
+                border-color: $red;
+              }
+            }
+          }
+        }
+        .brand-list-button{
+          .button {
+            font-weight: 500;
+            span {
+              @include scssont-font-size(16px);
+            }
+          }
+          li{
+            &#last-note{
+              background-color: #fff3cd;
+              border: solid #ffecb5;
+              @include scssont-margin-top(25px);
+              @include scssont-padding-mix(15px, 20px);
+              @include scssont-border-width(1.5px);
+            }
+          }
+          &.button-text-overflow-max{
+            .button-text-overflow{
+              span{
+                max-width: calc(100% - 20px);
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .selection-breadcrumb {
+      padding-right: 8%;
+      .button {
+        font-weight: 700;
+        span {
+          @include scssont-font-size(16px);
+          svg {
+            color: $red;
+            @include scssont-margin-right(5px);
+            @include scssont-height(18px);
+          }
+        }
+        &:hover {
+          svg {
+            color: $black;
+          }
+        }
+      }
+  
+      .steps {
+        ul {
+          li {
+            position: relative;
+            z-index: 1;
+            span {
+              display: inline-block;
+              span.text {
+                @include scssont-font-size(18px);
+                opacity: 0.2;
+              }
+              span.dot {
+                display: inline-block;
+                background-color: $white;
+                @include scssont-padding-mix(5px, 12px);
+                span {
+                  @include scssont-height(20px);
+                  @include scssont-width(20px);
+                  @include border-radius-percentage(50%);
+                  display: block;
+                  border: solid $red;
+                  @include scssont-border-width(2px);
+                }
+              }
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 50%;
+              width: 100%;
+              border-top: dotted $black;
+              @include scssont-border-width(7px);
+              @include scssont-bottom(15px);
+              z-index: -1;
+            }
+            &:last-child {
+              &:after {
+                display: none;
+              }
+            }
+            &.active {
+              span.dot {
+                span {
+                  background-color: $red;
+                }
+              }
+  
+              span.text {
+                opacity: 1;
+              }
+  
+              &:after {
+                border-color: $red;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.search-by-vehicle{
+      .search-selection-wrap{
+        @include media-breakpoint-down(md) {
+          .selection-title {
+            p {
+              span{
+                display: block;
+                width: 100%;
+              }
+            } 
+          }
+        }
+       @include media-breakpoint-up(md) {
+        .selection-title {
+          p {
+            max-width: 85%;
+            @include flexbox();
+            span{
+              @include scssont-min-width(160px);
+              display: inline-block;
+            }
+            strong{
+              word-break: break-all;
+            }
+           }
+         }
+        }
+        .selection-block{
+          .scrollbar-inner{
+            height: 14.5vw;
+          }
+        }
+      } 
+    }
+  }
+  
+  @media screen and (max-width: 2000px){
+    .search-selection {
+      max-width: 950px;
+      .search-selection-wrap{
+        .selection-block{
+          margin-bottom: 20px;
+          .scrollbar-inner{
+            height: 192px;
+          }
+          .button-list, .brand-list-button{
+            li{
+              .button{
+                min-height: 38px;
+                span{
+                  font-size: 13px;
+                  position: relative;
+                  top: -1px;
+                }
+              }
+            }
+          }
+          .brand-list {
+            li{
+              .box{
+                .image{
+                  min-height: 73px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .selection-breadcrumb{
+          .button{
+            min-height: 40px;
+            font-size: 13px; 
+            span{
+              padding: 10px 20px;
+            }
+          }
+        }
+        &.search-by-vehicle{
+          .search-selection-wrap{
+            .selection-block{
+              .scrollbar-inner{
+                height: 233px;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    @media screen and (max-width: 1750px){
+      .search-selection {
+        max-width: 950px;
+        .search-selection-wrap{
+          .selection-block{
+            .scrollbar-inner{
+              height: 187px;
+            }
+            .brand-list {
+              li{
+                .box{
+                  .image{
+                    min-height: 77px;
+                  }
+                }
+              }
+            }
+          }
+        }
+          &.search-by-vehicle{
+            .search-selection-wrap{
+              .selection-block{
+                .scrollbar-inner{
+                  height: 230px;
+                }
+              }
+            }
+          }
+        }
+      }
+  
+  
+  @include media-breakpoint-between(md, lg-max) {
+    .search-selection {
+      max-width: 85%;
+    }
+  }
+  
+   @media screen and (max-width: 1023px) and (orientation : portrait){
+     .search-selection {
+      .search-selection-wrap{
+        .selection-block{
+          .scrollbar-inner{
+            height: 152px;
+          }
+          .button-list, .brand-list-button{
+            li{
+              .button{
+                min-height: 30px;
+                span{
+                  font-size: 13px;
+                }
+              }
+            }
+          }
+          .brand-list {
+            li{
+              .box{
+                .image{
+                  min-height: 64px;
+                  img{
+                    max-height: 82px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      &.search-by-vehicle{
+        .search-selection-wrap{
+          .selection-block{
+            .scrollbar-inner{
+              height: 195px;
+            }
+          }
+        }
+      }
+     }
+   }
+  
+   @media screen and (max-width: 767px) and (orientation : portrait){
+    .search-selection {
+     .search-selection-wrap{
+       .selection-block{
+         .button-list, .brand-list-button{
+           li{
+             .button{
+               min-height: 38px;
+             }
+           }
+         }
+         .brand-list {
+          li{
+            .box{
+              .image{
+                min-height: 55px;
+                img{
+                  max-height: 82px;
+                }
+              }
+            }
+          }
+        }
+       }
+     }
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .search-selection {
+       max-width: calc(100% - .75rem - .75rem);
+       @include border-radius-percentage(#{get-rem(10px)});
+       top: calc(#{get-rem($header-hight)} + #{get-rem(20px)} + 19vw);
+       padding: 0;
+       border: none;
+       @include box-shadow(0px 0px 9px 2px rgb(0 0 0 / 18%));
+       position: fixed;
+       overflow: hidden;
+       .search-close{
+           top: auto;
+           bottom: get-rem(17px);
+           color: #fff;
+       }
+       .selection-search-toggle{
+        top: auto;
+        bottom: get-rem(17px);
+        svg{
+          fill: $white;
+        }
+        &:hover{
+          svg{
+            fill: $white;
+          }
+        }
+       }
+       .search-selection-wrap{
+        .search-title{
+           padding: get-rem(20px) 0;
+           background-color: $lightgrey-100;
+             h4{
+                font-size: get-rem(25px);
+           }
+        }
+        .selection-title{
+          text-align: center;
+          padding: get-rem(15px) get-rem(15px);
+          margin-bottom: 0;
+          p{
+            font-style: normal;
+          }
+        }
+       .selection-block{
+        margin: 0;
+        padding: get-rem(0px) get-rem(25px) get-rem(20px) get-rem(25px);
+        .selection-search{
+          padding-right: 0;
+          margin-right: 0;
+          .input-text{
+            max-width: 100%;
+          }
+        }
+        .scrollbar-inner{
+          height: get-rem-sm(228px);
+          padding-right: get-rem(25px);
+          margin-right: get-rem(-20px);
+        }
+        .button-list{
+          li{
+            width: calc(33.33% - #{get-rem(10px)});
+            margin: get-rem(5px);
+          }
+        }
+       }
+     }
+     .selection-breadcrumb-sm{
+      background-color: $red-100;
+      padding: get-rem(0px) get-rem(15px);
+      .inner{
+        min-height: get-rem(60px);;
+         .back{
+           color: $white;
+           font-size: get-rem(20px);
+        svg{
+          width: get-rem(25px);
+          margin-right: get-rem(8px);
+          position: relative;
+          top: get-rem(-1px);;
+        }
+      }
+      }
+     }
+     &.search-by-vehicle{
+      .search-selection-wrap{
+        .selection-block{
+          .scrollbar-inner{
+            height: get-rem-sm(233px);
+          }
+        }
+      }
+    }
+    }
+  }
+  
+  @media screen and (max-width: 767px) and (orientation : landscape){
+    .search-selection {
+       top: get-rem-sm(30px);
+      .search-selection-wrap{
+      .selection-block{
+       .scrollbar-inner{
+         height: get-rem-sm(150px);
+       }
+      }
+    }
+    &.search-by-vehicle{
+     .search-selection-wrap{
+       .selection-block{
+         .scrollbar-inner{
+           height: get-rem-sm(150px);
+         }
+       }
+     }
+   }
+   } 
+  }
+
+
+  
+.main-search {
+    background-color: #fff;
+    border-top: solid $red-200;
+    @include scssont-border-width(2px);
+    @include scssont-padding-mix(30px, 0px);
+    width: 100%;
+    z-index: 94;
+    position: fixed;
+    bottom: 0;
+    display: none;
+    ul {
+      li {
+        @include scssont-margin-mix(0px, 10px);
+        .button:not(.search-button):not(.toggle-change) {
+          font-weight: 500;
+        }
+        .button {
+          &.toggle-fix {
+            @include scssont-min-width(255px);
+            font-style: italic;
+            text-transform: uppercase;
+          }
+        }
+        .form-control-outline{
+          @include scssont-border-radius(100px);
+          background-color: $white;
+          border: solid $black;
+          @include scssont-border-width(1px);
+          @include scssont-height($button-height);
+          @include scssont-padding(5px, 30px, 5px, 30px);
+          font-family: $font-family-rubik;
+          font-weight: 500;
+          color: $black;
+          @include scssont-font-size(18px);
+          @include search-input-width();
+          @include placeholder {
+            color: $black;
+          }
+        }
+        .button {
+          &.search-button {
+            font-style: italic;
+          }
+        }
+        .button {
+          &.button-primary-200 {
+            letter-spacing: 0px;
+          }
+        }
+        .button{
+          &.toggle-change{
+           font-style: italic;
+           text-transform: uppercase;
+           @include scssont-min-width(300px);
+           text-align: left;
+           border: solid $red;
+           @include scssont-border-width(1px);
+           span{
+             z-index: 3;
+           }
+           &:before{
+           height: 100%;
+           width: 0;
+           right: 0;
+           }
+           .icon{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            @include scssont-width(50px);
+            border-left: solid $red;
+            @include scssont-border-width(1px);
+            z-index: 4;
+            svg{
+              @include scssont-width(35px);
+              @include transition(ease-in-out, 0.4s);
+            }
+           }
+          }
+          &.btAnimate{
+            .icon{
+            svg{
+            transform: scale(1.1);
+            }
+            }
+            &:before{
+            right: auto;
+            left: 0;
+            width: 100%;
+            }
+          }
+  
+           &.search-size-button{
+             background-color: $red;
+             span{
+               color: $white;
+             }
+             &:before{
+              background-color: $white;
+             }
+             .icon{
+              background-color: $white;
+              svg{
+                fill: $red;
+              }
+             }
+            &.btAnimate{
+              &:hover{
+                span{
+                color: $black; 
+                }
+              }
+            }
+           }
+  
+           &.search-size-button{
+             background-color: $red;
+             span{
+               color: $white;
+             }
+             &:before{
+              background-color: $white;
+             }
+             .icon{
+              background-color: $white;
+              svg{
+                fill: $red;
+              }
+             }
+            &.btAnimate{
+              &:hover{
+                span{
+                color: $black; 
+                }
+              }
+            }
+           }
+           &.search-vehicle-button{
+             span{
+               color: $red;
+             }
+             &:before{
+              background-color: $red;
+             }
+             .icon{
+              background-color: $red;
+              border-color: $white;
+              svg{
+                fill: $white;
+              }
+             }
+            &.btAnimate{
+              &:hover{
+                span{
+                color: $white; 
+                }
+              }
+            }
+           }
+        }
+        &.different-rear {
+          text-align: center;
+          position: relative;
+          @include scssont-min-width(95px);
+          .form-check-custom-style1 {
+            position: absolute;
+            bottom: 0;
+            margin: auto;
+            left: 0;
+            right: 0;
+          }
+        }
+        &.no-read {
+          & > * {
+            visibility: hidden;
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  .catalog-category-view, .brand-brand-patternview, .cms-mobile-tyre-fitting-service-in-uae, .cms-home, .cms-oil-change, .cms-servicepacks, .cms-brakes {
+    .main-search{
+      display: block;
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .catalog-category-view, .brand-brand-patternview, .cms-mobile-tyre-fitting-service-in-uae, .cms-home, .cms-oil-change, .cms-servicepacks, .cms-brakes {
+      .main-search{
+        display: none;
+      }
+    }
+  }
+  
+  
+  .cms-brakes, .categorypath-all-auto-parts-brakes{
+  .main-search{
+    ul{
+      li{
+        &.different-rear{
+          display: none;
+        }
+      }
+    }  
+  }
+  }
+  
+  
+  .cms-servicepacks, .cms-oil-change{
+    .main-search{
+      ul{
+        li{
+          &.different-rear{
+            display: none;
+          }
+          .button{
+            &.toggle-change{
+              background-color: $red;
+              text-align: center;
+              span{
+                color: $white;
+              }
+            }
+          }
+        }
+      }  
+    }
+    }
+  
+  
+  
+  @mixin search-top() {
+    top: calc(#{get-rem($header-hight)} + #{get-rem($menu-hight)});
+    @media screen and #{$media-query} {
+      top: calc(#{get-vw($header-hight)} + #{get-vw($menu-hight)});
+    }
+  }
+  
+  .search-selection {
+    position: absolute;
+    left: 0;
+    right: 0;
+    @include search-top();
+    @include border-radius-percentage(40px);
+    z-index: 9;
+    border: solid $black;
+    @include scssont-border-width(2px);
+    border-top: none;
+    max-width: 60%;
+    background-color: $white;
+    padding-left: 4%;
+    @include scssont-padding-top(15px);
+    @include scssont-padding-bottom(15px);
+    border-top-left-radius: 0;
+    -ms-border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -ms-border-top-right-radius: 0;
+    display: none;
+    z-index: 95;
+  
+    .search-close {
+      position: absolute;
+      @include scssont-right(15px);
+      @include scssont-top(15px);
+      cursor: pointer;
+      @include transition(ease-in-out, 0.4s);
+      &:hover {
+        @include transform(rotate(180deg));
+      }
+      svg {
+        @include scssont-height(30px);
+      }
+    }
+  
+    .selection-search-toggle {
+      position: absolute;
+      @include scssont-right(65px);
+      @include scssont-top(15px);
+      cursor: pointer;
+      svg {
+        @include scssont-height(30px);
+        @include transition(ease-in-out, 0.4s);
+      }
+      &:hover {
+        svg{
+          fill: $red;
+        }
+      }
+    }
+  
+  
+    .search-selection-wrap {
+      .selection-title {
+        @include scssont-margin-bottom(25px);
+        p {
+          font-style: italic;
+          @include scssont-font-size(16px);
+        }
+      }
+      .selection-block {
+        @include scssont-margin-bottom(20px);
+        .selection-search{
+          padding: 0 calc(8% + 0.25rem) 0 0.25rem;
+          @include scssont-margin-right(20px);
+          @include scssont-margin-bottom(15px);
+          @include scssont-margin-top(-5px);
+          .input-text{
+            background: #eee;
+            padding: 8px 10px;
+            border: 1px solid #eee;
+            height: auto;
+            margin: 0;
+            border-radius: 0;
+            vertical-align: middle;
+            width: 100%;
+            min-height: 40px;
+            font-weight: 600;
+            
+            max-width: calc(50% - 0.25rem);
+          }
+        }
+        .confirm_sub-block{
+          .button{
+            span{
+              @include scssont-padding(10px, 30px, 10px, 30px);
+              @include scssont-min-height(30px);
+            }
+          }
+        }
+        .scrollbar-inner{
+          height: 12.9vw;
+          padding-right: 8%;
+          @include scssont-margin-right(20px);
+        }
+        .button-list {
+          li {
+            width: calc(11.11% - 0.4%);
+            margin: 0 0.2%;
+            @include scssont-margin-bottom(10px);
+            .button {
+              font-weight: 500;
+              span {
+                @include scssont-font-size(16px);
+              }
+            }
+          }
+        }
+  
+        .brand-list {
+          li {
+            margin-top: 0;
+            margin-bottom: var(--bs-gutter-y);
+            .box {
+              border: solid $lightgrey-100;
+              @include scssont-border-width(2px);
+              @include scssont-border-radius(15px);
+              text-align: center;
+              @include scssont-padding(5px, 5px, 5px, 5px);
+              max-width: 90%;
+              margin: auto;
+              .image {
+                @include scssont-min-height(95px);
+              }
+              span {
+                &.title {
+                  @include scssont-margin-top(5px);
+                  display: block;
+                  font-weight: 500;
+                  @include scssont-font-size(14px);
+                }
+              }
+              &:hover,
+              &.active {
+                border-color: $red;
+              }
+            }
+          }
+        }
+        .brand-list-button{
+          .button {
+            font-weight: 500;
+            span {
+              @include scssont-font-size(16px);
+            }
+          }
+          li{
+            &#last-note{
+              background-color: #fff3cd;
+              border: solid #ffecb5;
+              @include scssont-margin-top(25px);
+              @include scssont-padding-mix(15px, 20px);
+              @include scssont-border-width(1.5px);
+            }
+          }
+          &.button-text-overflow-max{
+            .button-text-overflow{
+              span{
+                max-width: calc(100% - 20px);
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .selection-breadcrumb {
+      padding-right: 8%;
+      .button {
+        font-weight: 700;
+        span {
+          @include scssont-font-size(16px);
+          svg {
+            color: $red;
+            @include scssont-margin-right(5px);
+            @include scssont-height(18px);
+          }
+        }
+        &:hover {
+          svg {
+            color: $black;
+          }
+        }
+      }
+  
+      .steps {
+        ul {
+          li {
+            position: relative;
+            z-index: 1;
+            span {
+              display: inline-block;
+              span.text {
+                @include scssont-font-size(18px);
+                opacity: 0.2;
+              }
+              span.dot {
+                display: inline-block;
+                background-color: $white;
+                @include scssont-padding-mix(5px, 12px);
+                span {
+                  @include scssont-height(20px);
+                  @include scssont-width(20px);
+                  @include border-radius-percentage(50%);
+                  display: block;
+                  border: solid $red;
+                  @include scssont-border-width(2px);
+                }
+              }
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 50%;
+              width: 100%;
+              border-top: dotted $black;
+              @include scssont-border-width(7px);
+              @include scssont-bottom(15px);
+              z-index: -1;
+            }
+            &:last-child {
+              &:after {
+                display: none;
+              }
+            }
+            &.active {
+              span.dot {
+                span {
+                  background-color: $red;
+                }
+              }
+  
+              span.text {
+                opacity: 1;
+              }
+  
+              &:after {
+                border-color: $red;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.search-by-vehicle{
+      .search-selection-wrap{
+        @include media-breakpoint-down(md) {
+          .selection-title {
+            p {
+              span{
+                display: block;
+                width: 100%;
+              }
+            } 
+          }
+        }
+       @include media-breakpoint-up(md) {
+        .selection-title {
+          p {
+            max-width: 85%;
+            @include flexbox();
+            span{
+              @include scssont-min-width(160px);
+              display: inline-block;
+            }
+            strong{
+              word-break: break-all;
+            }
+           }
+         }
+        }
+        .selection-block{
+          .scrollbar-inner{
+            height: 14.5vw;
+          }
+        }
+      } 
+    }
+  }
+  
+  @media screen and (max-width: 2000px){
+    .search-selection {
+      max-width: 950px;
+      .search-selection-wrap{
+        .selection-block{
+          margin-bottom: 20px;
+          .scrollbar-inner{
+            height: 192px;
+          }
+          .button-list, .brand-list-button{
+            li{
+              .button{
+                min-height: 38px;
+                span{
+                  font-size: 13px;
+                  position: relative;
+                  top: -1px;
+                }
+              }
+            }
+          }
+          .brand-list {
+            li{
+              .box{
+                .image{
+                  min-height: 73px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .selection-breadcrumb{
+          .button{
+            min-height: 40px;
+            font-size: 13px; 
+            span{
+              padding: 10px 20px;
+            }
+          }
+        }
+        &.search-by-vehicle{
+          .search-selection-wrap{
+            .selection-block{
+              .scrollbar-inner{
+                height: 233px;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    @media screen and (max-width: 1750px){
+      .search-selection {
+        max-width: 950px;
+        .search-selection-wrap{
+          .selection-block{
+            .scrollbar-inner{
+              height: 187px;
+            }
+            .brand-list {
+              li{
+                .box{
+                  .image{
+                    min-height: 77px;
+                  }
+                }
+              }
+            }
+          }
+        }
+          &.search-by-vehicle{
+            .search-selection-wrap{
+              .selection-block{
+                .scrollbar-inner{
+                  height: 230px;
+                }
+              }
+            }
+          }
+        }
+      }
+  
+  
+  @include media-breakpoint-between(md, lg-max) {
+    .search-selection {
+      max-width: 85%;
+    }
+  }
+  
+   @media screen and (max-width: 1023px) and (orientation : portrait){
+     .search-selection {
+      .search-selection-wrap{
+        .selection-block{
+          .scrollbar-inner{
+            height: 152px;
+          }
+          .button-list, .brand-list-button{
+            li{
+              .button{
+                min-height: 30px;
+                span{
+                  font-size: 13px;
+                }
+              }
+            }
+          }
+          .brand-list {
+            li{
+              .box{
+                .image{
+                  min-height: 64px;
+                  img{
+                    max-height: 82px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      &.search-by-vehicle{
+        .search-selection-wrap{
+          .selection-block{
+            .scrollbar-inner{
+              height: 195px;
+            }
+          }
+        }
+      }
+     }
+   }
+  
+   @media screen and (max-width: 767px) and (orientation : portrait){
+    .search-selection {
+     .search-selection-wrap{
+       .selection-block{
+         .button-list, .brand-list-button{
+           li{
+             .button{
+               min-height: 38px;
+             }
+           }
+         }
+         .brand-list {
+          li{
+            .box{
+              .image{
+                min-height: 55px;
+                img{
+                  max-height: 82px;
+                }
+              }
+            }
+          }
+        }
+       }
+     }
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .search-selection {
+       max-width: calc(100% - .75rem - .75rem);
+       @include border-radius-percentage(#{get-rem(10px)});
+       top: calc(#{get-rem($header-hight)} + #{get-rem(20px)} + 19vw);
+       padding: 0;
+       border: none;
+       @include box-shadow(0px 0px 9px 2px rgb(0 0 0 / 18%));
+       position: fixed;
+       overflow: hidden;
+       .search-close{
+           top: auto;
+           bottom: get-rem(17px);
+           color: #fff;
+       }
+       .selection-search-toggle{
+        top: auto;
+        bottom: get-rem(17px);
+        svg{
+          fill: $white;
+        }
+        &:hover{
+          svg{
+            fill: $white;
+          }
+        }
+       }
+       .search-selection-wrap{
+        .search-title{
+           padding: get-rem(20px) 0;
+           background-color: $lightgrey-100;
+             h4{
+                font-size: get-rem(25px);
+           }
+        }
+        .selection-title{
+          text-align: center;
+          padding: get-rem(15px) get-rem(15px);
+          margin-bottom: 0;
+          p{
+            font-style: normal;
+          }
+        }
+       .selection-block{
+        margin: 0;
+        padding: get-rem(0px) get-rem(25px) get-rem(20px) get-rem(25px);
+        .selection-search{
+          padding-right: 0;
+          margin-right: 0;
+          .input-text{
+            max-width: 100%;
+          }
+        }
+        .scrollbar-inner{
+          height: get-rem-sm(228px);
+          padding-right: get-rem(25px);
+          margin-right: get-rem(-20px);
+        }
+        .button-list{
+          li{
+            width: calc(33.33% - #{get-rem(10px)});
+            margin: get-rem(5px);
+          }
+        }
+       }
+     }
+     .selection-breadcrumb-sm{
+      background-color: $red-100;
+      padding: get-rem(0px) get-rem(15px);
+      .inner{
+        min-height: get-rem(60px);;
+         .back{
+           color: $white;
+           font-size: get-rem(20px);
+        svg{
+          width: get-rem(25px);
+          margin-right: get-rem(8px);
+          position: relative;
+          top: get-rem(-1px);;
+        }
+      }
+      }
+     }
+     &.search-by-vehicle{
+      .search-selection-wrap{
+        .selection-block{
+          .scrollbar-inner{
+            height: get-rem-sm(233px);
+          }
+        }
+      }
+    }
+    }
+  }
+  
+  @media screen and (max-width: 767px) and (orientation : landscape){
+    .search-selection {
+       top: get-rem-sm(30px);
+      .search-selection-wrap{
+      .selection-block{
+       .scrollbar-inner{
+         height: get-rem-sm(150px);
+       }
+      }
+    }
+    &.search-by-vehicle{
+     .search-selection-wrap{
+       .selection-block{
+         .scrollbar-inner{
+           height: get-rem-sm(150px);
+         }
+       }
+     }
+   }
+   } 
+  }
+
+
+  
+@mixin search-overlay-top() {
+    top: calc(#{get-rem($header-hight)} + #{get-rem($menu-hight)});
+    @media screen and #{$media-query} {
+      top: calc(#{get-vw($header-hight)} + #{get-vw($menu-hight)});
+    }
+  }
+  
+  .search-overlay{
+    position: fixed;
+    @include search-overlay-top();
+    height: 100%;
+    width: 100%;
+    left: 0;
+    background-color: #1c1c1c7a;
+    z-index: 93;
+    @include transition(ease-in-out, 0.4s);
+    opacity: 0;
+    visibility: hidden;
+    &.open{
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .search-overlay{
+      top: 0;
+    }
+  }
+  
+  .cms-home{
+    .search-overlay{
+      display: none;
+    }
+  }

@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "New Order with Delivery Date"}} @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template",
+"var store_name":"Store Owner Name",
+"var order_id":"order id",
+"var order":"order info object",
+"var delivery_date":"delivery date",
+"var delivery_comment":"delivery comment",
+"store url=\"\"":"Store URL"
+} @-->
+{{template config_path="design/email/header_template"}}
+<p>
+<strong>New Order ID:</strong> {{var order_id}} <br/>
+<strong>Delivery Date At:</strong> {{var delivery_date}} <br/>
+<strong>Customer Comment:</strong> {{var delivery_comment}} <br/>
+</p>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Hdweb_Rfc::menu" title="Hdweb" sortOrder="51">
+				<resource id="Hdweb_Rfc::rfc" title="RFC Log" sortOrder="10"/>
+				<resource id="Hdweb_Rfc::manage" title="Manage RFC" sortOrder="20"/>
+				<resource id="Hdweb_Rfc::supplierproducts" title="Manage Supplier Products" sortOrder="30"/>
+				<resource id="Hdweb_Rfc::rfcimport" title="RFC Browse Import" sortOrder="40"/>
+				<resource id="Hdweb_Rfc::configuration" title="RFC Configuration" sortOrder="99"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

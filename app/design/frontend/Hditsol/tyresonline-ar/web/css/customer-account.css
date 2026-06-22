@@ -1,0 +1,1336 @@
+.account{
+    font-size: 14px;
+}
+
+.customer-account-login #maincontent,
+.customer-account-create #maincontent,
+.customer-account-forgotpassword #maincontent,
+.account #maincontent,
+.customer-account-logoutsuccess #maincontent,
+.customer-account-createpassword #maincontent,
+.customer-account-confirmation #maincontent {
+    padding: 40px 0;
+    position: relative;
+}
+
+.customer-account-login #maincontent .columns,
+.customer-account-create #maincontent .columns,
+.customer-account-forgotpassword #maincontent .columns,
+.account #maincontent .columns,
+.customer-account-logoutsuccess #maincontent .columns,
+.customer-account-createpassword #maincontent .columns,
+.customer-account-confirmation #maincontent .columns {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: var(--bs-gutter-x, .75rem);
+    padding-right: var(--bs-gutter-x, .75rem);
+}
+
+.customer-account-login .page-title-wrapper .page-title,
+.customer-account-create .page-title-wrapper .page-title,
+.customer-account-createpassword .page-title-wrapper .page-title,
+.customer-account-forgotpassword .page-title-wrapper .page-title,
+.customer-account-confirmation .page-title-wrapper .page-title {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+
+.customer-account-login h1,
+.customer-account-create h1,
+.customer-account-forgotpassword h1,
+.account .page-title h1,
+.customer-account-createpassword .page-title-wrapper h1,
+.customer-account-logoutsuccess h1,
+.customer-account-confirmation .page-title-wrapper h1 {
+    font-weight: bold;
+    font-size: 26px;
+    text-transform: uppercase;
+}
+
+.actions-toolbar button.primary,
+.actions-toolbar a.primary,
+.box-actions a.action{
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: #d60000;
+    border: none;
+    padding: 11px 38px;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 100px;
+}
+
+.actions-toolbar button.primary:hover,
+.actions-toolbar a.primary:hover,
+.box-actions a.action:hover{
+    background-color: #000;
+}
+
+.box-actions a.action.change-password{
+    background-color: #000;
+}
+
+.box-actions a.action.change-password:hover{
+    background-color: #d60000;
+}
+
+.customer-account-login .form .field input,
+.customer-account-create .form .field input,
+.customer-account-forgotpassword .form .field input,
+.account .form-edit-account .field input,
+.account .form-address-edit .field input,
+.account .form-address-edit .field select,
+.customer-account-createpassword .form.password.reset input,
+.customer-account-confirmation .form .field input{
+    padding: 8px 10px;
+    border: 1px solid #E0E0E0;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+    vertical-align: middle;
+    width: 100%;
+    min-height: 40px;
+    background: #fff;
+    color: #000;
+}
+
+.account .form-address-edit .field select{
+    background-image: url('../images/icon/down-arrow.svg');
+    background-size: 7px;
+    background-repeat: no-repeat;
+    background-position: left 10px center;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.choice input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  width: auto !important;
+}
+.choice input[type=checkbox] + label {
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+}
+.choice input[type=checkbox] + label:before {
+  content: "";
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: text-top;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000;
+      position: relative;
+    top: -2px;
+}
+.choice input[type=checkbox]:checked + label:before {
+}
+.choice input[type=checkbox]:disabled + label {
+  color: #b8b8b8;
+  cursor: auto;
+}
+.choice input[type=checkbox]:disabled + label:before {
+  box-shadow: none;
+  background: #ddd;
+}
+.choice input[type=checkbox]:checked + label:after {
+  content: "";
+  position: absolute;
+  right: 13px;
+  top: 7px;
+  background: #000;
+  width: 2px;
+  height: 2px;
+  box-shadow: 2px 0 0 black, 4px 0 0 black, 4px -2px 0 black, 4px -4px 0 black, 4px -6px 0 black, 4px -8px 0 black;
+  transform: rotate(45deg);
+}
+
+.customer-account-login .account-social-login .btn-social,
+.customer-account-create .account-social-login .btn-social {
+    border-radius: 4px;
+    color: #fff;
+    position: relative;
+    padding: 6px 12px 6px 44px;
+    background-color: #EA4335;
+    font-size: 14px;
+}
+
+.customer-account-login .account-social-login .btn-social:hover,
+.customer-account-create .account-social-login .btn-social:hover {
+    background-color: #c62d20;
+}
+
+.customer-account-login .account-social-login .btn-social span,
+.customer-account-create .account-social-login .btn-social span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    line-height: 34px;
+    font-size: 1.6em;
+    text-align: center;
+    border-left: 1px solid rgba(0, 0, 0, .2);
+    font-size: 18px;
+}
+
+.customer-account-login .account-social-login .btn-facebook,
+.customer-account-create .account-social-login .btn-facebook {
+    background-color: #3b5998;
+}
+
+.customer-account-login .account-social-login .btn-facebook:hover,
+.customer-account-create .account-social-login .btn-facebook:hover {
+    background-color: #2d4373;
+}
+
+.customer-account-login .account-social-login .actions-toolbar.social-btn,
+.customer-account-create .account-social-login .actions-toolbar.social-btn {
+    width: auto;
+    margin: 0 5px;
+}
+
+.customer-account-login .account-social-login .actions-toolbar.social-btn .fa:before,
+.customer-account-create .account-social-login .actions-toolbar.social-btn .fa:before {
+    font-weight: bold;
+}
+
+.customer-account-login .login-container .fieldset:after,
+.form-create-account .fieldset.create.account:after,
+.customer-account-forgotpassword .form.password.forget .fieldset:after {
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.customer-account-forgotpassword .fieldset {
+    margin-bottom: 15px;
+}
+
+.form-create-account .additional_info {
+    margin: 0;
+}
+
+.login-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -20px;
+}
+
+.customer-account-login .block-customer-login,
+.customer-account-login .block-new-customer,
+.customer-account-create .form-create-account,
+.customer-account-forgotpassword .forget,
+.account .form-edit-account,
+.customer-account-confirmation .confirmation {
+    box-shadow: 0 0px 2px 3px #e5e5e5;
+    padding: 20px;
+    margin: 0 20px 15px 20px;
+    border-radius: 10px;
+    width: calc(50% - 40px);
+}
+
+.customer-account-login .login-container .fieldset > .field > .control,
+.account.customer-account-edit .form-edit-account .fieldset {
+    width: 100%;
+}
+
+.customer-account-login .block-title strong,
+.customer-account-create .create .legend span,
+.account .form-edit-account .fieldset > .legend span,
+.account .form-address-edit .fieldset > .legend span,
+.account .order-title strong {
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.customer-account-login .form-login .field,
+.customer-account-create .account .field,
+.account .form-edit-account .field {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.customer-account-login .form-login .field.choice .field-tooltip .field-tooltip-action:before,
+.customer-account-create .account .field.choice .field-tooltip .field-tooltip-action:before,
+.account .form-edit-account .field.choice .field-tooltip .field-tooltip-action:before {
+    margin-top: 0;
+}
+
+.customer-account-login .form-login .field .label,
+.customer-account-create .account .field .label,
+.customer-account-forgotpassword .forget .field .label,
+.account .form-edit-account .field .label,
+.account .form-address-edit .field .label {
+    margin-bottom: 5px;
+}
+
+.customer-account-create .form.create,
+.customer-account-confirmation .confirmation {
+    margin: 0 auto;
+}
+
+.customer-account-login .login-container .actions-toolbar,
+.customer-account-create .login-container .actions-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.customer-account-login .login .actions-toolbar .primary {
+    margin-bottom: 0;
+}
+
+.customer-account-login .fieldset:last-child,
+.customer-account-create .fieldset.account {
+    margin-bottom: 0;
+}
+
+.account .columns{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.account .sidebar-main{
+    width: 22.3%;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+    padding-left: 2%;
+}
+
+.account .column.main{
+    width: 77.7%;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2; 
+    padding-right: 2%;
+}
+
+
+.block-collapsible-nav .content {
+    background: #f5f5f5;
+    padding: 15px 0;
+}
+
+.block-collapsible-nav .content .nav{
+    padding: 0;
+    margin: 0;
+}
+
+
+.block-collapsible-nav .item a, .block-collapsible-nav .item>strong {
+    border-right: 3px solid #0000;
+    display: block;
+    padding: 12px 20px;
+}
+
+.block-collapsible-nav .item a {
+    text-decoration: none;
+}
+
+.block-collapsible-nav .item a:hover {
+    background: #e8e8e8;
+}
+
+.fieldset>.legend{
+    font-weight: 400;
+    line-height: normal;
+    font-size: 14px;
+}
+
+.account .toolbar{
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.account .toolbar.customer-addresses-toolbar{
+    margin-top: 16px;
+}
+
+.account .toolbar .pager{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.account .toolbar .pager .toolbar-amount{
+    margin: 0;
+}
+
+.account .toolbar .pager .limiter strong{
+    font-weight: normal;
+}
+
+.account .toolbar .pager .limiter select{
+    height: 33px;
+    width: 50px;
+    border: none;
+    padding: 0 10px;
+    margin: 0 5px;
+    background-image: url('../images/icon/down-arrow.svg');
+    background-size: 7px;
+    background-repeat: no-repeat;
+    background-position: left 7px center;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #000;
+}
+
+.account table tr th{
+    font-weight: 600;
+}
+
+.account .orders-history table tr th,
+.account .orders-recent table tr th,
+.account .additional-addresses table tr th,
+.account .stripe-payments table tr th{
+    border: none;
+    background-color: #f5f5f5;
+    padding: 12px 12px;
+    vertical-align: middle;
+}
+
+.account .orders-history table tr td,
+.account .orders-recent table tr td,
+.account .additional-addresses table tr td,
+.account .stripe-payments table tr td{
+    border-bottom: 1px solid #eee;
+    padding: 12px 12px;
+    vertical-align: middle;
+}
+
+.account .orders-history table tr td.actions a.action,
+.account .orders-recent table tr td.actions a.action,
+.account .additional-addresses table tr td.actions a.edit,
+.account .stripe-payments table tr td.actions a.delete-card{
+    color: #000;
+    background-color: #eee;
+    padding: 6px 20px;
+    font-size: 12px;
+    border-radius: 100px;
+    display: inline-block;
+    text-align: center;
+    margin: 3px 0;
+}
+
+.account .orders-history table tr td.actions a.action:hover,
+.account .orders-recent table tr td.actions a.action:hover,
+.account .additional-addresses table tr td.actions a.edit:hover{
+    background-color: #ddd;
+}
+
+.account .additional-addresses table tr td.actions{
+    width: 180px;
+}
+
+.account .additional-addresses table tr td.actions a.delete,
+.account .stripe-payments table tr td.actions a.delete-card{
+    color: #fff;
+    background-color: var(--bs-danger);
+    padding: 6px 20px;
+    font-size: 12px;
+    border-radius: 100px;
+    display: inline-block;
+    margin: 3px 0;
+}
+
+.account .additional-addresses table tr td.actions a.delete:hover,
+.account .stripe-payments table tr td.actions a.delete-card{
+    background-color: #ec2f41;
+}
+
+.stripe-payments.delete-card{
+    background-image: none !important;
+}
+
+.page-title-wrapper {
+    position: relative;
+}
+
+.page-title-wrapper .order-status{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    text-transform: uppercase;
+    font-size: 12px;
+    background-color: #eee;
+    padding: 7px 18px;
+    border: 1px solid #ccc;
+}
+
+
+.page-main .page-title-wrapper .order-date{
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.page-main .page-title-wrapper .order-date .label{
+    display: none;
+}
+
+.page-main .page-title-wrapper .actions-toolbar {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    margin-top: 15px;
+}
+
+.page-main .page-title-wrapper .actions-toolbar .actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-main .page-title-wrapper .actions-toolbar .actions .order,
+.page-main .page-title-wrapper .actions-toolbar .actions .print{
+    display: block;
+    text-transform: uppercase;
+    font-size: 12px;
+    background-color: #fff;
+    padding: 7px 18px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+}
+
+.page-main .page-title-wrapper .actions-toolbar .actions .print{
+    margin-right: auto;
+ }
+
+.order-links{
+    margin: 0;
+    padding: 0;
+    display: flex;  
+}
+
+.order-links li strong,
+.order-links li a{
+    padding: 15px 30px;
+    display: block;
+    border: 1px solid #eee;
+    margin-bottom: -1px;
+    font-weight: normal;
+}
+
+
+.order-links li.current strong,
+.order-links li.current a{
+    background-color: #eee;
+}
+
+
+.account .order-details-items{
+    border: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+.account .order-details-items .order-title{
+    display: none;
+}
+
+.table>:not(:last-child)>:last-child>*{
+    border-bottom-color: #eee;
+}
+
+.account .order-details-items .table-wrapper{
+   margin: 0;  
+}
+
+.account .order-details-items table{
+    margin: 0;
+}
+
+.account .order-details-items table tr th{
+    border: none;
+    text-transform: uppercase;
+    padding: 12px 15px;
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.account .order-details-items table tr td{
+    padding: 12px 15px;
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.account .order-details-items table thead,
+.account .order-details-items table tbody,
+.account .order-details-items table tfoot{
+    border: none;
+}
+
+.account .order-details-items table tr td .items-qty{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.account .order-details-items table tfoot tr td{
+    border: none;
+    padding: 10px 20px 0px 20px;
+}
+
+.account .order-details-items table tfoot tr td:first-child{
+    text-align: left !important;
+}
+
+.account .order-details-items table tfoot tr td strong{
+    font-weight: 600;
+}
+
+.account .order-details-items .actions-toolbar{
+    text-align: left;
+    margin: 0;
+    padding: 10px 20px;
+}
+      
+.account .page-title-wrapper{
+    margin-bottom: 20px;
+}
+
+
+.account .page-title-wrapper h1{
+     font-weight: bold;
+    font-size: 26px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.account .block{
+    margin-bottom: 30px;
+}
+
+.account .block.block-dashboard-addresses{
+    margin-bottom: 0px;
+}
+
+.account .block.block-dashboard-orders{
+    margin-top: 30px;
+}
+
+.account .box-actions a.change-password:before {
+    display: none;
+}
+
+.customer-account-forgotpassword .forget {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.account .page.messages {
+    margin-bottom: 0;
+}
+
+.account .column.main .block:not(.widget) .block-title > strong,
+.account .payment-method .legend span,
+.fieldset>.legend>span {
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.account .block:not(.widget) .box-title span {
+    font-size: 16px !important;
+    text-transform: uppercase;
+}
+
+.account .block:not(.widget) .box-title {
+    background-color: #f5f5f5;
+    width: 100%;
+    padding: 10px 20px;
+    display: block;
+    font-weight: 600;
+}
+
+.account #maincontent .block-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.account .block-content .box {
+    background-color: #fff;
+    box-shadow: 0 0px 2px 3px #e5e5e5;
+    padding: 0;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    width: calc(50% - 10px) !important;
+    overflow: hidden;
+    float: none !important;
+    margin-left: 20px;
+}
+
+.account .block-content .box:nth-child(2n) {
+    margin-left: 0;
+}
+
+.account .orders-recent,
+.account .additional-addresses {
+    background-color: #fff;
+    box-shadow: 0 0px 2px 3px #e5e5e5;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 0;
+    display: block;
+}
+
+.account .box-content {
+    padding: 15px 20px;
+    font-size: 14px;
+}
+
+.account .box-actions {
+    padding: 0 20px 20px 20px;
+}
+
+.account .box-actions a {
+    margin: 5px 0;
+}
+
+.account .block-collapsible-nav-content .nav.item {
+    width: 100%;
+    font-size: 16px;
+}
+
+.account .block-collapsible-nav-content .nav.item a {
+    padding: 12px 20px;
+    width: 100%;
+}
+
+.account .block-collapsible-nav .item .delimiter {
+    margin: 0;
+}
+
+.account .orders-history {
+    box-shadow: 0 0px 2px 3px #e5e5e5;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    width: calc(100% - 0px);
+}
+
+.account .orders-history .order-products-toolbar {
+    border-radius: 10px;
+}
+
+.account .form-edit-account .fieldset {
+    margin-bottom: 0;
+}
+
+.account .form-edit-account .field-tooltip .field-tooltip-action:before {
+    margin-top: 7px;
+}
+
+.account .column.main .order-details-items .table-wrapper .data.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.account .order-details-items .product-item-name {
+    font-size: 12px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.account .order-details-items .col.price .price-excluding-tax {
+    font-size: 12px;
+}
+
+.account .order-details-items .col.subtotal .price-excluding-tax {
+    font-size: 12px;
+}
+
+.block-order-details-view .box-order-shipping-method #delivery-date,
+.block-order-details-view .box-order-shipping-method #delivery-comment {
+    padding: 0px 20px 20px;
+}
+
+.block-order-details-view .block-content .box {
+    width: calc(50% - 10px) !important;
+    min-height: 210px;
+    margin-bottom: 20px;
+}
+
+.block-order-details-view .block-content .box.box-order-shipping-address,
+.block-order-details-view .block-content .box.box-order-billing-address {
+    margin-left: 20px;
+}
+
+.account .block-dashboard-addresses .block-title,
+.account .block-dashboard-orders .block-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account .block-dashboard-addresses .block-title .edit,
+.account .block-dashboard-orders .block-title .view {
+    color: #000;
+    background-color: #eee;
+    padding: 6px 20px;
+    font-size: 12px;
+    border-radius: 100px;
+}
+
+.account .block-dashboard-addresses .block-title .edit:hover,
+.account .block-dashboard-orders .block-title .view:hover {
+    background-color: #ddd;
+}
+
+.account.customer-address-index .modal-popup .modal-inner-wrap {
+    top: 50%;
+}
+
+.account.customer-address-index .action-close {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.account.customer-address-index .action-close:before {
+    position: absolute;
+}
+
+.account.customer-address-index .modal-popup .modal-footer {
+    background-color: #fff;
+}
+
+.account.customer-address-index .modal-popup .modal-footer {
+    display: flex;
+}
+
+.account .table-order-items .price .cart-price .price,
+.account .subtotal .cart-price .price {
+    font-size: 12px;
+    font-weight: 400 !important;
+    color: #212529;
+}
+
+.customer-account-createpassword .form.password.reset {
+    min-width: 10px;
+    box-shadow: 0 0px 2px 3px #e5e5e5;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    width: calc(50% - 20px);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.customer-account-createpassword .form.password.reset .fieldset {
+    margin: 0;
+}
+
+.customer-account-createpassword .form.password.reset .fieldset > .field {
+    margin: 0 0 15px;
+}
+
+.customer-account-createpassword .form.password.reset .fieldset > .field > .label {
+    margin-bottom: 0;
+}
+
+.customer-account-createpassword .form.password.reset .actions-toolbar {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.customer-account-createpassword .form.password.reset .actions-toolbar .primary {
+    float: none;
+}
+
+.customer-account-createpassword .form.password.reset #password-strength-meter-container {
+    margin-top: 5px;
+}
+
+.block-collapsible-nav .item.current a,
+.block-collapsible-nav .item.current > strong {
+    border-color: #d60000;
+    color: #000;
+    font-weight: 500;
+}
+
+.order-details-items .item-options dt{
+    clear: right;
+    float: right;
+    margin: 5px 0px 0px 5px;
+}
+
+.order-details-items .item-options dd{
+    display: inline-block;
+    float: right;
+    margin: 5px 0 0px;
+}
+
+.account .additional-addresses table tr th.state,
+.account .additional-addresses table tr td.state{
+    display: none !important;
+}
+
+.account .new-saved-card .fieldset>.legend{
+    float: none;
+    margin: 0;
+}
+
+.account .new-saved-card .payment-method>div:not(.message){
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.account .new-saved-card .payment-method>div:not(.message){
+    padding: 15px 15px 15px 15px;
+    background-color: #f8f8f8;
+    margin-bottom: 15px;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) > div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) #card-details-label{
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements {
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements.no-wrap{
+    width: 50%;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements.no-wrap #stripe-payments-card-number{
+    width: 100%;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements #stripe-payments-card-expiry,
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements #stripe-payments-card-cvc{
+    width: calc(50% - 10px);
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements .stripe-elements-field{
+    margin: 0;
+    background-color: #fff;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 10px 10px;
+    border: 1px solid #E0E0E0;
+    height: 40px;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements .stripe-payments-brand {
+    opacity: 0.5;
+    height: auto;
+    width: auto;
+    display: inline-block;
+    font-size: 17px;
+    margin-left: 0;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements .pci-dss-info-block {
+margin: 0;
+    width: 100%;
+    font-size: 12px;
+    opacity: 1;
+    background-color: #fff;
+    padding: 12px 12px;
+    margin-bottom: -5px;
+    display: flex;
+    align-items: center;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements .pci-dss-info-block #pci-svg{
+    position: relative;
+    right: 0;
+    top: 0;
+    opacity: 0.7;
+    fill: #008000;
+    width: 20px;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements .pci-dss-info-block .pci-dss-info-text {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    margin-right: 5px;
+}
+
+.account .new-saved-card .payment-method>div:not(.message) #stripe-payments-card-errors.populated{
+    margin: 10px 0 0;
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+}
+
+
+.account .form-edit-account{
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width:1024px) {
+    .customer-account-login .actions-toolbar button.login span,
+    .customer-account-login .actions-toolbar .create span,
+    .customer-account-create .actions-toolbar button.submit span,
+    .customer-account-forgotpassword .actions-toolbar button.submit span,
+    .account .actions-toolbar .primary button.add span,
+    .account .actions-toolbar .primary button.save span,
+    .customer-account-login .actions-toolbar .secondary .remind span,
+    .account.customer-address-index .modal-popup .modal-footer button span {
+        font-size: 14px;
+    }
+
+    .customer-account-login .block-customer-login,
+    .customer-account-login .block-new-customer {
+        min-height: 400px;
+    }
+
+}
+
+@media only screen and (max-width:850px) {
+    .block-order-details-view .block-content .box {
+        width: 100% !important;
+        min-height: auto;
+    }
+
+    .block-order-details-view .block-content .box.box-order-shipping-address,
+    .block-order-details-view .block-content .box.box-order-billing-address {
+        margin-left: 0;
+    }
+
+    .account .block-collapsible-nav-content .nav.item a,
+    .account.block-collapsible-nav .item > strong {
+        font-size: 14px;
+        padding: 10px 10px;
+    }
+
+    .account .table-order-items .price .cart-price .price,
+    .account .subtotal .cart-price .price {
+        font-size: 13px;
+    }
+
+}
+
+@media only screen and (max-width:767px) {
+
+    .customer-account-login #maincontent, .customer-account-create #maincontent, .customer-account-forgotpassword #maincontent, .customer-account-logoutsuccess #maincontent, .customer-account-createpassword #maincontent, .customer-account-confirmation #maincontent{
+        padding: 40px 0;
+    }
+
+    .account #maincontent{
+       padding: 60px 0 35px; 
+    }
+
+    .account .sidebar-main, .account .column.main{
+        width: 100%;
+    }
+
+    .customer-account-login h1,
+    .customer-account-create h1,
+    .customer-account-forgotpassword h1,
+    .account h1 span,
+    .account .page-title h1,
+    .customer-account-createpassword .page-title-wrapper h1,
+    .customer-account-logoutsuccess h1,
+    .customer-account-confirmation .page-title-wrapper h1 {
+        font-size: 20px;
+    }
+
+    .customer-account-login,
+    .customer-account-create,
+    .customer-account-forgotpassword,
+    .account {
+        font-size: 13px;
+    }
+
+    .customer-account-login h1,
+    .customer-account-create h1,
+    .customer-account-forgotpassword h1,
+    .customer-account-logoutsuccess h1,
+    .customer-account-createpassword .page-title-wrapper .page-title {
+        font-size: 20px;
+    }
+
+
+    .account .form-edit-account {
+        width: calc(100% - 0px);
+    }
+
+    .customer-account-createpassword #maincontent {
+        max-width: 540px;
+        padding: 30px;
+    }
+
+    .table tfoot {
+        background-color: #fff;
+    }
+
+    .table-wrapper .table:not(.totals):not(.table-comparison) tfoot .amount {
+        float: none;
+        width: auto;
+    }
+
+    .customer-account-login .login .actions-toolbar .primary {
+        margin-left: 10px;
+    }
+
+    .customer-account-login .login-container .fieldset:after,
+    .customer-account-create .fieldset.create.account:after,
+    .customer-account-forgotpassword .form.password.forget .fieldset:after {
+        text-align: right;
+        font-size: 13px;
+    }
+
+    .customer-account-login .account-social-login .btn,
+    .customer-account-create {
+        font-size: 13px;
+    }
+
+    .login-container{
+        margin: 0;
+    }
+
+    .customer-account-login .block-customer-login,
+    .customer-account-login .block-new-customer,
+    .account .block-content .box,
+    .customer-account-createpassword .form.password.reset {
+        width: 100%;
+        margin: 0 0px 15px 0px;
+    }
+
+    .customer-account-create .form.create,
+    .customer-account-forgotpassword .forget,
+    .customer-account-confirmation .confirmation {
+        width: 100%;
+    }
+
+    .customer-account-forgotpassword #maincontent {
+        padding: 30px;
+        max-width: inherit;
+    }
+
+    .customer-account-login .block-customer-login,
+    .customer-account-login .block-new-customer {
+        min-height: auto;
+    }
+
+    .account .order-links {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+
+    .account .block-collapsible-nav .title {
+    cursor: pointer;
+    margin-bottom: 0;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding: 10px 40px 10px 15px;
+    display: block;
+    text-decoration: none;
+    }
+
+    .account .block-collapsible-nav-content .nav.item {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .account .block-collapsible-nav {
+        position: absolute;
+        top: 0;
+        right: 0;
+        top: 0px;
+        margin: 0;
+            width: 100%;
+    }
+
+    .block-collapsible-nav .content {
+    border-bottom: 1px solid #eee;
+    display: none;
+}
+
+.block-collapsible-nav .content.active {
+    display: block;
+}
+
+    .account .block-collapsible-nav .title strong {
+        font-size: 14px;
+    }
+
+    .block-collapsible-nav .title:after{
+            position: absolute;
+    left: 20px;
+    top: 10px;
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="9px"><path d="M432.6 209.3l-191.1 183.1C235.1 397.8 229.1 400 224 400s-11.97-2.219-16.59-6.688L15.41 209.3C5.814 200.2 5.502 184.1 14.69 175.4c9.125-9.625 24.38-9.938 33.91-.7187L224 342.8l175.4-168c9.5-9.219 24.78-8.906 33.91 .7187C442.5 184.1 442.2 200.2 432.6 209.3z"/></svg>');
+    }
+
+    .block-collapsible-nav .title.active:after{
+        content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="9px"><path d="M15.41 302.7l191.1-183.1C212 114.2 218 111.1 224 111.1s11.97 2.219 16.59 6.688l191.1 183.1c9.594 9.152 9.906 24.34 .7187 33.9c-9.125 9.625-24.38 9.938-33.91 .7187L224 169.2l-175.4 168c-9.5 9.219-24.78 8.906-33.91-.7187C5.502 327 5.814 311.8 15.41 302.7z"/></svg>');
+     }
+
+    .account .block-content .box {
+        width: calc(100% - 0px) !important;
+        margin-left: 0;
+    }
+
+    .column.main .block:not(.widget) .block-title:before,
+    .account .column.main .block:not(.widget) .block-title:after {
+        display: none !important;
+    }
+
+    .account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements.no-wrap{
+        width: 100%;
+    }
+
+    .account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements #stripe-payments-card-expiry{
+        width: calc(50% - 0px);
+        margin-right: 0px;
+    }
+
+    .account .new-saved-card .payment-method>div:not(.message) .stripe-payments-elements .pci-dss-info-block #pci-svg{
+        width: 40px;
+    }
+
+    .page-title-wrapper .order-status{
+        top: 34px;
+    }
+
+    .account .order-details-items table tfoot tr td{
+        text-align: right !important;
+        padding: 10px 10px 0px 10px;
+    }
+    
+
+    .account .order-details-items table tfoot tr td:first-child{
+        text-align: right !important;
+    }
+
+
+    .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) {
+    border: none;
+    display: block;
+}
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th {
+    display: none;
+}
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody {
+    display: block;
+}
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr {
+    display: block;
+}
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th {
+    border-bottom: none;
+    display: block;
+    padding: 6px 10px;
+}
+
+.table-wrapper.orders-recent .table-order-items.table tbody > tr > td.col {
+    padding-right: 0;
+}
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:first-child {
+    padding-top: 10px;
+}
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td[data-th]:before, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th[data-th]:before {
+    padding-left: 10px;
+    content: attr(data-th) ': ';
+    display: inline-block;
+    font-weight: 700;
+}
+
+.account .additional-addresses table tr td.actions{
+    width: 100%;
+}
+
+.additional-addresses .table,
+.account .orders-history .table{
+    margin-bottom: 0;
+}
+
+.account .orders-history .table tbody tr+tr{
+    border-top: 1px solid #eee;
+}
+
+.account .block.block-order-details-view{
+    margin-bottom: 0;
+}
+
+}
+
+@media only screen and (max-width:540px) {
+
+    .customer-account-login .login .actions-toolbar > .primary,
+    .customer-account-login .login .actions-toolbar > .secondary,
+    .customer-account-login .account-social-login .btn-facebook,
+    .customer-account-create .account-social-login .btn-facebook {
+        margin-bottom: 10px;
+    }
+
+    .account.customer-address-index .modal-popup .modal-footer {
+        justify-content: center;
+    }
+
+}
+
+
+@media screen and (min-width:768px) and (max-width:991px){
+    .box-address-billing .box-actions a.action{
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}

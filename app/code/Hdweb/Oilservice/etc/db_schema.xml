@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="quote_item" resource="checkout" comment="Sales Flat Quote Item">
+        <column xsi:type="text" name="is_oil_service_product" nullable="true" comment="Is Oil Service Product"/>
+		<column xsi:type="text" name="oil_service_package" nullable="true" comment="Oil Service Package Name"/>
+	</table>
+</schema>

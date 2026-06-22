@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+    	<add id="Hdweb_Rfc::menu" title="RFC" module="Hdweb_Rfc" sortOrder="51" resource="Hdweb_Rfc::menu"/>
+    	
+    	<add id="Hdweb_Rfc::rfc" title="RFC Log" module="Hdweb_Rfc" sortOrder="10" parent="Hdweb_Rfc::menu" action="rfc/rfc" resource="Hdweb_Rfc::rfc"/>
+
+	   	<add id="Hdweb_Rfc::manage" title="Manage RFC" module="Hdweb_Rfc" sortOrder="10" action="rfc/manage" resource="Hdweb_Rfc::manage" parent="Hdweb_Rfc::menu"/>
+		
+	   	<add id="Hdweb_Rfc::supplierproducts" title="Manage Supplier Products" module="Hdweb_Rfc" sortOrder="10" action="rfc/supplierproducts" resource="Hdweb_Rfc::supplierproducts" parent="Hdweb_Rfc::menu"/>
+		
+		<add id="Hdweb_Rfc::rfcimport" title="RFC Browse Import" module="Hdweb_Rfc" sortOrder="11" action="rfc/rfcimport/edit" resource="Hdweb_Rfc::rfcimport" parent="Hdweb_Rfc::menu"/>
+		
+	   	<!--<add id="Hdweb_Rfc::rfcmaster" title="Manage RFC Master" module="Hdweb_Rfc" sortOrder="10" action="rfc/rfcmaster" resource="Hdweb_Rfc::rfcmaster" parent="Hdweb_Rfc::menu"/>-->
+		
+	   	<add id="Hdweb_Rfc::configuration" title="RFC Configuration" module="Hdweb_Rfc" sortOrder="12" parent="Hdweb_Rfc::menu" action="adminhtml/system_config/edit/section/rfc_section" resource="Hdweb_Rfc::configuration"/>
+    </menu>
+</config>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="css/shopping-cart.css"/>
+		<remove src="mage/calendar.css"/>
+	</head>
+    <body>
+		<move element="cart.summary" destination="cart.bottom.right" before="-" />
+		<move element="checkout.cart.multicoupons" destination="cart.discount.proceed.btn" before="-" />
+		<move element="cart.discount.proceed.btn" destination="cart.bottom.right" after="cart.summary" />
+		<move element="checkout.cart.methods.bottom" destination="cart.bottom.right" after="checkout.cart.multicoupons" />
+		<referenceContainer name="content">
+			<referenceBlock name="checkout.cart">
+				<referenceContainer name="checkout.cart.items">
+					<referenceContainer name="checkout.cart.container" htmlTag="div" htmlClass="cart-container">
+						<block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.continueshopping" as="checkout.cart.continueshopping" template="cart/continueshopping.phtml" before="-"/> 
+						<container name="checkout.cart.shipping.container" htmlTag="div" htmlClass="cart-shipping-container">
+							<block class="Magento\Checkout\Block\Cart\Grid" name="checkout.cart.form" as="cart-items" template="Magento_Checkout::cart/form.phtml" after="cart.summary">
+								<arguments>
+									<argument name="view_model" xsi:type="object">Magento\Checkout\ViewModel\Cart</argument>
+								</arguments>
+								<block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+								<block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+							</block>
+							<block class="Magento\Framework\View\Element\Template" name="cart.fitting.service" template="Hdweb_Installer::fitting-service.phtml" after="checkout.cart.form"/>
+							<container name="checkout.cart.widget" as="checkout_cart_widget" label="Shopping Cart Items After" after="cart-items"/>
+							<container name="cart.bottom" after="checkout.cart.form" htmlTag="div" htmlClass="shopping-cart-bottom">
+								<block class="Magento\Framework\View\Element\Template" name="cart-installer" template="Hdweb_Installer::cart-installer.phtml" before="-" />
+								<block class="Magento\Framework\View\Element\Template" name="cart-pickup-dropoff" template="Hdweb_Installer::pickupdrop-service.phtml" after="cart-installer" />
+							</container>
+						</container>
+						<container name="cart.bottom.main" label="coupon discount" htmlTag="div" htmlClass="discount-cart-summary-wrap" after="-">
+							<container name="cart.bottom.left" before="cart.summary" htmlTag="div" htmlClass="shopping-cart-bottom">
+								<block class="Magento\Framework\View\Element\Template" name="cart-installer" template="Hdweb_Installer::cart-installer.phtml" before="-" />
+								<block class="Magento\Framework\View\Element\Template" name="cart-pickup-dropoff" template="Hdweb_Installer::pickupdrop-service.phtml" after="cart-installer" />
+							</container>
+							<container name="cart.bottom.right" label="coupon discount" htmlTag="div" htmlClass="discount-cart-summary" after="-">
+								<container name="cart.discount.proceed.btn" label="coupon discount with proceed button" htmlTag="div" htmlClass="cart-discount-proceed-btn" after="cart.summary">
+									<!-- <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/> -->
+									<block class="Magento\Framework\View\Element\Template" name="checkout.cart.multicoupons" as="multicoupons" template="Amasty_Coupons::coupon.phtml" after="checkout.cart.shipping">
+										<arguments>
+											<argument name="view_model" xsi:type="object">Amasty\Coupons\ViewModel\Coupons</argument>
+											<argument name="jsLayout" xsi:type="array">
+												<item name="components" xsi:type="array">
+													<item name="discount-coupons" xsi:type="array">
+														<item name="component" xsi:type="string">uiComponent</item>
+														<item name="children" xsi:type="array">
+															<item name="discount" xsi:type="array">
+																<item name="component" xsi:type="string">Amasty_Coupons/js/view/cart/discount</item>
+																<item name="template" xsi:type="string">Amasty_Coupons/cart/discount</item>
+																<item name="config" xsi:type="array">
+																	<item name="successMessage" xsi:type="string" translate="true">Coupon was successfully applied.</item>
+																	<item name="errorMessage" xsi:type="string" translate="true">Coupon code is not valid.</item>
+																	<item name="cancelMessage" xsi:type="string" translate="true">Coupon code was removed.</item>
+																</item>
+																<item name="children" xsi:type="array">
+																	<item name="errors" xsi:type="array">
+																		<item name="sortOrder" xsi:type="string">0</item>
+																		<item name="component" xsi:type="string">Magento_SalesRule/js/view/payment/discount-messages</item>
+																		<item name="displayArea" xsi:type="string">messages</item>
+																	</item>
+																</item>
+															</item>
+														</item>
+													</item>
+												</item>
+											</argument>
+										</arguments>
+									</block>
+									<block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="Magento_Checkout::cart/methods.phtml">
+										<container name="checkout.cart.methods" as="methods" label="Payment Methods After Checkout Button">
+											<block class="Magento\Checkout\Block\Onepage\Link" name="checkout.cart.methods.onepage.bottom" template="Magento_Checkout::onepage/link.phtml" />
+											<block class="Magento\Checkout\Block\QuoteShortcutButtons" name="checkout.cart.shortcut.buttons" />
+										</container>
+									</block>
+								</container>
+							</container>
+						</container>
+					</referenceContainer>
+				</referenceContainer>
+			</referenceBlock>
+        </referenceContainer>
+		<!-- <referenceBlock name="checkout.cart.shipping">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="block-summary" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="componentDisabled" xsi:type="boolean">true</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock> -->
+		<!-- <referenceBlock name="checkout.cart.order.actions.gift_options" remove="true"/> -->
+		<!-- <referenceBlock name="cart-pickup-dropoff" remove="true"/> -->
+    </body>
+</page>

@@ -1,0 +1,64 @@
+<!-- 
+ * Ecomteck_StorePickup Magento Extension
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_StorePickup
+ * @author      Ecomteck <ecomteck@gmail.com>
+ * @website    http://www.ecomteck.com
+ -->
+
+<div data-bind="visible: isStorePickup()">
+	<p><a data-bind="click: showMap, visible: isSelectStoreVisible()" href="#">Select store by map</a></p>
+	<input type="hidden" id="pickup-store" name="pickup_store" value="" />
+	<input type="hidden" id="pickup-store-country" name="store_country_id" value="" />
+	<input type="hidden" id="pickup-store-city" name="store_city" value="" />
+	<input type="hidden" id="pickup-store-postcode" name="store_postcode" value="" />
+	<input type="hidden" id="pickup-store-region" name="store_region" value="" />
+	<input type="hidden" id="pickup-store-region-id" name="store_region_id" value="" />
+	<input type="hidden" id="pickup-store-address" name="store_address" value="" />
+	<p id="selected-store-msg"><span></span>.</p>
+	<div class="shipping-date-div">
+		<!-- ko i18n: 'Delivery Date/Time'--><!-- /ko -->
+		<span id="shipping-date-ordersummary"></span>
+		<span id="shipping-time-ordersummary" class="text-uppercase"></span>
+	</div>
+	<div id="store-locator" class="bh-sl-container" style="display: none">
+			<div id="bh-sl-map-container" class="bh-sl-map-container">
+				<div id="bh-sl-map" class="bh-sl-map"></div>
+				<div class="sidebar right">
+					<div class="bh-sl-form-container">
+						<form id="bh-sl-user-location" method="post" action="#">
+							<div class="form-input">
+								<label for="bh-sl-address">Enter Address:</label>
+								<input type="text" id="bh-sl-address" name="bh-sl-address" />
+							</div>
+				
+							<button id="bh-sl-submit" type="submit">Submit</button>
+						</form>
+					</div>
+					<div class="bh-sl-loc-list">
+						<ul class="list"></ul>
+					</div>
+					<div class="bh-sl-pagination-container">
+						<ol class="bh-sl-pagination"></ol>
+					</div>
+				</div>
+			</div>
+	</div>
+	<!-- ko if: selectedStore() -->
+	<div class="pickup-date">
+		<label class="label">Pick Up Date</label>
+		<div class="control">
+			<input class="input-text" type="text" data-bind="storepickupdatepicker: pickupDate(),selectedStore:selectedStore()"  name="pickup_date" id="pickup-date" readonly="true" value="05/26/2020" />
+		</div>
+	</div>
+	<div class="pickup-time">
+		<label class="label">Pick Up Time</label>
+		<div class="control">
+			<input class="input-text" type="text" data-bind="storepickuptimepicker: pickupDate(),selectedStore:selectedStore()"  name="pickup_time" id="pickup-time" value="10.20" />
+		</div>
+	</div>
+	
+    <!-- /ko -->
+    <div class="selectStoreDateTime" afterRender="selectStoreDateTime"></div> 
+</div>

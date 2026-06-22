@@ -1,0 +1,11 @@
+<script type="text/x-magento-init">
+{
+    "*": {
+        "chetu/ajaxToCart" : <?php echo $block->getAjaxCartInitOptions(); ?>,
+		"chetu/ajaxsuite"    : <?php echo $block->getAjaxSuiteInitOptions(); ?>
+    }
+}
+</script>
+<script>
+    window.ajaxCartLoaderOptions = <?php echo $block->getAjaxSidebarInitOptions(); ?>;
+</script>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <orderupload>
+			<general>
+				<enabled>0</enabled>
+				<upload_dir>orderupload</upload_dir>
+				<allowed_extensions>jpg,jpeg,png,zip,rar,docx,doc,pdf</allowed_extensions>
+				<max_file_size>20</max_file_size>
+			</general>
+			<customer>
+				<customer_groups>0,1,2,3</customer_groups>
+				<can_customer_orderupload>1</can_customer_orderupload>
+				<can_delete_orderupload>0</can_delete_orderupload>
+				<send_email_attachment_customer>0</send_email_attachment_customer>
+				<send_email_attachment_admin>0</send_email_attachment_admin>
+				<allow_checkout>1</allow_checkout>
+				<allow_comment>1</allow_comment>
+			</customer>
+            <email>
+				<active>0</active>
+                <email_template>orderupload_email_email_template</email_template>
+				<admin_name>Admin</admin_name>
+				<admin_email>hello@example.com</admin_email>
+            </email>
+        </orderupload>
+    </default>
+</config>

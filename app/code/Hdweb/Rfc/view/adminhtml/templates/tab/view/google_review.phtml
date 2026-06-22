@@ -1,0 +1,52 @@
+<?php
+/**
+ * @var $block \Hdweb\Rfc\Block\Adminhtml\OrderEdit\Tab\Review
+ */
+?>
+<?php
+$googleReviewStatus = '';
+if ($block->getGoogleReviewStatus() !== null) {
+    $googleReviewStatus = unserialize($block->getGoogleReviewStatus());
+}
+$orderId = $block->getOrderId();
+//$orderIncrementId = $block->getOrderIncrementId();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+<div class="fieldset-wrapper order-information" >
+<div class="fieldset-wrapper-title">
+	<span class="title"><?php /* @escapeNotVerified */ echo __('Google Review Information') ?></span>
+</div>
+<br/>
+<?php if($googleReviewStatus):?>
+<table class="admin__table-secondary">
+	<tbody>
+	<tr>
+		<th><?php /* @escapeNotVerified */ echo __('Is Email Sent:') ?></th>
+		<td><?php echo $googleReviewStatus['email_status']; ?></td>
+	</tr>
+	<tr>
+		<th><?php /* @escapeNotVerified */ echo __('Date:') ?></th>
+		<td><?php echo $googleReviewStatus['review_date']; ?></td>
+	</tr>
+	</tbody>
+</table>
+<?php endif;?>
+<form class="action-element" action="<?= $block->escapeUrl($block->getUrl('rfc/rnr/googlereview/order_id/'.$orderId)) ?>" method="post">
+<input name="form_key" type="hidden" value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+<button class="action-primary" type="submit" id="<?php echo ($googleReviewStatus) ? 'submit-again' : ''; ?>" title="<?= $block->escapeHtmlAttr(__('Send Review Request')) ?>">
+	<?= $block->escapeHtml(__('Send Review Request')) ?>
+</button>
+</form>
+</div>
+<script>
+require([
+    'jquery'
+], function($){
+$('#submit-again').click(function(event){
+ let text = "Are you sure you want to send review request again?";
+ if (confirm(text) == false) {
+	 return false;
+  }
+});
+});
+</script>

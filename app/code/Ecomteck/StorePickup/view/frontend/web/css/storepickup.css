@@ -1,0 +1,36 @@
+/**
+ * Ecomteck_StorePickup Magento Extension
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_StorePickup
+ * @author      Ecomteck <ecomteck@gmail.com>
+ * @website    http://www.ecomteck.com
+ */
+#selected-store-msg { display: none; margin-top: 20px;}
+#selected-store-msg span { font-weight: bold; }
+.pickup-time,.pickup-date{
+    width: 50%;
+    float: left;
+}
+@media all and (min-width: 1024px), print {
+    .mc_cac_map .modal-inner-wrap{
+        margin-left: -500px!important;
+        width:1000px!important;
+    }
+}
+.table-checkout-shipping-method tbody .row-error td
+{
+    width: 100%!important;
+}
+.opc .message.notice {
+    clear: both;
+}
+div#onepage-checkout-shipping-method-additional-load a {
+    display: none;
+}
+div#checkout-shipping-method-load {
+    display: none;
+}
+div#onepage-checkout-shipping-method-additional-load a {
+    display: none;
+}

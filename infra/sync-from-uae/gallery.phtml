@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+
+<?php
+$images = $block->getGalleryImages()->getItems();
+$mainImage = current(array_filter($images, function ($img) use ($block) {
+    return $block->isMainImage($img);
+}));
+
+if (!empty($images) && empty($mainImage)) {
+    $mainImage = $block->getGalleryImages()->getFirstItem();
+}
+
+$helper = $block->getData('imageHelper');
+if (!$helper) {
+    $helper = \Magento\Framework\App\ObjectManager::getInstance()
+        ->get(\Magento\Catalog\Helper\Image::class);
+}
+$mainImageData = $mainImage ?
+    $mainImage->getData('medium_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
+?>
+
+<div class="custom-gallery-wrapper">
+    <div class="custom-gallery-main">
+        <img
+            alt="main product photo"
+            class="custom-gallery-image"
+            src="<?= /* @noEscape */ $mainImageData ?>"
+            itemprop="image"
+        />
+    </div>
+    <div class="custom-gallery-thumbnails">
+        <?php foreach ($images as $img): ?>
+            <div class="custom-gallery-thumb<?= $mainImage === $img ? ' active' : '' ?>" data-img="<?= /* @noEscape */ $img->getData('medium_image_url') ?>">
+                <img src="<?= /* @noEscape */ $img->getUrl(); ?>" alt="thumbnail" />
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbs = document.querySelectorAll('.custom-gallery-thumb');
+    const mainImg = document.querySelector('.custom-gallery-image');
+    thumbs.forEach(function(thumb) {
+        thumb.addEventListener('click', function() {
+            thumbs.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            const imgUrl = thumb.getAttribute('data-img');
+            if (imgUrl && mainImg) {
+                mainImg.src = imgUrl;
+            }
+        });
+    });
+});
+</script>

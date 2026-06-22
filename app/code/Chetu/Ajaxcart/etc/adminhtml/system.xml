@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2018 www.chetu.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="chetu" class="chetu-config-tab" translate="label" sortOrder="9000">
+            <label>Chetu</label>
+        </tab>
+		 <section id="chetu_info" translate="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Chetu Store</label>
+            <tab>chetu</tab>
+            <resource>Magento_Core::config_Chetu_Ajaxcart</resource>
+            <group id="information" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Chetu\Ajaxcart\Block\System\Config\Information</frontend_model>
+            </group>
+            <group id="installed_extensions" translate="label" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Installed Chetu Extensions</label>
+                <frontend_model>Chetu\Ajaxcart\Block\System\Config\Extensions</frontend_model>
+            </group>
+        </section>
+        <section id="ajaxcart" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Ajaxcart</label>
+            <tab>chetu</tab>
+            <resource>Chetu_Ajaxcart::config_ajaxcart</resource>
+            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Options</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Ajax Add to Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="header_text" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Add to Cart Pop Up Header Text</label>
+                </field>
+                <field id="message" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Message After Adding Products to Cart</label>
+                </field>
+                <field id="addtocart_btn_class" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Add to Cart Button Class</label>
+                </field>
+                <field id="show_cart_info" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Show Cart Information in Success Popup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_related_products" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Show Related Products in Success Popup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+		 <section id="ajaxsuite" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Ajax Suite</label>
+            <tab>chetu</tab>
+            <resource>Chetu_Ajaxsuite::config_ajaxsuite</resource>
+
+            <!--AJAX SUITE General-->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Ajax Suite</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enabled_popupttl" translate="label" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Auto Close Notification Popup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="popupttl" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Popup Will Close After</label>
+                    <depends>
+                        <field id="enabled_popupttl">1</field>
+                    </depends>
+                    <validate>validate-digits validate-digits-range digits-range-0-</validate>
+                </field>
+            </group>
+
+            <!--Popup Design and Effects-->
+            <group id="effects" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Popup Design and Effects</label>
+                <field id="animation" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Animation</label>
+                    <source_model>Chetu\Ajaxcart\Model\Config\Source\Animation</source_model>
+                    <comment><![CDATA[Popup display effects.]]></comment>
+                </field>
+                <field id="background_color" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <frontend_model>Chetu\Ajaxcart\Block\Color</frontend_model>
+                </field>
+                <field id="header_background_color" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Header Background Color</label>
+                    <frontend_model>Chetu\Ajaxcart\Block\Color</frontend_model>
+                </field>
+                <field id="header_text_color" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Header Text Color</label>
+                    <frontend_model>Chetu\Ajaxcart\Block\Color</frontend_model>
+                </field>
+                <field id="button_text_color" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Text Color</label>
+                    <frontend_model>Chetu\Ajaxcart\Block\Color</frontend_model>
+                </field>
+                <field id="button_background_color" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Background Color</label>
+                    <frontend_model>Chetu\Ajaxcart\Block\Color</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

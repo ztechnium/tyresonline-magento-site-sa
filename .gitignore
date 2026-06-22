@@ -1,0 +1,44 @@
+# Magento core paths (install via composer)
+/lib/
+/setup/
+/dev/
+/vendor/
+/phpserver/
+/bin/magento
+/bin/.htaccess
+
+# Runtime & generated
+/var/
+/generated/
+/pub/static/
+/pub/media/
+
+# Secrets & env-specific
+/app/etc/env.php
+/app/etc/config.php
+auth.json
+auth.json.sample
+*.pem
+*.key
+staging-key*
+
+# Node & build
+**/node_modules/
+/build
+
+# IDE & OS
+/.idea/
+/.vscode/
+*.swp
+.DS_Store
+
+# Backups & dumps
+**-bkp-**
+**/*.bak*
+app.zip
+*.sql
+live_data.sql
+file.csv
+
+# Local-only
+/docker-compose.local.yml

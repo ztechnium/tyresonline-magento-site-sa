@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'PaymentFont';
+    src: url('./fonts/paymentfont-webfont.eot');
+    src: url('./fonts/paymentfont-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/paymentfont-webfont.woff') format('woff2'),
+         url('./fonts/paymentfont-webfont.woff') format('woff'),
+         url('./fonts/paymentfont-webfont.ttf') format('truetype'),
+         url('./fonts/paymentfont-webfont.svg#paymentfont-webfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+/* customize */
+.payment-method .payment-method-title > label {
+    padding:20px;
+}
+.payment-method-title .radio {
+    display: none;
+}
+.payment-method-title label span,.payment-method-title label a {
+    float:right;
+    width: 60%;
+    text-align: left;
+}
+.payment-method-title label:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 PaymentFont;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size:4em;
+    vertical-align: middle;
+    float:left;
+    width: 40%;
+}
+#payflow_advanced ~ label:before {
+    content: "\f034";
+}
+
+#cashondelivery ~ label:before {
+    content: "\f00d";
+}
+#banktransfer ~ label:before {
+    content: "\f005";
+}
+#braintree ~ label:before {
+    content: "\f008";
+}
+#purchaseorder ~ label:before {
+    content: "\f023";
+}

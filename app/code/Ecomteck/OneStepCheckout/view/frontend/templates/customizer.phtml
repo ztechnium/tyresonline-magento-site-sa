@@ -1,0 +1,59 @@
+<?php
+/**
+ * Ecomteck
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Ecomteck.com license that is
+ * available through the world-wide-web at this URL:
+ * https://ecomteck.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_OneStepCheckout
+ * @copyright   Copyright (c) 2018 Ecomteck (https://ecomteck.com/)
+ * @license     https://ecomteck.com/LICENSE.txt
+ */
+?>
+<?php /** @var $this \Ecomteck\OneStepCheckout\Block\Customizer */ ?>
+<style type="text/css">
+    <?php if($this->getMainColor()):?>
+    .opc-wrapper .step-title, 
+    .opc-block-shipping-information .shipping-information-title, 
+    .opc-block-summary > .title, 
+    .checkout-agreements-items .checkout-agreements-item-title,
+    .fieldset.address .field .control::before
+    {
+        color:<?php echo $this->getMainColor(); ?>;
+    }
+    #discount-form .action,.place-order .button {
+        background-color:<?php echo $this->getMainColor(); ?>;
+        border-color:<?php echo $this->getMainColor(); ?>;
+    }
+    input[type="checkbox"]:checked,input[type="radio"]:checked {
+        background-color:<?php echo $this->getMainColor(); ?>;
+    }
+    <?php endif;?>
+    <?php echo $this->getAddressFieldsIcon(); ?>
+    <?php echo $this->getStepIcons();?>
+    <?php echo $this->getIconColor();?>
+    <?php echo $this->getButtonColor();?>
+    <?php echo $this->getGiftMessageColor();?>
+    <?php echo $this->getOrderSummaryBackgroundColor();?>
+    <?php echo $this->getPaymentMethodsBackgroundColor();?>
+    <?php echo $this->getShippingMethodsBackgroundColor();?>
+    <?php echo $this->getAccountAddressBackgroundColor();?>
+    
+</style>
+<style type="text/css" media="screen and (min-width: 768px)">
+    /* address field style */
+    <?php echo $this->getAddressFieldsWidth(); ?>
+    <?php echo $this->getPageLayout();?>
+</style>
+<style type="text/css">
+    <?php echo $this->getCustomizeCss();?>
+</style>

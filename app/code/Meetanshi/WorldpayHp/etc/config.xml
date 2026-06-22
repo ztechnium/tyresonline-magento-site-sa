@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <worldpay_hp>
+                <active>0</active>
+                <title>Secure Acceptance Hosted Checkout</title>
+                <mode>0</mode>
+                <sandbox_gateway_url>https://testsecureacceptance.cybersource.com/pay</sandbox_gateway_url>
+                <live_gateway_url>https://secureacceptance.cybersource.com/pay</live_gateway_url>
+                <order_status>pending</order_status>
+                <model>Meetanshi\WorldpayHp\Model\Payment</model>
+                <show_logo>1</show_logo>
+                <allow_invoice>0</allow_invoice>
+                <debug>0</debug>
+                <paction>authorization</paction>
+                <instructions>You will be redirected to Worldpay Hosted Bank Payment Gateway.</instructions>
+            </worldpay_hp>
+        </payment>
+    </default>
+</config>

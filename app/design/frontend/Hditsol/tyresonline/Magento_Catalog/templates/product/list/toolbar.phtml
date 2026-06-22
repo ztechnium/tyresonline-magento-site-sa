@@ -1,0 +1,110 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+
+// phpcs:disable Magento2.Security.IncludeFile.FoundIncludeFile
+// phpcs:disable PSR2.Methods.FunctionCallSignature.SpaceBeforeOpenBracket
+?>
+<?php if ($block->getCollection()->getSize()) :?>
+    <?php 
+    $widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($block->getWidgetOptionsJson());
+        $widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['productListToolbarForm']);
+    ?>
+    <?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+    ?>
+    <?php if($category->getId() == 4 || $category->getId() == 5): ?>
+      <div class="product-topnav-mobile d-md-none">
+        <ul class="list-custom d-flex justify-content-between">
+          <li>
+          <?php $params = $this->getRequest()->getParams(); ?>
+            <?php if(isset($params['width']) && $params['width'] != ''): ?>
+            <span class="custom-button d-flex align-items-center red search-result"> 
+              <?php if(isset($params['width']) && $params['width'] != ''): ?>
+                <?php echo $params['width'].'/'.$params['height'].' R'.$params['rim']; ?>
+              <?php endif; ?>
+              <?php if(isset($params['width_rear']) && $params['width_rear'] != ''): ?>
+                <?php echo ' - '.$params['width_rear'].'/'.$params['height_rear'].' R'.$params['rim_rear']; ?>
+              <?php endif; ?>
+            </span>
+            <?php endif; ?>
+         </li>
+        <?php $params = $this->getRequest()->getParams(); ?>
+        <?php if(isset($params['categoryid'])):?>
+          <li>
+          <?php if(isset($params['width']) && isset($params['height']) && isset($params['rim'])):?>
+            <span onclick="submitTyreSelection()" class="custom-button d-flex align-items-center search-button"><span><?php echo __('Modify Search');?></span></span>
+          <?php else:?>
+            <span onclick="submitVehicleSelection()" class="custom-button d-flex align-items-center search-button"><span><?php echo __('Modify Search');?></span></span>           
+          <?php endif;?>
+         </li>
+        <?php else: ?>
+          <li>
+            <span onclick="submitTyreSelection()" class="custom-button d-flex align-items-center search-button"><span><?php echo __('Search');?></span></span>
+          </li>
+        <?php endif;?>
+       </ul>
+      </div>
+    <?php endif; ?>
+    <div class="toolbar toolbar-products" data-mage-init='{"productListToolbarForm":<?= /* @noEscape */ $widgetOptions ?>}'>
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-6 col-xxl-6">
+              <div class="left">
+                <?php $params = $this->getRequest()->getParams(); ?>
+                <div class="search-selection-list">
+                  <ul class="list-custom d-flex flex-wrap align-items-center">
+                    <?php if(isset($params['width']) && $params['width'] != ''): ?>
+                      <li class="text"><?php echo __('Your Selections');?> :</li>
+                    <?php endif; ?>
+                    <?php if(isset($params['width']) && $params['width'] != ''): ?>
+                      <li><span><?php echo $params['width'].'/'.$params['height'].' R'.$params['rim']; ?></span></li>
+                    <?php endif; ?>
+                    <?php if(isset($params['width_rear']) && $params['width_rear'] != ''): ?>
+                      <li><span><?php echo $params['width_rear'].'/'.$params['height_rear'].' R'.$params['rim_rear']; ?></span></li>
+                    <?php endif; ?>
+                  </ul>
+                </div>
+                <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/limiter.phtml')) ?>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-6 col-lg-6 col-xxl-6">
+              <div class="right d-flex align-items-center justify-content-center justify-content-md-end">
+              <?php if ($block->isExpanded()) :?>
+                <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
+              <?php endif; ?>
+
+              <?php if ($block->isExpanded()) :?>
+                <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/sorter.phtml')) ?>
+              <?php endif; ?>
+                
+                <div class="filter-button d-lg-none">
+                  <a href="javascript:void(0)" class="toggle">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 96 96" enable-background="new 0 0 96 96" xml:space="preserve"><path d="M92.164,12.076c-0.309-0.752-1.044-1.244-1.852-1.244H5.684c-0.812,0-1.544,0.492-1.848,1.244  c-0.308,0.752-0.132,1.608,0.444,2.176L38,47.524v35.64c0,0.712,0.38,1.372,0.996,1.736c0.312,0.18,0.656,0.264,1.004,0.264  c0.34,0,0.684-0.084,0.992-0.256l16-9.12C57.616,75.432,58,74.768,58,74.048V47.524l33.721-33.268  C92.292,13.684,92.468,12.824,92.164,12.076z"></path></svg>
+                  </span>
+                  <span class="text"><?php echo __('Filter');?></span>
+                  </a>
+                </div>
+
+                <?= $block->getPagerHtml() ?>
+              </div>
+            </div>
+
+        <?php //include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/amount.phtml')) ?>
+
+    
+      </div>
+    </div>
+<?php endif ?>

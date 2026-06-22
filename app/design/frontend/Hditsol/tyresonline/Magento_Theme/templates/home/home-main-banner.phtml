@@ -1,0 +1,260 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+   ->getStore()
+   ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseURL = $this->getBaseUrl();
+$block     = $block->getLayout()->createBlock('Hdweb\Tyrefinder\Block\Finderpopup');
+$catalogSearchUrl = $block->getTyreCatalogSearchUrl();
+$defaultCarCategoryId = 4;
+
+$date = new \DateTime();
+$currentDate = $date->format('Y-m-d');
+$bannerFactory = $objectManager->get(\Mageplaza\BannerSlider\Model\BannerFactory::class);
+$bannerCollection = $bannerFactory->create()->getCollection();
+$bannerCollection->addFieldToFilter('status', 1);
+$bannerCollection->getSelect()
+   ->where('from_date is null OR from_date <= ?', $currentDate)
+   ->where('to_date is null OR to_date >= ?', $currentDate);
+$bannerCollection->setOrder('sort_order', 'ASC');
+$bannerCollection->setPageSize(6);
+
+$timeZone = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+$storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getCode();
+?>
+<div class="section page-banner tyres-banner d-flex flex-column">
+   <div class="video">
+      <video muted id="autoplayvideo">
+         <source data-src="<?= $block->getViewFileUrl('video/home-banner.mp4'); ?>" type="video/mp4">
+      </video>
+   </div>
+   <div>
+
+      <div class="banner-brands">
+         <div class="brand-list owl-carousel">
+
+            <div class="item">
+               <div class="box">
+                  <a href="<?php echo $baseURL . 'all-tyres/brand/pirelli.html'; ?>" class="d-block" aria-label="pirelli"><span class="image brand-sprite pirelli"></span></a>
+               </div>
+            </div>
+            <div class="item">
+               <div class="box">
+                  <a href="<?php echo $baseURL . 'all-tyres/brand/bridgestone.html'; ?>" class="d-block" aria-label="bridgestone"><span class="image brand-sprite bridgestone"></span></a>
+               </div>
+            </div>
+            <div class="item">
+               <div class="box">
+                  <a href="<?php echo $baseURL . 'all-tyres/brand/michelin.html'; ?>" class="d-block" aria-label="michelin"><span class="image brand-sprite michelin"></span></a>
+               </div>
+            </div>
+            <div class="item">
+               <div class="box">
+                  <a href="<?php echo $baseURL . 'all-tyres/brand/goodyear.html'; ?>" class="d-block" aria-label="goodyear"><span class="image brand-sprite goodyear"></span></a>
+               </div>
+            </div>
+            <div class="item">
+               <div class="box">
+                  <a href="<?php echo $baseURL . 'all-tyres/brand/continental.html'; ?>" class="d-block" aria-label="continental"><span class="image brand-sprite continental"></span></a>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="banner-content text-center mx-auto">
+         <h2><?php echo __('Buy Tyres Online'); ?></h2>
+         <h3><?php echo __('Fit Anywhere in the KSA'); ?></h3>
+         <p><?php echo __('60+ Authorized Tyre Brands'); ?></p>
+      </div>
+
+      <div class="tyre-search">
+         <div class="search-wrap">
+            <input type="text" placeholder="<?php echo __('Search Tyres by Size'); ?>" readonly>
+            <div class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.025 20.023">
+                  <path id="search" d="M78.114,20.545,73.3,15.728a7.57,7.57,0,1,0-2.007,2.007l4.817,4.817a.947.947,0,0,0,1.336,0l.668-.668A.948.948,0,0,0,78.114,20.545ZM67.035,16.208a4.731,4.731,0,1,1,4.731-4.731A4.731,4.731,0,0,1,67.035,16.208Z" transform="translate(-58.95 -3.394)" stroke="#707070" stroke-width="1" />
+               </svg>
+            </div>
+         </div>
+         <div class="search-vehicle">
+            <span class="hover-transition"><?php echo __('Search by Vehicle'); ?></span>
+         </div>
+      </div>
+
+      <div class="greview">
+         <div class="rating-container d-flex align-items-center">
+            <div class="icon">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <path fill="#2A84FC" d="M21.579 12.234c0-.677-.055-1.358-.172-2.025h-9.403v3.839h5.384a4.615 4.615 0 01-1.992 3.029v2.49h3.212c1.886-1.736 2.97-4.3 2.97-7.333z"></path>
+                  <path fill="#00AC47" d="M12.004 21.974c2.688 0 4.956-.882 6.608-2.406l-3.213-2.491c-.893.608-2.047.952-3.392.952-2.6 0-4.806-1.754-5.597-4.113H3.095v2.567a9.97 9.97 0 008.909 5.491z"></path>
+                  <path fill="#FFBA00" d="M6.407 13.916a5.971 5.971 0 010-3.817V7.53H3.095a9.977 9.977 0 000 8.952l3.312-2.567z"></path>
+                  <path fill="#FC2C25" d="M12.004 5.982a5.417 5.417 0 013.824 1.494l2.846-2.846a9.581 9.581 0 00-6.67-2.593A9.967 9.967 0 003.095 7.53l3.312 2.57c.787-2.363 2.996-4.117 5.597-4.117z"></path>
+               </svg>
+            </div>
+            <div class="rating"><span>4.9</span></div>
+            <div class="rating-bar">
+               <ul class="d-flex">
+                  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                        <path d="M6.826 10.743l-3.28 1.724a.5.5 0 0 1-.725-.528l.627-3.65a.5.5 0 0 0-.144-.443L.65 5.26a.5.5 0 0 1 .277-.853l3.666-.533a.5.5 0 0 0 .377-.273L6.61.279a.5.5 0 0 1 .896 0L9.147 3.6a.5.5 0 0 0 .376.273l3.666.533a.5.5 0 0 1 .277.853l-2.653 2.586a.5.5 0 0 0-.144.442l.627 3.651a.5.5 0 0 1-.726.528l-3.279-1.724a.5.5 0 0 0-.465 0z"></path>
+                     </svg></li>
+                  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                        <path d="M6.826 10.743l-3.28 1.724a.5.5 0 0 1-.725-.528l.627-3.65a.5.5 0 0 0-.144-.443L.65 5.26a.5.5 0 0 1 .277-.853l3.666-.533a.5.5 0 0 0 .377-.273L6.61.279a.5.5 0 0 1 .896 0L9.147 3.6a.5.5 0 0 0 .376.273l3.666.533a.5.5 0 0 1 .277.853l-2.653 2.586a.5.5 0 0 0-.144.442l.627 3.651a.5.5 0 0 1-.726.528l-3.279-1.724a.5.5 0 0 0-.465 0z"></path>
+                     </svg></li>
+                  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                        <path d="M6.826 10.743l-3.28 1.724a.5.5 0 0 1-.725-.528l.627-3.65a.5.5 0 0 0-.144-.443L.65 5.26a.5.5 0 0 1 .277-.853l3.666-.533a.5.5 0 0 0 .377-.273L6.61.279a.5.5 0 0 1 .896 0L9.147 3.6a.5.5 0 0 0 .376.273l3.666.533a.5.5 0 0 1 .277.853l-2.653 2.586a.5.5 0 0 0-.144.442l.627 3.651a.5.5 0 0 1-.726.528l-3.279-1.724a.5.5 0 0 0-.465 0z"></path>
+                     </svg></li>
+                  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                        <path d="M6.826 10.743l-3.28 1.724a.5.5 0 0 1-.725-.528l.627-3.65a.5.5 0 0 0-.144-.443L.65 5.26a.5.5 0 0 1 .277-.853l3.666-.533a.5.5 0 0 0 .377-.273L6.61.279a.5.5 0 0 1 .896 0L9.147 3.6a.5.5 0 0 0 .376.273l3.666.533a.5.5 0 0 1 .277.853l-2.653 2.586a.5.5 0 0 0-.144.442l.627 3.651a.5.5 0 0 1-.726.528l-3.279-1.724a.5.5 0 0 0-.465 0z"></path>
+                     </svg></li>
+                  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                        <path d="M6.826 10.743l-3.28 1.724a.5.5 0 0 1-.725-.528l.627-3.65a.5.5 0 0 0-.144-.443L.65 5.26a.5.5 0 0 1 .277-.853l3.666-.533a.5.5 0 0 0 .377-.273L6.61.279a.5.5 0 0 1 .896 0L9.147 3.6a.5.5 0 0 0 .376.273l3.666.533a.5.5 0 0 1 .277.853l-2.653 2.586a.5.5 0 0 0-.144.442l.627 3.651a.5.5 0 0 1-.726.528l-3.279-1.724a.5.5 0 0 0-.465 0z"></path>
+                     </svg></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+   <div class="current-deals">
+      <div class="title">
+         <h4><?php echo __('Current Deals'); ?></h4>
+      </div>
+
+      <div class="owl-carousel owl-nav-style3 owl-dot-style4 banner-offer-slider">
+         <?php foreach ($bannerCollection as $banner) : ?>
+            <?php
+            if ($storeCode == 'en') {
+               $offerTitle = $banner->getTitle();
+               $offerImage1 = $banner->getImage();
+            } else {
+               if ($banner->getTitleAr()) {
+                  $offerTitle = $banner->getTitleAr();
+               } else {
+                  $offerTitle = $banner->getTitle();
+               }
+               if ($banner->getImageAr()) {
+                  $offerImage1 = $banner->getImageAr();
+               } else {
+                  $offerImage1 = $banner->getImage();
+               }
+            }
+            ?>
+            <?php if ($offerImage1) : ?>
+               <div class="item <?php echo $banner->getBannerId(); ?>">
+                  <div class="box">
+                     <div class="top d-flex align-items-center justify-content-between">
+                        <div class="brand-logo">
+                           <?php if ($banner->getBrandLogo()) : ?>
+                              <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $banner->getBrandLogo(); ?>" class="lazyload" alt="<?php echo $offerTitle; ?>" />
+                           <?php endif; ?>
+                        </div>
+                        <?php if (isset($banner['to_date']) && $banner['to_date'] != '') : ?>
+                           <div class="deal-end"><span>ENDS <?php echo $timeZone->date(new \DateTime($banner['to_date']))->format('M d, Y'); ?></span></div>
+                        <?php endif; ?>
+                     </div>
+                     <div class="box-title d-flex align-items-center justify-content-between">
+                        <span><?php echo $offerTitle; ?></span>
+                        <span class="link" data-izimodal-open="#offreDetails-<?php echo $banner->getBannerId(); ?>"><?php echo __('Details'); ?></span>
+                     </div>
+                     <div class="image-wrap picture loader aspect-custom">
+                        <picture>
+                           <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage1; ?>" alt="<?php echo $offerTitle; ?>">
+                        </picture>
+                     </div>
+                     <div class="shownow">
+                        <a href="<?php echo $this->getBaseUrl() . $banner->getUrlBanner(); ?>"><?php echo __('SHOP NOW'); ?></a>
+                     </div>
+                  </div>
+               </div>
+            <?php endif; ?>
+         <?php endforeach; ?>
+
+      </div>
+   </div>
+
+</div>
+
+<?php foreach ($bannerCollection as $banner) : ?>
+   <?php
+   if ($storeCode == 'en') {
+      $offerTitle = $banner->getTitle();
+      $offerImage2 = $banner->getBannerImageTwo();
+      $offerDescription = $banner->getContent();
+   } else {
+      $offerTitle = $banner->getTitleAr();
+      $offerImage2 = $banner->getBannerImageTwoAr();
+      $offerDescription = $banner->getContentAr();
+   }
+   ?>
+   <!-- offers Modal -->
+   <!-- loop // >> loop this modal like offers slider and id dynamic id -->
+   <div id="offreDetails-<?php echo $banner->getBannerId(); ?>" class="iziModal izimodal-offersmodal">
+      <div class="modal-content-wrap">
+         <span class="button-close" data-izimodal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+               <path d="M315.3 411.3c-6.253 6.253-16.37 6.253-22.63 0L160 278.6l-132.7 132.7c-6.253 6.253-16.37 6.253-22.63 0c-6.253-6.253-6.253-16.37 0-22.63L137.4 256L4.69 123.3c-6.253-6.253-6.253-16.37 0-22.63c6.253-6.253 16.37-6.253 22.63 0L160 233.4l132.7-132.7c6.253-6.253 16.37-6.253 22.63 0c6.253 6.253 6.253 16.37 0 22.63L182.6 256l132.7 132.7C321.6 394.9 321.6 405.1 315.3 411.3z" />
+            </svg></span>
+         <div class="modal-title">
+            <span class="h3"><?php echo $offerTitle; ?></span>
+         </div>
+         <div class="image-wrap picture loader aspect-custom">
+            <picture>
+               <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage2; ?>" alt="<?php echo $offerTitle; ?>">
+            </picture>
+         </div>
+         <div class="text-block">
+            <?php echo $offerDescription; ?>
+         </div>
+         <div class="shopnow">
+            <a href="<?php echo $this->getBaseUrl() . $banner->getUrlBanner(); ?>" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span><?php echo __('SHOP NOW'); ?></span></a>
+         </div>
+      </div>
+   </div>
+   <!-- End Modal -->
+   <!-- End loop -->
+<?php endforeach; ?>
+
+<script type="text/javascript">
+   require([
+      'jquery',
+      'izimodal'
+   ], function($, izimodal) {
+      $(document).ready(function() {
+         $(".izimodal-offersmodal").iziModal({
+            width: false,
+            overlayColor: 'rgba(0, 0, 0, 0.9)',
+            radius: false,
+            transitionIn: 'fadeIn'
+         });
+      });
+   });
+</script>
+
+
+<script type="text/javascript">
+   require(['jquery'], function($) {
+      jQuery(document).ready(function($) {
+
+         $("#autoplayvideo").each(function() {
+            var $video = $(this);
+            var $source = $video.find('source');
+            var src = $source.attr('data-src');
+            $source.removeAttr('data-src');
+            $source.attr('src', src);
+            $source.detach().appendTo($video);
+         });
+
+         function autoPlayVideo() {
+            let vid = document.getElementById("autoplayvideo");
+            vid.play();
+         }
+
+         $(window).on("load", function() {
+            /*setTimeout(function() {
+             autoPlayVideo();
+        }, 800);*/
+            autoPlayVideo();
+         });
+      });
+   });
+</script>

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="rfc" translate="label" sortOrder="125">
+            <label>RFC Configuration</label>
+        </tab>
+        <section id="rfc_section" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>RFC Configuration</label>
+            <tab>rfc</tab>
+            <resource>Hdweb_Rfc::configuration</resource>
+            <group id="product_stock_rfc_group" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Update Product Stock RFC </label>
+
+                <field id="product_stock_enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="product_stock_rfc_url" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL</label>
+                </field>
+
+                <field id="product_stock_rfc_username" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Username</label>
+                </field>
+
+                <field id="product_stock_rfc_password" translate="label" type="password" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                </field>
+
+                <field id="product_stock_rfc_function" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RFC dbname</label>
+                </field>
+
+                <field id="product_stock_clearstock" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Clear All Stock Before Update</label>
+                    <comment>This will clear all stock and set all products as Out of Stock before updating new stock.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="product_stock_debugmode" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="product_stock_enable_email" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="product_stock_emailids" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Id(s)</label>
+                    <comment>Enter comma seperated Email Id(s).</comment>
+                </field>
+				
+				<field id="rfc_email_notification_template" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RFC Email Notification Template ID</label>
+                    <comment>Enter template ID from Marketing > Email Templates.</comment>
+                </field>
+
+            </group>
+           
+        </section>
+        <section id="rnrtabsection" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>RNR Configuration</label>
+            <tab>rfc</tab>
+            <resource>Hdweb_Rfc::configuration</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                
+                <field id="username" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Username</label>
+                </field>
+                <field id="pwd" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Password</label>
+                </field>
+                <field id="companyid" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>CompanyId</label>
+                </field>
+				<field id="branch_code" translate="label" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Branch Code</label>
+                </field>
+				<field id="erp_executive_code" translate="label" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>ERP Executive Code</label>
+                </field>
+                <field id="hosturl" translate="label" sortOrder="13" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Hosturl</label>
+                </field>
+				<field id="rnr_email_receipant" translate="label" sortOrder="14" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>RNR Email Receipant</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

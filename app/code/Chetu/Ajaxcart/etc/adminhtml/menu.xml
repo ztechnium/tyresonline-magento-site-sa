@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+ <!--@copyright Copyright (c) 2018 www.chetu.com-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+		<add id="Chetu_Ajaxcart::ajaxsuite_main" title="Ajax Suite" module="Chetu_Ajaxcart" sortOrder="20" resource="Chetu_Ajaxcart::ajaxsuite_main" />
+        <add id="Chetu_Ajaxcart::ajaxsuite" title="Ajax Suite" module="Chetu_Ajaxcart" sortOrder="1" parent="Chetu_Ajaxcart::ajaxsuite_main" resource="Chetu_Ajaxcart::ajaxsuite" action="adminhtml/system_config/edit/section/ajaxsuite" />
+        <add id="Chetu_Ajaxcart::ajaxcart" title="Ajax Cart" module="Chetu_Ajaxcart" sortOrder="5" parent="Chetu_Ajaxcart::ajaxsuite_main" resource="Chetu_Ajaxcart::ajaxcart" action="adminhtml/system_config/edit/section/ajaxcart" />
+		
+    </menu>
+</config>

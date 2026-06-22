@@ -1,0 +1,25 @@
+<div class="billing-address-form" data-bind="visible: isAddressFormVisible">
+    <div class="step-title" data-role="title">
+        <i class="fa billing_address_title"></i>
+        <span data-bind="i18n: 'Billing Address'"></span>
+    </div>
+    <!-- ko foreach: getRegion('before-fields') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    <form>
+        <div id="billing-new-address-form" class="fieldset address">
+            <!-- ko foreach: getRegion('additional-fieldsets') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <!-- ko if: (isCustomerLoggedIn) -->
+            <div class="field save-address">
+                <input type="checkbox" class="checkbox" id="billing-save-in-address-book" data-bind="checked: saveInAddressBook" />
+                <label class="label" for="billing-save-in-address-book">
+                    <span data-bind="i18n: 'Save in address book'"></span>
+                </label>
+            </div>
+            <!-- /ko -->
+        </div>
+    </form>
+    
+</div>

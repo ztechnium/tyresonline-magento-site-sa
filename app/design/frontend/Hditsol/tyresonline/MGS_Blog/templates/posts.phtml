@@ -1,0 +1,50 @@
+<?php
+$helper = $this->helper('MGS\Blog\Helper\Data');
+$collection = $block->getCollection();
+$showThumbnail = $this->getConfig('general_settings/show_thumbnail');
+?>
+<div class="container custom-width">
+<?php if (!count($collection)): ?>
+    <div class="message empty">
+        <div><?php echo __('Have no posts.') ?></div>
+    </div>
+<?php else: ?>
+    <div class="blog-list row g-3 g-lg-4 justify-content-center easyclick">
+        <?php foreach ($collection as $post): ?>
+        	<div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="blog-post post-item-info">
+				<div class="image-wrap picture aspect-custom loader <?php if ($showThumbnail): ?>has-image<?php endif; ?>">
+			    <picture>
+					<img class="lazyload" src="https://media.tyresonline.ae/media/images/section/blank.png" data-src="<?php echo $post->getThumbnailUrl(); ?>" alt="<?php echo $post->getTitle(); ?>">
+				</picture>
+				</div>
+                 <div class="post-info">
+						<h2 class="post-title">
+							 <a class="post-title-link" title="<?php echo $post->getTitle(); ?>" href="<?php echo $post->getPostUrlWithNoCategory(); ?>"><?php echo $post->getTitle(); ?></a>
+						</h2>
+						<div class="create-post-time"><?php echo __('%1', $block->formatDate($post->getPublishedAt(), \IntlDateFormatter::MEDIUM, false)); ?></div>
+					</div>
+				<?php if ($post->getShortContent()): ?>
+					<div class="post-content">
+						<div class="post-short-description">
+							<?php echo substr($post->getShortContent(),0,110); 
+								if(strlen($post->getShortContent()) > 105){
+									echo " ...";
+								}
+							?>
+
+						</div>
+						<div class="post-link text-center">
+							<a class="link" title="<?php echo __('Continue Reading'); ?>" href="<?php echo $post->getPostUrlWithNoCategory(); ?>"><span><?php echo __('Continue Reading'); ?></span></a>
+						</div>
+					</div>
+				<?php endif; ?>
+            </div>
+            </div>	
+        <?php endforeach; ?>
+    </div>
+	<div class="bottom-pagination">
+		<?php echo $block->getPagerHtml(); ?>
+	</div>
+<?php endif; ?>
+</div>

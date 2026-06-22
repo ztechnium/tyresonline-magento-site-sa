@@ -1,0 +1,29 @@
+/*
+/////
+/////////////// Px to Rem VW Plugin /////////////////
+////
+
+/////////////////
+*/
+
+@use "sass:math";
+
+@function get-vw($vw-value) {
+  $vw-context: ($vw-viewport * .01) * 1px;
+  @return math.div($vw-value,$vw-context) * 1vw;
+}
+
+@function get-rem($value) {
+  $remSize: math.div($value, $rem-value);
+  @return #{$remSize}rem;
+}
+
+@function get-rem-sm($value) {
+  $remSizeSm: math.div($value, $rem-value-sm);
+  @return #{$remSizeSm}rem;
+}
+
+@function get-rem-msm($value) {
+  $remSizeMsm: math.div($value, $rem-value-msm);
+  @return #{$remSizeMsm}rem;
+}

@@ -1,0 +1,119 @@
+Field,Camp
+Order,Ordin
+Width,Lăţime
+Icon,icoană
+Validation,Validare
+Add Field,Adăugați câmpul
+Please Select Field,Selectați câmpul
+For delivery questions.,Pentru întrebări de livrare.
+We can't find the quote item.,Nu găsim elementul de cotare.
+We cannot configure the product.,Nu putem configura produsul.
+One-page checkout is turned off.,Comanda pe o pagină este dezactivată.
+Guest checkout is disabled.,Cumpătarea clienților este dezactivată.
+E-mail cannot be empty.,E-mailul nu poate fi gol.
+Starts with field closed,Începe cu câmpul închis
+Starts with field opened,Începe cu câmpul deschis
+Render field without collapse,Render câmp fără colaps
+3 Columns,3 Coloane
+2 Columns Style 1,Stilul 2 coloane 1
+2 Columns Style 2,2 stilul coloanelor 2
+Update Cart,Actualizați coșul
+Qty,Cantitate
+This address is also my billing address,"Această adresă este, de asemenea, adresa mea de facturare"
+Billing Address,Adresa De Facturare
+Save in address book,Salvați în agendă
+My billing and shipping address are the same,Adresa mea de facturare și de livrare sunt aceleași
+Update,Actualizați
+Cancel,Anulare
+Apply Discount,Aplicați reducerea
+Cancel coupon,Anulați cuponul
+Use Coupon Code,Utilizați codul de cupon
+Email Address,Adresa de email
+You can create an account after checkout.,Puteți crea un cont după efectuarea plății.
+Password,Parola
+Login,Logare
+You already have an account with us. Sign in or continue as guest.,Aveți deja un cont cu noi. Conectați-vă sau continuați ca invitați.
+Forgot Your Password?,Ti-ai uitat parola?
+Gift options,Opțiuni pentru cadouri
+Message:,Mesaj:
+Edit,Editați | ×
+Delete,Șterge
+Payment Method,Modalitate de plată
+No Payment method available.,Nu Metoda de plata disponibila.
+Place Order,Plasați comanda
+Account Information,informatii despre cont
+This address is also my shipping address,"Această adresă este, de asemenea, adresa mea de expediere"
+Shipping Address,Adresa de transport
+Shipping Methods,Metode de expediere
+Order Summary,Comanda Rezumat
+View Details,Vezi detalii
+Options Details,Opțiuni Detalii
+Gift Message (optional),Mesaj cadou (opțional)
+To:,La:
+From:,Din:
+Please specify a shipping method.,Specificați o metodă de expediere.
+New Address,Adresa noua
+Can not remove item.,Nu se poate elimina elementul.
+One Step Checkout,Verificarea unui singur pas
+General,General
+Enable One Step Checkout Solution,Activați soluția de plată într-un singur pas
+Router Name,Numele routerului
+Example: checkout.html -> http://example.com/checkout.html,Exemplu: checkout.html -> http://example.com/checkout.html
+Default Shipping Method,Metoda de expediere implicită
+Default Payment Method,Metoda de plată prestabilită
+Allow Update Product Quantity,Permiteți actualizarea cantității de produs
+Allow Remove Product,Permiteți eliminarea produsului
+Allow Edit Product Option,Permiteți editarea opțiunii pentru produse
+Add Gift Message Per Item,Adăugați un cadou cadou pe articol
+Add Gift Message Per Order,Adăugați Mesaj cadou pe comandă
+Redirect To Checkout,Redirecționați la Checkout
+Display,Afişa
+Checkout Page Layout,Verificați aspectul paginii
+Disable Telephone Field,Dezactivați câmpul telefonic
+Disable Company Field,Dezactivați câmpul companiei
+Disable Header,Dezactivați antetul
+Disable Footer,Dezactivați subsolul
+Disable Login Popup,Dezactivați popup-ul de conectare
+Move Cart Items,Deplasați elementele cartului
+Always Show Cart Items,Afișați întotdeauna articolele de coș
+Move Billing Address Before Shipping Address,Mutați Adresa de facturare înainte de adresa de expediere
+Disable Coupon Code,Dezactivați codul de cupon
+Coupon code initial collapse state,Codul de cupon este inițial de colapsare
+Disable Gift Options,Dezactivați opțiunile pentru cadouri
+Gift options initial collapse state,Opțiuni de cadouri inițială de colaps de stat
+Footer Content,Conținutul subsolului
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,"Puteți edita acest câmp pentru a adăuga conținut în colțul din dreapta jos al coșului de cumpărături. Acest lucru este util pentru afișarea unor lucruri, cum ar fi metodele de plată acceptate."
+Shipping,livrare
+Hide Shipping Methods,Ascunde metodele de expediere
+Hide Shipping Method Title,Ascundeți titlul metodei de expediere
+Colors,colorate
+Main Color,Culoarea principală
+Icon Color,Icon Culoare
+Button,Buton
+Gift Message,Mesaj de cadou
+Order summary background,Rezumatul fondului de comenzi
+Shipping methods background,Modalități de expediere în fundal
+Payment methods background,Modalități de plată pentru fundal
+Account and address background,Contul și adresa de fundal
+Icons,icoane
+Account Information Step,Informații despre cont
+Shipping Address Step,Adresa pasului de expediere
+Billing Address Step,Factura adresei de facturare
+Shipping Methods Step,Metode de expediere Pas
+Payment Methods Step,Metode de plată Pas
+Order Summary Step,Starea sumară a comenzilor
+Geo IP,Geo IP
+Enabled,Activat
+Term and Conditions,Termeni și condiții
+Checked by Default,Verificat prin Implicit
+Label,Eticheta
+Popup Content,Conținutul popup
+You can add content for terms popup.,Puteți adăuga conținut pentru ferestrele pop-up.
+Newsletter,Buletin informativ
+Back to Store,Înapoi la magazin
+Address Autocomplete,Adresă Autocompletare
+Auto Save and fill customer infomation,Auto Salvați și completați informațiile despre clienți
+Google Maps API Key,Cheia API-ului Google Maps
+Split Street Fields,Spațiul de pe străzi
+Field Config,Configurarea câmpului
+Customize,Personalizați

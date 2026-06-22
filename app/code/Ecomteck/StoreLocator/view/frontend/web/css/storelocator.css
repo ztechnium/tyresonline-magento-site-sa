@@ -1,0 +1,538 @@
+.checkout-index-index #page-header
+{
+	display: block;
+	float: left;
+	max-width: 800px;
+}
+#store-locator-popup .bh-sl-title
+{
+	color: #797874;
+	font: normal 20px/1.4 Arial, Helvetica, sans-serif;
+}
+@media (min-width: 1024px)
+{
+	#store-locator-popup .bh-sl-title
+	{
+		font-size: 30px;
+	}
+}
+.gm-style div, .gm-style span, .gm-style label, .gm-style a
+{
+	font-family: Arial, Helvetica, sans-serif;
+}
+.bh-sl-window
+{
+	font-size: 13px;
+}
+.bh-sl-error
+{
+	clear: both;
+	color: #ae2118;
+	float: left;
+	font-weight: bold;
+	padding: 10px 0;
+	width: 100%;
+}
+.bh-sl-map-container img
+{
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	max-height: none !important;
+	max-width: none !important;
+}
+.bh-sl-container
+{
+	box-sizing: border-box;
+	color: #555;
+	float: left;
+	font: normal 14px/1.4 Arial, Helvetica, sans-serif;
+	padding: 0 15px;
+	width: 100%;
+}
+.bh-sl-container > *
+{
+	box-sizing: content-box !important;
+}
+.bh-sl-container .bh-sl-form-container
+{
+	clear: left;
+	float: left;
+	margin-top: 15px;
+	width: 100%;
+}
+.bh-sl-container .form-input
+{
+	float: left;
+	margin-top: 3px;
+	width: 100%;
+}
+@media (min-width: 768px)
+{
+	.bh-sl-container .form-input
+	{
+		width: auto;
+	}
+}
+.bh-sl-container .form-input label
+{
+	display: block;
+	font-weight: bold;
+	width: 100%;
+}
+@media (min-width: 768px)
+{
+	.bh-sl-container .form-input label
+	{
+		display: inline-block;
+		width: auto;
+	}
+}
+.bh-sl-container .form-input input, .bh-sl-container .form-input select
+{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font: normal 14px/1.4 Arial, Helvetica, sans-serif;
+	margin: 15px 0;
+	padding: 6px 12px;
+	webkit-border-radius: 4px;
+	width: 100%;
+}
+@media (min-width: 768px)
+{
+	.bh-sl-container .form-input input, .bh-sl-container .form-input select
+	{
+		margin: 0 15px 0 10px;
+		width: auto;
+	}
+}
+.bh-sl-container .loc-alt-dist
+{
+	display: none;
+}
+.bh-sl-container button
+{
+	background: #00447a;
+	border: none;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+	float: left;
+	font: bold 14px/1.4 Arial, Helvetica, sans-serif;
+	margin-top: 3px;
+	padding: 6px 12px;
+	webkit-border-radius: 4px;
+	white-space: nowrap;
+}
+.bh-sl-container .bh-sl-loading
+{
+	background: url(../images/ajax-loader.gif) no-repeat;
+	float: left;
+	height: 16px;
+	margin: 4px 0 0 10px;
+	width: 16px;
+}
+.bh-sl-container .bh-sl-filters-container
+{
+	clear: both;
+	float: left;
+	margin: 15px 0;
+	width: 100%;
+}
+.bh-sl-container .bh-sl-filters-container .bh-sl-filters
+{
+	float: left;
+	list-style: none;
+	margin: 0 100px 0 0;
+	padding: 0;
+	width:100%;
+}
+.bh-sl-container .bh-sl-filters-container .bh-sl-filters li
+{
+	clear: left;
+	display: block;
+	float: left;
+	margin: 5px 0;
+	width: 100%;
+}
+.bh-sl-container .bh-sl-filters-container .bh-sl-filters li label
+{
+	display: inline;
+	vertical-align: text-bottom;
+}
+.bh-sl-container .bh-sl-filters-container .bh-sl-filters li input
+{
+	display: block;
+	float: left;
+	margin-right: 8px;
+}
+.bh-sl-container .bh-sl-filters-container .bh-sl-filters li select
+{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font: normal 14px/1.4 Arial, Helvetica, sans-serif;
+	padding: 6px 12px;
+	webkit-border-radius: 4px;
+}
+.bh-sl-container .bh-sl-map-container
+{
+	clear: left;
+	float: left;
+	margin-top: 27px;
+	width: 100%;
+}
+
+.bh-sl-container .bh-sl-map-container a
+{
+	color: #005293;
+	text-decoration: none;
+}
+.bh-sl-container .bh-sl-map-container a:active, .bh-sl-container .bh-sl-map-container a:focus, .bh-sl-container .bh-sl-map-container a:hover
+{
+	text-decoration: underline;
+}
+.bh-sl-container .bh-sl-loc-list
+{
+	font-size: 13px;
+	height: 530px;
+	overflow-x: auto;
+	width: 100%;
+}
+@media (min-width: 1024px)
+{
+	.bh-sl-container .bh-sl-loc-list
+	{
+		width: 30%;
+	}
+}
+.bh-sl-container .bh-sl-loc-list ul
+{
+	clear: left;
+	display: block;
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+.bh-sl-container .bh-sl-loc-list ul li
+{
+	box-sizing: border-box;
+	clear: left;
+	cursor: pointer;
+	display: block;
+	float: left;
+	padding: 10px 20px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.bh-sl-container .bh-sl-loc-list .list-label
+{
+	background: #00192d;
+	border-radius: 15px;
+	color: #fff;
+	display: block;
+	float: left;
+	font-weight: bold;
+	margin: 10px 0 0 15px;
+	min-width: 13px;
+	padding: 4px 7px;
+	text-align: center;
+	width: auto;
+}
+.bh-sl-container .bh-sl-loc-list .list-details
+{
+	float: left;
+	width: 100%;
+}
+.bh-sl-container .bh-sl-loc-list .list-details .list-content
+{
+	padding: 0px;
+}
+.bh-sl-container .bh-sl-loc-list .list-details .loc-dist
+{
+	color: #8e8e8e;
+	font-style: italic;
+	font-weight: bold;
+}
+.bh-sl-container .bh-sl-loc-list .list-focus
+{
+	border: 1px solid rgba(0, 82, 147, 0.4);
+  transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+  
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-close-directions-container
+{
+	height: 20px;
+	position: relative;
+	width: 100%;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-close-directions-container .bh-sl-close-icon
+{
+	right: 6px;
+	top: 0;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel
+{
+	margin: 0 2%;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel table
+{
+	table-layout: auto;
+	width: 100%;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel table, .bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel td
+{
+	border-collapse: separate;
+	vertical-align: middle;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel td
+{
+	padding: 1px;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel .adp-placemark
+{
+	border: 1px solid #c0c0c0;
+	margin: 10px 0;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-directions-panel .adp-marker
+{
+	padding: 3px;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-noresults-title
+{
+	font-weight: bold;
+	margin: 15px;
+}
+.bh-sl-container .bh-sl-loc-list .bh-sl-noresults-desc
+{
+	margin: 0 15px;
+}
+.bh-sl-container .loc-name
+{
+	font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.bh-sl-container .bh-sl-map
+{
+	float: left;
+	height: 530px;
+	width: 100%;
+}
+@media (min-width: 1024px)
+{
+	.bh-sl-container .bh-sl-map
+	{
+		width: 70%;
+	}
+}
+.bh-sl-container .bh-sl-pagination-container
+{
+	clear: both;
+}
+.bh-sl-container .bh-sl-pagination-container ol
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 10px 0;
+	text-align: center;
+}
+.bh-sl-container .bh-sl-pagination-container ol li
+{
+	color: #005293;
+	cursor: pointer;
+	display: inline-block;
+	font: bold 14px Arial, Helvetica, sans-serif;
+	padding: 10px;
+}
+.bh-sl-container .bh-sl-pagination-container ol .bh-sl-current
+{
+	color: #555;
+	cursor: auto;
+	text-decoration: none;
+}
+.bh-sl-overlay
+{
+	background: url(../images/overlay-bg.png) repeat;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10000;
+}
+.bh-sl-overlay .bh-sl-modal-window
+{
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px #656565;
+	height: 620px;
+	left: 50%;
+	margin-left: -460px;
+	margin-top: 60px;
+	position: absolute;
+	width: 920px;
+	z-index: 10010;
+}
+.bh-sl-overlay .bh-sl-modal-window .bh-sl-map-container
+{
+	margin-top: 50px;
+}
+.bh-sl-overlay .bh-sl-modal-window .bh-sl-modal-content
+{
+	float: left;
+	padding: 0 1%;
+	width: 98%;
+}
+.bh-sl-overlay .bh-sl-modal-window .bh-sl-close-icon
+{
+	right: 22px;
+	top: 13px;
+}
+.bh-sl-close-icon
+{
+	cursor: pointer;
+	height: 24px;
+	position: absolute;
+	width: 24px;
+}
+.bh-sl-close-icon:after, .bh-sl-close-icon:before
+{
+	background: #ccc;
+	bottom: 0;
+	content: '';
+	display: block;
+	height: 24px;
+	left: 50%;
+	margin: -3px 0 0 -1px;
+	moz-transform: rotate(45deg);
+	ms-transform: rotate(45deg);
+	o-transform: rotate(45deg);
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	transform: rotate(45deg);
+	webkit-transform: rotate(45deg);
+	width: 3px;
+}
+.bh-sl-close-icon:hover:after, .bh-sl-close-icon:hover:before
+{
+	background: #b3b3b3;
+}
+.bh-sl-close-icon:before
+{
+	moz-transform: rotate(-45deg);
+	ms-transform: rotate(-45deg);
+	o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	webkit-transform: rotate(-45deg);
+}
+.loc-image
+{
+	float: left;
+	width: 100%;
+}
+.gm-style-iw .loc-image 
+{
+  width: 40%;
+  float: left;
+}
+.gm-style-iw .loc-details
+{
+  float: left;
+  padding:10px;
+  width: 55%;
+}
+.gm-style-iw .loc-open-time
+{
+  float: left;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+}
+.gm-style-iw .opening-hours
+{
+	float: left;
+	flex:1;
+	padding: 5px;
+}
+.gm-style-iw .special-opening-hours
+{
+	float: left;
+	flex:1;
+	padding: 5px;
+	border-left: 1px solid #ccc;
+}
+.marker-popup{
+	max-width: 500px;
+}
+
+.loc-image img
+{
+	width: 100%;
+}
+.schedule 
+{
+  background: none;
+  border: none;
+}
+@media (min-width: 768px), print {
+	#store-locator-popup .sidebar{
+		width:30%;
+		float: left;
+	}
+	.full-width.storelocator-index-index  #maincontent,.full-width.storelocator-view-index  #maincontent,.full-width.checkout-index-index  #maincontent {
+		max-width: 100%!important;
+		padding:0;
+	}
+	.bh-sl-container {
+		padding:0;
+	}
+	.bh-sl-container .bh-sl-form-container
+	{
+		clear: none;
+		float: left;
+		margin-top: 0;
+		width: 100%;
+		padding: 10px;
+    	box-sizing: border-box;
+	}
+	.bh-sl-container .form-input input, .bh-sl-container .form-input select{
+		width: 100%;
+		margin: 5px 0;
+	}
+	.bh-sl-container .bh-sl-loc-list {
+		width:100%;
+	}
+	.bh-sl-container .bh-sl-loc-list h3 {
+		padding:10px;
+	}
+	.bh-sl-container .bh-sl-map{
+		height: 880px;
+	}
+	.bh-sl-container .form-input {
+		width: 100%;
+	}
+	.bh-sl-container button{
+		width: 100%;
+	}
+	.checkout-index-index .page-title-wrapper,.storelocator-index-index .page-title-wrapper,.storelocator-view-index .page-title-wrapper {
+		max-width: 1280px;
+		margin: 0 auto;
+		padding-left: 20px;
+    	padding-right: 20px;
+	}
+	.checkout-index-index .bh-sl-map {
+		height: 500px;
+	}
+	.checkout-index-index .bh-sl-loc-list {
+		height: 340px;
+	}
+	.checkout-index-index .bh-sl-map-container {
+		margin-top: 0;
+	}
+}

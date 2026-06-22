@@ -1,0 +1,26 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="css/product-list.css" media="all"/>
+	</head>
+	<body>
+        <referenceBlock name="breadcrumbs" remove="true" />
+		<referenceBlock name="catalog.compare.sidebar" remove="true"/> 
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <referenceContainer name="columns" htmlClass="row columns" />
+        <referenceContainer name="div.sidebar.main" htmlClass="sidebar col-auto order-first" />
+		<referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Template" name="sidebar.vehicle" before="-" template="Hdweb_Oilservice::sidebar_vehicle.phtml"/>
+        </referenceContainer>
+		<referenceBlock name="category.description" remove="true"/>
+		<referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="main" htmlClass="column col-auto order-last" />
+        <move element="div.sidebar.main" destination="columns" before="-" />
+        <move element="main" destination="columns" after="div.sidebar.main" />
+        <referenceContainer name="columns.top">
+            <container name="category.top.custom.container" htmlTag="div" htmlClass="category-top">
+                <block class="Magento\Framework\View\Element\Template" name="category.title.desc" before="-" template="Magento_Catalog/::category/title_discription.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="category.top.tyrefinder" template="Magento_Catalog/::category/tyrefinder.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

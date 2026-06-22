@@ -1,0 +1,82 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$currentUrl = $block->getRequest()->getUriString();
+$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$scopeConfig = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface');
+$storeId =  $storeManager->getStore()->getId();
+$localeCode =  $scopeConfig->getValue('general/locale/code', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+$baseUrl = $this->getBaseUrl();
+$baseUrlNoStoreCode = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue("web/unsecure/base_url");
+$currentUrlAR = str_replace("/en/","/ar/",$currentUrl);;
+?>
+<meta name="facebook-domain-verification" content="x21tdozomai3q6q19tx7w4v0yd1yg0" />
+<link rel="canonical" href="<?php echo $currentUrl;?>"/>
+<link rel="alternate" href="<?php echo $currentUrl; ?>" hreflang="en" />
+<link rel="alternate" href="<?php echo $currentUrlAR; ?>" hreflang="ar" />
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jeddah, KSA",
+        "streetAddress": "P.O. Box 42023, Jeddah 21541, Kingdom of Saudi Arabia"
+      },
+      "description":"Tyresonline is online tyre shop in Saudi Arabia. Buy Car Tyres Online at an affordable prices and Get tyres installed at your doorstep or installer shop.",
+      "name": "TyresOnline",
+    "image": "<?php echo $mediaURL.'images/logo/Logo.svg'; ?>",
+      "telephone": ""
+    }
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "TyresOnline",
+  "url": "https://www.tyresonline.sa/en/",
+  "logo": "<?php echo $mediaURL.'images/logo/Logo.svg'; ?>",
+  "image": "<?php echo $mediaURL.'images/logo/Logo.svg'; ?>",
+  "sameAs": [
+    "https://www.facebook.com/",
+    "https://www.instagram.com/"
+  ]
+  }
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebSite",
+  "name": "TyresOnline",
+  "url": "<?php echo $currentUrl;?>"
+}
+</script>
+<?php if ($request->getFullActionName() == 'catalog_product_view'):?>
+	<?php
+	$currentProduct = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+  $listingHelper = $this->helper('Hdweb\Tyrefinder\Helper\Productlisting');
+  $set1price = $listingHelper->getSet1price($currentProduct);
+	$productImgUrl = $baseUrlNoStoreCode.'media/catalog/product'.$currentProduct->getImage();
+	?>
+	<meta property="og:title" content="<?php echo $block->escapeHtml($currentProduct->getName()); ?>" />
+	<meta property="og:type" content="product" />
+	<meta property="og:url" content="<?php echo $block->escapeHtml($currentProduct->getProductUrl()); ?>" />
+	<meta property="og:description" content="<?php echo $block->escapeHtml($currentProduct->getShortDescription());?>" />
+	<meta property="og:locale" content="<?php echo $localeCode; ?>" />
+	<meta property="og:image" content="<?php echo $block->escapeHtml($productImgUrl); ?>" />
+	<meta property="og:site_name" content="TyresOnline" />
+  <meta property="product:price:amount" content="<?php echo $set1price; ?>"/>
+  <meta property="product:price:currency" content="SAR"/>
+<?php else: ?>
+	<meta property="og:title" content="Online Tyre Shop, Anywhere in the KSA" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="<?php echo $baseUrl; ?>" />
+	<meta property="og:description" content="Tyresonline is online tyre shop in Saudi Arabia. Buy Car Tyres Online at an affordable prices and Get tyres installed at your doorstep or installer shop." />
+	<meta property="og:locale" content="<?php echo $localeCode; ?>" />
+	<meta property="og:image" content="<?php echo $mediaURL.'images/logo/Logo.svg'; ?>" />
+	<meta property="og:site_name" content="TyresOnline" />
+<?php endif; ?>

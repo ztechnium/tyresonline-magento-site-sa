@@ -1,0 +1,21 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+    ->getStore()
+    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$banner = $block->getBanner();
+?>
+<section class="section pt-10 pb-8 lg:pt-24 lg:pb-24">
+    <div class="container">
+        <div class="copy-content">
+            <div class="flex flex-col lg:flex-row items-start bg-white   overflow-hidden gap-6">
+                <div class="w-full lg:w-1/2 h-64 lg:h-auto">
+                    <img src="<?php echo $this->getViewFileUrl('images/blank.png'); ?>" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $banner->getImage(); ?>" alt="<?php echo $banner->getName(); ?>" class="lazyload w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="w-full lg:w-1/2 px-6 flex flex-col justify-center">
+                    <?php echo $banner->getContent(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

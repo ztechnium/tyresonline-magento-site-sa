@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\CustomerData\ItemPoolInterface"
+                type="Magento\Checkout\CustomerData\ItemPool"/>
+    <type name="Magento\Captcha\Model\Checkout\ConfigProvider">
+        <arguments>
+            <argument name="formIds" xsi:type="array">
+                <item name="user_login" xsi:type="string">user_login</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="addstoredatetime" type="Hdweb\Core\Plugin\ConfigProviderPlugin" />
+    </type>
+    <type name="Magento\Framework\App\Router\NoRouteHandlerList">
+        <arguments>
+            <argument name="handlerClassesList" xsi:type="array">
+                <item name="extension" xsi:type="array">
+                    <item name="class" xsi:type="string">Hdweb\Core\App\Router\NoRouteHandler</item>
+                    <item name="sortOrder" xsi:type="string">80</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

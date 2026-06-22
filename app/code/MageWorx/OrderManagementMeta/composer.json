@@ -1,0 +1,11 @@
+{
+    "name": "mageworx/module-ordereditor",
+    "version": "3.9.15",
+    "type": "metapackage",
+    "require": {
+        "mageworx/module-info": ">=1.0.0",
+        "mageworx/module-ordereditorbase": "2.12.9",
+        "mageworx/module-ordersgrid": "1.2.11",
+        "mageworx/module-ordersbase": ">=2.0.1"
+    }
+}

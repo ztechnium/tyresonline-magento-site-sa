@@ -1,0 +1,119 @@
+Field,Πεδίο
+Order,Σειρά
+Width,Πλάτος
+Icon,Εικόνισμα
+Validation,Επικύρωση
+Add Field,Προσθήκη πεδίου
+Please Select Field,Επιλέξτε πεδίο
+For delivery questions.,Για ερωτήσεις σχετικά με την παράδοση.
+We can't find the quote item.,Δεν μπορούμε να βρούμε το στοιχείο quote.
+We cannot configure the product.,Δεν μπορούμε να διαμορφώσουμε το προϊόν.
+One-page checkout is turned off.,Ο έλεγχος μιας σελίδας είναι απενεργοποιημένος.
+Guest checkout is disabled.,Ο έλεγχος επισκέπτη είναι απενεργοποιημένος.
+E-mail cannot be empty.,Το μήνυμα ηλεκτρονικού ταχυδρομείου δεν μπορεί να είναι κενό.
+Starts with field closed,Ξεκινά με κλειστό πεδίο
+Starts with field opened,Ξεκινά με ανοιχτό πεδίο
+Render field without collapse,Πεδίο αντιστοίχισης χωρίς κατάρρευση
+3 Columns,3 Στήλες
+2 Columns Style 1,2 στυλ στηλών 1
+2 Columns Style 2,2 στυλ στηλών 2
+Update Cart,Ενημερώστε το καλάθι
+Qty,Ποσότητα
+This address is also my billing address,Αυτή η διεύθυνση είναι επίσης η διεύθυνση χρέωσής μου
+Billing Address,διεύθυνση χρέωσης
+Save in address book,Αποθηκεύστε στο βιβλίο διευθύνσεων
+My billing and shipping address are the same,Η διεύθυνση χρέωσης και αποστολής μου είναι ίδια
+Update,Εκσυγχρονίζω
+Cancel,Ματαίωση
+Apply Discount,Εφαρμογή έκπτωσης
+Cancel coupon,Ακύρωση κουπονιού
+Use Coupon Code,Χρησιμοποιήστε τον κωδικό κουπονιού
+Email Address,Διεύθυνση ηλεκτρονικού ταχυδρομείου
+You can create an account after checkout.,Μπορείτε να δημιουργήσετε έναν λογαριασμό μετά το checkout.
+Password,Κωδικός πρόσβασης
+Login,Σύνδεση
+You already have an account with us. Sign in or continue as guest.,Έχετε ήδη λογαριασμό μαζί μας. Συνδεθείτε ή συνεχίστε ως επισκέπτης.
+Forgot Your Password?,Ξεχάσατε τον κωδικό σας?
+Gift options,Επιλογές δώρων
+Message:,Μήνυμα:
+Edit,Επεξεργασία
+Delete,Διαγράφω
+Payment Method,Μέθοδος πληρωμής
+No Payment method available.,Δεν υπάρχει διαθέσιμος τρόπος πληρωμής.
+Place Order,Παραγγέλνω
+Account Information,Πληροφορίες λογαριασμού
+This address is also my shipping address,Αυτή η διεύθυνση είναι επίσης η διεύθυνση αποστολής μου
+Shipping Address,Διεύθυνση αποστολής
+Shipping Methods,Μέθοδοι αποστολής
+Order Summary,Σύνοψη Παραγγελίας
+View Details,Δείτε λεπτομέρειες
+Options Details,Λεπτομέρειες επιλογών
+Gift Message (optional),Μήνυμα δώρου (προαιρετικό)
+To:,Προς την:
+From:,Από:
+Please specify a shipping method.,Προσδιορίστε μια μέθοδο αποστολής.
+New Address,Νέα διεύθυνση
+Can not remove item.,Δεν είναι δυνατή η κατάργηση του στοιχείου.
+One Step Checkout,One Step Checkout
+General,Γενικός
+Enable One Step Checkout Solution,Ενεργοποιήστε τη λύση One-Step Checkout
+Router Name,Όνομα δρομολογητή
+Example: checkout.html -> http://example.com/checkout.html,Παράδειγμα: checkout.html -> http://example.com/checkout.html
+Default Shipping Method,Προεπιλεγμένη μέθοδος αποστολής
+Default Payment Method,Προεπιλεγμένη μέθοδος πληρωμής
+Allow Update Product Quantity,Επιτρέψτε την ενημέρωση της ποσότητας προϊόντος
+Allow Remove Product,Να επιτρέπεται η κατάργηση του προϊόντος
+Allow Edit Product Option,Να επιτρέπεται η επεξεργασία της επιλογής προϊόντων
+Add Gift Message Per Item,Προσθήκη μηνύματος δώρου ανά στοιχείο
+Add Gift Message Per Order,Προσθήκη μηνύματος δώρου ανά παραγγελία
+Redirect To Checkout,Ανακατεύθυνση στο Checkout
+Display,Απεικόνιση
+Checkout Page Layout,Σύνταξη σελίδας ολοκλήρωσης ελέγχου
+Disable Telephone Field,Απενεργοποίηση τηλεφωνικού πεδίου
+Disable Company Field,Απενεργοποιήστε το πεδίο της εταιρείας
+Disable Header,Απενεργοποίηση κεφαλίδας
+Disable Footer,Απενεργοποιήστε το υποσέλιδο
+Disable Login Popup,Απενεργοποιήστε το Αναδυόμενο παράθυρο σύνδεσης
+Move Cart Items,Μετακίνηση στοιχείων καλαθιού
+Always Show Cart Items,Εμφάνιση πάντα στοιχεία καλαθιού
+Move Billing Address Before Shipping Address,Μετακίνηση της διεύθυνσης χρέωσης πριν από την ταχυδρομική διεύθυνση
+Disable Coupon Code,Απενεργοποίηση κωδικού κουπονιού
+Coupon code initial collapse state,Κωδικός κουπονιού αρχική κατάρρευση κατάσταση
+Disable Gift Options,Απενεργοποιήστε τις επιλογές δώρων
+Gift options initial collapse state,Επιλογές δώρου αρχική κατάρρευση κατάσταση
+Footer Content,Υποσέλιδο Περιεχόμενο
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,Μπορείτε να επεξεργαστείτε αυτό το πεδίο για να προσθέσετε περιεχόμενο στο κάτω δεξιό τμήμα της κάρτας σας. Αυτό είναι χρήσιμο για την εμφάνιση πράξεων όπως οι υποστηριζόμενες μέθοδοι πληρωμής.
+Shipping,Αποστολή
+Hide Shipping Methods,Απόκρυψη μεθόδων αποστολής
+Hide Shipping Method Title,Απόκρυψη τίτλου μεθόδου αποστολής
+Colors,Χρωματιστά
+Main Color,Κύριο χρώμα
+Icon Color,Εικονίδιο Χρώμα
+Button,Κουμπί
+Gift Message,Μήνυμα δώρου
+Order summary background,Παραγγελία περίληψης παραγγελίας
+Shipping methods background,Ταμείο αποστολής μεθόδων
+Payment methods background,Τρόποι πληρωμής φόντο
+Account and address background,Ιστορικό λογαριασμού και διεύθυνσης
+Icons,Εικόνες
+Account Information Step,Στοιχεία λογαριασμού Βήμα
+Shipping Address Step,Διεύθυνση αποστολής Βήμα
+Billing Address Step,Φόρμα διεύθυνσης χρέωσης
+Shipping Methods Step,Μέθοδοι αποστολής Βήμα
+Payment Methods Step,Μέθοδοι πληρωμής Βήμα
+Order Summary Step,Βήμα σύνοψης παραγγελίας
+Geo IP,Geo IP
+Enabled,Ενεργοποιήθηκε
+Term and Conditions,Οροι και Προϋποθέσεις
+Checked by Default,Έλεγχος από προεπιλογή
+Label,Επιγραφή
+Popup Content,Αναδυόμενο περιεχόμενο
+You can add content for terms popup.,Μπορείτε να προσθέσετε περιεχόμενο για την εμφάνιση των όρων.
+Newsletter,Ενημερωτικό δελτίο
+Back to Store,Επιστροφή στο Κατάστημα
+Address Autocomplete,Διεύθυνση αυτόματης συμπλήρωσης
+Auto Save and fill customer infomation,Αυτόματη αποθήκευση και συμπλήρωση των πληροφοριών πελατών
+Google Maps API Key,Κλειδί API Χαρτών Google
+Split Street Fields,Διαίρεση πεδίων δρόμου
+Field Config,Πεδίο ρύθμισης παραμέτρων
+Customize,Προσαρμογή

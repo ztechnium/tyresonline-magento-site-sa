@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <remove src="fonts/opensans/light/opensans-300.woff2"/>
+        <remove src="fonts/opensans/regular/opensans-400.woff2"/>
+        <remove src="fonts/opensans/semibold/opensans-600.woff2"/>
+        <remove src="fonts/opensans/bold/opensans-700.woff2"/>
+        <font src="fonts/Luma-Icons.woff2"/>
+		<remove src="css/styles-l.css" />
+		<remove src="css/styles-m.css" />
+		<remove src="mage/calendar.css" />
+		<remove src="css/print.css"/>
+		<css src="css/bootstrap.min.css" media="all"/>
+		<css src="css/owl.carousel.min.css" media="all"/>
+		<css src="css/iziModal.min.css" media="all"/>
+		<css src="css/select2.min.css" media="all"/>
+		<css src="css/theme.css" media="all"/>
+		<css src="css/custom-style.css" media="all"/>
+		<script src="js/custom.js"/>
+    </head>
+</page>

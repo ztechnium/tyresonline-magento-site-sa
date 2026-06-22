@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category  Ecomteck
+ * @package   Ecomteck_StoreLocator
+ * @copyright 2016 Ecomteck
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ * @author    Ecomteck
+ */
+ -->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Ecomteck_StoreLocator::css/storelocator.css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <container name="ecomteck.storelocator.info.store" label="Product store availability block" htmlTag="div" htmlClass="product-store-availability" after="product.info.price">
+                <block class="Ecomteck\StoreLocator\Block\Catalog\Product\Store\Availability"
+                       name="ecomteck.storelocator.product.availability"
+                       as="ecomteck.storelocator.product.availability"
+                       template="product/view/store/availability.phtml">
+                       <block class="Ecomteck\StoreLocator\Block\Catalog\Product\Store\Availability" name="storelocator.stores" as="stores" template="Ecomteck_StoreLocator::storelocator/right.phtml"/>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,946 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "sections/blog-slider";
+@import "sections/offer-slider";
+
+
+@media screen and (min-width: 1199px){
+    .container-full{
+      @include scssont-padding-mix(0px, 90px);
+      max-width: 100%;
+    }
+}
+
+@media screen and (min-width: 1199px){
+    .container-mid{
+       @include scssont-width(1260px);
+    }
+}
+  
+
+@mixin banner-height() {
+    min-height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+    @media screen and #{$media-query} {
+      min-height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+    }
+  }
+  
+  @mixin banner-height-safari-mobile() {
+    min-height: calc(100vh - #{get-rem($header-hight)} - #{$safari-bottom-bar-height});
+  }
+  
+  @mixin banner-height-chrome-mobile() {
+    min-height: calc(100vh - #{get-rem($header-hight)} - #{$chrome-bottom-bar-height} + 10px);
+  }
+
+  .car-banner{
+    @include banner-height();
+    position: relative;
+      .banner-image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+          .image-wrap{
+              &.picture{
+                height: 105%;
+              img{
+                  width: auto;
+                  max-width: 100%;
+              }
+          }
+      }
+      }
+      .banner-wrap{
+        position: relative;
+        z-index: 1; 
+        .tyre-content{
+          width: fit-content;
+          .font-size1{
+            @include scssont-font-size(70px);
+            line-height: 0.9;
+            display: block;
+            @include scssont-letter-spacing(6.95px);
+          }
+          h3{
+            @include scssont-font-size(43.75px);
+            @include scssont-letter-spacing(17.8px);
+            @include scssont-margin-right(-15px);
+          }
+          hr{
+             opacity: 1;
+             @include scssont-height(3px);
+             background-color: $red;
+             @include scssont-margin-top(15px);
+             @include scssont-margin-bottom(15px);
+             margin-left: 0.5%;
+             margin-right: 0.5%;
+          }
+        }
+      }
+
+      .banner-bottom{
+        position: absolute;
+        @include scssont-bottom(20px);
+        text-align: center;
+        width: 100%;
+        left: 0;
+        p{
+           @include scssont-margin-top(20px);    
+        }
+        .button{
+            font-style: italic;
+        }
+      }
+  }
+ 
+@media screen and (min-device-height: 700px) and (max-device-height: 3000px) and (orientation : landscape){
+    .car-banner{
+      .banner-image{
+        .image-wrap{
+          &.picture{
+            //padding-top: 80vh;
+          }
+      }
+     }
+      .banner-wrap{
+        padding-top: 2.07vh;
+        padding-bottom: 0;
+        .contact-info{
+          ul{
+            li{
+              a{
+                font-size: 3.70vh;
+              }
+            }
+          }
+        }
+        .tyre-content{
+          .font-size1{
+            font-size: 7.75vh;  
+            letter-spacing: 0.49vh;
+          }
+          h3{
+            font-size: 3.98vh;
+            letter-spacing: 1.66vh;
+          }
+        }
+      }
+    }  
+  }
+
+
+  @media screen and (max-device-height: 2000px) and (orientation: portrait) {
+    .car-banner{
+        .banner-image{
+          .image-wrap{
+            &.picture{
+                height: 76vw;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+       }
+       .banner-wrap{
+        .tyre-content{
+            h3{
+                font-size: get-rem-sm(25px);
+            }
+        }
+       }
+    } 
+  }
+
+
+  // Mobile
+  // Normal
+  @media screen and (max-width:767px) {
+    .safari{
+        .car-banner{
+            @include banner-height-safari-mobile();
+        } 
+    }
+    .chrome{
+        .car-banner{
+            @include banner-height-chrome-mobile();
+        } 
+    }
+
+    .car-banner{
+        padding: 0 0.75rem;
+        .banner-wrap{
+            padding-top: get-rem(50px);
+            .tyre-content{
+                .font-size1{
+                    letter-spacing: get-rem-sm(2.5px);
+                    font-size: get-rem-sm(50px);
+                }
+                h3{
+                    font-size: get-rem-sm(19px);
+                    letter-spacing: get-rem-sm(7.2px);
+                }
+            }
+        }
+        .banner-image{
+            .image-wrap{
+                &.picture{
+                   height: get-rem-sm(330px);
+                   top: 50%;
+                   transform: translateY(-54%);
+                } 
+            }
+        }
+        .banner-bottom{
+            .button{
+                span{
+                    font-size: get-rem-sm(17px);  
+                    padding: get-rem-sm(12px) get-rem-sm(30px);
+                }
+            }
+            p{
+                font-size: get-rem-sm(18px);  
+            }
+        }
+    }
+  }
+
+// Safari 
+  @media screen and (max-device-height: 668px) and (orientation: portrait) {
+    html{
+     .safari{
+      .car-banner{
+        .banner-wrap{
+           padding-top: get-rem(10px);  
+    }
+
+    .banner-image{
+        .image-wrap{
+            &.picture{
+               height: get-rem-sm(312px);
+               top: 50%;
+               transform: translateY(-54%);
+            } 
+        }
+    }
+
+    .banner-bottom{
+        bottom: 0;
+    }
+
+  }
+  }
+  }
+}
+
+
+// Chrome
+@media screen and (max-device-height: 668px) and (orientation: portrait) {
+    html{
+     .chrome{
+      .car-banner{
+        .banner-wrap{
+           padding-top: get-rem(10px);  
+    }
+
+    .banner-image{
+        .image-wrap{
+            &.picture{
+               height: get-rem-sm(312px);
+               top: 50%;
+               transform: translateY(-54%);
+            } 
+        }
+    }
+
+    .banner-bottom{
+        bottom: 0;
+    }
+
+  }
+  }
+  }
+}
+
+
+@media screen and (max-device-width: 767px) and (orientation: landscape) {
+    html{
+        .chrome, .safari{
+            .car-banner{
+        min-height: calc(90vh + 250px);
+    }
+  }
+}
+}
+
+@media screen and (min-width: 768px) and (orientation: portrait) {
+    .car-banner{
+        min-height: 77vw;
+    }
+}
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+    .car-banner{
+        min-height: 77vw;
+    }
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 915px) and (orientation: landscape) {
+    .car-banner{
+       .banner-wrap{
+        .tyre-content{
+            h3{
+                font-size: get-rem-sm(25px);
+            }
+        }
+       }
+    } 
+  }
+
+
+  .insurance-banner{
+    z-index: 1;
+    box-shadow: 0 9px 12px -2px #00000054;
+  &:after{
+      content:"";
+      position:absolute;
+      z-index:-1;
+      box-shadow:0 0 60px rgba(0,0,0,0.8);
+      bottom:0px;
+      left:10%;
+      right:10%;
+      width:80%;
+      height:50%;
+      -moz-border-radius:100%;
+      border-radius:100%;
+  }
+  .image-wrap{
+      &.aspect-custom{
+          padding-bottom: 36%;
+      }
+  }
+}
+
+
+
+.insurance-feachers{
+   background-color: $red-100; 
+   @include scssont-padding-top(70px);
+   @include scssont-padding-bottom(55px);
+   .insurance-feachers-slider{
+   .box{
+       text-align: center;
+       h3{
+           color: $white;
+           @include scssont-font-size(28px);
+           font-weight: 900;
+           @include scssont-margin-top(40px);
+       }
+       p{
+        color: $white;
+        @include scssont-font-size(18px);
+        margin-bottom: 0;
+      }
+      svg{
+        @include scssont-width(45px);  
+      }
+   }
+}
+}
+
+@media screen and (max-width:767px) {
+    .insurance-feachers{
+        padding: get-rem-sm(17px) 0;
+        .insurance-feachers-slider{
+            .box{
+                svg{
+                    width: get-rem-sm(44px);
+                }
+                h3{
+                    margin-top: get-rem-sm(15px);
+                    font-size: get-rem-sm(24px);
+                }
+                p{
+                    font-size: get-rem-sm(14px);
+                    br{
+                        display: none;
+                    } 
+                }
+            }
+        }
+    } 
+}
+
+@include media-breakpoint-up(md) {
+    .insurance-feachers{
+        .insurance-feachers-slider{
+            @include scssont-margin-mix(0px, -20px);
+            width: auto;
+            @include flexbox();
+            @include flex-wrap(wrap);
+        .item{
+            width: 33.3333%;
+            @include scssont-padding-mix(0px, 20px);
+        }
+    } 
+  }
+}
+
+.insurance-steps {
+   @include scssont-padding-top(85px);
+   @include scssont-padding-bottom(85px);
+   .line{
+    position: absolute;
+    left: 0;
+    top: 16%;
+    width: 100%;
+    z-index: -1;
+        img{
+            width: 100%;
+        } 
+    }
+   .heading{
+      @include scssont-margin-bottom(80px);
+       h3{
+        @include scssont-font-size(40px);
+        @include scssont-letter-spacing(2px);
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+       }
+       p{
+        color: #616161;
+        margin-bottom: 0;
+        @include scssont-font-size(35px);
+        @include scssont-letter-spacing(2.5px);
+        font-weight: 300;
+       }
+   }
+   .read-more{
+        @include scssont-margin-top(60px);
+        .button {
+             background-color: #ffbd0c;
+             span{
+               color: #000;
+             }
+             &:hover{
+               background-color: #f2b000;
+               span{
+                color: #000;
+               }
+           } 
+        }
+   }
+   .box{
+       text-align: center;
+       .image{
+        @include scssont-margin-bottom(25px);
+           img{
+            @include scssont-max-width(250px);
+            @include scssont-min-height(200px);
+            margin: auto;
+            background-color: #fff;
+           }
+       }
+       h4{
+        @include scssont-font-size(22px);
+        font-weight: 600;
+        color: #ffbc07;
+       }
+       p{
+        @include scssont-font-size(17px);
+        margin: 0;
+        font-weight: 600;
+        line-height: 1.6;
+        color: #1a1a1a;
+       }
+   }
+}
+
+@media screen and (max-width:767px) {
+    .insurance-steps{
+        padding: get-rem-sm(35px) 0;
+        .line{
+            display: none;
+        }
+        .heading{
+            margin-bottom: get-rem-sm(35px);
+            h3{
+                font-size: get-rem-sm(20px);  
+            }
+            p{
+                font-size: get-rem-sm(16px);
+            }
+        }
+        .box{
+            .image{
+                margin-bottom: get-rem-sm(20px);
+            }
+            h4{
+                font-size: get-rem-sm(17px);  
+            }
+            p{
+               font-size: get-rem-sm(14px);  
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .insurance-steps{
+        .insurance-steps-slider{
+            @include scssont-margin-mix(0px, -20px);
+            width: auto;
+            @include flexbox();
+            @include flex-wrap(wrap);
+            @include justify-content(space-between);
+
+        .item{
+            @include scssont-padding-mix(0px, 20px);
+        }
+    } 
+  }
+}
+
+@include media-breakpoint-between(md, lg) {
+    .insurance-steps{
+        .line{
+            top: 22%;
+        }
+    }
+}
+
+.quote-description{
+    .box{
+        background-color: $red-600;
+        margin: auto;
+        @include border-radius(50px);
+        @include scssont-max-width(850px);
+        @include scssont-padding-mix(40px, 80px);
+        text-align: center;
+        p{
+            color: $white;
+            @include scssont-margin-top(30px);
+            margin-bottom: 0;
+        }
+        .button{
+            font-style: italic;
+            &.button-white{
+                span{
+                    color: $red-500;
+                }
+            &:hover{
+                span{
+                    color: $white;
+                }
+            }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:767px) {
+    .quote-description{
+        .container{
+            padding: 0;
+        }
+    .box{
+        border-radius: 0;
+        padding: get-rem-sm(40px) 0.75rem;
+        p{
+            font-size: get-rem-sm(18px); 
+        }
+        .button{
+            span{
+                font-size: get-rem-sm(17px);  
+                padding: get-rem-sm(12px) get-rem-sm(30px);
+            }
+        }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+.insurance-benefits{
+    @include scssont-padding-top(130px);
+    @include scssont-padding-bottom(180px);
+    .heading{
+        @include scssont-margin-bottom(60px);
+         h3{
+          @include scssont-font-size(32px);
+          @include scssont-letter-spacing(2px);
+          @include scssont-margin-top(20px);
+          font-weight: 900;
+         }
+         img{
+            @include scssont-width(160px);
+            height: auto;
+         }
+     }
+
+     .benefits-tabs{
+        .nav{
+            li{
+                @include scssont-margin-mix(0px, 50px); 
+                button{
+                    @include scssont-font-size(24px); 
+                    text-transform: uppercase; 
+                    font-weight: normal;
+                    padding: 0;
+                    border: none;
+                    background-color: #0000;
+                    position: relative;
+                    color: $black;
+                    &.active{
+                        &::after {
+                            content: "";
+                            @include scssont-height(8px);
+                            background-color: $red-100;
+                            width: 100%;
+                            position: absolute;
+                            @include scssont-bottom(-8px);
+                            left: 0;
+                            @include scssont-border-radius(20px);
+                            border-top-left-radius: 0 !important;
+                            -ms-border-top-left-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
+                            -ms-border-top-right-radius: 0 !important;
+                          }
+                    }
+                }
+            }
+        }
+
+         .benefits-list{
+            @include scssont-margin-top(100px);
+             h4{
+                @include scssont-font-size(32px); 
+                color: $red-100; 
+                font-weight: 700;
+             }
+             .list{
+                @include scssont-margin-top(40px);
+             }
+             .subtitle{
+                 .icon{
+                     img{
+                        @include scssont-max-width(50px);
+                        @include scssont-max-height(55px); 
+                        width: auto;
+                        height: auto;
+                     }
+                 }
+                 .text{
+                    @include scssont-font-size(28px); 
+                    font-weight: 700;  
+                    @include scssont-margin-left(20px);
+                 }
+             }
+
+             .box{
+                 border: 1px solid #707070;
+                 @include scssont-border-radius(25px);
+                 @include scssont-padding-mix(20px, 30px); 
+                 @include scssont-margin-top(35px);
+                 @include scssont-min-height(180px);
+                 h5{
+                    @include scssont-font-size(24px);  
+                    font-weight: 700;     
+                 }
+                 p{
+                    @include scssont-font-size(20px); 
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+             }
+         }
+
+     }
+}
+
+@media screen and (max-width:767px) {
+    .insurance-benefits{
+        padding: get-rem-sm(50px) 0 get-rem-sm(30px);
+        .heading{
+            h3{
+                font-size: get-rem-sm(26px);
+            }
+            img{
+                width: get-rem-sm(93px);
+            }
+        }
+        .benefits-tabs{
+            .nav{
+                li{
+                    margin: 0 get-rem-sm(20px);
+                }
+            }
+            .benefits-list{
+                margin-top: get-rem-sm(35px);
+                .box{
+                    padding: get-rem-sm(25px) get-rem-sm(10px);
+                    h5{
+                        font-style: get-rem-sm(19px);
+                    }
+                    p{
+                        font-style: get-rem-sm(14px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@include media-breakpoint-up(md) {
+    .insurance-benefits{
+        .benefits-slider{
+            @include scssont-margin-mix(0px, -20px);
+            width: auto;
+            @include flexbox();
+            @include flex-wrap(wrap);
+
+        .item{
+            @include scssont-padding-mix(0px, 20px);
+            width: 50%;
+        }
+    } 
+  }
+}
+
+
+.insurance-faq{
+    @include scssont-padding-mix(200px, 0px);
+    background-color: #9600001a;
+
+    .heading{
+        @include scssont-margin-bottom(40px);
+        h3{
+            @include scssont-font-size(28px);
+            @include scssont-letter-spacing(2px);
+            font-weight: 900;
+        }
+    }
+
+    .faq-list{
+        @include scssont-max-width(1050px);
+        .faq-block{
+            @include scssont-margin-bottom(44px);
+            position: relative;
+            .toggle{
+                position: relative;
+                cursor: pointer;
+                @include scssont-padding-mix(3px, 0px);
+                h5{
+                    @include scssont-font-size(24px);  
+                    font-weight: 700;
+                }
+                &::after{
+                    position: absolute;
+                    @include scssont-left(-35px);
+                    @include scssont-top(-3px);
+                    color: $red-100;
+                    font-weight: 900;
+                    @include scssont-font-size(30px);
+                }
+                &.collapsed{
+                    &::after{
+                        content: "+";
+                    }
+                }
+                &:not(.collapsed)::after{
+                    content: "-";
+                }
+            }
+            .accordion-body{
+                padding: 0 0 1rem;
+                p{
+                    @include scssont-font-size(20px);    
+                }
+                ul{
+                    @include scssont-margin-left(20px);
+                    padding: 0;
+                    @include scssont-font-size(20px);
+                }
+          }
+        }
+    }
+}
+
+@media screen and (max-width:767px) {
+    .insurance-faq{
+        padding-top: get-rem-sm(40px);
+        padding-bottom: get-rem-sm(60px);
+        .heading{
+            h3{
+                font-size: get-rem-sm(28px);
+            }
+        }
+        .faq-list{
+            .faq-block{
+                margin-bottom: get-rem-sm(10px);
+                padding-left: get-rem-sm(28px);
+                .toggle{
+                    h5{
+                        font-size: get-rem-sm(16px);   
+                    }
+                    .accordion-body{
+                       p{
+                        font-size: get-rem-sm(14px); 
+                       }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.insurance-partner{
+    @include scssont-padding-top(120px);
+    @include scssont-padding-bottom(30px);
+    .image-wrap{
+        text-align: center;
+        img{
+            @include scssont-max-width(300px); 
+        }
+    }
+    .text-block{
+        h2{
+            @include scssont-font-size(44px);
+            font-weight: 700;
+            @include scssont-margin-bottom(35px);
+            span{
+                @include scssont-margin-right(12px);
+                img{
+                    @include scssont-height(36px);
+                    width: auto;
+                    position: relative;
+                    @include scssont-top(-5px);
+                }
+            }
+        }
+        p{
+            @include scssont-font-size(24px);  
+        }
+    }
+}
+
+@media screen and (max-width:767px) {
+    .insurance-partner{
+        padding-bottom: 0;
+        padding-top: get-rem-sm(27px);
+        .image-wrap{
+            margin-bottom: get-rem-sm(30px);
+            img{
+                max-width: get-rem-sm(145px);
+            }
+        }
+        .text-block{
+            h2{
+                font-size: get-rem-sm(22px);  
+                span{
+                    display: block;
+                    width: 100%;
+                    margin: 0 0 get-rem-sm(5px);
+                    img{
+                        height: get-rem-sm(20px);
+                    }
+                }
+            } 
+            p{
+                font-size: get-rem-sm(16px);    
+            }
+        }
+    } 
+}
+
+.hala-embed{
+    height: 0;
+    overflow: hidden;
+    &.show{
+        height: auto;
+        border-top: 1px solid $lightgrey-100;
+    }
+    iframe{
+        width: 100%;
+        height: 740px;
+        @media screen and (max-width:767px) {
+            height: 1000px;
+        }
+    }
+}
+
+
+.plci-benefits{
+    @include scssont-padding-top(50px);
+    @include scssont-padding-bottom(50px);  
+    .heading{
+        @include scssont-margin-bottom(50px);
+         h3{
+          @include scssont-font-size(32px);
+          @include scssont-letter-spacing(2px);
+          font-weight: 900;
+         }
+         p{
+          @include scssont-font-size(28px);
+          @include scssont-letter-spacing(2.5px);
+         }
+     }
+    .box{
+        text-align: center;
+        @include scssont-padding(0px, 12px, 0px, 12px);
+        @include scssont-margin-bottom(20px);
+        .icon-wrapper{
+            @include scssont-margin-bottom(15px);
+            position: relative;
+            .icon{
+                background-color: #f6f6f6;
+                @include border-radius(50%);
+                @include scssont-height(120px);
+                @include scssont-width(120px);
+                @include scssont-padding-top(20px);
+                img{
+                    @include scssont-height(60px);   
+                }
+            }
+            .worth-tag{
+                background: #ffd460;
+                @include scssont-border-radius(4px);
+                @include scssont-font-size(12px);
+                @include transform(rotate(-2.99deg));
+                font-weight: 600;
+                @include scssont-padding(4px, 6px, 4px, 6px);
+                width: max-content;
+                margin-left: auto;
+                margin-right: auto;
+                @include scssont-margin-top(-25px);
+            }
+        }
+        h4{
+            font-weight: 500;
+            @include scssont-max-width(160px);
+            @include scssont-font-size(18px);
+        }
+    }
+}

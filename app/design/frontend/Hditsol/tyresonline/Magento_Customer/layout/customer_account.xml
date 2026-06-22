@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <head>
+        <css src="css/customer-account.css" media="all"/>
+    </head>
+	<body>
+		<referenceBlock name="customer_account_navigation"> 
+			<block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navagation-signout-link">
+			    <arguments>
+				    <argument name="path" xsi:type="string">customer/account/logout</argument>
+				    <argument name="label" xsi:type="string">Sign Out</argument>
+			    </arguments>
+			</block>
+		 </referenceBlock>
+        <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
+        <referenceBlock name="customer-account-navigation-product-reviews-link" remove="true"/>
+        <referenceBlock name="customer-account-navigation-newsletter-subscriptions-link" remove="true"/>
+        <referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
+    </body>
+</page>

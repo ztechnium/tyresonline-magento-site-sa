@@ -1,0 +1,7 @@
+<?php /** @var Magento\Framework\View\Element\Template $block */ ?>
+<script>
+    window.checkoutConfig = <?= /* @noEscape */ $block->getCheckoutConfig()->getJsonConfig(); ?>;
+    // Create aliases for customer.js model from customer module
+    window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+    window.customerData = window.checkoutConfig.customerData;
+</script>

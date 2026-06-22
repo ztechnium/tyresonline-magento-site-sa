@@ -1,0 +1,284 @@
+.button {
+    display: inline-block;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    @include scssont-border-radius(0px);
+    position: relative;
+    overflow: hidden;
+    @include inline-flex();
+    @include align-items(center);
+    @include justify-content(center);
+    @include scssont-min-height($button-height);
+    @include transition(ease-in-out, 0.4s);
+    span{
+        position: relative;
+        display: inline-block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        border: 1px solid transparent;
+        @include scssont-padding(5px, 28px, 5px, 28px);
+        @include transition(ease-in-out, 0.4s);
+        @include scssont-font-size(17px);
+        svg{
+          @include scssont-height(20px);
+          @include transition(ease-in-out, 0.4s);
+        }
+    }
+    span:not(.custom-size span){
+      @include scssont-min-width(135px);
+    }
+}
+
+
+// Size
+.button-lg{
+  span{
+  @include scssont-padding(15px, 30px, 15px, 30px);
+  @include scssont-font-size(20px);
+} 
+}
+
+.button-flg{
+  span{
+  @include scssont-padding(12px, 35px, 12px, 35px);
+  @include scssont-font-size(22px);
+} 
+}
+
+.button-sm {
+  min-height: 0px;
+  span{
+  @include scssont-padding(8px, 10px, 8px, 10px);
+  @include scssont-font-size(14px);
+}
+}
+
+.button-xxl {
+  min-height: 0px;
+  span{
+  @include scssont-padding(18px, 50px, 18px, 50px);
+  @include scssont-font-size(40px);
+}
+}
+
+.button-rounded{
+  @include scssont-border-radius(100px);
+  span{
+  @include scssont-border-radius(100px);
+  }
+}
+
+.button-block
+{
+  width: 100%;
+}
+
+.button-text-overflow{
+  span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include scssont-padding-left(10px);
+    @include scssont-padding-right(10px);
+    @include scssont-max-width(135px);
+  }
+}
+
+// Color
+.button {
+ &.button-primary{
+  background-color: $red-500;
+  span{
+    color: #fff;
+  }
+  &:hover{
+    background-color: $black;
+    span{
+     color: #fff;
+    }
+  }
+} 
+}
+
+// Color
+.button {
+ &.button-primary-100{
+  background-color: $red-100;
+  span{
+    color: #fff;
+  }
+  &:hover{
+    background-color: $black;
+    span{
+     color: #fff;
+    }
+  }
+} 
+}
+
+.button {
+ &.button-primary-200{
+  background-color: $red;
+  span{
+    color: #fff;
+  }
+  &:hover{
+    background-color: $black;
+    span{
+     color: #fff;
+    }
+  }
+} 
+}
+
+.button {
+ &.button-primary-grey{
+  background-color: $lightgrey-100;
+  span{
+    color: $black;
+  }
+  &:hover{
+    background-color: #ccc;
+    span{
+     color: $black;
+    }
+  }
+}
+}
+
+.button {
+ &.button-primary-lightgrey{
+  background-color: #ececec;
+  span{
+    color: $black;
+  }
+  &:hover{
+    background-color: #ddd;
+    span{
+     color: $black;
+    }
+  }
+}
+}
+
+.button {
+ &.button-white{
+  background-color: $white;
+  span{
+    color: $black;
+  }
+  &:hover{
+    background-color: $black;
+    span{
+     color: $white;
+    }
+  }
+}
+}
+ 
+// Style
+.button {
+ &.button-outline-dark{
+  border: 1px solid $black;
+  background-color: #fff;
+  span{
+    color: #000;
+  }
+  &:hover{
+    background-color: $black;
+    span{
+      color: #fff;
+    }
+  }
+}
+}
+
+.button {
+  &.button-outline-primary-200{
+   border: 1px solid $red;
+   background-color: #fff;
+   span{
+     color: #000;
+   }
+   &:hover{
+     background-color: $black;
+     border-color: $black;
+     span{
+       color: #fff;
+     }
+   }
+ }
+ }
+
+.button {
+ &.button-outline-white{
+  border: 1px solid $white;
+  background-color: $red-100;
+  span{
+    color: #fff;
+  }
+  &:hover{
+    background-color: $white;
+    span{
+      color: $black;
+    }
+  }
+}
+}
+
+.button-rounded-one{
+  border-radius: 100px 100px 100px 0px;
+}
+
+.button-dark {
+  background-color: #000;
+}
+
+.button-dark:hover {
+  background-color: #d60000;
+}
+
+.button-dark span {
+  color: #fff;
+}
+
+.button-dark:hover span {
+  color: #fff;
+}
+
+// Slide button
+.toggle-change{
+  &::after, &::before{
+    position: absolute;
+    content: "";
+    @include transition(ease-in-out, 0.4s);
+}
+}
+
+.button-outline-primary{
+  background-color: $white;
+  border: solid $white;
+  @include scssont-border-width(1px);
+  &::before {
+  background-color: #fff;
+  }
+  span{
+    color: #000;
+    
+  }
+  &:hover{
+    span{
+      color: $white;
+    }
+  }
+}

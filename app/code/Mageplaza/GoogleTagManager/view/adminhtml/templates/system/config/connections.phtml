@@ -1,0 +1,125 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_GoogleTagManager
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\GoogleTagManager\Block\Adminhtml\System\Config\Connections;
+
+/** @var $block Connections */
+$element    = $block->getElement();
+$attributes = $block->getProductAndCustomerAttributes();
+?>
+<tr id="row_mageplaza_gtm_connections">
+    <td class="label">
+        <label for="row_mageplaza_gtm_connections">
+            <?= $block->getLabelHtml($element->getScopeLabel()) ?>
+        </label>
+    </td>
+    <td class="value">
+        <div id="connections-manage-options-panel" data-index="attribute_options_select_container">
+            <table class="admin__control-table" data-index="attribute_options_select">
+                <thead>
+                <tr id="connections-attribute-options-table">
+                    <th class="col-default control-table-actions-th">
+                        <span>
+                            <?= $block->escapeHtml(__('Measurement ID')) ?>
+                        </span>
+                    </th>
+                    <th class="col-default control-table-actions-th">
+                        <span>
+                            <?= $block->escapeHtml(__('Secret API')) ?></th>
+                        </span>
+                    <th class="col-delete"><?= $block->escapeHtml(__('Action')) ?></th>
+                </tr>
+                </thead>
+                <tbody data-role="connections-options-container" class="ignore-validate"></tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="4" class="col-actions-add">
+                        <button id="connections-add_new_option_button" data-action="add_new_row"
+                                title="<?= $block->escapeHtmlAttr(__('Add')) ?>"
+                                type="button" class="action- scalable add">
+                            <span><?= $block->escapeHtml(__('Add')) ?></span>
+                        </button>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <p class="note">
+            <span><?= $block->escapeHtml(__('Enter the corresponding Measurement ID and API Secrets values together to track events.')) ?></span>
+            <br>
+            <span><?= $block->escapeHtml(__('To get '))?>
+                <a href="https://support.google.com/analytics/answer/12270356?hl=en">
+                    <?= $block->escapeHtml(__('Measurement ID')) ?>
+                </a>
+                <?= $block->escapeHtml(__(', '))?>
+                <a href="https://support.google.com/analytics/answer/9814495">
+                    <?= $block->escapeHtml(__('API Secrets')) ?>
+                </a>
+                <?= $block->escapeHtml(__(' you can refer to the instruction links')) ?></span>
+        </p>
+        <script id="connections-row-template" type="text/x-magento-template">
+            <tr>
+                <td class="col-default-custom-connections mp-custom-name-connections">
+                    <input class="col-default" type="text"
+                           name="groups[googletag][groups][ga4][fields][custom_connections][value][option][value][<%- data.id %>][name]"
+                           value="<%- data.name %>"/>
+                </td>
+                <td class="col-default-custom-connections mp-custom-value-connections">
+                    <input class="col-default" type="text"
+                           name="groups[googletag][groups][ga4][fields][custom_connections][value][option][value][<%- data.id %>][value]"
+                           value="<%- data.value %>"/>
+                </td>
+                <td id="connections-delete_button_container_<%- data.id %>" class="col-delete">
+                    <input type="hidden" class="delete-flag"
+                           name="groups[googletag][groups][ga4][fields][custom_connections][value][option][delete][<%- data.id %>]"
+                           value=""/>
+                    <button id="delete_button_<%- data.id %>"
+                            title="<?= $block->escapeHtml(__('Delete')) ?>"
+                            type="button"
+                            class="action- scalable delete delete-option action-delete">
+                        <span><?= $block->escapeHtml(__('Delete')) ?></span>
+                    </button>
+                </td>
+            </tr>
+        </script>
+        <?php
+        $values = [];
+        foreach ($block->getOptionValues() as $value) {
+            $value    = $value->getData();
+            $values[] = is_array($value) ? array_map('htmlspecialchars_decode', $value) : $value;
+        }
+        ?>
+
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Mageplaza_GoogleTagManager/js/dimensions-metrics": {
+                        "attributesData": <?= /** noEscape */ json_encode($values, JSON_HEX_QUOT) ?>,
+                    "element": "connections",
+                    "table": "#connections-attribute-options-table",
+                    "template": "#connections-row-template"
+                }
+            }
+        }
+        </script>
+
+    </td>
+</tr>

@@ -1,0 +1,58 @@
+type StoreConfig {
+    orderupload_general_enabled : String
+    orderupload_general_upload_dir : String
+    orderupload_general_allowed_extensions : String
+    orderupload_general_max_file_size : String
+    orderupload_customer_customer_groups : String
+    orderupload_customer_can_customer_orderupload : String
+    orderupload_customer_can_delete_orderupload : String
+    orderupload_customer_send_attachment_to_customer : String
+    orderupload_customer_send_attachment_to_admin : String
+    orderupload_customer_allow_checkout : String
+    orderupload_customer_allow_comment : String
+}
+
+type Mutation {
+    setOrderUploadComments(input: OrderUploadInput!): OrderUploadOutput @resolver(class: "\\Meetanshi\\OrderUpload\\Model\\Resolver\\OrderUploadComments") @doc(description:"Order Upload Comment")
+    setOrderUploadFile(input: OrderUploadFileInput!): OrderUploadFileOutput @resolver(class: "\\Meetanshi\\OrderUpload\\Model\\Resolver\\OrderUploadFile") @doc(description:"Order Upload File")
+}
+
+input OrderUploadInput {
+    cart_id: String
+    comments: String
+}
+
+type OrderUploadOutput {
+   success: String @doc(description: "Success true/false")
+}
+
+input OrderUploadFileInput {
+    cart_id: String
+    file: String
+}
+
+type OrderUploadFileOutput {
+   success: String @doc(description: "Success true/false")
+}
+
+
+
+type Query {
+    orderUploadCustomerCollection: OrderUploadCustomerCollection @resolver(class: "Meetanshi\\OrderUpload\\Model\\Resolver\\OrderUploadCustomerCollection") @doc(description: "Order Upload Customer collection")
+}
+
+type OrderUploadCustomerCollection {
+    allOrderUploadCustomer: [OrderUploadRecord] @doc(description: "Order Upload records with info")
+}
+
+type OrderUploadRecord {
+    id : Int
+    order_id : String
+    customer_id : Int
+    file_name : String
+    file_path : String
+    comment : String
+    visible_customer_account : Int
+    updated_at : String
+    created_at : String
+}

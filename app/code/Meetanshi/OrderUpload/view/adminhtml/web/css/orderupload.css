@@ -1,0 +1,28 @@
+table.order-orderupload-table {
+    border-collapse: collapse;
+	    margin-bottom: 30px;
+}
+table.order-orderupload-table th{
+    background: #fff;
+}
+table.order-orderupload-table td, table.order-orderupload-table th, table.order-orderupload-table tr {
+    border: 1px solid #eaeaea;
+    text-align: center;
+    vertical-align: middle;
+}
+table.order-orderupload-table td textarea{
+    height: 70px;
+}
+span.meetanshi-file-upload + .actions-toolbar { 
+    margin-top: 15px;
+}  
+.admin__table-primary th.cell-updated, .admin__table-primary td.cell-updated {
+    padding-left: 1.5rem;
+}
+
+.fileupload-loader{
+	display:none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}

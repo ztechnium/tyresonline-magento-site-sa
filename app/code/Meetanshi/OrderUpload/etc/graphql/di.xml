@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\StoreGraphQl\Model\Resolver\Store\StoreConfigDataProvider">
+        <arguments>
+            <argument name="extendedConfigData">
+                <item name="orderupload_general_enabled" xsi:type="string">orderupload/general/enabled</item>
+                <item name="orderupload_general_upload_dir" xsi:type="string">orderupload/general/upload_dir</item>
+                <item name="orderupload_general_allowed_extensions" xsi:type="string">orderupload/general/allowed_extensions</item>
+                <item name="orderupload_general_max_file_size" xsi:type="string">orderupload/general/max_file_size</item>
+                <item name="orderupload_customer_customer_groups" xsi:type="string">orderupload/customer/customer_groups</item>
+                <item name="orderupload_customer_can_customer_orderupload" xsi:type="string">orderupload/customer/can_customer_orderupload</item>
+                <item name="orderupload_customer_can_delete_orderupload" xsi:type="string">orderupload/customer/can_delete_orderupload</item>
+                <item name="orderupload_customer_send_attachment_to_customer" xsi:type="string">orderupload/customer/send_attachment_to_customer</item>
+                <item name="orderupload_customer_send_attachment_to_admin" xsi:type="string">orderupload/customer/send_attachment_to_admin</item>
+                <item name="orderupload_customer_allow_checkout" xsi:type="string">orderupload/customer/allow_checkout</item>
+                <item name="orderupload_customer_allow_comment" xsi:type="string">orderupload/customer/allow_comment</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,148 @@
+<?php
+$helper = $this->helper('MGS\Blog\Helper\Data');
+$collection = $block->getPostCollection();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$baseURL = $this->getBaseUrl();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="section blog-list">
+	<div class="container custom-width">
+		<?php if($this->getData('title') != "" || $this->getData('mgs_panel_note') != ""): ?>
+		<div class="heading-style6 mb-50 text-center">
+			<?php if($this->getData('title')): ?>
+				<h2 class="text-uppercase"><?php echo __('TYRESONLINE '); ?> <span><?php echo __('BLOG '); ?></span></h2>
+			<?php endif ?>
+			<p><?php echo __('Everything you need to know about tyres and anything automotive.'); ?></p>
+			<a href="<?php echo $baseURL; ?>blog" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span><?php echo __('ALL POSTS'); ?></span></a>
+		</div>
+	<?php endif ?>
+	<?php if (count($collection)): ?>
+		<?php
+		$blogHelper = $this->helper('MGS\Blog\Helper\Data');
+		$lazyLoad = true;
+		$baseImage = $mediaURL.'images/blank.png';
+		$showShortContent = $this->getConfig('show_short_content');
+		$viewAs = $this->getConfig('view_as');
+		$showThumbnail = $this->getConfig('show_thumbnail');
+		$perRow = $this->getConfig('items', 5);
+		$col = $blogHelper->convertPerRowtoCol($perRow);
+		?>
+		<?php if ($viewAs == 'owl_carousel'): ?>
+			<?php 
+			if($this->hasData('number_row') && $this->getNumberRow()>1){
+				$columnCount = $perRow * $this->getNumberRow();
+			}
+			?>
+			<div class="row justify-content-center px-lg-4">
+				<div class="col-12 col-lg-11">
+					<div class="owl-carousel owl-nav-style2 owl-dot-style1 blog-list-slider">
+						<?php $i=0; $j=0; foreach ($collection as $post): $i++ ?>
+						<?php  
+						if ($post->getUpdatedByUser()){ 
+							$author = $post->getUpdatedByUser();
+						}else { 
+							$author = $post->getUser(); 
+						} 
+						?>
+						<?php if($this->hasData('number_row') && $this->getNumberRow()>1): ?>
+						<?php if ($j++ % $columnCount == 0): ?>
+							<div class="item row">
+							<?php endif ?>
+						<?php endif ?>
+						<div class="article-wrap <?php if($this->getNumberRow()>1): ?> col-md-<?php echo $col ?> col-sm-6 col-xs-12<?php if($i % $perRow == 1): ?> first-row-item<?php endif ?><?php if($i % 2 == 1): ?> first-sm-item<?php endif ?><?php endif ?>">
+							<div class="post-item-content">
+								<?php if ($showThumbnail): ?>
+									<div class="image-wrap picture loader aspect-custom">
+										<picture>
+											<?php if($post->getThumbType() == "video"): ?>
+												<?php echo $helper->getThumbnailPost($post); ?>
+											<?php else: ?>
+												<a class="post-title-link" title="<?php echo $post->getTitle(); ?>" href="<?php echo $helper->getPostUrl($post); ?>">
+													<?php if(!$lazyLoad){
+														$baseImage = $post->getThumbnailUrl();
+													} ?>
+													<img src="<?php echo $baseImage; ?>" width="640px" height="423px" class="lazyload" data-src="<?php echo $post->getThumbnailUrl(); ?>" alt="<?php echo $post->getTitle(); ?>" />
+												</a>
+											<?php endif ?>
+										</picture>
+									</div>
+								<?php endif ?>
+								<div class="content">
+									<span class="date"><?php echo __('%1', $block->formatDate($post->getPublishedAt(), \IntlDateFormatter::MEDIUM, false)); ?></span>
+									<h4>
+										<a href="<?php echo $post->getPostUrlWithNoCategory(); ?>" title="<?php echo $post->getTitle(); ?>"><?php echo $post->getTitle() ?></a>
+									</h4>
+								</div>
+							</div>
+						</div>
+						<?php if($this->hasData('number_row') && $this->getNumberRow()>1): ?>
+						<?php if ($j % $columnCount == 0 || $j == count($collection)): ?>
+						</div>
+					<?php endif ?>
+				<?php endif ?>
+			<?php endforeach ?>
+		</div>
+	</div>
+</div>
+<?php else: ?>
+	<div class="block widget mgs-blog-lastest-posts has-margin">
+		<div class="block-content">
+			<?php $perRow = $this->getConfig('items', 5); ?>
+			<?php $col = $helper->convertPerRowtoCol($perRow); ?>
+			<ul class="row <?php echo $helper->convertColClass($col, 'row') ?>">
+				<?php $i=0; foreach ($collection as $post): $i++; ?>
+				<?php  
+				if ($post->getUpdatedByUser()){ 
+					$author = $post->getUpdatedByUser();
+				}else { 
+					$author = $post->getUser(); 
+				} 
+				?>
+				<li class="post-item item col-md-<?php echo $col ?> col-sm-6 col-xs-12<?php if($i % $perRow == 1): ?> first-row-item<?php endif ?><?php if($i % 2 == 1): ?> first-sm-item<?php endif ?>">
+					<div class="post-item-content">
+						<?php if ($showThumbnail): ?>
+							<div class="thumbnail-post">
+								<?php if($post->getThumbType() == "video"): ?>
+									<?php echo $helper->getThumbnailPost($post); ?>
+								<?php else: ?>
+									<a class="post-title-link" title="<?php echo $post->getTitle(); ?>" href="<?php echo $helper->getPostUrl($post); ?>">
+										<?php if(!$lazyLoad){
+											$baseImage = $post->getThumbnailUrl();
+										} ?>
+										<img src="<?php echo $baseImage; ?>" class="img-responsive<?php if($lazyLoad): ?> lazy<?php endif ?>" data-src="<?php echo $post->getThumbnailUrl(); ?>" alt="<?php echo $post->getTitle(); ?>" />
+									</a>
+								<?php endif ?>
+							</div>
+						<?php endif ?>
+						<div class="post-item-detail">
+							<h6 class="title">
+								<a href="<?php echo $helper->getPostUrl($post); ?>" title="<?php echo $post->getTitle(); ?>"><?php echo $post->getTitle() ?></a>
+							</h6>
+							<div class="post-info">
+								<span class="post-author margin-right5">
+									<?php echo __('By') ?> <span><?php echo $author ?></span>
+									<span class="post-time"><?php echo __('on') ?> 
+									<span><?php echo date('M d, Y', strtotime($post->getCreatedAt())) ?></span>
+								</span>
+							</span>
+						</div>
+						<?php if ($showShortContent): ?>
+							<div class="short-content">
+								<?php echo mb_substr($post->getShortContent(), 0, $this->getConfig('limit_characters_short_content')); ?>... <a href="<?php echo $helper->getPostUrl($post); ?>">Read More</a>
+							</div>
+						<?php endif ?>
+					</div>
+				</div>
+			</li>
+		<?php endforeach ?>
+	</ul>
+</div>
+</div>
+<?php endif; ?>
+<?php else: ?>
+	<div role="alert" class="alert alert-warning"> <?php echo __('There are no posts matching the selection.') ?> </div>
+<?php endif; ?>
+</div>
+</div>

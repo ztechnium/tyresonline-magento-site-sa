@@ -1,0 +1,23 @@
+.config-nav-block.chetu-config-tab strong:before {
+    background: url(../images/chetu_logo.png) no-repeat;
+    width: 85px;
+    height: 30px;
+    content: '';
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+fieldset#chetu_info_information h3 {
+    color: #eb5202;
+    margin-bottom: 10px;
+}
+
+fieldset#chetu_info_installed_extensions td.label label {
+    padding-bottom: 7px;
+}
+
+.chetu-follow ul li {
+    float: left;
+    list-style: none;
+}

@@ -1,0 +1,103 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$url = $objectManager->get('Magento\Framework\Url')->getUrl('coreoverride/cookie/index');
+?>
+<div class="page-actions">
+    <div class="page-actions-inner">
+        <div class="page-actions-buttons">
+            <?= $block->getChildHtml() ?>
+
+            <form class="action-element"
+                  action="<?= $block->escapeUrl($block->getUrl('*/*/refreshStatistics')) ?>"
+                  method="post">
+                <input
+                    name="form_key"
+                    type="hidden"
+                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+                <button
+                    class="action-primary"
+                    type="submit"
+                    title="<?= $block->escapeHtmlAttr(__('Reload Data')) ?>">
+                    <?= $block->escapeHtml(__('Reload Data')) ?>
+                </button>
+            </form>
+			<?php /* Start Offline payment method action */  ?>
+            <?php /*
+            <form class="action-element"
+                  action="<?= $block->escapeUrl($url) ?>"
+                  method="post">
+                <input
+                    name="form_key"
+                    type="hidden"
+                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+                <button
+                    class="action-primary"
+                    onclick="location.href = '<?= $block->escapeUrl($url) ?>';"
+					formtarget="_blank"
+                    title="<?= $block->escapeHtmlAttr(__('Enable Offline Payment Method')) ?>">
+                    <?= $block->escapeHtml(__('Enable Offline Payment Method')) ?>
+                </button>
+            </form>
+            */ ?>
+			<?php /* End Offline payment method action */  ?>
+			<?php /* Start Google Feed Generate action */ ?>
+            <?php /*
+			<form class="action-element"
+                  action="<?= $block->escapeUrl($block->getUrl('coreoverride/googleshoppingfeed/index/')) ?>"
+                  method="post">
+                <input
+                    name="form_key"
+                    type="hidden"
+                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+                <button
+                    class="action-primary"
+                    type="submit"
+                    title="<?= $block->escapeHtmlAttr(__('Generate Google Shopping Feed')) ?>">
+                    <?= $block->escapeHtml(__('Generate Google Shopping Feed')) ?>
+                </button>
+            </form>
+            */ ?>
+			<?php /* End Google Feed Generate action */ ?>
+			<?php /* Start Facebook Feed Generate action */ ?>
+            <?php /*
+			<form class="action-element"
+                  action="<?= $block->escapeUrl($block->getUrl('coreoverride/facebookshoppingfeed/index/')) ?>"
+                  method="post">
+                <input
+                    name="form_key"
+                    type="hidden"
+                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+                <button
+                    class="action-primary"
+                    type="submit"
+                    title="<?= $block->escapeHtmlAttr(__('Generate Facebook Feed')) ?>">
+                    <?= $block->escapeHtml(__('Generate Facebook Feed')) ?>
+                </button>
+            </form>
+            */ ?>
+			<?php /* End Facebook Feed Generate action */ ?>
+            <?php /* Start Re-index action */ ?>
+			<form class="action-element"
+                  action="<?= $block->escapeUrl($block->getUrl('coreoverride/reindex/index/')) ?>"
+                  method="post">
+                <input
+                    name="form_key"
+                    type="hidden"
+                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+                <button
+                    class="action-primary"
+                    type="submit"
+                    title="<?= $block->escapeHtmlAttr(__('Re-Index Data')) ?>">
+                    <?= $block->escapeHtml(__('Re-Index Data')) ?>
+                </button>
+            </form>
+			<?php /* End Re-index action */ ?>
+        </div>
+    </div>
+</div>

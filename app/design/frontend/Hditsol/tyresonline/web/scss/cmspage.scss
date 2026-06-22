@@ -1,0 +1,1183 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "pages/wheel-protector";
+@import "pages/davanti-tyres";
+@import "pages/matrax-tyres";
+@import "pages/goodyear-offers";
+@import "sections/blog-slider";
+
+
+.page-title{
+    position: relative;
+}
+
+.page-title .image-wrap.aspect-custom {
+  padding-top: 17.7%;
+}
+
+.page-title h1{
+    text-shadow: 0px 14px 15.84px rgb(0 0 0 / 39%);
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 75px;
+    font-weight: 900;
+    letter-spacing: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.cms-page-section .section-title {
+  margin-bottom: 30px;
+}
+
+.cms-page-section {
+  padding: 60px 0;
+}
+
+.cms-page-section .section-title h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.cms-page-section .text-block p {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+@media screen and (max-width:991px) {
+    .page-title h1{
+        font-size: 35px;
+        letter-spacing: 10px;
+    }
+}
+
+@media screen and (max-width:767px) {
+  .page-title .image-wrap.aspect-custom {
+    padding-top: 68%;
+  }
+
+  .cms-page-section {
+    padding: 40px 0;
+  }
+
+  .cms-page-section .section-title h1 {
+    font-size: 22px;
+  }
+
+}
+
+
+.cms-page-section .accordion .accordion-item {
+  border: none;
+  margin-bottom: 5px;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-button {
+  background-color: #f5f5f5;
+  padding: 15px;
+  font-size: 14px;
+  border-radius: 0px;
+  color: #000;
+  font-weight: 600;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-button:focus{
+  box-shadow: none;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-button:hover, .cms-page-section .accordion .accordion-item .accordion-button:focus, .cms-page-section .accordion .accordion-item .accordion-button.active {
+  background-color: #eee;
+  border: none;
+  color: #000;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-button:not(.collapsed) {
+  color: #000;
+  box-shadow: none;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-body {
+  padding: 17px;
+  border: 1px solid #eee;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-body p {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-button::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>');
+  background-size: 0.95rem;
+}
+
+.cms-page-section .accordion .accordion-item .accordion-button:not(.collapsed)::after {
+  transform: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"/></svg>');
+}
+
+
+/* promo offers */
+.promotions-offers .offer-box {
+  margin-bottom: 1.5rem;
+  border: 2px solid #000;
+  padding: 3px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.promotions-offers .offer-box .link {
+  position: relative;
+  overflow: hidden;
+}
+
+.promotions-offers .offer-box .link:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-color: #00000087;
+  transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white"><path d="M432 256C432 264.8 424.8 272 416 272h-176V448c0 8.844-7.156 16.01-16 16.01S208 456.8 208 448V272H32c-8.844 0-16-7.15-16-15.99C16 247.2 23.16 240 32 240h176V64c0-8.844 7.156-15.99 16-15.99S240 55.16 240 64v176H416C424.8 240 432 247.2 432 256z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+  transform: translateY(100%);
+}
+
+.promotions-offers .offer-box:hover .link:after {
+  transform: translateY(0px);
+}
+
+.promotions-offers .offer-box .image-wrap.aspect-custom {
+  padding-bottom: 65%;
+}
+
+.promotions-offers .content-block h1{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.promotions-offers .content-block p{
+  font-size: 14px;
+}
+
+.promotions-offers .content-block h2{
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.promotions-offers .content-block ul{
+  margin: 0 0 0 14px;
+  font-size: 14px;
+}
+
+.promotions-offers .content-block ul li{
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width:767px) {
+  .promotions-offers .content-block h1,
+  .promotions-offers .content-block h2{
+    font-size: 20px;
+  }
+}
+
+
+/* starlight-headliner-car-roof */
+
+.starlight-headliner{
+  padding: 30px;
+}
+
+.starlight-headliner .page-title-banner{
+  position: relative;
+}
+
+.starlight-headliner .page-title-banner .image-wrap.aspect-custom {
+  padding-top: 38%;
+}
+
+.starlight-headliner .page-title-banner .bottom-block{
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+.starlight-headliner .page-title-banner .bottom-block .button{
+  letter-spacing: 2px;
+}
+
+.starlight-headliner .section-title-with-image {
+  padding: 20px 0;
+}
+
+.starlight-headliner .section-title-with-image h1{
+  font-size: 30px;
+  margin: 0;
+  font-weight: 900;
+}
+
+.starlight-headliner .section-title-with-image img{
+  max-height: 100px;
+  margin-left: 20px;
+  height: auto;
+  width: auto;
+}
+
+.starlight-headliner .intro-text-block{
+  padding: 0 50px;
+}
+
+.starlight-headliner .intro-text-block h2{
+  font-weight: 900;
+  font-size: 30px;
+}
+
+.starlight-headliner .intro-text-block p{
+  line-height: 1.8em;
+  font-size: 16px;
+}
+
+.starlight-headliner .intro-text-block h3{
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner{
+  position: relative;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner.margin-top-n{
+  margin-top: -85px;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner:after{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  content: "";
+  background-color: #ebebeb;
+  width: 100%;
+  height: 70%;
+  z-index: -1;
+  transform: translateY(-50%);
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .image-block img{
+  width: 100%;
+  height: auto;
+}
+
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .text-block{
+  padding: 0px 50px 50px 50px;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .text-block h2 {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .text-block p{
+  line-height: 1.8em;
+  font-size: 16px;  
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .text-block .link{
+  text-transform: uppercase;
+  color: #d60000;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .text-block .link svg{
+  width: 15px;
+  fill: #d60000;
+  margin-left: 5px;
+  position: relative;
+  top: -2px;
+}
+
+.starlight-headliner .contact-block {
+  padding: 50px 0;
+}
+
+.starlight-headliner .contact-block p{
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+.starlight-headliner .contact-block .button{
+  letter-spacing: 2px;
+}
+
+
+
+@media screen and (max-width:767px) {
+  .starlight-headliner {
+  padding: 0;
+}
+
+  .starlight-headliner .section-title-with-image h1{
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+  }
+
+  .starlight-headliner .intro-text-block h2,
+  .starlight-headliner .custom-headliner-wrap .custom-headliner .text-block h2{
+      font-size: 18px;
+  }
+
+  .starlight-headliner .custom-headliner-wrap .custom-headliner{
+      overflow: hidden;
+  }
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner .text-block {
+  padding: 20px;
+}
+
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner:after{
+  top: 39vw;
+  transform: none;
+  height: 100%
+}
+
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner.margin-top-n{
+  margin-top: 0;
+}
+
+.starlight-headliner .section-title-with-image {
+  padding: 30px 15px;
+}
+
+.starlight-headliner .intro-text-block{
+  padding: 0 15px;
+}
+
+.starlight-headliner .section-title-with-image img{
+  max-height: 60px;
+  margin-left: 0;
+}
+
+}
+
+
+@media screen and (min-width:768px) and (max-width: 1199px){
+  .starlight-headliner .custom-headliner-wrap .custom-headliner .text-block h2{
+      font-size: 22px;
+  }
+  .starlight-headliner .custom-headliner-wrap .custom-headliner .text-block p{
+      line-height: 1.3em;
+      font-size: 14px;
+  }
+
+  .starlight-headliner .custom-headliner-wrap .custom-headliner .text-block{
+      padding: 20px;
+  }
+
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner.margin-top-n {
+  margin-top: 30px;
+}
+
+.starlight-headliner .custom-headliner-wrap .custom-headliner:after{
+  height: 100%
+}
+}
+
+.appointment-form{
+  padding: 0 10px;
+}
+
+.appointment-form .form .group-title{
+  margin-top: 15px;
+}
+
+.appointment-form .form .group-title p{
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.appointment-form .form .form-group{
+  margin-bottom: 10px;
+}
+
+.appointment-form .form .checkbox {
+  padding: 15px 0 0;
+  position: relative;
+}
+
+.appointment-form .form .checkbox label
+{
+  margin-right: 25px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.appointment-form .form .checkbox input{
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+.appointment-form .form .checkbox div.mage-error[generated]{
+      position: absolute;
+  top: -10px;
+  left: 0;
+}
+
+.appointment-form .form .submit{
+  letter-spacing: 2px;
+}
+
+@media screen and (max-width:767px) {
+  .appointment-form {
+  padding: 0;
+}
+
+.appointment-form .form .checkbox input{
+  float: right;
+}
+}
+
+
+@mixin banner-height() {
+  height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+  @media screen and #{$media-query} {
+    height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+  }
+}
+
+
+.cms-mobile-tyre-fitting-service-in-uae .container-custom {
+  max-width: 100%;
+}
+
+.mobiletyre-fitting .container-fluid {
+  padding: 0px calc(3.80% + 15px);
+}
+
+.mobiletyre-fitting .doorstep-banner {
+  padding: 10.8% 0;
+  background-size: cover;
+  background-position: center;
+  @include banner-height();
+
+}
+
+.mobiletyre-fitting .doorstep-banner .text-block h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 3.906vw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.mobiletyre-fitting .doorstep-banner .text-block .link {
+  display: inline-block;
+  padding: 14px 35px;
+  background-color: #D70000;
+  border-radius: 100px;
+  font-weight: 900;
+  font-style: italic;
+  color: #fff;
+  font-size: 15px;
+  margin-top: 1.8vw;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mobiletyre-fitting .doorstep-banner .text-block .link:hover {
+  background-color: #000;
+}
+
+.mobiletyre-fitting .text-with-image-section {
+  padding: 3.958vw 0;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block{
+  padding-right: 1.5vw;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block h2 {
+  margin: 0;
+  font-size: 1.771vw;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.781vw;
+  line-height: 2.396vw;
+  letter-spacing: 1.5px;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block p {
+  font-size: 1.042vw;
+  letter-spacing: 0;
+  text-align: left;
+  margin-bottom: 1.042vw;
+  padding: 0;
+  line-height: 1.3;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block p em{
+      line-height: 1.5;
+  font-size: 0.938vw;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .link {
+  display: inline-block;
+  padding: 12px 35px;
+  background-color: #D70000;
+  border-radius: 100px;
+  font-weight: 900;
+  font-style: italic;
+  color: #fff;
+  font-size: 0.938vw;
+  margin-top: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .link:hover {
+  background-color: #000;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block ul {
+  margin: 0;
+  padding: 0;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block ul li {
+  margin: 0;
+  font-size: 1.042vw;
+  position: relative;
+  padding-left: 17px;
+  list-style-type: none;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block ul li:after {
+  content: ">";
+  color: #D70000;
+  font-weight: 900;
+  left: 0;
+  position: absolute;
+  top: -1.7px;
+  font-size: 1.042vw;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price {
+  margin-top: 0.521vw;
+  margin-bottom: 0.521vw;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price span.currency {
+  font-size: 1.198vw;
+  color: #D80000;
+  bottom: 0;
+  font-weight: 600;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price strong {
+  font-size: 1.979vw;
+  font-weight: 900;
+  color: #D80000;
+  letter-spacing: 1.5px;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price span.vat {
+  font-size: 0.781vw;
+  font-weight: 600;
+}
+
+.mobiletyre-fitting .text-with-image-section .image-block {
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.mobiletyre-fitting .text-with-image-section .image-block img{
+  width: 100%;
+}
+
+.mobiletyre-fitting .text-with-image-section .mobile-image-block {
+  display: none;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .main_banner.sampletirewrap .tyres_banner_img {
+  display: none;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mobile-search-modify, .mobilesearch {
+  display: none;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .service-loction {
+  padding: 90px 0 0;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .service-loction h2 {
+  text-align: center;
+  font-size: 1.771vw;
+  font-weight: 900;
+  margin: 0;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .service-loction .serviceloction-slider {
+  margin-top: 4.167vw;
+  background-color: #D70000;
+  padding: 1.927vw 0;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .service-loction .serviceloction-slider .item img {
+  max-height: 330px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .service-loction .serviceloction-slider .owl-theme .owl-controls {
+  margin: 0;
+}
+
+.izimodal-style1.mobilevanservice {
+  max-width: 650px;
+}
+
+.izimodal-style1.mobilevanservice .modal-content-wrap {
+  padding: 80px 15px;
+}
+
+.mobilevanservice .schedule-auto-service {
+  text-align: center;
+}
+
+.mobilevanservice .schedule-auto-service h2 {
+  color: #fff;
+  font-size: 25px;
+  font-weight: 900;
+  margin-top: 0;
+}
+
+.mobilevanservice .schedule-auto-service p {
+  text-align: center;
+  margin: 0 0 3px;
+  color: #fff;
+  padding: 0;
+  line-height: 1;
+}
+
+.mobilevanservice .schedule-auto-service p strong {
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mobilevanservice .schedule-auto-service p span {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 13px;
+}
+
+.mobilevanservice .close {
+  position: absolute;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  opacity: 1;
+  top: 4px;
+  font-size: 25px;
+}
+
+.mobilevanservice .schedule-auto-service-form {
+  margin-top: 25px;
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mobilevanservice .schedule-auto-service-form .form-group{
+  margin-bottom: 15px;
+}
+
+.mobilevanservice .schedule-auto-service-form input[type=text],
+.mobilevanservice .schedule-auto-service-form select,
+.mobilevanservice .schedule-auto-service-form .custom-input {
+  border-radius: 30px;
+  min-height: 45px;
+  border: none;
+  font-weight: 300;
+  padding: 0 20px;
+  font-family: "Rubik", sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.mobilevanservice .schedule-auto-service-form select{
+  background: #fff;
+}
+
+.mobilevanservice .schedule-auto-service-form textarea {
+  font-weight: 300;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.mobilevanservice .schedule-auto-service-form .custom-input {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 15px;
+}
+
+.mobilevanservice .schedule-auto-service-form form.form .input-text {
+  margin-bottom: 15px;
+}
+
+
+.mobilevanservice .schedule-auto-service-form div.mage-error[generated] {
+  color: #fff;
+  font-size: 12px;
+  margin: 4px 0 0px;
+  text-align: center;
+}
+
+.mobilevanservice .schedule-auto-service-form .action.primary {
+  border-radius: 30px;
+  min-height: 45px;
+  border: none;
+  font-weight: 300;
+  padding: 0 30px;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mobilevanservice .schedule-auto-service-form .action.primary:hover {
+  background-color: #222;
+}
+
+.mobilevanservice-map .modal-body {
+  padding: 40px 30px 30px 30px;
+}
+
+.mobilevanservice-map .modal-body .close {
+  position: absolute;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  opacity: 1;
+  top: 4px;
+  font-size: 25px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper .mb-login-popup-title {
+  background-color: #D70000 !important;
+  border-radius: 20px 20px 0 0;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper .mb-login-popup-title strong {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper .mb-login-popup-title {
+  padding: 13px 10px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper {
+  width: 650px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper .ajaxcart-success-box .ajaxcart-buttons {
+  float: none;
+  width: 100%;
+  margin: 30px 0 30px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper .mb-ajaxsuite-popup-border {
+  margin: 0;
+  padding: 15px 20px 0 20px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper img.image {
+  width: 250px;
+  margin: 0;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper .ajaxcart-success-box .ajaxcart-buttons button {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper .ajaxcart-success-box .success-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper .product-name {
+  font-size: 14px;
+  font-weight: 900;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper a.mb-ajaxsuite-close {
+  background: none;
+  position: absolute;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  opacity: 1;
+  top: 10px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAYAAAAehFoBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUuNSAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODZCQkIzQ0I0RTg0MTFFNjlBODI4QTFBRTRBMkFCMDQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODZCQkIzQ0M0RTg0MTFFNjlBODI4QTFBRTRBMkFCMDQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4NkJCQjNDOTRFODQxMUU2OUE4MjhBMUFFNEEyQUIwNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4NkJCQjNDQTRFODQxMUU2OUE4MjhBMUFFNEEyQUIwNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsgTJLcAAALJSURBVHja3JnLS1VBHMfvQ7g9dBXRRrwEFRciAhMi1JRW1aIHVEIYEkW0iVpUhOD/ICK6cFMgSbUpC6VFkQa9NtpjkauriRY9Noa3pHT8/mIODMM5Or85o87pC5/NPf5mvmc8M7+Z36SFEKkY2gj2gUawF2wHW8A6+fwv+A6KYAQMg+dg2rbDtKXhGnAaHJIms4zYz9J4HxgAf1g9k2EGteAhWBBuNApaQNrUg6nRTaAbzIuV0RCocWW4DoyJlVcJXI5ruFk2tJqi/2TWxvA5sXbqA2Ucw01i7dVjargazAo/dE33p6/DlAheg50pP0SJpwG8CH7IaH/Q5pFZUhnoArkwwwVwJeWfdoMLYYZvqG+yTGo9CerAoIWBT+A4qAdPDWOugwo1NVcxJtpFZRLkwH3GJCqCghJfxVjnz1JMMMKnwAbGRAg0B5rAA4O4CblZ+qj8tkBjZthvSzDCtFIMM0ZpQhslk5Eej4jpZ/T7G+ygwG1ghrk+jjNMFy1eMPJzpOAzlou6iWmXZkm91EBHjEwUZXoQTDk2SxqhRh7HTJ9hpstB3rFZ0ldq6J2DnB9m2rXZfxOPlrX1DrJRXiaBXSHPaMHvB0cd9JPLpBImMvzLQTuUFA6A9yHPfoIjhsllOc1l5N4grtmDWgYrl5+JTUZcSjNkeMyxWdpA3ZN72IJj01OJTByJS82J2/wQVxmB5y1HK8x0JWMf/kzdD98FJcY5S51gdwyTQl6eUAraspo27PeWXgy8afim0+CELAwOWHyH9EkdkyWwJ4Yxk6BCP+bTm48anutWW5dAp34IpbW03UOzb0FPVEHbx0LKfvAyqpAyKw97JU8Mt6pml6rAJ6oY6Eu5NfvfF7QTeWWQyEsZr6694lwsNoPD8mKRo29gCNwGj7gXi7aGA1EBcY+8vq0GW8FmJb3Pgx9gEnwAr8Ab8MW2w0UBBgAVyyyaohV7ewAAAABJRU5ErkJggg==) no-repeat 50% 50%;
+  height: 27px;
+  width: 27px;
+  border-radius: 50%;
+  background-size: 100%;
+  transition: transform .5s cubic-bezier(.16,.81,.32,1),opacity .5s ease;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper a.mb-ajaxsuite-close:hover{
+  opacity: .8;
+  transform: rotate(180deg);
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper, .cms-mobile-tyre-fitting-service-in-uae #ajaxcart_checkout {
+  border-radius: 19px;
+}
+
+.cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper .ajaxcart-success-box .ajaxcart-buttons button:hover {
+  background-color: #000;
+}
+
+
+@media screen and (min-width:1920px) {
+  .mobiletyre-fitting .doorstep-banner{
+      padding: 12.4% 0;
+  }
+  .mobiletyre-fitting .text-with-image-section .text-block .link{
+
+  }
+}
+
+@include media-breakpoint-down(md) {
+  html {
+    .safari {
+      .mobiletyre-fitting .doorstep-banner{
+          height: calc(100vh - #{get-rem($header-hight)} - #{$safari-bottom-bar-height} + 10px);
+        }
+      }
+    }
+
+  html {
+    .chrome {
+      .mobiletyre-fitting .doorstep-banner{
+          height: calc(100vh - #{get-rem($header-hight)} - #{$chrome-bottom-bar-height} + 10px);
+        }
+      }
+    }
+}
+
+
+@media screen and (max-width:767px) {
+  .cms-mobile-tyre-fitting-service-in-uae .mobile-search-modify {
+      display: none !important;
+  }
+
+  .cms-mobile-tyre-fitting-service-in-uae #mb-ajaxcart-wrapper {
+    max-width: 650px;
+    width: auto;
+  }
+
+  .mobiletyre-fitting .doorstep-banner .container-fluid{
+    height: 100%;
+  }
+
+  .mobiletyre-fitting .doorstep-banner {
+      padding-top: 35px;
+      padding-bottom: 50px;
+  }
+
+  .mobiletyre-fitting .doorstep-banner .text-block {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      height: 100%;
+  }
+
+  .mobiletyre-fitting .doorstep-banner .text-block h1 {
+      font-size: 35px;
+      align-self: flex-start;
+      width: 100%;
+  }
+
+  .mobiletyre-fitting .doorstep-banner .text-block .link{
+    align-self: flex-end;
+  }
+
+  .mobiletyre-fitting .text-with-image-section {
+      padding: 30px 0;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block {
+      text-align: center;
+      padding-right: 0;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block h2 {
+      font-size: 27px;
+      line-height: 1.1;
+      margin-bottom: 25px;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block p {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block .link{
+      font-size: 17px;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .image-block {
+      border-radius: 25px;
+      margin-bottom: 20px;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block ul li {
+      text-align: left;
+      font-size: 14px;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block p i {
+      text-align: left;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block ul li:after{
+      top: 0;
+      font-size: 14px;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .text-block p i br {
+      display: none;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .image-block {
+      display: none;
+  }
+
+  .mobiletyre-fitting .text-with-image-section .mobile-image-block {
+      display: block;
+  }
+
+  .cms-mobile-tyre-fitting-service-in-uae .service-loction {
+      padding: 30px 0;
+  }
+
+  .cms-mobile-tyre-fitting-service-in-uae .service-loction {
+      padding-top: 15px;
+      padding-bottom: 0;
+  }
+
+  .cms-mobile-tyre-fitting-service-in-uae .service-loction .serviceloction-slider {
+      margin-top: 40px;
+      padding: 33px 0;
+  }
+
+  .mobilevanservice .schedule-auto-service-form {
+      max-width: 100%;
+  }
+
+  .mobilevanservice .schedule-auto-service-form form.form div.mage-error[generated] {
+      text-align: left;
+  }
+
+  .cms-mobile-tyre-fitting-service-in-uae .mb-ajaxsuite-popup-wrapper {
+  left: 50% !important;
+  top: 50% !important;
+  margin: auto;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price{
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+
+.mobiletyre-fitting .text-with-image-section .text-block .price span.currency{
+  font-size: 25px;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price strong{
+  font-size: 38px;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block .price span.vat{
+  font-size: 15px;
+  text-align: right;
+  top: -9px;
+  position: relative;
+  display: block;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block p em{
+  font-size: 12px;
+  text-align: left;
+  display: block;
+  line-height: 1.6;
+}
+
+.mobiletyre-fitting .text-with-image-section .text-block p em br{
+  display: none
+}
+
+.cms-mobile-tyre-fitting-service-in-uae .service-loction h2{
+  font-size: 28px;
+}
+
+.izimodal-style1.mobilevanservice .modal-content-wrap {
+  padding: 50px 15px;
+}
+
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+.mobiletyre-fitting .text-with-image-section .text-block p,
+.mobiletyre-fitting .text-with-image-section .text-block ul li{
+  font-size: 1.342vw;
+}  
+
+.mobiletyre-fitting .text-with-image-section .text-block p em{
+  font-size: 1.138vw;
+}
+}
+.catalog-product-view .alloygator-wheel-detail-block {
+  order: 4;
+}
+
+
+@media screen and (max-height: 640px) and (max-width: 767px){
+  .mobiletyre-fitting .doorstep-banner .text-block h1{
+    font-size: 25px;
+  }
+  .mobiletyre-fitting .doorstep-banner{
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+}
+
+
+@media screen and (max-width: 1023px) and (orientation : landscape){
+  .mobiletyre-fitting .doorstep-banner{
+    height: 500px !important;
+  }
+}
+
+/* Gallery */
+.starlight-headliner-gallery{
+  padding: 30px;
+}
+.starlight-headliner-gallery .gallery-wrap .section-title{
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.starlight-headliner-gallery .gallery-wrap .section-title h2{
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 36px;
+}
+
+.starlight-headliner-gallery .gallery-wrap .section-title h2 span
+{
+  color: #d70000;
+}
+
+.starlight-headliner-gallery .gallery-wrap .gallery-list{
+  margin-bottom: 80px;
+}
+
+.starlight-headliner-gallery .gallery-wrap .gallery-list .image-wrap.full-image{
+  padding-top: 71%;
+}
+
+.starlight-headliner-gallery .gallery-wrap .gallery-list .image-wrap.half-image{
+  padding-top: calc(71% - 0.08rem);
+  margin-bottom: var(--bs-gutter-y);
+}
+
+@media screen and (max-width:991px) {
+  .starlight-headliner-gallery .gallery-wrap .section-title h2{
+  font-size: 26px;
+}
+}
+
+
+@media screen and (max-width:767px) {
+.starlight-headliner-gallery {
+  padding: 0;
+}
+
+.starlight-headliner-gallery .gallery-wrap .section-title{
+  margin-bottom: 20px;
+}
+
+
+.starlight-headliner-gallery .gallery-wrap .gallery-list {
+  margin-bottom: 40px;
+}
+
+}

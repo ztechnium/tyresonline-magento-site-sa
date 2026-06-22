@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Hdweb\Rfc\Block\Adminhtml\Rfcimport\Edit" name="rfc_rfcimport_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Hdweb\Rfc\Block\Adminhtml\Rfcimport\Edit\Tabs" name="rfc_rfcimport_edit_tabs">
+                <block class="Hdweb\Rfc\Block\Adminhtml\Rfcimport\Edit\Tab\Main" name="rfc_rfcimport_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">rfc_rfcimport_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+		<!-- <referenceContainer name="content">
+            <block class="Hdweb\Rfc\Block\Adminhtml\Rfcimport\Edit" name="rfc_block_adminhtml_rfcimport_edit"  template="Hdweb_Rfc::rfcimport/rfcimport.phtml" />
+        </referenceContainer> -->
+    </body>
+</page>

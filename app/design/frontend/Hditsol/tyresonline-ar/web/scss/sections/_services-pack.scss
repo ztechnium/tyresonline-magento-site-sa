@@ -1,0 +1,1401 @@
+.mx-n25 {
+  @include scssontmsm-margin-left(-25px);
+  @include scssontmsm-margin-right(-25px);
+}
+
+@mixin service-pack-width() {
+  width: calc(
+    #{get-rem($services-box-width)} + var(--bs-gutter-x) * 0.5 + var(
+        --bs-gutter-x
+      ) * 0.5
+  );
+  @media screen and #{$media-query} {
+    width: calc(
+      #{get-vw($services-box-width)} + var(--bs-gutter-x) * 0.5 + var(
+          --bs-gutter-x
+        ) * 0.5
+    );
+  }
+}
+ 
+@mixin fix-item4() {
+  height: calc(#{get-rem-sm(44.5px)} * 4);
+  @media screen and #{$media-query} {
+    height: calc(#{get-vw(44.5px)} * 4);
+  }
+}
+
+@mixin box-height() {
+  height: calc(100% - #{get-rem-sm($box-header-height)});
+  @media screen and #{$media-query} {
+    height: calc(100% - #{get-vw($box-header-height)});
+  }
+}
+
+.service-pack {
+  &.service-oil-change{
+    direction: $directionl;
+  }
+  .section-title {
+    @include scssontmsm-margin-bottom(30px);
+    direction: $directionl;
+    h2 {
+      color: $services-box-compare-color;
+      .vs {
+        color: $black;
+        @include scssontmsm-font-size(16px);
+      }
+      .text-compare {
+        color: $red-100;
+      }
+    }
+    h3 {
+      @include scssontmsm-font-size(40px);
+    }
+    .image {
+      @include scssontmsm-margin-left(10px);
+      @include scssontmsm-height(65px);
+      @include scssontmsm-width(215px);
+      background-position: 1% 98%;
+      background-size: 220%;
+      display: block;
+    }
+  }
+  .service-box-slider{
+     direction: $directionl;
+  }
+  @include scssontmsm-padding(100px, 0px, 0px, 0px);
+  .col-custom {
+    flex: 0 0 auto;
+    @include service-pack-width();
+    &.open {
+      padding: 0;
+    }
+  }
+  .service-wrap {
+    background-color: $services-box-color;
+    @include scssontmsm-height($services-box-height);
+    @include scssontmsm-border-radius($service-box-border-radius);
+    border: solid $services-box-color;
+    @include scssontmsm-border-width(1px);
+    position: relative;
+    .overflow-cover {
+      @include scssontmsm-border-radius($service-box-border-radius-inner);
+      overflow: hidden;
+      height: 100%;
+    }
+    .row {
+      height: 100%;
+    }
+    .box {
+      .box-title {
+        @include scssontmsm-padding(5px, 5px, 5px, 25px);
+        @include scssontmsm-min-height($box-header-height);
+        position: relative;
+        background-color: $services-box-color;
+        h6 {
+          color: #fff;
+          font-weight: 500;
+          margin: 0;
+          padding: 0;
+        }
+        .icon {
+          @include scssontmsm-margin-left(10px);
+          &.toi-edit {
+            &:hover {
+              background-color: #000;
+              background-position: 0.5% 5.7%;
+            }
+          }
+        }
+        .toi-info-outline {
+          position: absolute;
+          right: 0;
+        }
+      }
+      .box-body {
+        background-color: #fff;
+        &:not(.padding-20) {
+          @include scssontmsm-padding-mix(12px, 25px);
+        }
+        &.padding-20 {
+          @include scssontmsm-padding-mix(20px, 20px);
+        }
+      }
+      &.bg-red-600 {
+        .box-title {
+          background-color: $services-box-compare-color;
+        }
+      }
+      &.full-height {
+        height: 100%;
+        .box-body {
+          @include box-height();
+          .scrollbar-outer,
+          .scrollbar-inner {
+            height: 100%;
+            @include scssontmsm-padding-right(10px);
+          }
+        }
+      }
+    }
+
+    .vehicle-info {
+      ul {
+        li {
+          @include scssontmsm-font-size(16.5px);
+          @include scssontmsm-margin-bottom(3.5px);
+          @include flexbox();
+          span {
+            font-weight: 300;
+            @include scssontmsm-margin-left(5px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          strong {
+            font-weight: 600;
+          }
+        }
+      }
+      .box-body {
+        @include scssontmsm-min-height(243.5px);
+      }
+      .vehicle-image {
+        @include scssontmsm-height(105px);
+        @include scssontmsm-margin-top(20px);
+        img {
+          max-height: 100%;
+        }
+      }
+      &.not-vehicle {
+        .inner-wrap {
+          svg {
+            width: 50px;
+          }
+        }
+      }
+    }
+
+    .checkbox-list {
+      ul {
+        li {
+          @include scssontmsm-padding(9.5px, 21px, 9.5px, 21px);
+          border-bottom: solid $services-box-color;
+          @include scssontmsm-border-width(1px);
+          position: relative;
+          .icon {
+            position: absolute;
+            @include scssontmsm-right(10px);
+            top: 50%;
+            @include transform(translateY(-50%));
+            display: none;
+            &.toi-edit {
+              &:hover {
+                background-color: #000;
+                background-position: 0.5% 5.7%;
+              }
+            }
+          }
+          &.checked {
+            .icon {
+              display: block;
+            }
+          }
+        }
+        &.last-border-none {
+          li {
+            &:last-child {
+              border: none;
+            }
+          }
+        }
+      }
+      &.fix-item4 {
+        .scroll-wrapper {
+          @include fix-item4();
+        }
+      }
+    }
+  }
+
+  .left-part {
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  .pack-info {
+    height: 100%;
+    position: relative;
+    @include scssontmsm-padding-mix(45px, 0px);
+    .pack-name {
+      h1,
+      h2 {
+        color: $white;
+        @include scssontmsm-font-size(40.63px);
+        line-height: 0.9;
+        font-family: $font-family-kanit;
+      }
+      span {
+        color: $white;
+        @include scssontmsm-font-size(20px);
+        font-family: $font-family-kanit;
+      }
+      .toi-edit-outline {
+        position: absolute;
+        @include scssontmsm-right(-30px);
+        @include scssontmsm-bottom(8px);
+      }
+    }
+    .pack-book {
+      text-align: center;
+      p {
+        color: $white;
+        font-weight: 300;
+        @include scssontmsm-font-size(15px);
+        @include scssontmsm-margin-bottom(20px);
+        svg {
+          @include scssontmsm-width(14px);
+          animation: iconscale 1.5s alternate infinite linear;
+        }
+      }
+      .price {
+        @include scssontmsm-font-size(40.63px);
+        font-family: $font-family-kanit;
+        color: $white;
+        @include scssontmsm-margin-bottom(20px);
+        span {
+          @include scssontmsm-font-size(22px);
+          @include scssontmsm-margin-right(5px);
+        }
+      }
+      .button {
+        @include scssontmsm-min-height(45px);
+        text-transform: uppercase;
+        &.custom-size {
+          @include scssontmsm-min-width(180px);
+        } 
+        span{
+          @include scssontmsm-font-size(16px);  
+        }
+      }
+      .toi-info-outline {
+        position: absolute;
+        @include scssontmsm-right(0px);
+        @include scssontmsm-bottom(8px);
+        @include scssontmsm-height(30px);
+        @include scssontmsm-width(30px);
+        animation: pulse 1s linear infinite;
+        &.sm{
+          position: relative;
+          bottom: 0;
+          @include scssontmsm-height(20px);
+          @include scssontmsm-width(20px);
+          vertical-align: text-top;
+        }
+      }
+    }
+  }
+
+  .services-selection {
+    position: relative;
+    height: 100%;
+  }
+
+  .pack-action {
+    position: absolute;
+    @include scssontmsm-right(-26.5px);
+    top: 50%;
+    @include transform(translateY(-50%));
+    z-index: 2;
+    ul {
+      li {
+        @include scssontmsm-margin-bottom(8px);
+        a {
+          display: block;
+          .icon {
+            @include scssontmsm-height(57px);
+            @include scssontmsm-width(57px);
+            color: $white;
+            background-color: $services-box-color;
+            @include border-radius-percentage(50%);
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            svg {
+              @include scssontmsm-width(35px);
+              @include scssontmsm-height(33px);
+            }
+            img {
+              width: 100%;
+            }
+          }
+          &.service-compare {
+            &.active {
+              .icon {
+                background-color: $services-box-compare-color;
+              }
+            }
+          }
+          &:hover {
+            .icon {
+              animation: pulse 1s linear infinite;
+            }
+          }
+        }
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+    &.left-position {
+      right: auto;
+      @include scssontmsm-left(-26.5px);
+      ul {
+        li {
+          @include scssontmsm-margin-bottom(8px);
+          a {
+            .icon {
+              background-color: $services-box-compare-color;
+            }
+            &.service-compare {
+              &.active {
+                .icon {
+                  background-color: $services-box-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .col-custom {
+    &.open {
+      &.oil-change {
+        .service-wrap,
+        .overflow-cover {
+          @include media-breakpoint-up(md) {
+            border-top-right-radius: 0px;
+            -ms-border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            -ms-border-bottom-right-radius: 0px;
+          }
+        }
+      }
+      &.compare-service {
+        .service-wrap,
+        .overflow-cover {
+          @include media-breakpoint-up(md) {
+            border-top-left-radius: 0px;
+            -ms-border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            -ms-border-bottom-left-radius: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .compare-service {
+    .service-wrap {
+      background-color: $services-box-compare-color;
+      border-color: $services-box-compare-color;
+    }
+  }
+}
+
+// Extra selection section
+.service-pack {
+  .selection-box {
+    height: 100%;
+    background-color: $white;
+    &.top-position {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: none;
+      z-index: 4;
+    }
+    .inner {
+      height: 100%;
+    }
+    .box-close {
+      position: absolute;
+      @include scssontmsm-right(10px);
+      @include scssontmsm-top(11px);
+      z-index: 2;
+      @include scssontmsm-height(25px);
+      @include scssontmsm-width(25px);
+      vertical-align: middle;
+      border: solid $white;
+      color: #fff;
+      @include scssontmsm-border-width(1.5px);
+      @include border-radius-percentage(50%);
+      svg {
+        @include scssontmsm-width(12px);
+      }
+      &:hover {
+        background-color: $white;
+        color: $black;
+        @include transform(rotate(360deg));
+      }
+    }
+    .text-block {
+      @include scssontmsm-padding(15px, 21px, 15px, 21px);
+      p {
+        margin: 0;
+        @include scssontmsm-font-size(15px);
+        font-weight: 300;
+      }
+    }
+  }
+
+  .content-box {
+    height: 100%;
+    background-color: $white;
+    &.top-position {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: none;
+      z-index: 4;
+    }
+    .inner {
+      height: 100%;
+    }
+    .box-close {
+      position: absolute;
+      @include scssontmsm-right(10px);
+      @include scssontmsm-top(10px);
+      z-index: 2;
+      @include scssontmsm-height(25px);
+      @include scssontmsm-width(25px);
+      vertical-align: middle;
+      border: solid $white;
+      color: #fff;
+      @include scssontmsm-border-width(1.5px);
+      @include border-radius-percentage(50%);
+      svg {
+        @include scssontmsm-width(12px);
+      }
+      &:hover {
+        background-color: $white;
+        color: $black;
+        @include transform(rotate(360deg));
+      }
+      &.bg-color-red {
+        background-color: $services-box-compare-color;
+        &:hover {
+          background-color: $black;
+          color: $white;
+        }
+      }
+    }
+    .services-list {
+      height: 100%;
+      li {
+        @include scssontmsm-font-size(18px);
+        @include scssontmsm-padding-left(58px);
+        @include scssontmsm-padding-right(30px);
+        font-weight: 300;
+        width: 100%;
+        border-bottom: solid $services-box-compare-color;
+        @include scssontmsm-border-width(1px);
+        @include flexbox();
+        @include align-items(center);
+        position: relative;
+        .toi-status {
+          display: inline-block;
+          @include scssontmsm-height(25px);
+          @include scssontmsm-width(25px);
+          background-position: 1.1% 31.7%;
+          background-size: 1950%;
+          @include transition(ease-in-out, 0.4s);
+          position: absolute;
+          @include scssontmsm-left(18px);
+          top: 47%;
+          @include transform(translateY(-50%));
+        }
+        .toi-edit,
+        .toi-info {
+          position: absolute;
+          @include scssontmsm-right(10px);
+          top: 50%;
+          @include transform(translateY(-50%));
+          display: none;
+        }
+        &.item-inc {
+          .toi-status {
+            background-position: 0.7% 46.5%;
+            background-size: 1800%;
+          }
+          .toi-edit,
+          .toi-info {
+            display: block;
+          }
+        }
+      }
+      &.last-border-none {
+        li {
+          &:last-child {
+            border: none;
+          }
+        }
+      }
+      &.list-min-item {
+        li {
+          @include scssontmsm-min-height(44px);
+        }
+      }
+    }
+    .text-block {
+      @include scssontmsm-font-size(15px);
+      h6 {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-style: italic;
+        @include scssontmsm-font-size(16px);
+        @include scssontmsm-margin-bottom(15px);
+      }
+      p {
+        font-weight: 300;
+        @include scssontmsm-font-size(15px);
+      }
+      .list-text {
+        @include scssontmsm-margin-bottom(18px);
+        li {
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}
+
+@keyframes iconscale {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.4);
+  }
+}
+
+// Responsive
+@include media-breakpoint-down(md) {
+  .service-oil-change {
+    padding: get-rem-sm(40px) 0;
+    .col-custom {
+      width: 100%;
+      padding: 0 get-rem-sm(27px);
+      &.open{
+        padding: 0 get-rem-sm(27px);  
+      }
+    }
+    .service-wrap {
+      height: calc(#{get-rem-sm($service-box-mobile-height)});
+
+      .overflow-cover {
+        position: relative;
+      }
+
+      .left-part {
+        position: static;
+        background-color: transparent;
+      }
+
+      .box {
+        .box-title {
+          h6 {
+            font-size: get-rem-sm(16px);
+          }
+        }
+      }
+
+      .enquiry-selection {
+        .box {
+          .box-title {
+            min-height: get-rem-sm(40px);
+            h6 {
+              font-size: get-rem-sm(12px);
+            }
+          }
+        }
+        .checkbox-list {
+          ul {
+            li {
+              padding-top: get-rem-sm(5px);
+              padding-bottom: get-rem-sm(5px);
+            }
+          }
+        }
+      }
+
+      .pack-info {
+        padding: 0px get-rem-sm(22px);
+        .pack-name {
+          padding: get-rem-sm(13px) 0px get-rem-sm(13px);
+          h1,
+          h2 {
+            display: inline-block;
+          }
+          span {
+            margin-left: get-rem-sm(5px);
+            font-size: get-rem-sm(14px);
+          }
+          .toi-edit-outline {
+            right: 0;
+            bottom: get-rem-sm(20px);
+            animation: pulse 1s linear infinite;
+            height: get-rem-sm(30px);
+            width: get-rem-sm(30px);
+          }
+        }
+        .bottom {
+          width: 100%;
+          padding: get-rem-sm(0px) get-rem-sm(10px) get-rem-sm(20px) get-rem-sm(10px);
+          .pack-book {
+            .price {
+              margin-bottom: get-rem-sm(10px);
+            }
+            p {
+              display: none;
+            }
+            .button.custom-size {
+              min-width: get-rem-sm(180px);
+            }
+          }
+        }
+      }
+
+      .vehicle {
+        min-height: get-rem-sm(101px);
+        background-color: $white;
+        padding: get-rem-sm(10px) get-rem-sm(22px);
+        margin-bottom: get-rem-sm(25px);
+        .icon.toi-car {
+          margin-left: get-rem-sm(18px);
+          svg {
+            height: get-rem-sm(34px);
+          }
+        }
+        .text {
+          color: $red-100;
+          font-size: get-rem-sm(16px);
+        }
+        .toi-edit {
+          position: absolute;
+          top: get-rem-sm(7px);
+          left: 0;
+          cursor: pointer;
+        }
+        &.added {
+          .vehical-info {
+            .info {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: get-rem-sm(145px);
+              width: 100%;
+              font-size: get-rem-sm(14px);
+            }
+          }
+        }
+      }
+
+      .services-selection {
+        .services-list {
+          li {
+            &:first-child {
+              .toi-edit {
+                right: get-rem-sm(50px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .service-oil-change {
+    .service-wrap {
+      .pack-action {
+        left: 0;
+        right: 0;
+        @include transform(none);
+        top: calc(#{get-rem-sm(86px)} + #{get-rem-sm(73px)} + #{get-rem-sm(15px)});
+        ul {
+          li {
+            margin: get-rem-sm(0px) get-rem-sm(5px);
+          }
+        }
+      }
+    }
+  }
+
+  // Open pack
+  .service-oil-change {
+    .col-custom {
+      &.open {
+        .service-wrap {
+          .row {
+            height: auto;
+          }
+          .pack-action {
+            top: calc(#{get-rem-sm(68px)} + #{get-rem-sm(5px)});
+          }
+          .left-part {
+            .sm-screen {
+              position: relative;
+              z-index: 1;
+              .pack-info {
+                order: 12;
+              }
+              .vehicle {
+                margin-bottom: get-rem-sm(30px);
+              }
+            }
+            .enquiry-selection {
+              display: none;
+            }
+          }
+          .pack-info {
+            z-index: 2;
+            .bottom {
+              padding: 0;
+              .pack-book {
+                text-align: left;
+                .toi-info-outline {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Compare pack
+  .service-oil-change {
+    .col-custom {
+      &.compare-service {
+        margin-top: calc(
+          #{get-rem-sm(-$service-box-mobile-height)}
+        );
+        .service-wrap {
+          background-color: transparent;
+          border-color: $red;
+          .row {
+            height: 100%;
+          }
+          .pack-info {
+            background-color: $services-box-compare-color;
+            .top {
+              width: 100%;
+              .pack-name {
+                padding: get-rem-sm(10px) 0;
+              }
+            }
+            .bottom {
+              margin-bottom: get-rem-sm(15px);
+            }
+          }
+          .services-selection {
+            position: static;
+            height: auto;
+            //display: none;
+            .content-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              display: none;
+              z-index: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-between(md, lg) {
+  .service-pack {
+    .service-wrap {
+      .box {
+        .box-title {
+          padding-left: get-rem-sm(15px);
+          h6 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+            &.fs-18 {
+              font-size: get-rem-sm(12px);
+            }
+            br {
+              display: none;
+            }
+          }
+          .toi-info-outline {
+            display: block;
+          }
+        }
+      }
+      .vehicle-info {
+        ul {
+          li {
+            font-size: get-rem-sm(11px);
+          }
+        }
+      }
+
+      .content-box {
+        .services-list {
+          li {
+            font-size: get-rem-sm(11px);
+            padding-left: get-rem-sm(30px);
+            .toi-status {
+              left: get-rem-sm(5px);
+            }
+          }
+        }
+      }
+
+      .checkbox-list {
+        ul {
+          li {
+            padding: get-rem-sm(7px) get-rem-sm(15px) get-rem-sm(7px) get-rem-sm(15px);
+          }
+        }
+      }
+    }
+
+    .col-custom {
+      &.open {
+        width: 48%;
+        .service-wrap {
+          .checkbox-list {
+            ul {
+              li {
+                padding-top: get-rem-sm(7px);
+                padding-bottom: get-rem-sm(7px);
+                .form-check-custom-style2 {
+                  &.text-bold-italic {
+                    label {
+                      .text {
+                        font-size: get-rem-sm(12px);
+                        margin-left: get-rem-sm(5px);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .selection-box {
+            .text-block {
+              padding-top: get-rem-sm(5px);
+              p {
+                font-size: get-rem-sm(14px);
+              }
+            }
+          }
+
+          .pack-info {
+            .pack-name {
+              h1,
+              h2 {
+                font-size: get-rem-sm(20px);
+              }
+              span {
+                font-size: get-rem-sm(14px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-between(lg, xl) {
+  .col-custom {
+    &.open {
+      width: 50%;
+    }
+    .service-wrap {
+      .box {
+        .box-title {
+          h6 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+            br {
+              display: none;
+            }
+          }
+          .toi-info-outline {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ///////// /// Servicepacks Page
+
+@mixin service-pack-width-half() {
+  width: calc(
+    #{get-rem-sm($services-box-width)} / 2 + var(--bs-gutter-x) * 0.5 + var(
+        --bs-gutter-x
+      ) * 0.5 / 2
+  );
+  @media screen and #{$media-query} {
+    width: calc(
+      #{get-vw($services-box-width)} / 2 + var(--bs-gutter-x) * 0.5 + var(
+          --bs-gutter-x
+        ) * 0.5 / 2
+    );
+  }
+}
+
+.service-box-slider {
+  &.off {
+    display: block;
+  }
+  .item {
+    @include scssontmsm-margin-bottom(150px);
+  }
+}
+
+.service-pack {
+  &.compare-oil-change {
+    .col-custom {
+      &.half-width {
+        @include service-pack-width-half();
+      }
+    }
+    .collapse-box {
+      position: absolute;
+      .toggle {
+        @include scssontmsm-height(90px);
+        @include scssontmsm-width(40px);
+        svg {
+          @include scssontmsm-width(22px);
+          color: $white;
+        }
+      }
+      &.left {
+        left: 0;
+        @include scssontmsm-top(90px);
+        .toggle {
+          @include border-radius-percentage(20px 0px 0px 20px);
+          background-color: $services-box-color;
+          svg {
+            position: relative;
+            @include scssontmsm-left(2px);
+            &.fa-angle-left {
+              display: none;
+            }
+          }
+          &.active {
+            svg {
+              &.fa-angle-left {
+                display: block;
+              }
+              &.fa-angle-right {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+      &.right {
+        right: 0;
+        @include scssontmsm-bottom(86px);
+        .toggle {
+          @include border-radius-percentage(0px 20px 20px 0px);
+          background-color: $services-box-compare-color;
+          svg {
+            position: relative;
+            @include scssontmsm-right(2px);
+            &.fa-angle-right {
+              display: none;
+            }
+          }
+          &.active {
+            svg {
+              &.fa-angle-right {
+                display: block;
+              }
+              &.fa-angle-left {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .col-custom {
+    &.open {
+      .pack-info {
+        .pack-name {
+          .icon {
+            display: block;
+          }
+        }
+      }
+      .collapse-box {
+        &.left {
+          @include scssontmsm-left(-40px);
+        }
+        &.right {
+          @include scssontmsm-right(-40px);
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .service-pack {
+    &.compare-oil-change {
+      .collapse-box {
+        display: none;
+      }
+    }
+  }
+}
+
+// Responsive
+@include media-breakpoint-down(md) {
+  .service-box-slider {
+    .item {
+      margin-bottom: get-rem-sm(10px);
+    }
+  }
+
+  .compare-oil-change {
+    padding: get-rem-sm(40px) 0;
+    .col-custom {
+      width: 100%;
+      padding: 0 get-rem-sm(27px);
+      &.open{
+        padding: 0 get-rem-sm(27px);  
+      }
+    }
+    .service-wrap {
+      height: calc(#{get-rem-sm($service-box-mobile-height)});
+      .overflow-cover {
+        position: relative;
+      }
+
+      .left-part {
+        position: static;
+        background-color: transparent;
+      }
+
+      .box {
+        .box-title {
+          h6 {
+            font-size: get-rem-sm(16px);
+          }
+        }
+      }
+
+      .enquiry-selection {
+        .box {
+          .box-title {
+            min-height: get-rem-sm(40px);
+            h6 {
+              font-size: get-rem-sm(12px);
+            }
+          }
+        }
+        .checkbox-list {
+          ul {
+            li {
+              padding-top: get-rem-sm(4px);
+              padding-bottom: get-rem-sm(4px);
+            }
+          }
+        }
+      }
+
+      .pack-info {
+        padding: 0px get-rem-sm(22px);
+        .pack-name {
+          padding: get-rem-sm(10px) 0px;
+          h1,
+          h2 {
+            display: inline-block;
+          }
+          span {
+            margin-left: get-rem-sm(5px);
+            font-size: get-rem-sm(14px);
+          }
+          .toi-edit-outline {
+            right: 0;
+            bottom: get-rem-sm(20px);
+            animation: pulse 1s linear infinite;
+            height: get-rem-sm(30px);
+            width: get-rem-sm(30px);
+          }
+        }
+        .bottom {
+          width: 100%;
+          .pack-book {
+            .price {
+              margin-bottom: get-rem-sm(10px);
+            }
+            .toi-info-outline {
+              display: block;
+            }
+            p {
+              display: none;
+            }
+            .button.custom-size {
+              min-width: get-rem-sm(180px);
+            }
+          }
+        }
+      }
+
+      .vehicle {
+        min-height: get-rem-sm(101px);
+        background-color: $white;
+        padding: get-rem-sm(10px) get-rem-sm(22px);
+        margin-bottom: get-rem-sm(25px);
+        .icon.toi-car {
+          margin-left: get-rem-sm(18px);
+          svg {
+            height: get-rem-sm(34px);
+          }
+        }
+        .text {
+          color: $red-100;
+          font-size: get-rem-sm(16px);
+        }
+        .toi-edit {
+          position: absolute;
+          top: get-rem-sm(10px);
+          left: 0;
+          cursor: pointer;
+          background-color: $services-box-compare-color;
+        }
+        &.added {
+          .vehical-info {
+            .info {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: get-rem-sm(145px);
+              width: 100%;
+              font-size: get-rem-sm(14px);
+            }
+          }
+        }
+      }
+
+      .services-selection {
+        .services-list {
+          li {
+            &:first-child {
+              .toi-edit {
+                right: get-rem-sm(50px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .compare-oil-change {
+    .service-wrap {
+      .pack-action {
+        left: 0;
+        right: 0;
+        @include transform(none);
+        top: calc(#{get-rem-sm(86px)} + #{get-rem-sm(73px)} + #{get-rem-sm(15px)});
+        ul {
+          li {
+            margin: get-rem-sm(0px) get-rem-sm(5px);
+          }
+        }
+      }
+    }
+  }
+
+  // Compare pack
+  .compare-oil-change {
+    .col-custom {
+      &.compare-service {
+        .service-wrap {
+          .row {
+            height: 100%;
+          }
+          .pack-info {
+            height: auto;
+            width: 100%;
+            .top {
+              width: 100%;
+              .pack-name {
+                padding: get-rem-sm(13px) 0px get-rem-sm(13px);
+              }
+            }
+            .bottom {
+              margin-bottom: get-rem-sm(30px);
+            }
+          }
+          .services-selection {
+            position: static;
+            height: auto;
+            .content-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              display: none;
+              z-index: 4;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Open pack
+  .compare-oil-change {
+    .col-custom {
+      &.compare-service {
+        &.open {
+          .service-wrap {
+            .row {
+              height: auto;
+            }
+            .pack-action {
+              top: calc(#{get-rem-sm(73px)} + #{get-rem-sm(5px)});
+              z-index: 3;
+            }
+            .left-part-cover {
+              .sm-screen {
+                position: relative;
+                z-index: 2;
+                .pack-info {
+                  order: 12;
+                }
+                .vehicle {
+                  margin-bottom: get-rem-sm(30px);
+                }
+              }
+            }
+            .pack-info {
+              z-index: 2;
+              .bottom {
+                padding: 0;
+                .pack-book {
+                  text-align: left;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Compare oil pack
+  .compare-oil-change {
+    .col-custom {
+      &.oil-change {
+        margin-top: calc(
+          #{get-rem-sm(-$service-box-mobile-height)}
+        );
+        .service-wrap {
+          background-color: transparent;
+          .row {
+            height: 100%;
+          }
+          .left-part {
+            .enquiry-selection {
+              display: none;
+            }
+          }
+          .pack-info {
+            background-color: $services-box-color;
+            z-index: 1;
+            .bottom {
+              margin-bottom: get-rem-sm(15px);
+              .pack-book {
+                text-align: left;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// Inquery Form if no vihicle
+.oilservicepackenquiry{
+  @include scssontmsm-margin-top(40px);
+  .inquiry-form{
+    max-width: 60%;
+    margin: auto;
+    background: $red-100;
+    @include scssontmsm-padding(35px, 45px, 35px, 45px);
+    @include scssontmsm-border-radius(25px);
+    .text-block{
+      @include scssontmsm-margin-bottom(30px);
+      text-align: center;
+      .logo{
+        @include scssontmsm-margin-bottom(30px);
+        img{
+          @include scssontmsm-max-height(80px);
+        }
+      }
+      p{
+        color: $white;
+        @include scssontmsm-font-size(18px);
+      } 
+    }
+    .theme-form-style1{
+      .form-control{
+        @include scssontmsm-min-height(62px);
+      }
+    }
+
+    .button{
+      @include scssontmsm-min-height(62px);
+      span{
+        @include scssontmsm-min-width(170px);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .oilservicepackenquiry{
+    .inquiry-form{
+      max-width: 80%;
+    } 
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .oilservicepackenquiry{
+    .inquiry-form{
+      max-width: 100%;
+    } 
+  }
+}

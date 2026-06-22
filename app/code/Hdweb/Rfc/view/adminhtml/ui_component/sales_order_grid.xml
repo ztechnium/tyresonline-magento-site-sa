@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_columns">
+        <!-- <column name="erp_order_status" class="Hdweb\Rfc\Ui\Component\Listing\Column\Erporderstatus">
+			<argument name="data" xsi:type="array">
+				<item name="options" xsi:type="object">Hdweb\Rfc\Model\Source\Erporderstatus</item>
+				<item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Erp Order Status</item>
+                </item>
+            </argument>
+			<settings>
+				<label translate="true">Erp Order Status</label>
+				<options class="Hdweb\Rfc\Model\Source\Erporderstatus"/>
+				<filter>select</filter>
+				<dataType>select</dataType>
+			</settings>
+        </column>
+		<column name="erp_invoice_status" class="Hdweb\Rfc\Ui\Component\Listing\Column\Erpinvoicestatus">
+			<argument name="data" xsi:type="array">
+				<item name="options" xsi:type="object">Hdweb\Rfc\Model\Source\Erporderstatus</item>
+				<item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Erp Invoice Status</item>
+                </item>
+            </argument>
+			<settings>
+				<label translate="true">Erp Invoice Status</label>
+				<options class="Hdweb\Rfc\Model\Source\Erporderstatus"/>
+				<filter>select</filter>
+				<dataType>select</dataType>
+			</settings>
+        </column>
+		<column name="erp_po_status" class="Hdweb\Rfc\Ui\Component\Listing\Column\Erppostatus">
+			<argument name="data" xsi:type="array">
+				<item name="options" xsi:type="object">Hdweb\Rfc\Model\Source\Erporderstatus</item>
+				<item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Erp PO Status</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+			<settings>
+				<label translate="true">Erp PO Status</label>
+				<options class="Hdweb\Rfc\Model\Source\Erporderstatus"/>
+				<filter>select</filter>
+				<dataType>select</dataType>
+			</settings>
+        </column>
+        <column name="pickupavailable" class="Hdweb\Rfc\Ui\Component\Listing\Column\Pickupavailable">
+			<argument name="data" xsi:type="array">
+				<item name="options" xsi:type="object">Hdweb\Rfc\Model\Source\Erporderstatus</item>
+				<item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Pickup Available</item>
+                </item>
+            </argument>
+			<settings>
+				<label translate="true">Pickup Available</label>
+				<options class="Hdweb\Rfc\Model\Source\Erporderstatus"/>
+				<filter>select</filter>
+				<dataType>select</dataType>
+			</settings>
+        </column> -->
+    </columns>
+</listing>

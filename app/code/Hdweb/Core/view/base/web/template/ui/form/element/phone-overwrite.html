@@ -1,0 +1,14 @@
+<span class="phone-label">+966</span>
+<input class="input-text" type="number" data-bind="
+    value: value,
+    valueUpdate: 'keyup',
+    hasFocus: focused,
+    css: {focused: value() != '' && value() != ' '},
+    attr: {
+        name: inputName,
+        placeholder: '5xxxxxxxx',
+        'aria-describedby': noticeId,
+        id: uid,
+        disabled: disabled
+    }
+"/>

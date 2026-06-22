@@ -1,0 +1,554 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="section page-banner car-banner overflow-hidden">
+	<div class="container-fluid px-0">
+		<div class="banner-wrap">
+			<div class="tyre-content text-center mx-auto">
+				<strong class="font-size1 fw-900"><?php echo __('CAR');?> <br class="d-md-none"/> <?php echo __('INSURANCE');?></strong>
+				<hr>
+				<h3 class="fw-light"><?php echo __('ANYWHERE IN THE UAE');?></h3>
+			</div>
+		</div>
+		<div class="banner-image">
+			<div class="image-wrap picture aspect-custom loader text-center">
+				<picture>
+					<source srcset="<?php echo $mediaURL ;?>images/banner/car-insurance-uae-mobile.jpg" media="(max-width: 767px)">
+						<source srcset="<?php echo $mediaURL ;?>images/banner/car-insurance-uae.jpg" media="(min-width: 768px)">
+							<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="1080px" data-src="<?php echo $mediaURL ;?>images/banner/car-insurance-uae.jpg" class="lazyload" alt="#" />
+						</picture>
+					</div>
+				</div>
+				<div class="banner-bottom">
+					<a href="#hala-embed" class="button button-primary-100 text-uppercase button-rounded quote-button"><span><?php echo __('GET A FREE QUOTE');?></span></a>
+					<p><?php echo __('Protect the car you love');?> <br class="d-md-none"/> <?php echo __('with motor');?> <br class="d-none d-md-block"/> <?php echo __('insurance at');?> <br class="d-md-none"/> <?php echo __('amazing rates');?>.</p>
+				</div>
+			</div>
+		</div>
+		<div class="section hala-embed" id="hala-embed">
+			<script async type="text/javascript" id="hala-embed-script" src="https://joinhala.com/assets/scripts/embeds.js" pageUrl="https://joinhala.com/ae/en/pages/car-insurance/tyresonline?chat=off&mode=slim&embedded"></script>
+		</div>
+		
+					<div class="section insurance-feachers">
+						<div class="container container-full">
+							<div class="owl-carousel owl-theme owl-dot-style2 insurance-feachers-slider">
+								<div class="item">
+									<div class="box">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.661 47.452">
+											<path id="affordable-icon" d="M14.887,0a2.473,2.473,0,0,0-1.754.732A2.506,2.506,0,0,0,12.406,2.5v9.99H7.443a2.5,2.5,0,0,1,0-4.995V2.5A7.477,7.477,0,0,0,0,9.99V42.457a4.984,4.984,0,0,0,4.962,5H39.7a4.984,4.984,0,0,0,4.962-5V17.482A4.984,4.984,0,0,0,39.7,12.487H37.217V2.5A2.506,2.506,0,0,0,36.491.732,2.473,2.473,0,0,0,34.736,0H14.887Zm4.744,4.995H29.992a3.734,3.734,0,0,0,2.263,2.278v5.214H27.293a2.481,2.481,0,1,0-4.962,0H17.368V7.273a3.734,3.734,0,0,0,2.263-2.278Zm15.1,22.477a2.5,2.5,0,1,1-2.481,2.5A2.49,2.49,0,0,1,34.736,27.472Z" fill="#fff"/>
+										</svg>
+										<h3><?php echo __('Affordable');?></h3>
+										<p><?php echo __('We give you the best car insurance');?> <br/> <?php echo __('for your money. Insure the car you');?> <br/> <?php echo __('care about the most without worrying');?> <br/> <?php echo __('about unnecessary add-ons');?>.</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.962 47.452">
+											<path id="reliable-icon" d="M18.981,0,0,8.628V21.569C0,38.458,13.58,46.343,18.981,47.452c5.4-1.109,18.981-8.994,18.981-25.883V8.628ZM16.872,33.247,8.046,24.22l2.982-3.05,5.844,5.977L29.087,14.654l2.982,3.05Z" fill="#fff"/>
+										</svg>
+										<h3><?php echo __('Reliable');?></h3>
+										<p><?php echo __('Skip the long wait and the unnecessary calls. All');?> <br/> <?php echo __('you need to do is fill in your details, answer a few');?> <br/> <?php echo __('questions & get a quote. If you are happy with it,');?> <br/> <?php echo __('get your policy right away. As easy as two clicks');?>.</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.707 47.452">
+											<path id="fast-icon" d="M22.42,0a1.058,1.058,0,0,0-.609.193A1.077,1.077,0,0,0,21.42.7L8.889,24.737a2.169,2.169,0,0,0,.3,2.671,2.12,2.12,0,0,0,1.508.632H21.353V46.374a1.085,1.085,0,0,0,.312.763,1.059,1.059,0,0,0,1.31.158,1.075,1.075,0,0,0,.393-.428L35.992,22.652l0,0a2.161,2.161,0,0,0-.333-2.6,2.121,2.121,0,0,0-1.508-.632H23.486V1.078a1.085,1.085,0,0,0-.312-.763A1.06,1.06,0,0,0,22.42,0ZM2.142,4.293a2.115,2.115,0,0,0-1.191.368,2.152,2.152,0,0,0-.785.978A2.175,2.175,0,0,0,.656,8L4.92,12.31a2.121,2.121,0,0,0,1.517.663,2.12,2.12,0,0,0,1.53-.632A2.173,2.173,0,0,0,7.935,9.26L3.671,4.946a2.121,2.121,0,0,0-1.528-.653Zm38.36,0a2.121,2.121,0,0,0-1.466.653L34.772,9.26a2.173,2.173,0,0,0-.031,3.081,2.12,2.12,0,0,0,1.53.632,2.122,2.122,0,0,0,1.517-.663L42.051,8a2.171,2.171,0,0,0-.335-3.362A2.114,2.114,0,0,0,40.5,4.293ZM6.386,34.49a2.12,2.12,0,0,0-1.466.653L.656,39.456a2.156,2.156,0,0,0-.481.7,2.173,2.173,0,0,0,.45,2.381,2.131,2.131,0,0,0,.7.472,2.111,2.111,0,0,0,1.652-.017,2.134,2.134,0,0,0,.692-.486l4.265-4.314A2.17,2.17,0,0,0,7.6,34.83,2.113,2.113,0,0,0,6.386,34.49Zm29.872,0a2.115,2.115,0,0,0-1.191.368,2.153,2.153,0,0,0-.785.978,2.176,2.176,0,0,0,.489,2.358l4.265,4.314a2.135,2.135,0,0,0,.692.486,2.117,2.117,0,0,0,2.354-.455,2.158,2.158,0,0,0,.466-.71,2.178,2.178,0,0,0-.017-1.671,2.157,2.157,0,0,0-.48-.7l-4.265-4.314a2.133,2.133,0,0,0-.7-.483A2.109,2.109,0,0,0,36.258,34.49Z" fill="#fff"/>
+										</svg>
+										<h3><?php echo __('Fast');?></h3>
+										<p><?php echo __('From instant policy insurance and auto claim');?> <br/> <?php echo __('approval to complimentary registration pick up &');?> <br/> <?php echo __('drop off, we are reliable like a swiss watch. And we');?> <br/> <?php echo __('do it in a timely manner too');?>.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section insurance-steps">
+						<div class="container container-full">
+							<div class="heading text-center">
+								<h3><?php echo __('CAR INSURANCE');?> <br class="d-md-none"/> <?php echo __('ONLINE UAE');?></h3>
+								<p><?php echo __('Affordable, reliable and');?> <br class="d-md-none"/> <?php echo __('fast online car insurance');?></p>
+							</div>
+							<div class="owl-carousel owl-theme owl-dot-style3 insurance-steps-slider">
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step1.svg" class="lazyload" alt="#" />
+										</div>
+										<h4><?php echo __('Step 1');?></h4>
+										<p><?php echo __('Tell us more about yourself,');?> <br/> <?php echo __('about your car and your driving');?> <br/> <?php echo __('history');?></p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step2.svg" class="lazyload" alt="#" />
+										</div>
+										<h4><?php echo __('Step 2');?></h4>
+										<p><?php echo __('Based on your answers');?>, <br/> <?php echo __('you instantly get a quote');?> <br/> <?php echo __('that works best for you');?></p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step3.svg" class="lazyload" alt="#" />
+										</div>
+										<h4><?php echo __('Step 3');?></h4>
+										<p><?php echo __('Check policy summary');?> <br/> <?php echo __('and pay online');?></p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step4.svg" class="lazyload" alt="#" />
+										</div>
+										<h4><?php echo __('Step 4');?></h4>
+										<p><?php echo __('You are covered and your');?> <br/> <?php echo __('insurance is active. The Hala');?> <br/> <?php echo __('customer success team takes');?> <br/> <?php echo __('care of the paperwork');?></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section quote-description">
+						<div class="container container-full">
+							<div class="box">
+								<a href="#hala-embed" class="button button-white text-uppercase button-rounded quote-button"><span><?php echo __('GET A FREE QUOTE');?></span></a>
+								<p><?php echo __('We don’t complicate things or hide details in fine print. Our partner hala is upfront and transparent about everything. We believe being reliable is being available. So, we’re always with you. When you choose Hala, you choose a world of quality, simplicity and plenty of unbeatable benefits.');?></p>
+							</div>
+						</div>
+					</div>
+					<div class="section insurance-benefits">
+						<div class="container container-mid">
+							<div class="heading text-center">
+								<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/benefits.svg" class="lazyload" alt="#" />
+								<h3><?php echo __('THE BENEFITS');?></h3>
+							</div>
+							<div class="benefits-tabs">
+								<ul class="nav justify-content-center">
+									<li class="nav-item" role="presentation">
+										<button class="active" data-bs-toggle="tab" data-bs-target="#thirdparty" type="button" role="tab" aria-controls="thirdparty" aria-selected="true"><?php echo __('Third PARTY');?></button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="" data-bs-toggle="tab" data-bs-target="#comprehensive" type="button" role="tab" aria-controls="comprehensive" aria-selected="false"><?php echo __('COMPREHENSIVE');?></button>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane fade show active" id="thirdparty" role="tabpanel">
+										<div class="benefits-list">
+											<h4><?php echo __('What is included?');?></h4>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Third-Party.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text"><?php echo __('For the Third Party');?></span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Bodily Injury of other People');?></h5>
+															<p><?php echo __('Suppose a car accident you caused led to bodily injuries of other people. In that case, we will cover the hospital charges without any limits.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Damage of other People’s Property');?></h5>
+															<p><?php echo __('We will cover the cost to fix the damages of other people’s property in an accident you caused.');?></p>
+															<p><strong><?php echo __('Up to AED 2,000,000');?></strong></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Extra-Services.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text"><?php echo __('Extra Services (Included)');?></span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('24/7 Breakdown and Recovery Service');?></h5>
+															<p><?php echo __('Available round the clock to assist you and send a tow truck to your car if it breaks down - no matter where you are.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Emergency Fuel Service');?></h5>
+															<p><?php echo __('If your car ever runs out of fuel, we’ll help you refuel your vehicle.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Battery Boost Service');?></h5>
+															<p><?php echo __('Even if your car battery decides to give up on you, we won’t. We’ll send help to boost your battery and get back on the road in no time.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Flat Tyre Service');?></h5>
+															<p><?php echo __('Never drive with a flat tyre! We can come to your location and replace it for you.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('International Driving License');?></h5>
+															<p><?php echo __('Apply for an international driving license through us.');?></p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="comprehensive" role="tabpanel">
+										<div class="benefits-list">
+											<h4><?php echo __('What is included?');?></h4>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Your-Car.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text"><?php echo __('For your Car');?></span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Total Loss of your car');?></h5>
+															<p><?php echo __('If your car is totaled and beyond repair, we will reimburse it based on its market value.');?></p>
+															<p><strong><?php echo __('Up to Sum Insured');?></strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Own Damage Cover');?></h5>
+															<p><?php echo __('Mistakes happen - If you bump into a wall or other objects while driving, we’ll cover your car’s repairs and give you peace of mind.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Fire & Theft Cover');?></h5>
+															<p><?php echo __('If your car is stolen or catches on fire, your Hala car insurance policy has you covered.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Storm, Flood, Riot & Strike');?></h5>
+															<p><?php echo __('Your comprehensive car insurance will protect your car from natural and intentional disasters, from floods to riots.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Windscreen Damage Cover');?></h5>
+															<p><?php echo __('We would hate to see you driving around with a cracked windscreen. We will replace it if it is broken or damaged, so you will always have the clearest view.');?></p>
+															<p><strong><?php echo __('Up to AED 3,000');?></strong></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Your-Passengers.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text"><?php echo __('For you and your Passengers');?></span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Emergency Medical Expenses');?></h5>
+															<p><?php echo __('Hala’s insurance policy covers ambulance charges in case of an emergency caused by a motor accident.');?></p>
+															<p><strong><?php echo __('Up to AED 3,000');?></strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Off-Road Assistance');?></h5>
+															<p><?php echo __('Let your desert ride be as adventurous as you want it to be, and rest assured, we’ve got your back if you get stuck anywhere.');?></p>
+															<p><strong><?php echo __('3 times per year');?></strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('24/7 Breakdown and Recovery Service');?></h5>
+															<p><?php echo __('We are available round the clock to assist you and send a tow truck to your car if it breaks down - no matter where you are.');?></p>
+															<p><strong><?php echo __('Unlimited');?></strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Car Registration Service');?></h5>
+															<p><?php echo __('To help you cross one thing out of your busy schedule, we can pick and drop your car off for vehicle registration and renewal service.');?></p>
+															<p><strong><?php echo __('1 time per year');?></strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Emergency Fuel Service');?></h5>
+															<p><?php echo __('If your car ever runs out of fuel, we’ll help you refuel your vehicle.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Lock Out Service');?></h5>
+															<p><?php echo __('We know what it is like to lose your only key and we’d hate to see you struggle to find it.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Battery Boost Service');?></h5>
+															<p><?php echo __('Even if your car battery decides to give up on you, we won’t. We’ll send help to boost your battery and get back on the road in no time.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Flat Tyre Service');?></h5>
+															<p><?php echo __('Never drive with a flat tyre! We can come to your location and replace it for you.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Airport Pick up or drop off');?></h5>
+															<p><?php echo __('Free airport pick-up and drop-off concierge service worth AED 250.');?></p>
+															<p><strong><?php echo __('1 time per year');?></strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('International Driving License');?></h5>
+															<p><?php echo __('Apply for an international driving license through us.');?></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Third-Party.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text"><?php echo __('For the Third Party');?></span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Bodily Injury of other People');?></h5>
+															<p><?php echo __('Suppose a car accident you caused led to bodily injuries of other people. In that case, we will cover the hospital charges without any limits.');?></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5><?php echo __('Damage of other People’s Property');?></h5>
+															<p><?php echo __('We will cover the cost to fix the damages of other people’s property in an accident you caused.');?></p>
+															<p><strong><?php echo __('Up to AED 2,000,000');?></strong></p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section insurance-faq">
+						<div class="container container-mid">
+							<div class="heading">
+								<h3><?php echo __('FAQs');?></h3>
+							</div>
+							<div class="accordion faq-list" id="faqList">
+								<div class="faq-block">
+									<div class="toggle" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+										<h5><?php echo __('Do I need car insurance to renew my vehicle registration?');?></h5>
+									</div>
+									<div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqList">
+										<div class="accordion-body"><p><?php echo __('Yes, car owners will not qualify for the vehicle registration policy without acquiring a valid insurance that covers their vehicle for a period of 13 months.');?></p></div>
+									</div>
+								</div>
+								<div class="faq-block">
+									<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+										<h5><?php echo __('Why is my insurance policy valid for 13 months but my vehicle registration
+										is only valid for 12 months?');?></h5>
+									</div>
+									<div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+										<div class="accordion-body"><p><?php echo __('Car owners in the UAE are required to renew their vehicle registration and insurance policy every 12 months. However, you are given a grace period of one month to complete the annual registration and your policy must cover that extra grace period.');?></p></div>
+									</div>
+								</div>
+								<div class="faq-block">
+									<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqthree" aria-expanded="false" aria-controls="faqthree">
+										<h5><?php echo __('What are the requirements to renew my vehicle’s registration?');?></h5>
+									</div>
+									<div id="faqthree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+										<div class="accordion-body"><p><?php echo __('The required documents to be able to renew your vehicle’s registration are:');?></p>
+											<ul>
+												<li><?php echo __('Valid Emirates ID');?></li>
+												<li><?php echo __('Valid vehicle insurance for 13 months');?></li>
+												<li><?php echo __('A vehicle inspection - if it has been more than three (3) years from the vehicle’s manufacturing date');?></li>
+												<li><?php echo __('Payment of traffic fines (if any)');?></li>
+											</ul></div>
+										</div>
+									</div>
+									<div class="faq-block">
+										<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqfour" aria-expanded="false" aria-controls="faqfour">
+											<h5><?php echo __('What are the different types of car insurance?');?></h5>
+										</div>
+										<div id="faqfour" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+											<div class="accordion-body"><p><?php echo __('There are two types of car insurance plans in the UAE: comprehensive insurance and third-party liability insurance.');?></p></div>
+										</div>
+									</div>
+									<div class="faq-block">
+										<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqfive" aria-expanded="false" aria-controls="faqfive">
+											<h5><?php echo __('What is the difference between the two types of insurance?');?></h5>
+										</div>
+										<div id="faqfive" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+											<div class="accordion-body"><p><?php echo __('A Third-party liability car insurance policy (TPL) is normally the cheaper option but also the riskier. With a TPL insurance policy, your insurance company will not cover damages of your own vehicle when involved in an accident. It will only cover damages for the other parties when the accident is your fault.');?></p>
+												<p><?php echo __('A Comprehensive insurance policy will cover damages of all parties when you are involved in an accident and found to be at-fault. Also, your insurance company will cover the damages of your car even when you are found to be not-at-fault in a car accident.');?></p></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="section insurance-partner">
+								<div class="container container-full">
+									<div class="row">
+										<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+											<div class="image-wrap no-position loader">
+												<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/partner.png" class="lazyload" alt="#" />
+											</div>
+										</div>
+										<div class="col-12 col-sm-12 col-md-8 col-lg-8">
+											<div class="text-block">
+												<h2 class="d-flex flex-wrap align-items-center"><span><img src="<?php echo $mediaURL ;?>images/section/blank.png" width="150px" height="50px" data-src="<?php echo $mediaURL ;?>images/icon/hala.svg" class="lazyload" alt="#" /></span> <?php echo __('a TyresOnline Partner');?></h2>
+												<p><?php echo __('We partnered with');?> <strong><?php echo __('hala');?></strong> <?php echo __('which is built by Addenda Labs LTD, a privately owned tech startup based in ADGM, United Arab Emirates. At TyresOnline, we aim to offer customers the simplest and most cost-effective way to purchase a motor insurance policy through');?> <strong><?php echo __('hala');?></strong> <?php echo __('and it’s underwriting partners, EMIRATES INSURANCE CO (EMINSCO)');?>.</p>
+												<p><?php echo __('When you purchase a');?> <strong><?php echo __('hala');?></strong> <?php echo __('policy, your policy is actually issued by EMINSCO, who are regulated by the UAE Insurance Authority. All policies and claims issued on this website or through the Hala WebApp are handled by EMINSCO.');?></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<script type="text/javascript">
+								require(["jquery"], function($) {
+									$(".quote-button").click(function () {
+										$("#hala-embed").addClass('show');
+									});
+									$(function() {
+										$('a[href*=\\#]:not([href=\\#])').on('click', function() {
+											var target = $(this.hash);
+											target = target.length ? target : $('[name=' + this.hash.substr(1) +']');
+											if (target.length) {
+												$('html,body').animate({
+													scrollTop: target.offset().top
+												}, 10);
+												return false;
+											}
+										});
+									});
+								});
+								require(["jquery", "owlcarousel"], function($) {
+    // Feachers Slider
+    $(function () {
+    	var insuranceFeachersSlider = $('.insurance-feachers-slider'),
+    	owlOptions1 = {
+    		loop: false,
+    		margin: 0,
+    		nav: false,
+    		items: 1,
+    		dots: true,
+    	};
+    	if ($(window).width() < 768) {
+    		var owlActive1 = insuranceFeachersSlider.owlCarousel(owlOptions1);
+		// Listen to owl events:
+		insuranceFeachersSlider.on('changed.owl.carousel', function(event) {
+			$('.box-close').trigger('click');
+		});
+	} else {
+		insuranceFeachersSlider.addClass('off');
+	}
+	$(window).resize(function () {
+		if ($(window).width() < 768) {
+			if ($('.insurance-feachers-slider').hasClass('off')) {
+				var owlActive1 = insuranceFeachersSlider.owlCarousel(owlOptions1);
+				insuranceFeachersSlider.removeClass('off');
+			}
+		} else {
+			if (!$('.insurance-feachers-slider').hasClass('off')) {
+				insuranceFeachersSlider.addClass('off').trigger('destroy.owl.carousel');
+				insuranceFeachersSlider.find('.owl-stage-outer').children(':eq(0)').unwrap();
+			}
+		}
+	});
+});
+    // Steps Slider
+    $(function () {
+    	var insuranceStepsSlider = $('.insurance-steps-slider'),
+    	owlOptions2 = {
+    		loop: false,
+    		margin: 0,
+    		nav: false,
+    		items: 1,
+    		dots: true,
+    	};
+    	if ($(window).width() < 768) {
+    		var owlActive2 = insuranceStepsSlider.owlCarousel(owlOptions2);
+		// Listen to owl events:
+		insuranceStepsSlider.on('changed.owl.carousel', function(event) {
+			$('.box-close').trigger('click');
+		});
+	} else {
+		insuranceStepsSlider.addClass('off');
+	}
+	$(window).resize(function () {
+		if ($(window).width() < 768) {
+			if ($('.insurance-steps-slider').hasClass('off')) {
+				var owlActive2 = insuranceStepsSlider.owlCarousel(owlOptions2);
+				insuranceStepsSlider.removeClass('off');
+			}
+		} else {
+			if (!$('.insurance-steps-slider').hasClass('off')) {
+				insuranceStepsSlider.addClass('off').trigger('destroy.owl.carousel');
+				insuranceStepsSlider.find('.owl-stage-outer').children(':eq(0)').unwrap();
+			}
+		}
+	});
+});
+    // Benefits Slider
+    $(function () {
+    	var benefitsSlider = $('.benefits-slider'),
+    	owlOptions3 = {
+    		loop: false,
+    		margin: 0,
+    		nav: false,
+    		items: 1,
+    		dots: true,
+    	};
+    	if ($(window).width() < 768) {
+    		var owlActive2 = benefitsSlider.owlCarousel(owlOptions3);
+		// Listen to owl events:
+		benefitsSlider.on('changed.owl.carousel', function(event) {
+			$('.box-close').trigger('click');
+		});
+	} else {
+		benefitsSlider.addClass('off');
+	}
+	$(window).resize(function () {
+		if ($(window).width() < 768) {
+			if ($('.benefits-slider').hasClass('off')) {
+				var owlActive2 = benefitsSlider.owlCarousel(owlOptions3);
+				benefitsSlider.removeClass('off');
+			}
+		} else {
+			if (!$('.benefits-slider').hasClass('off')) {
+				benefitsSlider.addClass('off').trigger('destroy.owl.carousel');
+				benefitsSlider.find('.owl-stage-outer').children(':eq(0)').unwrap();
+			}
+		}
+	});
+});
+});
+</script>
+<style type="text/css">
+div#trengo-web-widget {
+    display: none !important;
+}	
+</style>

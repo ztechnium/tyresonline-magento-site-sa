@@ -1,0 +1,385 @@
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_SocialLogin
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+
+#social-login-popup,
+#request-popup {
+    overflow: hidden
+}
+
+#social-login-popup .block-container,
+#request-popup .block-container {
+    width: 100%;
+    display: inline-block;
+}
+
+#social-login-popup .social-login-title,
+#request-popup .social-login-title {
+    padding: 10px 10px;
+    background-color: #3399cc;
+}
+
+.social-login-ajax-loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.6;
+    background: #fbfaf6 url('images/ajax-loader.gif') no-repeat center center;
+}
+
+#social-login-popup .block-container .block .block-title,
+#request-popup .block-container .block .block-title {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#social-login-popup .fieldset,
+#request-popup .fieldset {
+    margin: 0px;
+}
+
+.actions-toolbar {
+    margin-top: 7px;
+}
+
+.account-social-login .actions-toolbar.social-btn {
+    width: 215px;
+}
+
+#social-login-popup .actions-toolbar > .secondary .action.back,
+#request-popup .actions-toolbar > .secondary .action.back {
+    display: block;
+}
+
+.social-login-title h2 {
+    margin: 0;
+    padding-left: 40px;
+    background: no-repeat 12px center;
+    color: #ffffff;
+}
+
+.social-login-title .login-title {
+    background-image: url(images/login-title.png);
+}
+
+.social-login-title .create-account-title {
+    background-image: url(images/create-account-title.png);
+}
+
+.social-login-title .forgot-pass-title {
+    background-image: url(images/forgot-pass-title.png);
+}
+
+#social-login-popup .message.error > *:first-child:before {
+    top: 50%;
+}
+
+#social-login-popup .message.success > *:first-child:before {
+    top: 50%;
+}
+
+/* Authentication Popup */
+.social-login-authentication-popup {
+    width: 100%;
+}
+
+.social-login-authentication-popup .block-content {
+    display: block !important;
+}
+
+.social-login-authentication-popup .block-content .actions-toolbar {
+    display: inline-block;
+}
+
+.social-login-authentication-popup .block-content .actions-toolbar .btn-social {
+    /*height: 20px;*/
+    padding-left: 19px;
+}
+
+/*Button Style*/
+.actions-toolbar button {
+    border-radius: 0;
+}
+
+.social-btn button {
+    height: 33px;
+    border: none;
+}
+
+.social-btn button span span {
+    margin-left: 25px;
+    color: #ffffff;
+}
+
+.block-authentication .actions-toolbar {
+    margin-bottom: unset !important;
+}
+
+
+.social-login-authentication-channel .actions-toolbar.social-btn > .primary .action {
+    width: 100%;
+    margin: 0;
+    min-width: 170px;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.social-login-authentication-channel .actions-toolbar.social-btn > .primary .action:hover {
+    opacity: 0.9;
+}
+
+.social-btn-actions-toolbar {
+    display: inline-block;
+}
+
+.register-sociallogin {
+    float: left;
+}
+
+#fb-customer, #gg-customer, #tw-customer, #li-customer, #ins-customer, #ya-customer, #git-customer, #vk-customer, #fo-customer, #live-customer, #am-customer {
+    float: left;
+}
+
+#group-button {
+    width: 48.8%; /*margin-left: 37px;*/ /*margin-top: 0px;*/
+    float: right;
+    clear: none;
+}
+
+#group-button .block.social-login-authentication-channel.col-mp.mp-5 {
+    margin-bottom: 2px;
+}
+
+.mfp-bg{
+    background-color: #fff !important;
+}
+
+.mfp-zoom-in { /* start state */ /* animate in */ /* animate out */
+}
+
+.mfp-zoom-in .mfp-with-anim {
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+.mfp-zoom-in.mfp-bg {
+    opacity: 0;
+    transition: all 0.4s ease-out;
+}
+
+.mfp-zoom-in.mfp-ready .mfp-with-anim {
+    opacity: 1;
+}
+
+.mfp-zoom-in.mfp-ready.mfp-bg {
+    opacity: 0.9;
+}
+
+.mfp-zoom-in.mfp-removing .mfp-with-anim {
+    opacity: 0;
+}
+
+.mfp-zoom-in.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.mfp-newspaper { /* start state */ /* animate in */ /* animate out */
+}
+
+.mfp-newspaper .mfp-with-anim {
+    opacity: 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.5s;
+    transform: scale(0) rotate(500deg);
+}
+
+.mfp-newspaper.mfp-bg {
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.mfp-newspaper.mfp-ready .mfp-with-anim {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.mfp-newspaper.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+.mfp-newspaper.mfp-removing .mfp-with-anim {
+    transform: scale(0) rotate(500deg);
+    opacity: 0;
+}
+
+.mfp-newspaper.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.mfp-move-horizontal { /* start state */ /* animate in */ /* animate out */
+}
+
+.mfp-move-horizontal .mfp-with-anim {
+    opacity: 0;
+    transition: all 0.3s;
+    transform: translateX(-50px);
+}
+
+.mfp-move-horizontal.mfp-bg {
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.mfp-move-horizontal.mfp-ready .mfp-with-anim {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.mfp-move-horizontal.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+.mfp-move-horizontal.mfp-removing .mfp-with-anim {
+    transform: translateX(50px);
+    opacity: 0;
+}
+
+.mfp-move-horizontal.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.mfp-move-from-top { /* start state */ /* animate in */ /* animate out */
+}
+
+.mfp-move-from-top .mfp-content {
+    vertical-align: middle;
+}
+
+.mfp-move-from-top .mfp-with-anim {
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translateY(-100px);
+}
+
+.mfp-move-from-top.mfp-bg {
+    opacity: 0;
+    transition: all 0.2s;
+
+}
+
+.mfp-move-from-top.mfp-ready .mfp-with-anim {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mfp-move-from-top.mfp-ready.mfp-bg {
+    opacity: 0.9;
+}
+
+.mfp-move-from-top.mfp-removing .mfp-with-anim {
+    transform: translateY(-50px);
+    opacity: 0;
+}
+
+.mfp-move-from-top.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.mfp-3d-unfold { /* start state */ /* animate in */ /* animate out */
+}
+
+.mfp-3d-unfold .mfp-content {
+    perspective: 2000px;
+}
+
+.mfp-3d-unfold .mfp-with-anim {
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    transform-style: preserve-3d;
+    transform: rotateY(-60deg);
+}
+
+.mfp-3d-unfold.mfp-bg {
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.mfp-3d-unfold.mfp-ready .mfp-with-anim {
+    opacity: 1;
+    transform: rotateY(0deg);
+}
+
+.mfp-3d-unfold.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+.mfp-3d-unfold.mfp-removing .mfp-with-anim {
+    transform: rotateY(60deg);
+    opacity: 0;
+}
+
+.mfp-3d-unfold.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.mfp-zoom-out .mfp-with-anim {
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.3);
+}
+
+.mfp-zoom-out.mfp-bg {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.mfp-zoom-out.mfp-ready .mfp-with-anim {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.mfp-zoom-out.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+.mfp-zoom-out.mfp-removing .mfp-with-anim {
+    transform: scale(1.3);
+    opacity: 0;
+}
+
+.mfp-zoom-out.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.form-customer-login .g-recaptcha {
+    margin: unset !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .modal-popup.request-popup.modal-slide {
+        left: 0;
+        z-index: 900;
+    }
+}
+
+.customer-account-create .account-social-login, .customer-account-login .account-social-login {
+    display: block !important
+}

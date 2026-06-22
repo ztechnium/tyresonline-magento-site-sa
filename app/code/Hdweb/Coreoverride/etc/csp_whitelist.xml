@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="google-api" type="host">*.googleapis.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="tabby" type="host">*.tabby.ai</value>
+                <value id="tabby-segment" type="host">*.segment.com</value>
+                <value id="cardinalcommerce" type="host">*.cardinalcommerce.com</value>
+                <value id="elfsight" type="host">*.elfsight.com</value>
+                <value id="fastbase" type="host">*.fastbase.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="paypalobjects" type="host">*.paypalobjects.com</value>
+                <value id="trengo" type="host">*.trengo.eu</value>
+                <value id="adobedtm" type="host">*.adobedtm.com</value>
+                <value id="adobe" type="host">*.adobe.com</value>
+                <value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="wheel-size" type="host">*.wheel-size.com</value>
+				<value id="googlecom" type="host">*.google.com</value>
+				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+		<policy id="img-src">
+            <values>
+				<value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="google-api" type="host">*.googleapis.com</value>
+				<value id="gstatic" type="host">*.gstatic.com</value>
+				<value id="google" type="host">*.google.com</value>
+				<value id="paypal" type="host">*.paypal.com</value>
+				<value id="tabby" type="host">*.tabby.ai</value>
+				<value id="tabby-segment" type="host">*.segment.com</value>
+				<value id="cardinalcommerce" type="host">*.cardinalcommerce.com</value>
+				<value id="elfsight" type="host">*.elfsight.com</value>
+				<value id="fastbase" type="host">*.fastbase.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="trengo" type="host">*.trengo.eu</value>
+				<value id="adobedtm" type="host">*.adobedtm.com</value>
+                <value id="adobe" type="host">*.adobe.com</value>
+                <value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="wheel-size" type="host">*.wheel-size.com</value>
+				<value id="googlecom" type="host">*.google.com</value>
+				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+				<value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="google-api" type="host">*.googleapis.com</value>
+				<value id="gstatic" type="host">*.gstatic.com</value>
+				<value id="google" type="host">*.google.com</value>
+				<value id="paypal" type="host">*.paypal.com</value>
+				<value id="tabby" type="host">*.tabby.ai</value>
+				<value id="tabby-segment" type="host">*.segment.com</value>
+				<value id="cardinalcommerce" type="host">*.cardinalcommerce.com</value>
+				<value id="elfsight" type="host">*.elfsight.com</value>
+				<value id="fastbase" type="host">*.fastbase.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="trengo" type="host">*.trengo.eu</value>
+				<value id="adobedtm" type="host">*.adobedtm.com</value>
+                <value id="adobe" type="host">*.adobe.com</value>
+                <value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="wheel-size" type="host">*.wheel-size.com</value>
+				<value id="googlecom" type="host">*.google.com</value>
+				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+				<value id="tyresonline" type="host">*.tyresonline.com</value>
+				<value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="google-api" type="host">*.googleapis.com</value>
+				<value id="gstatic" type="host">*.gstatic.com</value>
+				<value id="google" type="host">*.google.com</value>
+				<value id="paypal" type="host">*.paypal.com</value>
+				<value id="tabby" type="host">*.tabby.ai</value>
+				<value id="tabby-segment" type="host">*.segment.com</value>
+				<value id="cardinalcommerce" type="host">*.cardinalcommerce.com</value>
+				<value id="elfsight" type="host">*.elfsight.com</value>
+				<value id="fastbase" type="host">*.fastbase.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="trengo" type="host">*.trengo.eu</value>
+				<value id="adobedtm" type="host">*.adobedtm.com</value>
+                <value id="adobe" type="host">*.adobe.com</value>
+                <value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="wheel-size" type="host">*.wheel-size.com</value>
+				<value id="googlecom" type="host">*.google.com</value>
+				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+				<value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="google-api" type="host">*.googleapis.com</value>
+				<value id="gstatic" type="host">*.gstatic.com</value>
+				<value id="google" type="host">*.google.com</value>
+				<value id="paypal" type="host">*.paypal.com</value>
+				<value id="tabby" type="host">*.tabby.ai</value>
+				<value id="tabby-segment" type="host">*.segment.com</value>
+				<value id="cardinalcommerce" type="host">*.cardinalcommerce.com</value>
+				<value id="elfsight" type="host">*.elfsight.com</value>
+				<value id="fastbase" type="host">*.fastbase.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="trengo" type="host">*.trengo.eu</value>
+				<value id="adobedtm" type="host">*.adobedtm.com</value>
+                <value id="adobe" type="host">*.adobe.com</value>
+                <value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="wheel-size" type="host">*.wheel-size.com</value>
+				<value id="googlecom" type="host">*.google.com</value>
+				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+        <policy id="media-src">
+            <values>
+				<value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="google-api" type="host">*.googleapis.com</value>
+				<value id="gstatic" type="host">*.gstatic.com</value>
+				<value id="google" type="host">*.google.com</value>
+				<value id="paypal" type="host">*.paypal.com</value>
+				<value id="tabby" type="host">*.tabby.ai</value>
+				<value id="tabby-segment" type="host">*.segment.com</value>
+				<value id="cardinalcommerce" type="host">*.cardinalcommerce.com</value>
+				<value id="elfsight" type="host">*.elfsight.com</value>
+				<value id="fastbase" type="host">*.fastbase.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="trengo" type="host">*.trengo.eu</value>
+				<value id="adobedtm" type="host">*.adobedtm.com</value>
+                <value id="adobe" type="host">*.adobe.com</value>
+                <value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="wheel-size" type="host">*.wheel-size.com</value>
+				<value id="googlecom" type="host">*.google.com</value>
+				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

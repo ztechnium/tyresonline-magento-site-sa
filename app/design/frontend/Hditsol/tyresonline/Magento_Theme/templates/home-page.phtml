@@ -1,0 +1,214 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$baseURL = $this->getBaseUrl();
+?>
+
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_main_banner_tyres')->toHtml();?>
+<!-- <?php //echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('special_offers_slider_home')->toHtml();?> -->
+<div class="section shop-tyre">
+	<div class="container custom-width">
+		<div class="heading-style5 mb-80 text-center">
+			<h2><?php echo __('SHOP AT TYRESONLINE') ?></h2>
+			<p><?php echo __('The easiest way to buy tyres online, anywhere in the KSA.') ?></p>
+		</div>
+		<div class="row">					
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+				<a href="javascript:void(0);" class="d-block home-shop-tyre">
+				<div class="box">
+					<div class="box-icon">
+						
+						<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 259" width="260" height="259">
+							<style>
+								.s0 { fill: #ffffff } 
+							</style>
+							<path id="search" fill-rule="evenodd" class="s0" d="m255.5 246l-9.1 9.1c-5 5-13.2 5-18.2 0l-65.8-65.8c-35 23.8-81.1 23.8-116.2 0-47.2-32.1-59.5-96.4-27.4-143.6 32.1-47.2 96.5-59.5 143.7-27.4 47.2 32.1 59.5 96.4 27.4 143.6l65.8 65.8c5 5.1 5 13.3-0.2 18.3zm-86.5-142.1c0-35.7-29-64.6-64.7-64.6-35.7 0-64.6 28.9-64.6 64.6 0 35.7 28.9 64.6 64.6 64.6 35.7 0 64.7-28.9 64.7-64.6z"/>
+						</svg>
+					</div>
+					<div class="text-block">
+						<h2><?php echo __('Shop Tyres') ?></h2>
+						<p class="cw1"><?php echo __('Search by the tyre size or vehicle details, select quantity and add to cart.') ?></p>
+					</div>
+				</div>
+				</a>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+				<a href="<?php echo $baseURL.'storelocator'; ?>" class="d-block">
+				<div class="box">
+					<div class="box-icon">
+
+						<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275 126" width="275" height="126">
+							<style>
+								.s0 { fill: #ffffff } 
+							</style>
+							<path id="Post_truck_delivery" fill-rule="evenodd" class="s0" d="m274.8 61.4l-7.2 40.6c-0.3 2.1-2.1 3.7-4.2 3.7h-13.1c0.3 10.7-8.1 19.6-18.8 19.9-10.7-0.3-19.1-9.2-18.8-19.9h-119.5c0.3 10.7-8.1 19.6-18.8 19.9-10.7-0.3-19.1-9.2-18.8-19.9h-19c-0.2 0-0.4-0.1-0.6-0.1-2.5-0.4-4.2-2.7-3.8-5.2l2-14.5c0.1-1.1 1.1-2 2.2-2h28.2c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8h-45.8c-2.6-0.1-4.7-2.2-4.6-4.8 0-2.6 2-4.7 4.6-4.8h76.7c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8h-90.1c-2.6-0.1-4.7-2.2-4.6-4.8 0-2.6 2-4.7 4.6-4.8h101.5c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8h-76.7c-2.6-0.1-4.7-2.2-4.6-4.8 0-2.6 2-4.7 4.6-4.8h45.3c2.6-0.1 4.7-2.2 4.6-4.8 0-2.6-2-4.7-4.6-4.8-0.1 0-29.6 0-29.7 0-1.3-0.2-2.1-1.4-1.9-2.6l1.2-9c0.3-2.7 2.6-4.8 5.4-4.9h176c11.3 0 17.2 25.4 18 26.3l15 15.7 14.2 14.7c1.1 1.3 1.7 3 1.1 4.5zm-16.8-5.4c0.6-0.7 0.6-1.7 0-2.4l-18.3-19.3c-1-1.1-2.4-1.7-3.9-1.7h-14.6c-1 0-1.8 0.8-1.9 1.8l-1.6 17.6q0 0.2 0 0.3c-0.1 2.2 1.6 4 3.8 4.1h35.3c0.4 0 0.8-0.1 1.2-0.4z"/>
+						</svg>
+					</div>
+					<div class="text-block">
+						<h2><?php echo __('Tyre Fitment') ?></h2>
+						<p class="cw2"><?php echo __('Select one of our partner installers.') ?></p>
+					</div>
+				</div>
+				</a>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+				<a href="<?php echo $baseURL; ?>all-tyres/car-tyres.html" class="d-block">
+				<div class="box">
+					<div class="box-icon">			
+						<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 225" width="252" height="225">
+							<style>
+								.s0 { fill: #ffffff } 
+							</style>
+							<g id="Layer">
+								<path id="Layer" class="s0" d="m224.7 203.8c0 11.7-9.5 21.1-21.1 21.1-11.7 0-21.1-9.5-21.1-21.1 0-11.7 9.5-21.1 21.1-21.1 11.7 0 21.1 9.4 21.1 21.1z"/>
+								<path id="Layer" class="s0" d="m98.3 203.7c0 11.7-9.5 21.1-21.1 21.1-11.7 0-21.1-9.5-21.1-21.1 0-11.7 9.5-21.1 21.1-21.1 11.6 0 21.1 9.4 21.1 21.1z"/>
+								<path id="Layer" class="s0" d="m140.3 76.4l21.6-22.2 5.3 5.4-26.9 27.6-15.7-16 5.3-5.4z"/>
+								<path id="Layer" fill-rule="evenodd" class="s0" d="m251.8 28.6c-0.1 1.2-0.2 2.3-0.5 3.4l-23.7 84.3c-1.7 6-7.2 10.2-13.5 10.2h-139.2l4 21.1h135.4c5.8 0 10.5 4.7 10.5 10.5 0 5.8-4.7 10.5-10.5 10.5h-144.4c-4.9-0.1-9.1-3.7-10-8.5l-26.5-139h-22.9c-5.9-0.1-10.5-5-10.3-10.9 0.1-5.6 4.7-10.2 10.3-10.3h31.6c5 0.1 9.3 3.6 10.3 8.6l0.7 5.5h184.7c7.9 0.2 14.1 6.7 14 14.6zm-74.1 14.9l-33.7-15.3-33.7 15.3v23c-0.2 21.1 13.5 39.8 33.7 45.9 20.2-6.1 34-24.8 33.7-45.9z"/>
+							</g>
+						</svg>
+					</div>
+					<div class="text-block">
+						<h2><?php echo __('Buy Tyres') ?></h2>
+						<p class="cw3"><?php echo __('Easy checkout and secure payment options.') ?></p>
+					</div>
+				</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section tyre-anywhere">
+  <div class="container custom-width">
+
+    <div class="heading-style6 mb-75 text-center">
+      <h2 class="text-uppercase"><?php echo __('TYRES') ?> <span><?php echo __('ANYWHERE IN THE KSA') ?></span></h2>
+      <p><?php echo __('We\'ve got a great tyre partnership networks all over KSA, this guarantees you the quickest service ever along with the Ultimate customer happiness you ever pictured!') ?></p>
+      <p><?php echo __('Get your tyres replaced with the best prices of high-end tyre brands from all over the world, Don\'t wait any longer!') ?></p>
+    </div>
+
+    <div class="map-image">
+    	<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="100px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/ksa-map.svg" class="lazyload" alt="TyresOnline KSA Map" />
+    </div>
+
+    <div class="bottom-text">
+    	<span class="count"><?php echo __('50+') ?></span>
+    	<h3><?php echo __('TYRE FITMENT') ?> <span><?php echo __('CENTERS') ?></span></h3>
+    </div>
+
+    </div>
+</div>
+
+<div class="section welcome">
+	
+<div class="container-fluid px-0">
+<div class="image-wrap picture loader aspect-custom">
+	<picture>
+	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae-sm.webp'); ?>" media="(max-width: 767px)">
+	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae-sm.jpg'); ?>" media="(max-width: 767px)">
+	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.webp'); ?>" media="(min-width: 768px)">
+	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.jpg'); ?>" media="(min-width: 768px)">
+	  <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Welcome To Tyres Online UAE');?>" width="1920px" height="943px" data-src="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.jpg'); ?>">
+	</picture>
+</div>
+
+<div class="banner-content text-center d-flex flex-wrap align-content-between">
+<div class="top position-relative w-100">
+	  <div class="shape">
+	  	<picture>
+	  	 <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/section/Welcome-banner-top-shape.webp'); ?>">
+	  	 <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Welcome To Tyres Online UAE');?>" width="1920px" height="150px" data-src="<?= $block->getViewFileUrl('images/section/Welcome-banner-top-shape.jpg'); ?>">
+	  	</picture>
+	  </div>
+    <div class="heading-style6 white text-center">
+      <h2 class="text-uppercase"><?php echo __('TYRE SHOP');?>&nbsp;<span><?php echo __('NEAR ME');?></span></h2>
+      <p class="cw1"><?php echo __('We are here! We’re always online, search and find the tyres you need from the comfort of wherever your are in the KSA.');?></p>
+    </div>
+</div>
+
+<div class="bottom position-relative w-100">
+		  <div class="shape">
+	  	<picture>
+	  	 <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/section/Welcome-banner-bottom-shape.webp'); ?>">
+	  	 <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Welcome To Tyres Online UAE');?>" width="1920px" height="150px" data-src="<?= $block->getViewFileUrl('images/section/Welcome-banner-bottom-shape.jpg'); ?>">
+	  	</picture>
+	  </div>
+ <div class="heading-style6 white text-center">
+      <h2 class="text-uppercase"><?php echo __('KSA TYRES ');?><span><?php echo __('IN ALL MAJOR CITIES');?></span></h2>
+      <p>
+      <span><?php echo __('Tyres Riyadh');?></span>
+      <span><?php echo __('Tyres Jeddah');?></span>
+      <span><?php echo __('Tyres Dammam');?></span>
+    </p>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+	
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_brands')->toHtml();?>
+ <div class="section cars-brand" style="display:block;">
+  <div class="container custom-width">
+    <div class="heading-style6 mb-45 text-center">
+      <h2 class="text-uppercase"><?php echo __('THE RIGHT TYRES FOR YOUR VEHICLE'); ?></h2>
+      <p><?php echo __('Looking for the perfect tyres for your car? TyresOnline has got you covered! Browse through our wide selection of tyres for most brands and models to find the perfect fit for your vehicle.'); ?></p>
+    </div>
+    <div class="brand-list">
+      <div class="row row-cols-3 row-cols-sm-3 row-cols-md-5 row-cols-lg-5 row-cols-xl-5 justify-content-center">
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/audi" class="d-block" aria-label="audi"><span class="image cars-brand-sprite audi"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/bmw" class="d-block" aria-label="bmw"><span class="image cars-brand-sprite bmw"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/chevrolet" class="d-block" aria-label="chevrolet"><span class="image cars-brand-sprite chevrolet"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/ford" class="d-block" aria-label="ford"><span class="image cars-brand-sprite ford"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/hyundai" class="d-block" aria-label="hyundai"><span class="image cars-brand-sprite hyundai"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/kia" class="d-block" aria-label="kia"><span class="image cars-brand-sprite kia"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/mazda" class="d-block" aria-label="mazda"><span class="image cars-brand-sprite mazda"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/mercedes" class="d-block" aria-label="mercedes"><span class="image cars-brand-sprite mercedes-benz"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/mini" class="d-block" aria-label="mini"><span class="image cars-brand-sprite mini"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/mitsubishi" class="d-block" aria-label="mitsubishi"><span class="image cars-brand-sprite mitsubishi"></span></a>
+        </div>
+        <div class="box">
+          <a href="<?php echo $baseURL; ?>car/nissan" class="d-block" aria-label="nissan"><span class="image cars-brand-sprite nissan"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car/porsche" class="d-block" aria-label="porsche"><span class="image cars-brand-sprite porsche"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car/tesla" class="d-block" aria-label="tesla"><span class="image cars-brand-sprite tesla"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car/rolls-royce" class="d-block" aria-label="rolls oyce"><span class="image cars-brand-sprite rolls-royce"></span></a>
+        </div>
+                <div class="box">
+          <a href="<?php echo $baseURL; ?>car/toyota" class="d-block" aria-label="toyota"><span class="image cars-brand-sprite toyota"></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="show-all text-center">
+      <a href="<?php echo $baseURL; ?>car" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span><?php echo __('ALL CAR BRANDS'); ?></span></a>
+    </div>
+  </div>
+</div>
+
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_blog_slider')->toHtml();?>
+

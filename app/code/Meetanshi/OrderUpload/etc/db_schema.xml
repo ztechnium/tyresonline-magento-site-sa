@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="meetanshi_orderupload" resource="default" engine="innodb" comment="Order Attachments">
+        <column xsi:type="int" name="id" padding="15" nullable="false" identity="true" comment="ID" />
+        <column xsi:type="int" name="order_id" padding="11" nullable="true" unsigned="true" comment="Order ID" />
+        <column xsi:type="int" name="customer_id" padding="11" nullable="true" unsigned="true" comment="Customer Id" />
+        <column xsi:type="varchar" name="file_name" nullable="false" length="255" comment="File Name" />
+        <column xsi:type="varchar" name="file_path" nullable="false" length="1000" comment="File Path" />
+        <column xsi:type="varchar" name="comment" nullable="false" length="255" comment="Comment" />
+        <column xsi:type="int" name="visible_customer_account" nullable="false" default="1" comment="Is visible in customer account" />
+        <column xsi:type="timestamp" name="updated_at" comment="Update at" />
+        <column xsi:type="timestamp" name="created_at" comment="Creation Time" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id" />
+        </constraint>
+    </table>
+    <table name="quote" resource="default" engine="innodb" comment="Sales Flat Quote">
+        <column xsi:type="text" name="file_data" nullable="true" comment="File Data" />
+        <column xsi:type="text" name="order_comment" nullable="true" comment="Order Comment" />
+    </table>
+</schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Ecomteck.com license that is
+ * available through the world-wide-web at this URL:
+ * https://ecomteck.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_OneStepCheckout
+ * @copyright   Copyright (c) 2018 Ecomteck (https://ecomteck.com/)
+ * @license     https://ecomteck.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecomteck_OneStepCheckout::onestepcheckout" title="One Step Checkout" module="Ecomteck_OneStepCheckout" sortOrder="112" resource="Ecomteck_OneStepCheckout::one_step_checkout" parent="Ecomteck_Core::menu"/>
+        <add id="Ecomteck_OneStepCheckout::configuration" title="Configuration" module="Ecomteck_OneStepCheckout" sortOrder="10" action="adminhtml/system_config/edit/section/one_step_checkout" resource="Ecomteck_OneStepCheckout::one_step_checkout" parent="Ecomteck_OneStepCheckout::onestepcheckout"/>
+    </menu>
+</config>

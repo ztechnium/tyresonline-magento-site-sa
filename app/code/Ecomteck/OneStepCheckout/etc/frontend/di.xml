@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ecomteck
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Ecomteck.com license that is
+ * available through the world-wide-web at this URL:
+ * https://ecomteck.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Ecomteck
+ * @package     Ecomteck_OneStepCheckout
+ * @copyright   Copyright (c) 2018 Ecomteck (https://ecomteck.com/)
+ * @license     https://ecomteck.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="onestepcheckout" xsi:type="object">Ecomteck\OneStepCheckout\Block\Checkout\OneStepCheckoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Tax\Model\TaxConfigProvider">
+        <plugin name="geo_ip_country" type="Ecomteck\OneStepCheckout\Plugin\GeoIpCountryPlugin" />
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="one_step_checkout_config_provider" xsi:type="object">Ecomteck\OneStepCheckout\ConfigProvider\CheckoutConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Result\Layout">
+        <plugin name="remove_containers" type="Ecomteck\OneStepCheckout\Plugin\RemoveContainersPlugin" />
+    </type>
+    <preference for="Magento\Directory\Helper\Data" type="Ecomteck\OneStepCheckout\Helper\Directory\Data" />
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="ecomteck_onestepcheckout" xsi:type="array">
+                    <item name="class" xsi:type="string">Ecomteck\OneStepCheckout\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="onestepcheckout-cart-sidebar-checkout-url" type="Ecomteck\OneStepCheckout\Plugin\BlockCartSidebarPlugin" sortOrder="1"/>
+    </type>
+</config>

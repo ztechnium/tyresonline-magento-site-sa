@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="city_drodown" type="Hdweb\Core\Model\Checkout\LayoutProcessor" sortOrder="10"/>
+    </type>
+	<type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+		<plugin name="custom_custom_block_toolbar" type="Hdweb\Core\Plugin\Catalog\Block\Toolbar"/>
+     </type>
+    <type name="Magento\Catalog\Model\Config">
+        <plugin name="custom_catalog_model_config" type="Hdweb\Core\Plugin\Catalog\Model\Config"/>
+    </type>
+    <preference for="\Magento\Framework\Mail\Template\TransportBuilder" type="Hdweb\Core\Model\Mail\Template\TransportBuilder" />
+    <preference for="Magento\Captcha\Model\Checkout\ConfigProvider"
+                type="Hdweb\Core\Model\Captcha\CheckoutConfigProvider"/>
+    <preference for="Magento\Checkout\Model\CompositeConfigProvider"
+                type="Hdweb\Core\Model\Checkout\CompositeConfigProvider"/>
+    <preference for="Magento\Checkout\CustomerData\ItemPoolInterface"
+                type="Magento\Checkout\CustomerData\ItemPool"/>
+    <virtualType name="PaypalIframeCcConfigProvider" type="Magento\Payment\Model\IframeConfigProvider">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">payflowpro</argument>
+        </arguments>
+    </virtualType>
+</config>

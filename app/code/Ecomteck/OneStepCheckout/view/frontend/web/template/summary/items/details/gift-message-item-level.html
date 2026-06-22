@@ -1,0 +1,18 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+ -->
+<!-- ko if: isActive($parents[1]) -->
+<i class="fa fa-gift gift-message-icon" title="Gift Message" data-bind="click: $data.showModalFormBlock.bind($data,$parents[1])"></i>
+
+<div style="display:none" data-bind="attr:{id:'gift-message-popup-modal-'+$parents[1].item_id}" class="gift-content"> <!-- add class "active" to display the content -->
+    <div class="gift-options">
+        <!-- ko foreach: getRegion('additionalOptions') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko template: formTemplate --><!--/ko-->
+    </div>
+</div>
+<!-- /ko -->

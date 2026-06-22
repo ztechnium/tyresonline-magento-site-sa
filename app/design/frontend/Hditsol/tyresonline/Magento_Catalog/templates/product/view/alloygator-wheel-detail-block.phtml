@@ -1,0 +1,166 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_product = $block->getProduct();
+$parts_category = $_product->getResource()->getAttribute("parts_category")->getFrontend()->getValue($_product);
+$mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<?php if($parts_category == 'Wheel Protector'): ?>
+
+<div class="alloygator-wheel-detail-block order-4">
+
+<div class="product-tabs">
+<div class="tabbed-content">
+  <nav class="tabs">
+    <ul class="nav justify-content-between">
+      <li><a href="#tab1" class="active">Description</a></li>
+      <li><a href="#tab2">Are my wheels suitable</a></li>
+      <li><a href="#tab3">What’s my wheel size</a></li>
+      <li><a href="#tab4">Shipping & Fitment</a></li>
+      <li><a href="#tab5">Warranty</a></li>
+    </ul>
+  </nav>
+  <div id="tab1" class="item active" data-title="Description">
+    <div class="item-content">
+      <h3>What is included with a set of AlloyGators?</h3>
+			<ul>
+				<li>4 AlloyGator Alloy Wheel Rim Protectors</li>
+				<li>6 AlloyGator embossed joining clips</li>
+				<li>Stainless steel securing clips</li>
+				<li>2g AlloyGator super bond adhesive</li>
+				<li>Suitability gauge</li>
+				<li>Fitting instructions and care advice</li>
+				<li>Weight = 999.0g</li>
+			</ul>
+    </div>
+  </div>
+  <div id="tab2" class="item" data-title="Are my wheels suitable">
+    <div class="item-content">
+      <p>AlloyGator Wheel Protectors can be fitted to wheels which have between 12 and a 24-inch wheel diameter. Though suitable for 98% of all wheel and tyre combination, before installing AlloyGators we recommend that customers check the suitability of their combination on all wheels on their vehicle using the suitability gauge found within the box. Find out how to use the suitability gauge here.</p>
+			<p>AlloyGators Wheel Protectors are not recommended for diamond cut or machine polished alloy wheels. Although fitting the product will offer protection against damage, due to possible imperfections in the lacquered wheel surface, AlloyGators can increase the risk of moisture corrosion. However, providing there is no minute damage to the wheel surface, fitting AlloyGator Wheel Protectors will not accelerate damage on its own. AlloyGator Limited accepts no liability if the product is fitted and such damage occurs.</p>
+			<p>AlloyGator are not suitable for vehicles weighing over 2500kg, this includes vehicles weighing less than 2500kg, but carrying luggage or passenger weight that causes the overall vehicle weight to exceed 2500kg.</p>
+			<p>If you are unsure about the weight of your vehicle or would like some fitting advice, use our Find a Fitter search to locate an official, trained AlloyGator fitter in your local area. Our fitters are trained by us and can provide you with advice about the suitability of your vehicle, and your wheel and tyre combination.</p>
+			<p>AlloyGator Limited accepts no liability for profile movement or any damage caused by an AlloyGator profile fitted to a vehicle that weighs in excess of 2500kg. This includes vehicles weighing less than 2500kg, but carrying luggage or passenger weight that causes the overall vehicle weight to exceed 2500kg.</p>
+    </div>
+  </div>
+  <div id="tab3" class="item" data-title="What’s my wheel size">
+    <div class="item-content">
+       <p>Your wheel size can be found on the sidewall of your tyres. The diameter of the tyre’s inner rim in inches is the 3rd number, displayed in this example, R16. R16 = 16 inches.</p>
+			<img src="<?php echo $mediaUrl.'wysiwyg/tab-wheel-size.png';?>" alt="Wheel Size" style="display: inline-block;">
+    </div>
+  </div>
+    <div id="tab4" class="item" data-title="Shipping & Fitment">
+    <div class="item-content">
+      <h3>HOW IT WORKS</h3>
+			<p>Choose one of our fitment partners while at the shopping cart, we’ll ship the wheel protectors and install them for free.</p><br>
+			<h3>MOBILE VAN FITMENT SERVICE</h3>
+			<p>Are you looking for convenience? For an extra AED 235 have the wheel protectors fitted at your home, office or where ever is convenient for you in Dubai.</p><br>
+			<h3>WHEN YOU BUY A SET OF ALLOYGATOR AND A SET OF TYRES</h3>
+			<p>We’re always looking for the best deals for our customers, so, when you buy 4 tyres and and buy a set of Alloygator wheel protectors, you automatically get a discount of AED 100.</p>
+    </div>
+  </div>
+    <div id="tab5" class="item" data-title="Warranty">
+    <div class="item-content">
+      <p>We offer a 12 month warranty on all Alloygator wheel protectors, this warranty provides labour if required and new or replacement parts free if the product breaks down due to faulty manufacture or in normal use.</p>
+			<p>The warranty does not cover: Inappropriate use, incorrect operation or a fault created through incorrect fitting – (e.g.</p>
+			<p>The warranty does not cover impact damage, hazardous liquid damage, exposure to extreme heat or cold or other damage caused by acts of God or incorrect fitment) or vandalism – damage caused by others.</p>
+			<p>Warranty related claims are subject to validadtion from a tyresonline fitment partner. Tyresonline reserve the right to select the fitment partner inspecting the damadged wheel protector.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section why-wheel-protectors">
+	  <div class="container-fluid px-0">
+      <div class="heading-style1 mb-4 text-center">
+	      <h2 class="text-uppercase m-0">WHY ALLOYGATOR Wheel Protection?</h2>
+	    </div>
+
+	    <div class="text-wrap text-center">
+	      <p>AlloyGators deliver an unparalleled wheel protection solution for your vehicle. Engineered to fit securely between the wheel and tyre, <br> the AlloyGator is super tough and can take heavy impact effortlessly, not to mention the added style!</p>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="section wheel-protectors-info-video">
+	  <div class="container-fluid px-0">
+
+
+
+	    <div class="image-wrap picture aspect-16x9 loader text-center">
+	      <picture>
+	        <source srcset="<?php echo $mediaUrl.'wysiwyg/cover-it-with-style.jpg'; ?>">
+	        <img src="<?php echo $mediaUrl.'images/section/blank.png'; ?>" data-src="<?php echo $mediaUrl.'wysiwyg/cover-it-with-style.jpg'; ?>" class="lazyload" alt="" />
+	      </picture>
+	    </div>
+	    <a href="javascript:void(0)" class="video-play-icon" data-izimodal-open="#choose-color"><svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="play-circle" class="svg-inline--fa fa-play-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g class="fa-group"><path  class="fa-secondary" fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z" opacity="0.8"></path><path fill="#fff" class="fa-primary" d="M371.7 280l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z"></path></g></svg></a>
+	  </div>
+	</div>
+
+
+	<div id="choose-color" class="izimodal-videomodal" data-izimodal-transitionin="fadeInDown" data-izimodal-title="Protect Your Wheels Discreetly" data-izimodal-iframeURL="https://www.youtube.com/embed/JH09ybLJ3e8?rel=0&amp;autoplay=1"></div>
+</div>
+<script type="text/javascript">
+  require([
+    'jquery',
+    'izimodal'
+    ], function ($, izimodal) {
+	$(document).ready(function() {	
+		$(".izimodal-videomodal").iziModal({
+			history: false,
+			iframe : true,
+			iframeHeight: 500,
+			width: 1000,
+			fullscreen: true,
+			headerColor: '#000000',
+			loop: true
+		  });
+	 });
+});
+</script>
+
+
+<script type="text/javascript">
+	require(["jquery"], function($) {
+	tabControl();
+var resizeTimer;
+$(window).on('resize', function(e) {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    tabControl();
+  }, 250);
+});
+
+function tabControl() {
+  var tabs = $('.tabbed-content').find('.tabs');
+  if(tabs.is(':visible')) {
+    tabs.find('a').on('click', function(event) {
+      event.preventDefault();
+      var target = $(this).attr('href'),
+          tabs = $(this).parents('.tabs'),
+          buttons = tabs.find('a'),
+          item = tabs.parents('.tabbed-content').find('.item');
+      buttons.removeClass('active');
+      item.removeClass('active');
+      $(this).addClass('active');
+      $(target).addClass('active');
+    });
+  } else {
+    $('.item').on('click', function() {
+      var container = $(this).parents('.tabbed-content'),
+          currId = $(this).attr('id'),
+          items = container.find('.item');
+      container.find('.tabs a').removeClass('active');
+      items.removeClass('active');
+      $(this).addClass('active');
+      container.find('.tabs a[href$="#'+ currId +'"]').addClass('active');
+    });
+  } 
+}
+});
+</script>
+
+
+
+<?php endif; ?>

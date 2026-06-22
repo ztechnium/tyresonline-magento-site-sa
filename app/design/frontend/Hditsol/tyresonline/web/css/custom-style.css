@@ -1,0 +1,297 @@
+
+.site-header .mid-header{
+position: relative;
+}
+
+.header-search-wrap{
+position: relative;
+}
+
+.header-search-wrap .button{
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  min-height: 1px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.header-search-wrap .button span{
+  padding: 0;
+  min-width: 1px !important;
+  font-size: 14px;
+}
+
+.header-search-wrap .button span svg{
+  height: 18px;
+  fill: #fff;
+}
+
+.header-search-wrap select{
+  opacity: 0;
+  visibility: hidden;
+  height: 40px;
+}
+
+.header-search-wrap .select2.select2-container{
+  width: calc(100%) !important;
+}
+
+.header-search-wrap .select2-hidden-accessible{
+height: 100% !important;
+width: 100% !important;
+}
+
+.header-search-wrap .select2-container--default .select2-selection--multiple{
+  background: #eee;
+  padding: 0;
+  border: 1px solid #eee;
+  min-height: 40px;
+  margin: 0;
+  vertical-align: middle;
+  width: 100%;
+  font-weight: 600;
+  border-radius: 100px;
+  padding: 6px 15px;
+  display: flex;
+  align-items: center;
+  flex-flow: wrap;
+}
+
+.header-search-wrap .select2-container--default .select2-selection--multiple .select2-search{
+  
+}
+
+.header-search-wrap .select2-container--default .select2-selection--multiple .select2-search__field{
+  margin: 0px;
+  vertical-align: middle;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.header-search-wrap .select2-container--default.select2-container--open.select2-container--below .select2-selection--single,
+.header-search-wrap .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple{
+border-radius: 100px;
+}
+
+.header-search-wrap .select2-container--default.select2-container--focus .select2-selection--multiple{
+border: solid #eee 1px;
+  display: flex;
+  align-items: center;
+}
+
+.header-search-wrap .select2-container .select2-selection--multiple .select2-selection__rendered{
+padding: 0;
+margin: 0;
+}
+
+.header-search-wrap .select2-container--default .select2-selection--multiple .select2-selection__choice{
+margin: 2px 5px 2px 0px;
+background-color: #d60000;
+border: 1px solid #d60000;
+border-radius: 100px;
+color: #fff;
+}
+
+.header-search-wrap .select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+background-color: transparent;
+border-right: 1px solid #d60000;
+padding: 0 4px;
+color: #fff;
+}
+
+.header-search-wrap .select2-container--default .select2-selection--multiple .select2-selection__choice__display{
+padding-left: 0px;
+padding-right: 5px;
+color: #fff;
+font-weight: normal;
+font-size: 11px;
+vertical-align: middle;
+}
+
+.header-search-wrap .input-text{
+border-radius: 100px;
+padding: 8px 15px;
+}
+
+.site-header .mid-header .header-right ul li.header-search{
+  width: 290px;
+}
+
+.site-header .mid-header .header-right ul li.search-toggle span{
+cursor: pointer;
+}
+
+.site-header .mid-header .header-right ul li.search-toggle span svg{
+width: 20px;
+}
+
+.site-header .mid-header .header-right ul li.search-toggle .close{
+display: none;
+}
+
+.site-header .mid-header .header-right ul li.search-toggle.active .close{
+display: block;
+}
+
+.site-header .mid-header .header-right ul li.search-toggle.active .search{
+display: none;
+}
+
+@media screen and (max-width: 767px) {
+.site-header .mid-header .header-right ul li.header-search{
+  width: 100%;
+  position: absolute;
+  top: calc(100% - 5px);
+  background-color: #fff;
+  padding: 10px 12px;
+  margin-right: -0.75rem;
+}
+
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px){
+.site-header .mid-header .header-right ul li.header-search{
+      width: 100%;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #fff;
+  padding: 10px 15px;
+  z-index: 9;
+  border-top: 1px solid #eee;
+}
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1499px){
+.site-header .mid-header {
+padding: 0 20px;
+}
+
+.site-header .mid-header .header-right ul li.header-search {
+  width: 290px;
+}
+}
+
+@media screen and (min-width: 1920px) {
+.site-header .mid-header .header-right ul li.header-search {
+  width: 390px;
+}
+.site-header .mid-header .header-right ul li.search-toggle span svg {
+  width: 25px;
+}
+} 
+
+
+.all-tyres-size .selection-block .selection-search .input-text{
+  background-color: #ebebeb;
+  border: 1px solid #ebebeb;
+  height: 48px;
+  font-weight: bold;
+  color: #000;
+  border-radius: 100px;
+  padding: 10px 30px;
+}
+
+.all-tyres-size .selection-block .tyresize-list{
+ margin-top: 30px;
+}
+
+.all-tyres-size .selection-block .tyresize-list li a{
+    border: 2px solid #d60000;
+  border-radius: 14px;
+  padding: 12px 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px;
+}
+
+.all-tyres-size .selection-block .tyresize-list li a:hover{
+background-color: #d60000;
+color: #fff;
+}
+
+
+@media screen and (max-width: 767px) {
+.all-tyres-size .selection-block .tyresize-list li a{
+    font-size: 14px;
+}
+}
+
+
+.products.related-product-list {
+  order: 3;
+  width: 100%;
+  padding-top: 70px;
+}
+
+.products.related-product-list .cover{
+  padding: 0 7%;
+}
+
+@media screen and (min-width: 767px) {
+.products.related-product-list .slider .owl-stage{
+  display: flex;
+}
+}
+
+.products.related-product-list .slider .item{
+      height: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex-flow: wrap;
+}
+
+.products.related-product-list .slider .item:after{
+  display: none;
+}
+
+.products.related-product-list .slider .owl-item{
+  padding: 0 2px;
+}
+
+.products.related-product-list .show-all{
+  margin-top: 25px;
+}
+
+.products.related-product-list .product-list.grid-view .product-box .product-box-wrap .product-image img{
+  display: inline-block;
+}
+
+.products.related-product-list .product-list .list-view-mobile .product-box .right .product-brand img{
+  display: inline-block;
+}
+
+.products.related-product-list .owl-nav-style2 .owl-nav button.owl-next,
+.products.related-product-list .owl-nav-style2 .owl-nav button.owl-prev{
+  top: 50%;
+}
+
+@media screen and (max-width:767px) {
+  .products.related-product-list{
+      padding-top: 50px;
+  } 
+
+  .products.related-product-list .cover{
+      padding: 0 0px;
+  } 
+}
+
+@media screen and (min-width:1199px) and (max-width:1499px) {
+.products.related-product-list .cover{
+  padding: 0 9.9%;
+}
+}
+
+
+@media screen and (min-width: 1200px) {
+  .site-header .mid-header .header-right ul li.header-search{
+      display: block;
+  }
+  .site-header .mid-header .header-right ul li.search-toggle{
+      display: none;
+  }
+
+}

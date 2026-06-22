@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="meetanshi" translate="label" class="meetanshi" sortOrder="100">
+            <label></label>
+        </tab>
+        <section id="orderupload" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Order Attachment</label>
+            <tab>meetanshi</tab>
+            <resource>Meetanshi_OrderUpload::orderupload</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Order Attachment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="upload_dir" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Attachment Directory</label>
+                    <comment>Attachments are saved in pub/media/orderupload directory.
+                        Make sure directory is exist in pub/media/ directory and must have writting permissions.
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="allowed_extensions" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Allowed Attachment File Extensions</label>
+                    <comment>Ex: jpg,jpeg,png,zip,rar,docx,doc,pdf</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="max_file_size" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1"
+                       canRestore="1">
+                    <label>Max. Attachment File Size</label>
+                    <comment>Limit attachment file size upload limit in MB.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="customer" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Settings</label>
+                <field id="customer_groups" translate="label" type="multiselect" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Order Attachment for Customer Groups</label>
+                    <source_model>Meetanshi\OrderUpload\Model\Customergroups</source_model>
+                    <validate>validate-select</validate>
+                    <comment>Order Attachment option will be available to selected customer groups only. Select all for
+                        All
+                        customer groups.
+                    </comment>
+                </field>
+                <field id="can_customer_orderupload" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Can Customers Add Attachments in Existing Orders?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="can_delete_orderupload" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Can Customers Delete Attachments?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="send_attachment_to_customer" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Notify Customers when Admin Adds Attachment in Existing Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="send_attachment_to_admin" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Notify Admin when Customers Add Attachment in Existing Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_checkout" translate="label" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allow Customers to Add Attachment from Checkout OnePage</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_comment" translate="label" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Comment Box on Checkout Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="allow_checkout">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Email Settings</label>
+                <field id="active" translate="label" type="select" sortOrder="110" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Notification Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="admin_name" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1"
+                       canRestore="1">
+                    <label>Admin Name</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="admin_email" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1"
+                       canRestore="1">
+                    <label>Admin Email ID</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="140" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="send_separately" translate="label" type="select" sortOrder="150" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Attachment Emails to Customers As</label>
+                    <source_model>Meetanshi\OrderUpload\Model\Config\Source\Email</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="attachment" translate="label" type="select" sortOrder="150" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Add Attachments in Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

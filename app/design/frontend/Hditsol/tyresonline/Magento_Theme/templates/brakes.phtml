@@ -1,0 +1,302 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$block     = $block->getLayout()->createBlock('Hdweb\Tyrefinder\Block\Finderpopup');
+$catalogSearchUrl = $block->getTyreCatalogSearchUrl();
+$brakesCatId = 8; //$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/brakes_cat_id');
+$formUrl = $objectManager->create('Magento\Catalog\Model\Category')->load($brakesCatId)->getUrl();
+?>
+<div class="section page-banner brakes-banner">
+  <div class="container-fluid px-0">
+    <div class="banner-wrap">
+      <div class="tyre-content text-center mx-auto">
+        <span class="fw-900 text-uppercase"><?php echo __('Brakes');?></span>
+      </div>
+    </div>
+    <div class="banner-image">
+      <div class="image-wrap picture aspect-custom loader text-center">
+        <picture>
+          <source class="lazyload" srcset="<?php echo $mediaURL ;?>images/banner/car-brakes-repair-service-in-uae.png">
+          <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="811px" data-src="<?php echo $mediaURL ;?>images/banner/car-brakes-repair-service-in-uae.png" class="lazyload" alt="<?php echo __('Car brakes repair service in UAE');?>" />
+        </picture>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section search-slider d-md-none mobile-tyre-search-finder">
+  <div class="container">
+      <div class="search-brakes">
+       <div class="banner-image">
+       <div class="image-wrap picture aspect-custom loader text-center">
+         <picture>
+           <source class="lazyload" srcset="<?php echo $mediaURL ;?>images/banner/car-brakes-repair-service-in-uae.png">
+           <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="811px" data-src="<?php echo $mediaURL ;?>images/banner/car-brakes-repair-service-in-uae.png" class="lazyload" alt="<?php echo __('Car brakes repair service in UAE');?>" />
+         </picture>
+       </div>
+     </div>
+ 
+     <div class="search-wrap">
+       <div class="tabs-nav">
+        <ul class="list-custom d-flex justify-content-center">
+		  <li class="col-6 text-uppercase active disabled"><a href="javascript:void(0)" id="search-by-vehicle-tab"><span><?php echo __('Search By Vehicle');?></span></a></li>
+          <li class="col-6 text-uppercase"><a href="javascript:void(0)" id="search-by-autoparts-tab"><span><?php echo __('Search by Code');?></span></a></li>
+        </ul>
+     </div>
+     <div class="tabs-content">
+       <div class="tab-panel">
+         <div class="box">
+            <h4 class="fw-900 text-uppercase"><?php echo __('Brakes');?></h4>
+            <div class="search-form search-wrap" id="search-by-vehicle">
+			<form id="finder-vehicle-form" method="get" action="<?php echo $catalogSearchUrl; ?>" method="post">
+               <div class="row g-2">
+                  <div class="col-4"><a class="button button-white button-rounded button-block filled-slide-right button-text-overflow fw-light vehicle_make"><span id="vehicle_make"><?php echo __('Vehicle');?></span></a></div>
+                  <div class="col-4"><a class="button button-white button-rounded button-block filled-slide-right button-text-overflow fw-light vehicle_model disablesearchoption"><span id="vehicle_model"><?php echo __('Model');?></span></a></div>
+                  <div class="col-4"><a class="button button-white button-rounded button-block filled-slide-right button-text-overflow fw-light vehicle_year disablesearchoption"><span id="vehicle_year"><?php echo __('Engine');?></span></a></div>
+               </div>
+			   <div class="submit-bt"><span onclick="submitVehicleSelection()" class="button button-white button-block button-rounded filled-slide-right button-text-overflow fw-normal text-uppercase"><span><?php echo __('Search');?></span></span></div>
+				<input type="hidden" name="homme_search_vehicle" value="1">
+				<input type="hidden" class="search_type" value="vehicle-engine-search">
+				<input type="hidden" class="search_cat_id" value="<?php echo $brakesCatId;?>">
+			 </form>
+            </div>
+			<div class="search-form search-wrap" id="search-by-code" style="display:none;">
+             <form id="finder-vehicle-form" method="get" action="<?php echo $formUrl; ?>" name="finder-vehicle-form">
+               <div class="row g-2">
+                  <div class="col-12">
+					<div class="theme-form-style1">
+						<input type="text" class="form-control" placeholder="<?php echo __('Search products');?>..." name="article_number" id="article_number" value="" required>
+					</div>
+				  </div>
+               </div>
+			   <div class="submit-bt"><button type="submit" class="button button-white button-block button-rounded filled-slide-right button-text-overflow fw-normal text-uppercase"><span><?php echo __('Search');?></span></button></div>
+			 </form>
+          </div>
+         </div>
+       </div>
+      <?php /* <div class="tab-panel">
+        <div class="box">
+		  <h4 class="fw-900 text-uppercase"><?php echo __('Brakes');?></h4>
+          <div class="search-form search-wrap" id="search-by-code" style="display:none;">
+             <form id="finder-vehicle-form" method="get" action="<?php echo $formUrl; ?>">
+               <div class="row g-2">
+                  <div class="col-12">
+					<input type="text" class="form-control" placeholder="<?php echo __('Search products');?>..." name="article_number" id="article_number" value="" data-validate="{required:true}">
+				  </div>
+               </div>
+			   <div class="submit-bt"><button type="submit" class="button button-white button-block button-rounded filled-slide-right button-text-overflow fw-normal text-uppercase"><span><?php echo __('Search');?></span></button></div>
+			 </form>
+          </div>
+       </div>
+       </div> */ ?>
+     </div>
+     </div>
+  </div>
+ </div> 
+ </div>
+
+
+<div class="section offers-banner">
+  <div class="container-fluid px-0">
+    <div class="owl-carousel owl-theme offer-slider owl-nav-style1 owl-dot-style1">
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/matrax-tyres-in-uae" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/purchase-matrax-tyres-online-in-uae-at-tyresonline.jpg">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/purchase-matrax-tyres-online-in-uae-at-tyresonline.jpg" class="owl-lazy" alt="<?php echo __('Buy Matrax Tyres 2022 Tyres Online in UAE');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/matrax-tyres-warranty-and-accidental-damage-cover" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/buy-matrax-online-at-tyresonline.gif">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/buy-matrax-online-at-tyresonline.gif" class="owl-lazy" alt="<?php echo __('Matrax Tyres Warranty & Accidental Damage Cover');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/mobile-tyre-fitting-service-in-uae" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/mobile-van-tyre-fitment-in-dubai-by-tyresonline-uae.jpg">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/mobile-van-tyre-fitment-in-dubai-by-tyresonline-uae.jpg" class="owl-lazy" alt="<?php echo __('Tyres at Your Doorstep in Dubai');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <a href="/en/tabby-payment-options" class="d-block">
+            <div class="image-wrap picture loader aspect-custom">
+              <picture>
+                <source class="owl-lazy" srcset="<?php echo $mediaURL ;?>images/banner/tabby-installment-payment-at-tyresonline-uae-500AED.jpg">
+                <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="700px" data-src="<?php echo $mediaURL ;?>images/banner/tabby-installment-payment-at-tyresonline-uae-500AED.jpg" class="owl-lazy" alt="<?php echo __('Buy Tyres at Easy Installment');?>" />
+              </picture>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section tyrebuy-process bg-contain-image lazyload" data-bg="<?php echo $mediaURL ;?>images/bg/Road.jpg">
+  <div class="container custom-width">
+    <div class="heading-style1 mb-85 text-center">
+      <h2><?php echo __('AS EASY AS 1-2-3');?> <br/><span><?php echo __('THE MOST CONVENIENT WAY');?></span></h2>
+      <p><?php echo __('TO BUY AND FIT NEW TYRES');?></p>
+    </div>
+    <div class="row justify-content-center g-0">
+      <div class="col-auto">
+        <div class="box text-center">
+          <div class="image sprite search-img mx-auto"></div>
+          <h3><?php echo __('SEARCH & FIND');?></h3>
+          <p><?php echo __('By tyre size');?> <br/> <?php echo __('or vehicle details');?></p>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="box text-center">
+          <div class="image sprite fitting-img mx-auto"></div>
+          <h3><?php echo __('FITTING LOCATION');?></h3>
+          <p><?php echo __('Choose one of our trusted');?> <br/> <?php echo __('fitment partners');?></p>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="box text-center">
+          <div class="image sprite order-img mx-auto"></div>
+          <h3><?php echo __('ORDER');?></h3>
+          <p><?php echo __('Securely pay');?> <br/> <?php echo __('online');?></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section tyrebuy-process-mobile d-md-none">
+  <div class="container custom-width">
+    <div class="heading-style1 mb-3 text-center">
+      <h2><?php echo __('AS SIMPLE AS 1-2-3');?></h2>
+    </div>
+    <div class="row justify-content-center g-0">
+      <div class="col-12">
+        <div class="box text-center">
+          <div class="image sprite search-img mx-auto"></div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="box text-center">
+          <div class="image sprite fitting-img mx-auto"></div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="box text-center">
+          <div class="image sprite order-img mx-auto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section text-block-style1">
+  <div class="container custom-width">
+     <div class="row align-items-center">
+       <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+         <div class="text-wrap text-center text-md-start">
+           <h4 class="fw-900"><?php echo __('THE IMPORTANCE OF BRAKES');?></h4>
+           <p><?php echo __('Vehicle brakes are by far the most important feature in the car’s safety system. They have a simple function – to stop the car, but also prevent and stop incidents and accidents. The braking system is made of several components which work together to help keep the driver safe. Therefore, maintaining them regularly ensures that your vehicle’s safety system is in a good condition.');?></p>
+           <p><?php echo __('A lot of vehicle owners think that the braking system works to stop their vehicle, but there is a lot more going on in the actual stopping. When the vehicle is in contact with the road, it generates a lot of friction, which helps to stop it at the right time and in the right way. The vehicle’s brakes work to stop the wheels from spinning, and the braking power is mainly controlled by the brake pads and discs.');?></p>
+         </div>
+       </div>
+       <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="image-wrap picture loader aspect-custom">
+          <picture>
+            <source srcset="<?php echo $mediaURL ;?>images/section/importance-of-car-brakes.jpg">
+            <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1000px" height="625px" data-src="<?php echo $mediaURL ;?>images/section/importance-of-car-brakes.jpg" class="owl-lazy" alt="<?php echo __('Importance of car brakes');?>" />
+          </picture>
+        </div>
+       </div>
+     </div>
+  </div>
+</div>
+
+  <div class="section how-it-work">
+    <div class="container custom-width">
+      <div class="heading-style3 mb-50">
+        <h2 class="text-uppercase"><?php echo __('HOW IT WORKS');?></h2>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <div class="box text-center">
+            <div class="image how-it-work-sprite book mx-auto"></div>
+            <div class="content">
+              <p class="fs-18"><?php echo __('Book online by selecting');?> <br /> <?php echo __('your oil change preferences');?> <br /> <?php echo __('or call us toll free');?>
+                <br /> 800 255 89737 <br /> <?php echo __('Saturday to Thursday');?> <br /> <?php echo __('9am to 7pm');?>.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <div class="box text-center">
+            <div class="image how-it-work-sprite dropoff mx-auto"></div>
+            <div class="content">
+              <p class="fs-18"><?php echo __('Drop off your car at one of our Stop&Go partner branches at the time and location
+                arranged on your booking or agreed between you and the tyresonline.ae team.');?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <div class="box text-center">
+            <div class="image how-it-work-sprite oilchange mx-auto"></div>
+            <div class="content">
+              <p class="fs-18"><?php echo __('Our partner Stop&Go will perform the requested oil change on your car. As a standard
+                procedure we check the car to make sure it is road safe. You will be informed if any concerns arise. No
+                additional jobs are performed without your consent.');?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <div class="box text-center">
+            <div class="image how-it-work-sprite handover mx-auto"></div>
+            <div class="content">
+              <p class="fs-18"><?php echo __('You can wait in the Stop&Go lounge where water, coffee and tea is available upon request.
+                When your oil change is complete, you will be informed or contacted.');?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section about-stopandgo">
+    <div class="container custom-width">
+      <div class="heading-style3 white mb-3">
+        <h2 class="text-uppercase"><?php echo __('ABOUT STOP&GO');?> </h2>
+      </div>
+      <div class="content-wrap">
+        <p class="fs-20"><?php echo __('Stop&Go is a unique car maintenance and repair garage with multiple locations in Dubai. We
+          pride ourselves in having a team of professionally traine staff that have a true passion in working in the
+          automotive industry. We are customer oriented and look at every car from the owners perspective. Our concerns
+          for safety, costs, transparency and loyalty make us an ideal and dependable everyday car garage for any
+          individual or organisation. For more information visit www.stopandgouae.com');?></p>
+      </div>
+    </div>
+    <div class="container-fluid px-0">
+      <div class="image-wrap picture aspect-custom loader text-center">
+        <picture>
+          <source srcset="<?php echo $mediaURL ;?>images/section/best-place-for-car-repair-service-in-uae.jpg">
+          <img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="433px" data-src="<?php echo $mediaURL ;?>images/section/best-place-for-car-repair-service-in-uae.jpg" class="lazyload" alt="<?php echo __('Best place for car repair service in UAE');?>" />
+        </picture>
+      </div>
+    </div>
+  </div>

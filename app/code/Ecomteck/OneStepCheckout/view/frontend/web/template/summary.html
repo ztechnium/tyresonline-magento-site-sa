@@ -1,0 +1,15 @@
+<!--
+/**
+ * Copyright © Ecomteck. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="opc-block-summary" data-bind="blockLoader: isLoading">
+    <div class="title">
+            <i class="fa order_summary_title"></i>
+            <span data-bind="i18n: 'Order Summary'"></span>
+    </div>
+    <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>

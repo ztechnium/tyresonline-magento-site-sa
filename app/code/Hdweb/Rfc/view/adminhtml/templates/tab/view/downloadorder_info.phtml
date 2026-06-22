@@ -1,0 +1,45 @@
+<?php
+/**
+ * @var $block \Hdweb\Rfc\Block\Adminhtml\OrderEdit\Tab\View
+ */
+?>
+<?php
+$orderId = $block->getOrderId();
+$orderIncrementId = $block->getOrderIncrementId();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+<div class="fieldset-wrapper order-information">
+
+	
+</div>
+<div class="fieldset-wrapper order-information" >
+<div class="fieldset-wrapper-title">
+	<span class="title"><?php /* @escapeNotVerified */ echo __('Download Work Order') ?></span>
+</div>
+<br/>
+
+	<form class="action-element"
+		  action="<?= $block->escapeUrl($block->getUrl('installer/order/sendemailtoinstaller')) ?>"
+		  method="post">
+		<input
+			name="form_key"
+			type="hidden"
+			value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+	<input
+			name="isdownloadworkorder"
+			type="hidden"
+			value="1"/>
+					
+			<input
+			name="id"
+			type="hidden"
+			value="<?= $block->escapeHtmlAttr($orderId) ?>"/>
+		<button
+			class="action-primary"
+			type="submit"
+			title="<?= $block->escapeHtmlAttr(__('Download Work Order')) ?>">
+			<?= $block->escapeHtml(__('Download Work Order')) ?>
+		</button>
+	</form>
+
+</div>

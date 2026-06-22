@@ -1,0 +1,22 @@
+{
+    "amasty_page_speed_optimizer_queue": {
+        "column": {
+            "queue_id": true,
+            "filename": true,
+            "extension": true,
+            "resolutions": true,
+            "dump_original": true,
+            "resize_algorithm": true,
+            "tool": true,
+            "webp_tool": true,
+            "queue_type": true
+        },
+        "index": {
+            "AMASTY_PAGE_SPEED_OPTIMIZER_QUEUE_QUEUE_TYPE": true,
+            "AMASTY_PAGE_SPEED_OPTIMIZER_QUEUE_FILENAME": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

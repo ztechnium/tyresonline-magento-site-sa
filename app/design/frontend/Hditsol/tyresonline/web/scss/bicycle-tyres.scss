@@ -1,0 +1,409 @@
+/*!
+ * Copyright 2021 Tyresonline.ae Authors (https://www.tyresonline.ae/)
+*/
+
+/*
+/////
+/////////////// Layouts /////////////////
+*/
+
+@import "variables";
+@import "mixin";
+@import "px-to-rem-vw";
+@import "rfs";
+@import "sections/blog-slider";
+@import "sections/offer-slider";
+@import "sections/search-slider";
+
+
+@mixin banner-height() {
+    min-height: calc(100vh - #{get-rem($header-hight)} - #{get-rem($menu-hight)});
+    @media screen and #{$media-query} {
+      min-height: calc(100vh - #{get-vw($header-hight)} - #{get-vw($menu-hight)});
+    }
+  }
+  
+  @mixin banner-height-safari-mobile() {
+    min-height: calc(100vh - #{get-rem($header-hight)} - #{$safari-bottom-bar-height});
+  }
+  
+  @mixin banner-height-chrome-mobile() {
+    min-height: calc(100vh - #{get-rem($header-hight)} - #{$chrome-bottom-bar-height} + 10px);
+  }
+
+  .bicycle-banner{
+    @include banner-height();
+    position: relative;
+      .banner-image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+          .image-wrap{
+              &.picture{
+                //padding-bottom: 28%;
+                height: 67%;
+              img{
+                  width: auto;
+                  max-width: 100%;
+              }
+          }
+      }
+      }
+      .banner-wrap{
+        position: absolute;
+        z-index: 1;
+        @include scssont-bottom(110px);
+        padding: 0;
+        margin: auto;
+        left: 0;
+        right: 0;
+        .tyre-content{
+          width: fit-content;
+          .font-size1{
+            @include scssont-font-size(96px);
+            line-height: 0.9;
+            display: block;
+            @include scssont-letter-spacing(6.95px);
+          }
+          h3{
+            @include scssont-font-size(50px);
+            @include scssont-letter-spacing(17.8px);
+            @include scssont-margin-right(-15px);
+          }
+          hr{
+             opacity: 1;
+             @include scssont-height(3px);
+             background-color: $red;
+             @include scssont-margin-top(15px);
+             @include scssont-margin-bottom(15px);
+             margin-left: 0.5%;
+             margin-right: 0.5%;
+          }
+        }
+      }
+  }
+ 
+
+@media screen and (min-device-height: 700px) and (max-device-height: 3000px) and (orientation : landscape){
+   .bicycle-banner{
+    .banner-wrap{
+        bottom: 10.7vh;
+        .tyre-content{
+            .font-size1{
+                font-size: 10.55vh;
+                letter-spacing: 0.79vh;
+            }
+            h3{
+                font-size: 5.55vh;
+                letter-spacing: 1.98vh;
+            }
+        }
+    }
+    }
+}
+
+
+@media screen and (max-device-height: 2000px) and (orientation: portrait) {
+    .bicycle-banner{
+        min-height: 54vw;
+        .banner-image{
+          .image-wrap{
+            &.picture{
+                height: 29vw;
+            }
+        }
+       }
+       .banner-wrap{
+        .tyre-content{
+            .font-size1{
+                font-size: get-rem-sm(50px);
+            }
+            h3{
+                font-size: get-rem-sm(22px);  
+            }
+        }
+       }
+    } 
+  }
+
+  @media screen and (max-width:1024px) and (orientation : landscape){
+    .bicycle-banner{
+        .banner-image{
+            .image-wrap{
+              &.picture{
+                  height: 45%;
+              }
+          }
+         }
+    }
+  }
+
+.bicycle-banner-mobile{
+.banner-image{
+    .image-wrap{
+        &.aspect-custom{
+            padding-bottom: 57%;
+        }
+    }
+}
+}
+
+
+
+.shop-tyre{
+    background-color: $red-100;
+    @include scssont-padding-top(80px);
+    @include scssont-padding-bottom(80px);
+    .heading-style5{
+      p{
+        @include scssont-max-width(600px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    .box{
+      text-align: center;
+      .box-icon{
+        @include scssont-margin-bottom(35px);
+        svg{
+          @include scssont-height(50px);
+          width: auto;
+        }
+      }
+      .text-block{
+        h4{
+          color: $white;
+          font-weight: 900;
+          @include scssont-font-size(28px);
+        }
+        p{
+          color: $white;
+          @include scssont-font-size(18px);
+          margin-left: auto;
+          margin-right: auto;
+          &.cw1{
+            @include scssont-max-width(350px);
+          }
+          &.cw2{
+            @include scssont-max-width(450px);
+          }
+          &.cw3{
+            @include scssont-max-width(235px);
+          }
+        }
+      }
+    }
+  
+  }
+
+  @include media-breakpoint-down(md) {
+    .shop-tyre{
+      padding: get-rem-sm(40px) 0;
+      .box{
+        margin-bottom: get-rem-sm(30px);
+      }
+    }
+  }
+
+
+ .bicycle-fitment{
+    background-color: #fdf2f2;
+    @include scssont-padding-top(70px);
+    @include scssont-padding-bottom(70px);
+    .price-block{
+        text-align: center;
+        .price{
+            color: $red-200;
+            .currency{
+                @include scssont-font-size(23px); 
+                font-weight: 500; 
+            }
+            strong{
+                @include scssont-font-size(38px); 
+                font-weight: 900;  
+                @include scssont-letter-spacing(3px);
+            }
+            .vat{
+                @include scssont-font-size(15px); 
+                font-weight: 500; 
+                color: #323232; 
+            }
+        }
+        p{
+          margin: 0;
+          font-style: italic;
+          font-weight: 300;
+          @include scssont-font-size(18px);
+        }
+    }
+  }
+
+
+  .bicycle-nearme{
+    @include scssont-padding-top(100px);
+    @include scssont-padding-bottom(100px);
+     .box{
+        text-align: center;
+        .icon{
+            @include scssont-margin-bottom(20px);
+            @include scssont-height(150px);
+            @include flexbox();
+            @include justify-content(center);
+            @include align-items(center);
+            &.size1{
+                img{
+                    @include scssont-height(150px);
+                    width: 100%;
+                }
+            }
+            &.size2{
+                img{
+                    @include scssont-height(85px);
+                    width: 100%;
+                }
+            }
+        }
+        h4{
+            color: $red-100;
+            font-weight: 700;
+            @include scssont-font-size(24px);
+            margin: 0;
+        }
+        ul{
+            li{
+                @include scssont-font-size(22px);
+                font-weight: 300;  
+            }
+        }
+     }
+
+     .shop-now{
+        @include scssont-margin-top(65px);
+     }
+  }
+
+    
+  @include media-breakpoint-down(md) {
+   .bicycle-nearme{
+      padding-top: get-rem-sm(50px);
+      padding-bottom: get-rem-sm(50px);
+      .box{
+        margin-bottom: get-rem-sm(30px);
+      }
+   }  
+  }
+
+
+.bicycle-lifestyle{
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 56%;
+    .text-wrap{
+        position: absolute;
+        @include scssont-bottom(70px);
+        left: 0;
+        text-align: center;
+        width: 100%;
+        p{
+            color: $white;
+            margin: 0;
+            font-weight: 900;
+            @include scssont-font-size(32px);
+            letter-spacing: 2px;
+        }
+        h3{
+            color: $white;
+            margin: 0;
+            font-weight: 900;
+            @include scssont-font-size(48px);
+            letter-spacing: 3.5px;
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .bicycle-lifestyle{
+        .text-wrap{
+            bottom: get-rem-sm(20px);
+            p{
+                font-size: get-rem-sm(14px);
+            }
+            h3{
+                font-size: get-rem-sm(24px);
+            }
+        }  
+    }
+}
+
+
+.brand-sprite{
+    background: url("#{$mediapath}/section/Brands.png") no-repeat;
+  }
+  
+  .brands {
+    background-color: #fdf2f2;
+    @include scssont-padding(130px, 0px, 130px, 0px);
+    .heading-style6{
+      h2{
+        @include scssont-margin-bottom(40px);
+      }
+      p{
+        margin-left: auto;
+        margin-right: auto;
+        @include scssont-max-width(915px);
+      }
+    }
+    .brand-list {
+      padding: 0 10%;
+      .box {
+        a{
+          &:hover{
+            filter: grayscale(1);
+          }
+        }
+        @include scssont-margin-bottom(35px);
+        .image {
+          @include scssont-padding-bottom(60px);
+          background-size: 214%;
+          @include scssont-max-width(217px);
+          margin: auto;
+          display: block;
+          &.continental {
+            background-position: 5.9% 38%;
+          }
+          &.pirelli {
+            background-position: 5.9% 12.7%;
+          }
+          &.michelin {
+            background-position: 5.9% 29.8%;
+          }
+          &.goodyear {
+            background-position: 5.9% 45.9%;
+          }
+          &.vittoria {
+            background-position: 97% 51.7%;
+          }
+        }
+      }
+    }
+    .show-all {
+      @include scssont-margin-top(20px);
+    }
+  }
+  
+  @include media-breakpoint-down(lg) {
+    .brands {
+      .brand-list{
+        padding: 0;
+      }
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .brands {
+      padding-top: get-rem-sm(50px);
+      padding-bottom: get-rem-sm(50px);
+    }
+  }

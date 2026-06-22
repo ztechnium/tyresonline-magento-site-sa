@@ -1,0 +1,537 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+->getStore()
+->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<div class="section page-banner car-banner overflow-hidden">
+	<div class="container-fluid px-0">
+		<div class="banner-wrap">
+			<div class="tyre-content text-center mx-auto">
+				<strong class="font-size1 fw-900">تأمين السيارات</strong>
+				<hr>
+				<h3 class="fw-light">في أي مكان عبر الإمارات</h3>
+			</div>
+		</div>
+		<div class="banner-image">
+			<div class="image-wrap picture aspect-custom loader text-center">
+				<picture>
+					<source srcset="<?php echo $mediaURL ;?>images/banner/car-insurance-uae-mobile.jpg" media="(max-width: 767px)">
+						<source srcset="<?php echo $mediaURL ;?>images/banner/car-insurance-uae.jpg" media="(min-width: 768px)">
+							<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="1920px" height="1080px" data-src="<?php echo $mediaURL ;?>images/banner/car-insurance-uae.jpg" class="lazyload" alt="#" />
+						</picture>
+					</div>
+				</div>
+				<div class="banner-bottom">
+					<a href="#hala-embed" class="button button-primary-100 text-uppercase button-rounded quote-button"><span>احصل على عرض سعر مجاني</span></a>
+					<p>اشترِ الآن تأميناً بسعر رائع وقم بحماية سيارتك المفضّلة!</p>
+				</div>
+			</div>
+		</div>
+		<div class="section hala-embed" id="hala-embed">
+			<script async type="text/javascript" id="hala-embed-script" src="https://joinhala.com/assets/scripts/embeds.js" pageUrl="https://joinhala.com/ae/en/pages/car-insurance/tyresonline?chat=off&mode=slim&embedded"></script>
+		</div>
+		
+					<div class="section insurance-feachers">
+						<div class="container container-full">
+							<div class="owl-carousel owl-theme owl-dot-style2 insurance-feachers-slider">
+								<div class="item">
+									<div class="box">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.661 47.452">
+											<path id="affordable-icon" d="M14.887,0a2.473,2.473,0,0,0-1.754.732A2.506,2.506,0,0,0,12.406,2.5v9.99H7.443a2.5,2.5,0,0,1,0-4.995V2.5A7.477,7.477,0,0,0,0,9.99V42.457a4.984,4.984,0,0,0,4.962,5H39.7a4.984,4.984,0,0,0,4.962-5V17.482A4.984,4.984,0,0,0,39.7,12.487H37.217V2.5A2.506,2.506,0,0,0,36.491.732,2.473,2.473,0,0,0,34.736,0H14.887Zm4.744,4.995H29.992a3.734,3.734,0,0,0,2.263,2.278v5.214H27.293a2.481,2.481,0,1,0-4.962,0H17.368V7.273a3.734,3.734,0,0,0,2.263-2.278Zm15.1,22.477a2.5,2.5,0,1,1-2.481,2.5A2.49,2.49,0,0,1,34.736,27.472Z" fill="#fff"/>
+										</svg>
+										<h3>أسعار مناسبة</h3>
+										<p>نوفر لك أفضل تأمين لسيارتك وبسعر يناسب ميزانيتك. قم بتأمين السيارة المفضّلة لديك دون القلق من أي إضافات غير ضرورية.</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.962 47.452">
+											<path id="reliable-icon" d="M18.981,0,0,8.628V21.569C0,38.458,13.58,46.343,18.981,47.452c5.4-1.109,18.981-8.994,18.981-25.883V8.628ZM16.872,33.247,8.046,24.22l2.982-3.05,5.844,5.977L29.087,14.654l2.982,3.05Z" fill="#fff"/>
+										</svg>
+										<h3>ثقة واعتمادية</h3>
+										<p>تخطَّ الانتظار والمكالمات غير الضرورية. كُل ما  عليك فعله هو تعبئة بياناتك والإجابة على بضعة أسئلة والحصول على عرض سعر. إن كان ملائماً لك، ستحصل على بوليصة التأمين على الفور بخطوات سريعة.</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.707 47.452">
+											<path id="fast-icon" d="M22.42,0a1.058,1.058,0,0,0-.609.193A1.077,1.077,0,0,0,21.42.7L8.889,24.737a2.169,2.169,0,0,0,.3,2.671,2.12,2.12,0,0,0,1.508.632H21.353V46.374a1.085,1.085,0,0,0,.312.763,1.059,1.059,0,0,0,1.31.158,1.075,1.075,0,0,0,.393-.428L35.992,22.652l0,0a2.161,2.161,0,0,0-.333-2.6,2.121,2.121,0,0,0-1.508-.632H23.486V1.078a1.085,1.085,0,0,0-.312-.763A1.06,1.06,0,0,0,22.42,0ZM2.142,4.293a2.115,2.115,0,0,0-1.191.368,2.152,2.152,0,0,0-.785.978A2.175,2.175,0,0,0,.656,8L4.92,12.31a2.121,2.121,0,0,0,1.517.663,2.12,2.12,0,0,0,1.53-.632A2.173,2.173,0,0,0,7.935,9.26L3.671,4.946a2.121,2.121,0,0,0-1.528-.653Zm38.36,0a2.121,2.121,0,0,0-1.466.653L34.772,9.26a2.173,2.173,0,0,0-.031,3.081,2.12,2.12,0,0,0,1.53.632,2.122,2.122,0,0,0,1.517-.663L42.051,8a2.171,2.171,0,0,0-.335-3.362A2.114,2.114,0,0,0,40.5,4.293ZM6.386,34.49a2.12,2.12,0,0,0-1.466.653L.656,39.456a2.156,2.156,0,0,0-.481.7,2.173,2.173,0,0,0,.45,2.381,2.131,2.131,0,0,0,.7.472,2.111,2.111,0,0,0,1.652-.017,2.134,2.134,0,0,0,.692-.486l4.265-4.314A2.17,2.17,0,0,0,7.6,34.83,2.113,2.113,0,0,0,6.386,34.49Zm29.872,0a2.115,2.115,0,0,0-1.191.368,2.153,2.153,0,0,0-.785.978,2.176,2.176,0,0,0,.489,2.358l4.265,4.314a2.135,2.135,0,0,0,.692.486,2.117,2.117,0,0,0,2.354-.455,2.158,2.158,0,0,0,.466-.71,2.178,2.178,0,0,0-.017-1.671,2.157,2.157,0,0,0-.48-.7l-4.265-4.314a2.133,2.133,0,0,0-.7-.483A2.109,2.109,0,0,0,36.258,34.49Z" fill="#fff"/>
+										</svg>
+										<h3>سرعة مذهلة</h3>
+										<p>ابتداءً من الإصدار الفوري لبوليصة التأمين وموافقات المطالبات إلى استلام وتسليم السيارة المجاني عند التسجيل، يمكنك الاعتماد علينا تماماً، ونحن نقدم كل خدماتنا  بسرعة مذهلة أيضاً.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section insurance-steps">
+						<div class="container container-full">
+							<div class="heading text-center">
+								<h3>تأمين السيارات عبر الإنترنت في الإمارات</h3>
+								<p>تأمين سيارات عبر الإنترنت بأسعار مناسبة وثقة واعتمادية</p>
+							</div>
+							<div class="owl-carousel owl-theme owl-dot-style3 insurance-steps-slider">
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step1.svg" class="lazyload" alt="#" />
+										</div>
+										<h4>الخطوة رقم 1</h4>
+										<p>أخبرنا بالمزيد عنك، وعن <br/>سيارتك وعن سجل قيادتك</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step2.svg" class="lazyload" alt="#" />
+										</div>
+										<h4>الخطوة رقم 2</h4>
+										<p>بناءً على إجاباتك، ستحصل على أفضل<br/> عرض سعر مناسب لك</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step3.svg" class="lazyload" alt="#" />
+										</div>
+										<h4>الخطوة رقم 3 </h4>
+										<p>قم بمراجعة البوليصة وقم<br/> بالدفع عبر الإنترنت</p>
+									</div>
+								</div>
+								<div class="item">
+									<div class="box">
+										<div class="image">
+											<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/step4.svg" class="lazyload" alt="#" />
+										</div>
+										<h4>الخطوة رقم 4</h4>
+										<p>سيتم تفعيل بوليصة التأمين <br/>الخاصة بك. سيقوم فريق عمل hala <br/>بكافة الأعمال الورقية المتبقية</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section quote-description">
+						<div class="container container-full">
+							<div class="box">
+								<a href="#hala-embed" class="button button-white text-uppercase button-rounded quote-button"><span>احصل على عرض سعر مجاني</span></a>
+								<p>الأمور معنا خالية من التعقيدات. شريكنا hala يتمتع بالشفافية حول كافة التفاصيل. نحن نؤمن بأن الاعتمادية لا تتحقق إلا عندما نكون معك، ونحن سنكون إلى جانبك دائماً. عند اختيارك hala، ستفتح أمامك أبواب عالمٍ من الجودة العالية والبساطة والمزايا التي لا تقبل المنافسة.</p>
+							</div>
+						</div>
+					</div>
+					<div class="section insurance-benefits">
+						<div class="container container-mid">
+							<div class="heading text-center">
+								<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/benefits.svg" class="lazyload" alt="#" />
+								<h3>المزايا</h3>
+							</div>
+							<div class="benefits-tabs">
+								<ul class="nav justify-content-center">
+									<li class="nav-item" role="presentation">
+										<button class="active" data-bs-toggle="tab" data-bs-target="#thirdparty" type="button" role="tab" aria-controls="thirdparty" aria-selected="true">ضد الغير</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="" data-bs-toggle="tab" data-bs-target="#comprehensive" type="button" role="tab" aria-controls="comprehensive" aria-selected="false">شامل</button>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane fade show active" id="thirdparty" role="tabpanel">
+										<div class="benefits-list">
+											<h4>ما هي المزايا المتضمنة؟</h4>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Third-Party.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text">للتأمين ضد الغير</span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5>الأضرار الجسدية للغير</h5>
+															<p>لنفترض أنك قد تسببت بحادث سيارة وأدى إلى إصابات جسدية للطرف الثاني، في هذه الحالة، سنقوم بتغطية تكاليف المستشفى دون حد أقصى.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>أضرار ممتلكات الغير</h5>
+															<p>سنقوم بتغطية تكاليف إصلاح أي أضرار قد تحدث لممتلكات الغير نتيجة حادث تسببت به.</p>
+															<p><strong>حتى 2,000,000 درهم</strong></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Extra-Services.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text">خدمات إضافية (تتضمنها بوليصة التأمين)</span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5>خدمات الأعطال والمساعدة على الطريق 24\7</h5>
+															<p>خدماتنا متاحة على مدار الساعة لمساعدتك وإرسال سيارة سحب وقطر في حال تعطّل سيارتك وفي أي مكان تكون فيه.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة نفاذ الوقود</h5>
+															<p>في حال نفاذ سيارتك من الوقود، سنساعدك بملئها مجدداً.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة شحن البطارية</h5>
+															<p>إذا قررت بطارية السيارة التخلي عنك على الطريق، لن ندع ذلك يحدث! سنرسل لك فريقنا لإعادة شحنها لتستمر بمتابعة رحلتك في أقرب وقت ممكن.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة استبدال الإطار الفارغ</h5>
+															<p>لا تقُد سيارتك إذا كان لديك إطار فارغ من الهواء! سنحضر إلى موقعك لنقوم باستبداله.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>رخصة القيادة الدولية</h5>
+															<p>تقدّم بطلب للحصول على رخصة قيادة دولية عبر موقعنا!</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="comprehensive" role="tabpanel">
+										<div class="benefits-list">
+											<h4>ما هي المزايا المتضمنة؟</h4>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Your-Car.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text">لسيارتك</span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5>الخسارة الكاملة لسيارتك</h5>
+															<p>إذا كانت سيارتك في حالة غير قابلة للإصلاح، سنقوم بتعويضك عنها  حسب قيمتها السوقية.</p>
+															<p><strong>بناءً على المبلغ المتفق عليه في البوليصة</strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>تغطية الأضرار الذاتية</h5>
+															<p>دائماً ما تحدث الأخطاء، إذا قمت بصدم سيارتك في جدارٍ ما أو بشيءٍ ما أثناء القيادة، سنقوم بتغطية إصلاحات سيارتك لتستمتع براحة البال التامة.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>تغطية السرقة والحرائق</h5>
+															<p>إذا تعرضت سيارتك للسرقة أو لحريق، تأمين سيارتك من hala سيكون إلى جانبك دوماً.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>تغطية الكوارث الطبيعية و الأحداث المُفتعلة</h5>
+															<p>تأمين سيارتك الشامل سيحميها من المخاطر والكوارث الطبيعية كالزلازل والفيضانات والمخاطر البشرية وأحداث الشغب.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>تغطية أضرار الزجاج الأمامي</h5>
+															<p>لا يسّرنا أبداً أن تقود سيارتك وزجاجها الأمامي يعاني من كسور. سنقوم باستبدال الزجاج الأمامي لسيارتك عند كسره أو تعرضه للضرر لتحظى دائماً برؤية واضحة على الطريق.</p>
+															<p><strong>حتى 3,000 درهم</strong></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Your-Passengers.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text">لك وللركاب</span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5>تغطية الطوارئ الطبية</h5>
+															<p>تغطية بوليصة تأمين hala تكاليف الإسعاف والطوارئ التي قد تحدث نتيجة حادث سير.</p>
+															<p><strong>حتى 3,000 درهم</strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة المساعدة على الطرق الوعرة</h5>
+															<p>عِش كل مغامراتك في البر والصحراء كما تحب وبكل اطمئنان، نحن دائماً إلى جانبك إذا واجهت أي مشاكل أو تغريز في أي مكان.</p>
+															<p><strong>3 مرات في السنة</strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمات الأعطال والمساعدة على الطريق 24\7</h5>
+															<p>خدماتنا متاحة على مدار الساعة لمساعدتك وإرسال سيارة سحب وقطر في حال تعطّل سيارتك وفي أي مكان تكون فيه.</p>
+															<p><strong>غير محدودة</strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة تجديد الملكية</h5>
+															<p>لنساعدك على تخطي مشاغلك وجدولك المزدحم، يمكننا استلام سيارتك واصطحابها لإجراء عملية تجديد الملكية وتسليمها إليك مجدداً.</p>
+															<p><strong>مرة واحدة في العام</strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة نفاذ الوقود</h5>
+															<p>في حال نفاذ سيارتك من الوقود، سنساعدك بملئها مجدداً.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة فتح السيارة </h5>
+															<p>نحن نعرف تماماً ما هو شعور فقدان مفاتيح السيارة ولا يسرّنا أبداً أن نراك تعاني بسبب هذا الأمر.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة شحن البطارية</h5>
+															<p>إذا قررت بطارية السيارة التخلي عنك على الطريق، لن ندع ذلك يحدث! سنرسل لك فريقنا لإعادة شحنها لتستمر بمتابعة رحلتك في أقرب وقت ممكن.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة استبدال الإطار الفارغ</h5>
+															<p>لا تقُد سيارتك إذا كان لديك إطار فارغ من الهواء! سنحضر إلى موقعك لنقوم باستبداله.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>خدمة التوصيل من وإلى المطار</h5>
+															<p>استمتع بتوصيل مجاني من وإلى المطار مع خدمة الاستقبال التي تعادل قيمتها 250 درهماً.</p>
+															<p><strong>مرة واحدة في العام</strong></p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>رخصة القيادة الدولية</h5>
+															<p>تقدّم بطلب للحصول على رخصة قيادة دولية عبر موقعنا!</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list">
+												<div class="subtitle d-flex align-items-center">
+													<span class="icon">
+														<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="200px" height="100px" data-src="<?php echo $mediaURL ;?>images/icon/Third-Party.svg" class="lazyload" alt="#" />
+													</span>
+													<span class="text">للتأمين ضد الغير</span>
+												</div>
+												<div class="owl-carousel owl-theme owl-dot-style3 benefits-slider">
+													<div class="item">
+														<div class="box">
+															<h5>الأضرار الجسدية للغير</h5>
+															<p>لنفترض أنك قد تسببت بحادث سيارة وأدى إلى إصابات جسدية للطرف الثاني، في هذه الحالة، سنقوم بتغطية تكاليف المستشفى دون حد أقصى.</p>
+														</div>
+													</div>
+													<div class="item">
+														<div class="box">
+															<h5>أضرار ممتلكات الغير</h5>
+															<p>سنقوم بتغطية تكاليف إصلاح أي أضرار قد تحدث لممتلكات الغير نتيجة حادث تسببت به.</p>
+															<p><strong>حتى 2,000,000 درهم</strong></p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section insurance-faq">
+						<div class="container container-mid">
+							<div class="heading">
+								<h3>أسئلة متكرّرة</h3>
+							</div>
+							<div class="accordion faq-list" id="faqList">
+								<div class="faq-block">
+									<div class="toggle" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+										<h5>هل أنا بحاجة إلى تأمين السيارة لتجديد الملكية؟</h5>
+									</div>
+									<div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqList">
+										<div class="accordion-body"><p>بالتأكيد، لن تتمكن من تجديد تسجيل سيارتك بدون أن تحصل على بوليصة تأمين تغطي سيارتك لفترة 13 شهراً.</p></div>
+									</div>
+								</div>
+								<div class="faq-block">
+									<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+										<h5>لماذا تغطي بوليصة التأمين فترة 13 شهراً بينما الملكية صالحة لـ 12 شهراً فقط؟</h5>
+									</div>
+									<div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+										<div class="accordion-body"><p>يُطلب من مالكي السيارات في الإمارات العربية المتحدة تجديد ملكية المركبات ووثيقة التأمين كل 12 شهراً. ومع ذلك، يتم منحك فترة سماح مدتها شهر واحد لإكمال التسجيل السنوي ويجب أن تغطي وثيقتك فترة السماح الإضافية.</p></div>
+									</div>
+								</div>
+								<div class="faq-block">
+									<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqthree" aria-expanded="false" aria-controls="faqthree">
+										<h5>ما هي المستندات المطلوبة لتجديد ملكية السيارة؟</h5>
+									</div>
+									<div id="faqthree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+										<div class="accordion-body"><p>المستندات المطلوبة لإجراء تجديد ملكية سيارتك هي:</p>
+											<ul>
+												<li>هوية إماراتية صالحة.</li>
+												<li>بوليصة تأمين صالحة لمدة 13 شهراً.</li>
+												<li>وثيقة فحص السيارة (إذا تعدى تاريخ صنع السيارة أكثر من 3 سنوات).</li>
+												<li> دفع المخالفات المرورية (إن وُجدت).</li>
+											</ul></div>
+										</div>
+									</div>
+									<div class="faq-block">
+										<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqfour" aria-expanded="false" aria-controls="faqfour">
+											<h5>ما هي أنواع تأمين السيارات؟</h5>
+										</div>
+										<div id="faqfour" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+											<div class="accordion-body"><p>هناك نوعان من خطط التأمين في الإمارات: التأمين الشامل والتأمين ضد الغير.</p></div>
+										</div>
+									</div>
+									<div class="faq-block">
+										<div class="toggle collapsed" data-bs-toggle="collapse" data-bs-target="#faqfive" aria-expanded="false" aria-controls="faqfive">
+											<h5>ما هو الفرق بين أنواع تأمين السيارات؟</h5>
+										</div>
+										<div id="faqfive" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqList">
+											<div class="accordion-body"><p> التأمين ضد الغير: عادةً، يُعد التأمين ضد الغير أرخص ثمناً لكنه أعلى خطورة. مع هذا النوع من التأمين، شركة التأمين لن تتمكن شركة التأمين من تغطية الأضرار التي ستقع على سيارتك عند وقوع حادث سير. سيغطي هذا التأمين الأضرار الواقعة على سيارات الأطراف الأخرى المتضررة في حال كنت المتسبب بالحادث.</p>
+												<p> التأمين الشامل: ستغطي بوليصة التأمين الشامل الأضرار التي تقع على سيارات جميع الأطراف حتى وإن كنت لست المتسبب بالحادث.</p></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="section insurance-partner">
+								<div class="container container-full">
+									<div class="row">
+										<div class="col-12 col-sm-12 col-md-4 col-lg-4">
+											<div class="image-wrap no-position loader">
+												<img src="<?php echo $mediaURL ;?>images/section/blank.png" width="512px" height="470px" data-src="<?php echo $mediaURL ;?>images/section/partner.png" class="lazyload" alt="#" />
+											</div>
+										</div>
+										<div class="col-12 col-sm-12 col-md-8 col-lg-8">
+											<div class="text-block">
+												<h2 class="d-flex flex-wrap align-items-center"><span><img src="<?php echo $mediaURL ;?>images/section/blank.png" width="150px" height="50px" data-src="<?php echo $mediaURL ;?>images/icon/hala.svg" class="lazyload" alt="#" /></span>كشريك لـ TyresOnline</h2>
+												<p>عقدنا الشراكة مع hala التي تم إنشاؤها من قبل Addenda Labs LTD وهي شركة تقنية خاصة صاعدة مقرها في ADGM، الإمارات العربية المتحدة. نحن في TyresOnline نعمل على توفير تأمين السيارات لعملائنا بأبسط طريقة و بأفضل الأسعار من خلال hala وشركاء الاكتتاب EMINSCO.</p>
+												<p>عند شرائك لبوليصة تأمين عبر hala، سيتم إصدار هذه البوليصة فعلياً من EMINSCO صاحبة الترخيص من هيئة التأمين.، كل مطالبات التأمين والبوليصات التي يتم إصدارها من هذا الموقع أو عبر hala يتم التعامل معها من خلال EMINSCO.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<script type="text/javascript">
+								require(["jquery"], function($) {
+									$(".quote-button").click(function () {
+										$("#hala-embed").addClass('show');
+								});
+
+								});
+								require(["jquery", "owlcarousel"], function($) {
+    // Feachers Slider
+    $(function () {
+    	var insuranceFeachersSlider = $('.insurance-feachers-slider'),
+    	owlOptions1 = {
+    		loop: false,
+    		margin: 0,
+    		nav: false,
+    		items: 1,
+    		dots: true,
+    	};
+    	if ($(window).width() < 768) {
+    		var owlActive1 = insuranceFeachersSlider.owlCarousel(owlOptions1);
+		// Listen to owl events:
+		insuranceFeachersSlider.on('changed.owl.carousel', function(event) {
+			$('.box-close').trigger('click');
+		});
+	} else {
+		insuranceFeachersSlider.addClass('off');
+	}
+	$(window).resize(function () {
+		if ($(window).width() < 768) {
+			if ($('.insurance-feachers-slider').hasClass('off')) {
+				var owlActive1 = insuranceFeachersSlider.owlCarousel(owlOptions1);
+				insuranceFeachersSlider.removeClass('off');
+			}
+		} else {
+			if (!$('.insurance-feachers-slider').hasClass('off')) {
+				insuranceFeachersSlider.addClass('off').trigger('destroy.owl.carousel');
+				insuranceFeachersSlider.find('.owl-stage-outer').children(':eq(0)').unwrap();
+			}
+		}
+	});
+});
+    // Steps Slider
+    $(function () {
+    	var insuranceStepsSlider = $('.insurance-steps-slider'),
+    	owlOptions2 = {
+    		loop: false,
+    		margin: 0,
+    		nav: false,
+    		items: 1,
+    		dots: true,
+    	};
+    	if ($(window).width() < 768) {
+    		var owlActive2 = insuranceStepsSlider.owlCarousel(owlOptions2);
+		// Listen to owl events:
+		insuranceStepsSlider.on('changed.owl.carousel', function(event) {
+			$('.box-close').trigger('click');
+		});
+	} else {
+		insuranceStepsSlider.addClass('off');
+	}
+	$(window).resize(function () {
+		if ($(window).width() < 768) {
+			if ($('.insurance-steps-slider').hasClass('off')) {
+				var owlActive2 = insuranceStepsSlider.owlCarousel(owlOptions2);
+				insuranceStepsSlider.removeClass('off');
+			}
+		} else {
+			if (!$('.insurance-steps-slider').hasClass('off')) {
+				insuranceStepsSlider.addClass('off').trigger('destroy.owl.carousel');
+				insuranceStepsSlider.find('.owl-stage-outer').children(':eq(0)').unwrap();
+			}
+		}
+	});
+});
+    // Benefits Slider
+    $(function () {
+    	var benefitsSlider = $('.benefits-slider'),
+    	owlOptions3 = {
+    		loop: false,
+    		margin: 0,
+    		nav: false,
+    		items: 1,
+    		dots: true,
+    	};
+    	if ($(window).width() < 768) {
+    		var owlActive2 = benefitsSlider.owlCarousel(owlOptions3);
+		// Listen to owl events:
+		benefitsSlider.on('changed.owl.carousel', function(event) {
+			$('.box-close').trigger('click');
+		});
+	} else {
+		benefitsSlider.addClass('off');
+	}
+	$(window).resize(function () {
+		if ($(window).width() < 768) {
+			if ($('.benefits-slider').hasClass('off')) {
+				var owlActive2 = benefitsSlider.owlCarousel(owlOptions3);
+				benefitsSlider.removeClass('off');
+			}
+		} else {
+			if (!$('.benefits-slider').hasClass('off')) {
+				benefitsSlider.addClass('off').trigger('destroy.owl.carousel');
+				benefitsSlider.find('.owl-stage-outer').children(':eq(0)').unwrap();
+			}
+		}
+	});
+});
+});
+</script>

@@ -1,0 +1,102 @@
+.offers-banner{
+    position: relative;
+    background-color: $white;
+    .offer-slider{
+        background-color: $white;
+        .image-wrap{
+            &.aspect-custom{
+                padding-bottom: 36%;
+            }
+        }
+        .owl-dots{
+            position: absolute;
+            @include scssont-bottom(20px);
+            width: 100%;
+        }
+    }
+}
+
+.cms-battery{
+    .offers-banner{
+        box-shadow:0 0 18px rgb(0 0 0 / 68%);
+        z-index: 1;
+        &:after{
+            content:"";
+            position:absolute;
+            z-index:-1;
+            box-shadow:0 0 60px rgba(0,0,0,0.8);
+            bottom:0px;
+            left:10%;
+            right:10%;
+            width:80%;
+            height:50%;
+            -moz-border-radius:100%;
+            border-radius:100%;
+        }
+    }
+}
+
+.cms-car-insurance-uae{
+    .offers-banner{
+        z-index: 1;
+        &:after{
+            content:"";
+            position:absolute;
+            z-index:-1;
+            box-shadow:0 0 60px rgba(0,0,0,0.8);
+            bottom:0px;
+            left:10%;
+            right:10%;
+            width:80%;
+            height:50%;
+            -moz-border-radius:100%;
+            border-radius:100%;
+        }
+    }
+}
+
+.cms-home{
+    .offers-banner{
+        box-shadow: 0 9px 12px -2px #00000054;
+        z-index: 1;
+        &:after{
+            content:"";
+            position:absolute;
+            z-index:-1;
+            box-shadow:0 0 60px rgba(0,0,0,0.8);
+            bottom:0px;
+            left:10%;
+            right:10%;
+            width:80%;
+            height:50%;
+            -moz-border-radius:100%;
+            border-radius:100%;
+        }
+    }
+}
+
+@include media-breakpoint-down(md){
+.offers-banner{
+    .offer-slider{
+        .owl-dots{
+            bottom: -23px;
+        }
+    }
+}
+}
+
+
+.offers-banner-mobile{
+    position: relative;
+    margin-top: get-rem(-$header-hight);
+    border-bottom: get-rem-sm(1px) solid #ccc;
+    overflow: hidden;
+    .offer-slider{
+        .image-wrap{
+            &.aspect-custom{
+                padding-bottom: 74vw;
+            }
+        }
+    }
+}
+

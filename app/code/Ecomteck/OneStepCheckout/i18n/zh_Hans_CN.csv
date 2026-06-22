@@ -1,0 +1,119 @@
+Field,领域
+Order,订购
+Width,宽度
+Icon,图标
+Validation,验证
+Add Field,添加字段
+Please Select Field,请选择字段
+For delivery questions.,对于送货问题。
+We can't find the quote item.,我们找不到报价项目。
+We cannot configure the product.,我们无法配置产品。
+One-page checkout is turned off.,单页结帐已关闭。
+Guest checkout is disabled.,访客结账被禁用。
+E-mail cannot be empty.,电子邮件不能为空。
+Starts with field closed,从场关闭开始
+Starts with field opened,从字段打开开始
+Render field without collapse,渲染字段而不会崩溃
+3 Columns,3列
+2 Columns Style 1,2列样式1
+2 Columns Style 2,2列样式2
+Update Cart,更新购物车
+Qty,数量
+This address is also my billing address,这个地址也是我的账单地址
+Billing Address,帐单地址
+Save in address book,保存在地址簿中
+My billing and shipping address are the same,我的结算和送货地址是一样的
+Update,更新
+Cancel,取消
+Apply Discount,申请折扣
+Cancel coupon,取消优惠券
+Use Coupon Code,使用优惠券代码
+Email Address,电子邮件地址
+You can create an account after checkout.,您可以在结账后创建一个帐户。
+Password,密码
+Login,登录
+You already have an account with us. Sign in or continue as guest.,您已经拥有了我们的帐户。以来宾身份登录或继续。
+Forgot Your Password?,忘记密码了吗？
+Gift options,礼品选择
+Message:,信息：
+Edit,编辑
+Delete,删除
+Payment Method,付款方法
+No Payment method available.,没有可用的付款方式。
+Place Order,下订单
+Account Information,帐户信息
+This address is also my shipping address,这个地址也是我的送货地址
+Shipping Address,邮寄地址
+Shipping Methods,运输方式
+Order Summary,订单摘要
+View Details,查看详情
+Options Details,选项细节
+Gift Message (optional),礼品留言（可选）
+To:,至：
+From:,从：
+Please specify a shipping method.,请指定送货方式。
+New Address,新地址
+Can not remove item.,无法删除项目。
+One Step Checkout,一步结账
+General,一般
+Enable One Step Checkout Solution,启用一步结账解决方案
+Router Name,路由器名称
+Example: checkout.html -> http://example.com/checkout.html,示例：checkout.html - > http://example.com/checkout.html
+Default Shipping Method,默认送货方式
+Default Payment Method,默认付款方式
+Allow Update Product Quantity,允许更新产品数量
+Allow Remove Product,允许删除产品
+Allow Edit Product Option,允许编辑产品选项
+Add Gift Message Per Item,每件商品添加礼品消息
+Add Gift Message Per Order,每个订单添加礼品消息
+Redirect To Checkout,重定向到结帐
+Display,显示
+Checkout Page Layout,结帐页面布局
+Disable Telephone Field,禁用电话字段
+Disable Company Field,禁用公司字段
+Disable Header,禁用标题
+Disable Footer,禁用页脚
+Disable Login Popup,禁用登录弹出窗口
+Move Cart Items,移动购物车项目
+Always Show Cart Items,始终显示购物车项目
+Move Billing Address Before Shipping Address,在送货地址之前移动帐单地址
+Disable Coupon Code,禁用优惠券代码
+Coupon code initial collapse state,优惠券代码初始崩溃状态
+Disable Gift Options,禁用礼品选项
+Gift options initial collapse state,礼品选择初始崩溃状态
+Footer Content,页脚内容
+You can edit this field to add content to the bottom right of your checkout. This is useful for displaying things such as supported payment methods.,您可以编辑此字段以将内容添加到结帐的右下角。这对于显示支持的付款方式等内容非常有用。
+Shipping,运输
+Hide Shipping Methods,隐藏运输方式
+Hide Shipping Method Title,隐藏送货方式标题
+Colors,颜色
+Main Color,主要颜色
+Icon Color,图标颜色
+Button,按键
+Gift Message,礼物信息
+Order summary background,订单摘要背景
+Shipping methods background,运输方式背景
+Payment methods background,付款方式背景
+Account and address background,帐户和地址背景
+Icons,图标
+Account Information Step,帐户信息步骤
+Shipping Address Step,送货地址步骤
+Billing Address Step,帐单地址步骤
+Shipping Methods Step,运输方式步骤
+Payment Methods Step,付款方式步骤
+Order Summary Step,订单摘要步骤
+Geo IP,地理IP
+Enabled,启用
+Term and Conditions,条款和条件
+Checked by Default,默认选中
+Label,标签
+Popup Content,弹出内容
+You can add content for terms popup.,您可以为术语弹出添加内容。
+Newsletter,通讯
+Back to Store,回到商店
+Address Autocomplete,地址自动完成
+Auto Save and fill customer infomation,自动保存并填写客户信息
+Google Maps API Key,Google Maps API密钥
+Split Street Fields,斯普利特街区
+Field Config,现场配置
+Customize,定制

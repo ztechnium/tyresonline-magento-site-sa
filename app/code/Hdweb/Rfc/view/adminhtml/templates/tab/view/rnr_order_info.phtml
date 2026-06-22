@@ -1,0 +1,488 @@
+<?php
+/**
+ * @var $block \Hdweb\Rfc\Block\Adminhtml\OrderEdit\Tab\View
+ */
+?>
+<?php
+$rnrOrderResponse = '';
+if ($block->getOrderRnrOrderResponse() !== null) {
+    $rnrOrderResponse = unserialize($block->getOrderRnrOrderResponse());
+}
+$rnrInvoiceResponse = '';
+if ($block->getOrderRnrInvoiceResponse() !== null) {
+    $rnrInvoiceResponse = unserialize($block->getOrderRnrInvoiceResponse());
+}
+$orderId = $block->getOrderId();
+$orderIncrementId = $block->getOrderIncrementId();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+<div class="fieldset-wrapper order-information">
+<?php if(!$rnrOrderResponse):?>
+<?php /* Start RNR Order Generate action */ ?>
+	<form class="action-element"
+		  action="<?= $block->escapeUrl($block->getUrl('rfc/rnr/createorder/order_id/'.$orderId)) ?>"
+		  method="post">
+		<input
+			name="form_key"
+			type="hidden"
+			value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+		<button
+			class="action-primary"
+			type="submit"
+			title="<?= $block->escapeHtmlAttr(__('Generate RNR ERP Order')) ?>">
+			<?= $block->escapeHtml(__('Generate RNR ERP Order')) ?>
+		</button>
+	</form>
+	<?php /* End RNR Order Generate action */ ?>
+<?php endif;?>
+	<?php if($rnrOrderResponse):?>	
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('RNR ERP Order Information') ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <?php echo $block->getChildHtml(); ?>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('OrderNo:') ?></th>
+			<td><?php echo $rnrOrderResponse['OrderNo']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('OrderDate:') ?></th>
+			<td><?php echo $rnrOrderResponse['OrderDate']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('CustomerCode:') ?></th>
+			<td><?php echo $rnrOrderResponse['CustomerCode']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Message:') ?></th>
+			<td><?php echo $rnrOrderResponse['Message']; ?></td>
+		</tr>
+        </tbody>
+    </table>
+	<?php else:?>
+		<p><?php /* @escapeNotVerified */ echo __('RNR ERP Order not created yet') ?></p>
+	<?php endif;?>
+	<br/>
+	<?php //if($rnrInvoiceResponse):?>
+	<?php /* Start to get RNR Invoice action */ ?>
+	<?php if(!empty($rnrOrderResponse['OrderNo'])):?>
+		<?php
+		$rnrCompany 	= trim($objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('rnrtabsection/general/companyid'));
+		$rnrUserName 	= trim($objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('rnrtabsection/general/username'));
+		$rnrPassword 	= trim($objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('rnrtabsection/general/pwd'));
+		?>
+		<?php if($rnrCompany != '' && $rnrUserName != '' && $rnrPassword != ''):?>
+		<form class="action-element"
+			  action="<?= $block->escapeUrl($block->getUrl('rfc/rnr/createorder/order_id/'.$orderId.'/rnr_order_id/'.$rnrOrderResponse['OrderNo'].'/Company/'.$rnrCompany.'/Username/'.$rnrUserName.'/Password/'.$rnrPassword)) ?>"
+			  method="post">
+			<input
+				name="form_key"
+				type="hidden"
+				value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+			<button
+				class="action-primary"
+				type="submit"
+				title="<?= $block->escapeHtmlAttr(__('Get RNR ERP Invoice')) ?>">
+				<?= $block->escapeHtml(__('Generate RNR ERP Invoice')) ?>
+			</button>
+		</form>
+		<?php else:?>
+		<p><?php /* @escapeNotVerified */ echo __('RNR ERP Details not configured yet') ?></p>
+		<?php endif;?>
+		<?php endif;?>
+		<?php /* End to get RNR Invoice action */ ?>
+	<?php // endif;?>
+	
+	<div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('RNR ERP Invoice Information') ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <?php echo $block->getChildHtml(); ?>
+		<?php if($rnrInvoiceResponse != ''):?>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('TXNID:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['TXNID']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('TXNName:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['TXNName']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('OrderNo:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['OrderNo']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('InvoiceDate:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['InvoiceDate']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('InvoiceTime:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['InvoiceTime']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('CustomerCode:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['CustomerCode']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('CustomerName:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['CustomerName']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ItemTotal:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['ItemTotal']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('TotalHeaderCharges:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['TotalHeaderCharges']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Discount:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['Discount']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('VATPercentage:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['VATPercentage']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('VATAmount:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['VATAmount']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('SubTotal:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['SubTotal']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('RoundOffValue:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['RoundOffValue']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('TotalHeaderCharges:') ?></th>
+			<td><?php echo $rnrInvoiceResponse['SaleInvoiceDetails'][0]['GrandTotal']; ?></td>
+		</tr>
+		<?php else:?>
+			<p><?php /* @escapeNotVerified */ echo __('RNR ERP Invoice not created yet') ?></p>
+		<?php endif;?>	
+        </tbody>
+    </table>
+</div>
+<?php if(!$rnrOrderResponse):?>
+<div class="fieldset-wrapper order-information" style="float:right;">
+<div class="fieldset-wrapper-title">
+	<span class="title"><?php /* @escapeNotVerified */ echo __('Download RNR Product Template') ?></span>
+</div>
+<br/>
+<?php /* Start RNR Order Generate action */ ?>
+	<form class="action-element"
+		  action="<?= $block->escapeUrl($block->getUrl('rfc/rnr/exportrnrproduct/order_id/'.$orderId)) ?>"
+		  method="post">
+		<input
+			name="form_key"
+			type="hidden"
+			value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+		<button
+			class="action-primary"
+			type="submit"
+			title="<?= $block->escapeHtmlAttr(__('Download RNR Product Template')) ?>">
+			<?= $block->escapeHtml(__('Download RNR Product Template')) ?>
+		</button>
+	</form>
+	<?php /* End RNR Order Generate action */ ?>
+</div>
+<?php endif;?>
+
+<div class="fieldset-wrapper order-information" style="float:right;">
+<div class="fieldset-wrapper-title">
+	<span class="title"><?php /* @escapeNotVerified */ echo __('Create RNR Purchase Order') ?></span>
+</div>
+<br/>
+<?php /* Start RNR Purchase Order Generate action */ ?>
+<?php
+
+/* $purchaseorderitemObj = $objectManager->get('Hdweb\Purchaseorder\Model\Purchaseorderitem');
+$poitemCollection = $purchaseorderitemObj->getCollection()->addFieldToFilter('order_id',$orderIncrementId); */
+
+$purchaseorderObj = $objectManager->get('Hdweb\Purchaseorder\Model\Purchaseorder');
+$poCollection	  = $purchaseorderObj->getCollection()->addFieldToFilter('orderreference_no',$orderIncrementId);
+//echo '<pre>';print_r($poCollection->getData());
+?>
+<?php if(count($poCollection) > 0):?>
+<?php foreach($poCollection as $poCollectionData):?>
+<?php $poId = $poCollectionData->getId();?>
+<?php $order_no = $poCollectionData->getOrderreferenceNo();?>
+<?php $vendorId = $poCollectionData->getVendor();?>
+<?php $poType = $poCollectionData->getPoType();?>
+<?php $vendorCode = $block->getPoVendorCode($vendorId);?>
+	<?php if($poCollectionData->getRnrPurchaseOrderResponse() == ''):?>
+	<?php 
+		$rnr_purchase_order_response = '';
+		if($poCollectionData->getRnrPurchaseOrderResponse()){
+			$rnr_purchase_order_response = unserialize($poCollectionData->getRnrPurchaseOrderResponse());
+		}
+	?>
+	<?php if(!isset($rnr_purchase_order_response['PurchaseItemDetails'][0]['PONo'])):?>
+	<form class="action-element"
+		  action="<?= $block->escapeUrl($block->getUrl('rfc/rnr/createpurchaseorder/order_id/'.$orderId.'/vendor_code/'.$vendorCode.'/po_id/'.$poId.'/order_no/'.$order_no)) ?>"
+		  method="post">
+		<input
+			name="form_key"
+			type="hidden"
+			value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+		<button
+			class="action-primary"
+			type="submit"
+			title="<?= $block->escapeHtmlAttr(__('Generate RNR ')).strtoupper($poType). ' #'.$poId; ?>">
+			<?= $block->escapeHtml(__('Generate RNR ')).strtoupper($poType). ' #'.$poId; ?>
+		</button>
+	</form>
+    <?php endif;?>
+	<br/>	
+    <?php endif;?>		
+<?php endforeach;?>
+<?php foreach($poCollection as $poCollectionData):?>
+<?php $poId = $poCollectionData->getId();?>
+<?php $vendorId = $poCollectionData->getVendor();?>
+<?php $vendorCode = $block->getPoVendorCode($vendorId);?>
+	<?php if($poCollectionData->getRnrPurchaseOrderResponse() != ''):?>
+	
+	<div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('RNR ERP Purchase Order Information') ?>
+		</span>
+    </div>
+    <table class="admin__table-secondary">
+	<?php $rnr_purchase_order_response = unserialize($poCollectionData->getRnrPurchaseOrderResponse());?>
+	<?php
+	$purchaseHeader = $rnr_purchase_order_response['PurchaseHeader'][0];
+	$purchaseItemDetails = $rnr_purchase_order_response['PurchaseItemDetails'][0];
+	$poNumber = '';
+	if(isset($purchaseHeader['ERPPONo'])){
+		$poNumber = $purchaseHeader['ERPPONo'];
+	}
+	?>
+	<?php //echo '<pre>';print_r($rnr_purchase_order_response);?>
+        <tbody>
+        <?php echo $block->getChildHtml(); ?>
+		<tr>
+			<th style="font-weight:bold"><?php /* @escapeNotVerified */ echo __('PurchaseHeader:') ?></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('RNR PO No:') ?></th>
+			<td><?php echo $poNumber; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('CompanyCode:') ?></th>
+			<td><?php echo $purchaseHeader['CompanyCode']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('BranchCode:') ?></th>
+			<td><?php echo $purchaseHeader['BranchCode']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('PONo:') ?></th>
+			<td><?php echo $purchaseHeader['PONo']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('POTXNDate:') ?></th>
+			<td><?php echo $purchaseHeader['POTXNDate']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('POTXNTime:') ?></th>
+			<td><?php echo $purchaseHeader['POTXNTime']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('SOTXNName:') ?></th>
+			<td><?php echo $purchaseHeader['SOTXNName']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('SupplierCode:') ?></th>
+			<td><?php echo $purchaseHeader['SupplierCode']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('SupplierName:') ?></th>
+			<td><?php echo $purchaseHeader['SupplierName']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Executive:') ?></th>
+			<td><?php echo $purchaseHeader['Executive']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('CurrencyName:') ?></th>
+			<td><?php echo $purchaseHeader['CurrencyName']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('RequestedDate:') ?></th>
+			<td><?php echo $purchaseHeader['RequestedDate']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ValidityDate:') ?></th>
+			<td><?php echo $purchaseHeader['ValidityDate']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ReferenceNumber:') ?></th>
+			<td><?php echo $purchaseHeader['ReferenceNumber']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Remarks:') ?></th>
+			<td><?php echo $purchaseHeader['Remarks']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTax1:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTaxValue1']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTax2:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTax2']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTaxValue2:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTaxValue2']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTax3:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTax3']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTaxValue3:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTaxValue3']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTax4:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTax4']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTaxValue4:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTaxValue4']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTax5:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTax5']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('HeaderTaxValue5:') ?></th>
+			<td><?php echo $purchaseHeader['HeaderTaxValue5']; ?></td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('RoundOffValue:') ?></th>
+			<td><?php echo $purchaseHeader['RoundOffValue']; ?></td></td>
+		</tr>
+		<br/>
+		
+		<tr>
+			<th style="font-weight:bold"><?php /* @escapeNotVerified */ echo __('PurchaseItemDetails:') ?></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('PONo:') ?></th>
+			<td><?php echo $purchaseItemDetails['PONo']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ItemSequence:') ?></th>
+			<td><?php echo $purchaseItemDetails['ItemSequence']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ItemCode:') ?></th>
+			<td><?php echo $purchaseItemDetails['ItemCode']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ItemName:') ?></th>
+			<td><?php echo $purchaseItemDetails['ItemName']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('ItemDescription:') ?></th>
+			<td><?php echo $purchaseItemDetails['ItemDescription']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('UOM:') ?></th>
+			<td><?php echo $purchaseItemDetails['UOM']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Variation:') ?></th>
+			<td><?php echo $purchaseItemDetails['Variation']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Variation2:') ?></th>
+			<td><?php echo $purchaseItemDetails['Variation2']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Variation3:') ?></th>
+			<td><?php echo $purchaseItemDetails['Variation3']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('SOQuantity:') ?></th>
+			<td><?php echo $purchaseItemDetails['SOQuantity']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Quantity:') ?></th>
+			<td><?php echo $purchaseItemDetails['Quantity']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('Rate:') ?></th>
+			<td><?php echo $purchaseItemDetails['Rate']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('DiscountPercentage:') ?></th>
+			<td><?php echo $purchaseItemDetails['DiscountPercentage']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('DiscountAmount:') ?></th>
+			<td><?php echo $purchaseItemDetails['DiscountAmount']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTax1:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTax1']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTaxValue1:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTaxValue1']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTax2:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTax2']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTaxValue2:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTaxValue2']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTax3:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTax3']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTaxValue3:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTaxValue3']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTax4:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTax1']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTax4:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTax1']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTaxValue4:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTaxValue4']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTax5:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTax5']; ?></td>
+		</tr>
+		<tr>
+			<th><?php /* @escapeNotVerified */ echo __('LineTaxValue5:') ?></th>
+			<td><?php echo $purchaseItemDetails['LineTaxValue5']; ?></td>
+		</tr>
+		</tbody>
+	</table>
+	
+    <?php endif;?>		
+<?php endforeach;?>
+<?php else:?>
+	<p><?php /* @escapeNotVerified */ echo __('No Purchase order created for this order') ?></p>
+<?php endif;?>
+</div>
+<?php /* End RNR Purchase Order Generate action */ ?>
