@@ -31,8 +31,8 @@ $googleApiKey = $loadHeaderGoogleMaps
         <div class="col">
           <div class="header-left">
             <div class="logo d-flex align-items-center">
-              <a href="<?php echo $baseURL; ?>" class="d-block" style="display:block;width:300px;max-width:100%;" aria-label="<?php echo __('TyresOnline.ae Home'); ?>">
-                <img src="<?= $block->getViewFileUrl('images/logo/Logo.svg'); ?>" height="57" width="300" style="display:block;width:300px;max-width:100%;height:auto;" alt="<?php echo __('TyresOnline.ae'); ?>" />
+              <a href="<?php echo $baseURL; ?>" class="d-block" style="display:block;width:300px;max-width:100%;" aria-label="<?php echo __('TyresOnline.sa Home'); ?>">
+                <img src="<?= $block->getViewFileUrl('images/logo/Logo.svg'); ?>" height="57" width="300" style="display:block;width:300px;max-width:100%;height:auto;" alt="<?php echo __('TyresOnline.sa'); ?>" />
               </a>
             </div>
           </div>
@@ -155,19 +155,9 @@ $googleApiKey = $loadHeaderGoogleMaps
 		<li class="nav-item <?php if ($cmsPage->getIdentifier() == 'all-tyre-brands') : ?>active<?php endif ?>">
                   <a href="<?php echo $baseURL.'all-tyre-brands'; ?>" class="nav-link"><?php echo __('Tyres Brand'); ?></a>
                 </li>
-
-                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'mobile-tyre-fitting-service-in-uae') : ?>active<?php endif ?>">
-                  <a href="<?php echo $baseURL . 'mobile-tyre-fitting-service-in-uae'; ?>" class="nav-link"><?php echo __('Mobile Tyre Fitment'); ?></a>
-                </li>
-                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'battery') : ?>active<?php endif ?>">
-                  <a href="<?php echo $baseURL . 'battery'; ?>" class="nav-link"><?php echo __('Car Battery Replacement'); ?></a>
-                </li>
                 <!-- <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'car-insurance-uae') : ?>active<?php endif ?>">
                   <a href="<?php echo $baseURL . 'car-insurance-uae'; ?>" class="nav-link"><?php echo __('Car Insurance'); ?></a>
                 </li> -->
-                <li class="nav-item <?php if ($cmsPage->getIdentifier() == 'wheel-protectors') : ?>active<?php endif ?>">
-                  <a href="<?php echo $baseURL . 'wheel-protectors'; ?>" class="nav-link"><?php echo __('Wheel Protectors'); ?></a>
-                </li>
                 <?php /* <li class="nav-item <?php if($cmsPage->getIdentifier() == 'oil-change'): ?>active<?php endif ?>">
            <a href="<?php echo $baseURL.'oil-change'; ?>" class="nav-link"><?php echo __('Oil Change'); ?></a>
          </li>
@@ -183,8 +173,8 @@ $googleApiKey = $loadHeaderGoogleMaps
                 <li class="nav-item d-none d-none d-xxl-block <?php if ($actionaname == 'storelocator_index_index') : ?>active<?php endif ?>">
                   <a href="<?php echo $baseURL . 'storelocator'; ?>" class="nav-link"><?php echo __('Fitting Locations'); ?></a>
                 </li>
-                <li class="nav-item d-none d-none d-xxl-block <?php if ($cmsPage->getIdentifier() == 'promotions-and-offers-on-tyres-uae') : ?>active<?php endif ?>">
-                  <a href="<?php echo $baseURL . 'promotions-and-offers-on-tyres-uae'; ?>" class="nav-link"><?php echo __('Offers'); ?></a>
+                <li class="nav-item d-none d-none d-xxl-block <?php if ($cmsPage->getIdentifier() == 'promotions-and-offers-on-tyres-ksa') : ?>active<?php endif ?>">
+                  <a href="<?php echo $baseURL . 'promotions-and-offers-on-tyres-ksa'; ?>" class="nav-link"><?php echo __('Offers'); ?></a>
                 </li>
                 <li class="nav-item d-none d-none d-xxl-block <?php if ($actionaname == 'blog_index_index') : ?>active<?php endif ?>">
                   <a href="<?php echo $baseURL . 'blog'; ?>" class="nav-link"><?php echo __('Blog'); ?></a>
@@ -214,24 +204,12 @@ $googleApiKey = $loadHeaderGoogleMaps
           <li>
   <a href="<?php echo $baseURL; ?>all-tyres/car-tyres.html"><?php echo __('All TYRES'); ?></a>
 </li>
-<li>
-  <a href="<?php echo $baseURL . 'mobile-tyre-fitting-service-in-uae'; ?>"><?php echo __('Mobile Tyre Fitment'); ?></a>
-</li>
 <li><a href="<?php echo $baseURL; ?>all-tyre-brands"><?php echo __('TYRES BY BRAND'); ?></a></li>
-<li>
-  <a href="<?php echo $baseURL . 'battery'; ?>"><?php echo __('Car Battery Replacement'); ?></a>
-</li>
-<!-- <li>
-  <a href="<?php echo $baseURL . 'car-insurance-uae'; ?>"><?php echo __('Car Insurance'); ?></a>
-</li> -->
-<li>
-  <a href="<?php echo $baseURL . 'wheel-protectors'; ?>"><?php echo __('Wheel Protectors'); ?></a>
-</li>
 <li>
   <a href="<?php echo $baseURL . 'storelocator'; ?>"><?php echo __('Fitting Locations'); ?></a>
 </li>
 <li>
-  <a href="<?php echo $baseURL . 'promotions-and-offers-on-tyres-uae'; ?>"><?php echo __('Offers'); ?></a>
+  <a href="<?php echo $baseURL . 'promotions-and-offers-on-tyres-ksa'; ?>"><?php echo __('Offers'); ?></a>
 </li>
 <li><a href="<?php echo $baseURL; ?>faqs"><?php echo __('FAQS'); ?></a></li>
 <li><a href="<?php echo $baseURL; ?>about-us"><?php echo __('ABOUT US'); ?></a></li>

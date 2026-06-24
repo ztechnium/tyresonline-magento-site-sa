@@ -8,6 +8,7 @@
  * Product media data template
  *
  * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ * @var \Magento\Framework\Escaper $escaper
  */
 ?>
 
@@ -21,22 +22,24 @@ if (!empty($images) && empty($mainImage)) {
     $mainImage = $block->getGalleryImages()->getFirstItem();
 }
 
-$helper = $block->getData('imageHelper');
-if (!$helper) {
-    $helper = \Magento\Framework\App\ObjectManager::getInstance()
-        ->get(\Magento\Catalog\Helper\Image::class);
-}
-$mainImageData = $mainImage ?
-    $mainImage->getData('medium_image_url') :
-    $helper->getDefaultPlaceholderUrl('image');
+$productImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$product = $block->getProduct();
+$tyreImageOnError = $escaper->escapeHtmlAttr($productImageHelper->getJsFallbackUrl());
 
+if ($mainImage && $productImageHelper->catalogMediaFileExists((string) $mainImage->getFile())) {
+    $mainImageData = $mainImage->getData('medium_image_url');
+} else {
+    $mainImageData = $productImageHelper->getFallbackImageUrl($product, 'image', 700, 700);
+}
 ?>
 
 <div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
     <img
         alt="main product photo"
         class="gallery-placeholder__image"
-        src="<?= /* @noEscape */ $mainImageData ?>"
+        src="<?= $escaper->escapeUrl($mainImageData) ?>"
+        data-product-image="1"
+        onerror="this.onerror=null;this.src='<?= $tyreImageOnError ?>'"
 		itemprop="image"
     />
 </div>

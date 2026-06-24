@@ -19,25 +19,54 @@
  */
 ?>
 <?php $_helper = $this->helper('MGS\Ajaxlayernavigation\Helper\Config');?>
-<div class="smile-es-range-slider" data-role="<?php /* @noEscape */ echo $block->getDataRole(); ?>">
+<?php
+$storeManager = \Magento\Framework\App\ObjectManager::getInstance()
+    ->get(\Magento\Store\Model\StoreManagerInterface::class);
+$currencyCode = $storeManager->getStore()->getCurrentCurrencyCode();
+$currencyLabel = __($currencyCode);
+?>
+<div class="smile-es-range-slider" data-role="<?php /* @noEscape */ echo $block->getDataRole(); ?>" data-currency="<?php echo $block->escapeHtmlAttr($currencyLabel); ?>">
 	<div class="range-slider">
 		<div class="slider">
-			<div class="slider-label">
-				<div data-role="from-label"></div>
-				<div data-role="to-label"></div>
+			<div class="d-none">
+				<svg data-label="from" class="bubble-label" width="50" height="40" viewBox="0 0 80 65" xmlns="http://www.w3.org/2000/svg">
+					<g>
+						<path d="M10,0 h60 a10,10 0 0 1 10,10 v30 a10,10 0 0 1 -10,10 h-20 l-10,10 -10,-10 h-20 a10,10 0 0 1 -10,-10 v-30 a10,10 0 0 1 10,-10 z" fill="#D32F2F"/>
+						<text x="40" y="28" font-size="14" text-anchor="middle" fill="#fff" font-family="Arial" data-role="from-label"></text>
+					</g>
+				</svg>
+				<svg data-label="to" class="bubble-label" width="50" height="40" viewBox="0 0 80 65" xmlns="http://www.w3.org/2000/svg">
+					<g>
+						<path d="M10,0 h60 a10,10 0 0 1 10,10 v30 a10,10 0 0 1 -10,10 h-20 l-10,10 -10,-10 h-20 a10,10 0 0 1 -10,-10 v-30 a10,10 0 0 1 10,-10 z" fill="#D32F2F"/>
+						<text x="40" y="28" font-size="14" text-anchor="middle" fill="#fff" font-family="Arial" data-role="to-label"></text>
+					</g>
+				</svg>
 			</div>
 			<div class="slider-action">
 				<div data-role="slider-bar"></div>
-				
+				<div class="slider-price-form">
+						<div class="slider-price-field">
+								<label>
+										<span class="slider-price-label"><?php echo __('Min'); ?></span>
+										<input type="number" class="price-from price" placeholder="<?php echo $block->escapeHtmlAttr($currencyLabel); ?>" />
+								</label>
+						</div>
+						<div class="slider-price-field">
+								<label>
+										<span class="slider-price-label"><?php echo __('Max'); ?></span>
+										<input type="number" class="price-to price" placeholder="<?php echo $block->escapeHtmlAttr($currencyLabel); ?>" />
+								</label>
+						</div>
+				</div>
 				<div class="actions-primary">
 					<a class="action primary small range-slider-action" data-role="apply-range">
-						<span><?php echo $_helper->getFilterPriceButtonText(); ?></span>
+						<span><?php echo __($_helper->getFilterPriceButtonText()); ?></span>
 					</a>
 				</div>
 			</div>
 			
 		</div>
-		<div data-role="message-box"></div>
+		<!-- <div data-role="message-box"></div> -->
 	</div>
 	
 	

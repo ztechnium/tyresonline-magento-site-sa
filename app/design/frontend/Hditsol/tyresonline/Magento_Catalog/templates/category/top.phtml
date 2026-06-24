@@ -1,5 +1,8 @@
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$lazyBlank = $contentImageHelper->getLazyloadBlankUrl();
+$contentImageOnError = $block->escapeHtmlAttr($contentImageHelper->getContentJsFallbackUrl());
 $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
     ->getStore()
     ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
@@ -27,21 +30,19 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
             if ($storeCode == 'en') {
                 $offerImage3 = $banner->getBannerImageThree();
             } else {
-                $offerImage3 = $banner->getBannerImageThreeAr();
+                $offerImage3 = $banner->getBannerImageThreeAr() ?: $banner->getBannerImageThree();
             }
+            $offerSliderUrl = $contentImageHelper->getBannerImageUrl($offerImage3);
             ?>
-            <?php if ($offerImage3) : ?>
-                <div class="item <?php echo $banner->getBannerId(); ?>">
-                    <a class="image-wrap picture loader aspect-custom" href="<?php echo $this->getBaseUrl() . $banner->getUrlBanner(); ?>">
-                        <picture>
-                            <source class="owl-lazy" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" media="(max-width: 767px)" data-srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" />
-                            <source class="owl-lazy" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" media="(min-width: 768px)" data-srcset="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage3; ?>" />
-                            <source class="owl-lazy" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" media="(min-width: 768px)" data-srcset="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage3; ?>" />
-                            <img class="owl-lazy" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="Secure the lowest price gurantee by negotiating for car tyres in UAE" width="1470px" height="137px" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage3; ?>" />
-                        </picture>
-                    </a>
-                </div>
-            <?php endif; ?>
+            <div class="item <?php echo $banner->getBannerId(); ?>">
+                <a class="image-wrap picture loader aspect-custom" href="<?php echo $this->getBaseUrl() . $banner->getUrlBanner(); ?>">
+                    <picture>
+                        <source class="owl-lazy" srcset="<?= $block->escapeUrl($lazyBlank) ?>" media="(max-width: 767px)" data-srcset="<?= $block->escapeUrl($lazyBlank) ?>" />
+                        <source class="owl-lazy" srcset="<?= $block->escapeUrl($lazyBlank) ?>" media="(min-width: 768px)" data-srcset="<?= $block->escapeUrl($offerSliderUrl) ?>" />
+                        <img class="owl-lazy" src="<?= $block->escapeUrl($lazyBlank) ?>" alt="<?= $block->escapeHtmlAttr($banner->getTitle()) ?>" width="1470" height="137" data-src="<?= $block->escapeUrl($offerSliderUrl) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
+                    </picture>
+                </a>
+            </div>
         <?php endforeach; ?>
     </div>
 </div>

@@ -1,5 +1,8 @@
 <?php
 $helper = $this->helper('MGS\Blog\Helper\Data');
+$contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$lazyBlank = $contentImageHelper->getLazyloadBlankUrl();
+$contentImageOnError = $block->escapeHtmlAttr($contentImageHelper->getContentJsFallbackUrl());
 $post = $block->getCurrentPost();
 $showImage = $this->getConfig('general_settings/show_image');
 $showAction = $this->getConfig('general_settings/show_action');
@@ -10,17 +13,12 @@ $sideBarBlock = $block->getLayout()->createBlock('MGS\Blog\Block\Sidebar');
 	<div class="col-12 col-sm-12 col-md-8 col-lg-8">
 		<div class="blog-post post-item-info">
         <?php if ($showImage): ?>
-			<!-- <div class="post-image">
-				<?php //echo $helper->getImagePost($post); ?>
-			</div> -->
-        <?php endif; ?>
-        <?php if($post->getImageUrl()): ?>
 			<div class="image-wrap picture aspect-custom loader">
 			<picture>
-			    <img class="lazyload" src="https://media.tyresonline.ae/media/images/section/blank.png" width="1500px" height="600px" alt="" data-src="<?php echo $post->getImageUrl(); ?>">
+			    <img class="lazyload" src="<?= $block->escapeUrl($lazyBlank) ?>" width="1500" height="600" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogFeaturedImageUrl($post)) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 			 </picture>
 			</div>
-   		<?php endif; ?>
+        <?php endif; ?>
 
          <div class="post-title">
          	<h1><?php echo $post->getTitle(); ?></h1>
@@ -157,10 +155,14 @@ $sideBarBlock = $block->getLayout()->createBlock('MGS\Blog\Block\Sidebar');
 							<?php foreach ($collection as $post): ?>
 							<li>
 								<div class="post-thumb">
-									<?php if($post->getThumbnailUrl()): ?>
+									<?php if($post->getThumbnail()): ?>
 										<a href="<?php echo $post->getPostUrlWithNoCategory(); ?>">
-											<img class="lazyload" src="https://media.tyresonline.ae/media/images/section/blank.png" width="100px" height="100px" alt="" data-src="<?php echo $post->getThumbnailUrl(); ?>">
+											<img class="lazyload" src="<?= $block->escapeUrl($lazyBlank) ?>" width="100" height="100" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 									    </a>
+									<?php else: ?>
+										<a href="<?php echo $post->getPostUrlWithNoCategory(); ?>">
+											<img src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" width="100" height="100" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
+										</a>
 									<?php endif; ?>
 								</div>
 								<div class="post-content">

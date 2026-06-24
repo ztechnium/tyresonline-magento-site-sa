@@ -11,6 +11,15 @@ $gmapApiKey = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInter
 
 $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
 $storeCode = $storeManager->getStore()->getCode();
+$getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
+    if ($storeCode !== 'en') {
+        $rtl = trim((string)($installer->getData($rtlField) ?? ''));
+        if ($rtl !== '') {
+            return $rtl;
+        }
+    }
+    return trim((string)($installer->getData($field) ?? ''));
+};
 ?>
 <div class="storelocator">
 	<div class="sub-banner">
@@ -65,12 +74,7 @@ $storeCode = $storeManager->getStore()->getCode();
 											<div class="upper_right">
 												<div class="installer_name">
 													<span class="">
-														<?php if ($storeCode == 'en'): ?>
-															<?php echo __($installer['name']); ?>
-														<?php else: ?>
-															<?php echo __($installer['name_rtl']);?>
-															<?php //echo __($installer['name']); ?>
-														<?php endif; ?>
+														<?php echo $block->escapeHtml($getInstallerField($installer, 'name', 'name_rtl')); ?>
 													</span>
 												</div>
 												<div class="address d-flex align-items-center">
@@ -81,12 +85,7 @@ $storeCode = $storeManager->getStore()->getCode();
 														</svg>
 													</span>
 													<span>
-														<?php if ($storeCode == 'en'): ?>
-															<?php echo __($installer['address']); ?>
-														<?php else: ?>
-															<?php echo __($installer['address_rtl']); ?>
-															<?php //echo __($installer['address']); ?>
-														<?php endif; ?>
+														<?php echo $block->escapeHtml($getInstallerField($installer, 'address', 'address_rtl')); ?>
 													</span>
 												</div>
 											</div>
@@ -110,14 +109,9 @@ $storeCode = $storeManager->getStore()->getCode();
 															<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 																<path
 																	d="M240 112C240 103.2 247.2 96 256 96C264.8 96 272 103.2 272 112V247.4L360.9 306.7C368.2 311.6 370.2 321.5 365.3 328.9C360.4 336.2 350.5 338.2 343.1 333.3L247.1 269.3C242.7 266.3 239.1 261.3 239.1 256L240 112zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM32 256C32 379.7 132.3 480 256 480C379.7 480 480 379.7 480 256C480 132.3 379.7 32 256 32C132.3 32 32 132.3 32 256z" />
-															</svg> </span>
+															</svg> 														</span>
 														<span>
-															<?php if ($storeCode == 'en'): ?>
-																<?php echo __($installer['opening_hours_text1']); ?>
-															<?php else: ?>
-																<?php echo __($installer['opening_hours_text1_rtl']); ?>
-																<?php //echo __($installer['opening_hours_text1']); ?>
-															<?php endif; ?>
+															<?php echo $block->escapeHtml($getInstallerField($installer, 'opening_hours_text1', 'opening_hours_text1_rtl')); ?>
 														</span>
 													</div>
 													<div class="opening_hours_text2 d-flex align-items-center">
@@ -125,14 +119,9 @@ $storeCode = $storeManager->getStore()->getCode();
 															<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 																<path
 																	d="M240 112C240 103.2 247.2 96 256 96C264.8 96 272 103.2 272 112V247.4L360.9 306.7C368.2 311.6 370.2 321.5 365.3 328.9C360.4 336.2 350.5 338.2 343.1 333.3L247.1 269.3C242.7 266.3 239.1 261.3 239.1 256L240 112zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM32 256C32 379.7 132.3 480 256 480C379.7 480 480 379.7 480 256C480 132.3 379.7 32 256 32C132.3 32 32 132.3 32 256z" />
-															</svg> </span>
+															</svg> 														</span>
 														<span>
-															<?php if ($storeCode == 'en'): ?>
-																<?php echo __($installer['opening_hours_text2']); ?>
-															<?php else: ?>
-																<?php echo __($installer['opening_hours_text2_rtl']); ?>
-																<?php //echo __($installer['opening_hours_text2']); ?>
-															<?php endif; ?>
+															<?php echo $block->escapeHtml($getInstallerField($installer, 'opening_hours_text2', 'opening_hours_text2_rtl')); ?>
 														</span>
 													</div>
 												</div>
@@ -141,7 +130,7 @@ $storeCode = $storeManager->getStore()->getCode();
 										<?php if ($installer->getIsmobilevan() != 1): ?>
 											<div class="installer-action-custom">
 												<div class="google-map-direction">
-													<a class="installer-url d-flex justify-content-between align-items-center" href="javascript:void(0)" data-lat="<?php  echo $installer['latitude'] ?>" data-lng="<?php echo $installer['longitude'] ?>" data-bs-toggle="modal" data-bs-target="#installerShowMap" data-bs-placement="top" title="<?php echo __($installer['name']);?>" data-title="<?php echo __($installer['name']);?>">
+													<a class="installer-url d-flex justify-content-between align-items-center" href="javascript:void(0)" data-lat="<?php  echo $installer['latitude'] ?>" data-lng="<?php echo $installer['longitude'] ?>" data-bs-toggle="modal" data-bs-target="#installerShowMap" data-bs-placement="top" title="<?php echo $block->escapeHtmlAttr($getInstallerField($installer, 'name', 'name_rtl')); ?>" data-title="<?php echo $block->escapeHtmlAttr($getInstallerField($installer, 'name', 'name_rtl')); ?>">
 														<span><?php echo __('See on Map') ?></span>
 														<img alt="Google Map" src="<?php echo $this->getViewFileUrl('images/google-maps.png'); ?>">
 													</a>
@@ -220,6 +209,8 @@ $storeCode = $storeManager->getStore()->getCode();
 	<span><?php echo __('Tyres Riyadh') ?></span>
       	<span><?php echo __('Tyres Jeddah') ?></span>
       	<span><?php echo __('Tyres Dammam') ?></span>
+      	<span><?php echo __('Tyres Alkhobar') ?></span>
+      	<span><?php echo __('Tyres Makkah') ?></span>
       </p>
   </div>
 				</div>
@@ -252,86 +243,153 @@ $storeCode = $storeManager->getStore()->getCode();
     ], function ($) {
 		var storeCode = '<?php echo $storeCode; ?>';
 
-		var searchlat;
-		var searchlong;
+		var searchlat = null;
+		var searchlong = null;
+
+		function hasValidCoords(lat, lng) {
+			return isFinite(parseFloat(lat)) && isFinite(parseFloat(lng));
+		}
+
+		function computeInstallerDistances(lat, lng) {
+			if (!hasValidCoords(lat, lng) || !google.maps.geometry || !google.maps.geometry.spherical) {
+				return false;
+			}
+
+			var p1 = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
+			var selectdistance = jQuery('#serach_distance').val();
+
+			jQuery('.loading-mask').css('display','block !important');
+			jQuery('body').trigger('processStart');
+
+			jQuery('.installer').each(function(i, obj) {
+				var installerLat = parseFloat(jQuery(this).attr('data-lat'));
+				var installerLng = parseFloat(jQuery(this).attr('data-lng'));
+
+				if (!hasValidCoords(installerLat, installerLng)) {
+					jQuery(this).find('.distance').hide();
+					return;
+				}
+
+				var p2 = new google.maps.LatLng(installerLat, installerLng);
+				var finalinstallerrdistance = parseFloat(
+					(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2)
+				);
+
+				if (!isFinite(finalinstallerrdistance)) {
+					jQuery(this).find('.distance').hide();
+					return;
+				}
+
+				if(storeCode == 'en'){
+					jQuery(this).find('.miles').html(finalinstallerrdistance+' kms');
+				}else{
+					jQuery(this).find('.miles').html(' كيلومترات '+finalinstallerrdistance);
+				}
+				jQuery(this).find('.distance').show();
+				jQuery(this).removeAttr('data-position');
+				jQuery(this).attr('data-position', finalinstallerrdistance);
+				if(finalinstallerrdistance > selectdistance){
+					jQuery(this).hide();
+				}else{
+					jQuery(this).show();
+				}
+			});
+
+			jQuery('.installerCol6').each(function(i, obj) {
+				var installerLat = parseFloat(jQuery(this).attr('data-lat'));
+				var installerLng = parseFloat(jQuery(this).attr('data-lng'));
+
+				if (!hasValidCoords(installerLat, installerLng)) {
+					return;
+				}
+
+				var p2 = new google.maps.LatLng(installerLat, installerLng);
+				var finalinstallerrdistance = parseFloat(
+					(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2)
+				);
+
+				if (!isFinite(finalinstallerrdistance)) {
+					return;
+				}
+
+				jQuery(this).removeAttr('data-position');
+				jQuery(this).attr('data-position', finalinstallerrdistance);
+			});
+
+			jQuery('.installerCol6').sort(function (a, b) {
+				var contentA = parseInt(jQuery(a).attr('data-position'), 10);
+				var contentB = parseInt(jQuery(b).attr('data-position'), 10);
+				return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+			}).appendTo(".allInstallersRow");
+
+			jQuery('.installer-list').removeClass('hide');
+			setTimeout(function(){
+				jQuery('body').trigger('processStop');
+				jQuery('html,body').animate({
+					scrollTop: jQuery(".location-search").offset().top},
+				'slow');
+			}, 3000);
+
+			return true;
+		}
+
 		if (document.getElementById('tyinstaller') !=null) {
 			var input = document.getElementById('tyinstaller');
 			var autocompleteSearch = new google.maps.places.Autocomplete(input);
 			autocompleteSearch.setComponentRestrictions({'country': ['sa']});
 			autocompleteSearch.addListener('place_changed', function(){
 				var placeSearch = autocompleteSearch.getPlace();
-				searchlat=placeSearch.geometry.location.lat();
-				searchlong=placeSearch.geometry.location.lng();
+				if (!placeSearch || !placeSearch.geometry || !placeSearch.geometry.location) {
+					searchlat = null;
+					searchlong = null;
+					return;
+				}
+				searchlat = placeSearch.geometry.location.lat();
+				searchlong = placeSearch.geometry.location.lng();
 				jQuery('.clear-btn').removeClass('d-none');
 			});
 		}
 
-    	jQuery('#calculatedistace').click(function(){
-			if(searchlat != "" && searchlong != "" && $('#tyinstaller').val() != "" ) {
-				var p1 = new google.maps.LatLng(searchlat, searchlong);
-				jQuery('.loading-mask').css('display','block !important');
-				jQuery('body').trigger('processStart');
+    	jQuery('#calculatedistace').click(function(e){
+			e.preventDefault();
+			var locationInput = jQuery('#tyinstaller').val();
+
+			if (!locationInput) {
 				jQuery('.installer').each(function(i, obj) {
-					var p2 = new google.maps.LatLng(jQuery(this).attr('data-lat'), jQuery(this).attr('data-lng'));
-
-					var finalinstallerrdistance=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-
-					finalinstallerrdistance=parseFloat(finalinstallerrdistance);
-					if(storeCode == 'en'){
-						jQuery(this).find('.miles').html(finalinstallerrdistance+' kms');
-					}else{
-						jQuery(this).find('.miles').html(' كيلومترات '+finalinstallerrdistance);
-					}
-				    jQuery(this).find('.distance').show();
-					var selectdistance=jQuery('#serach_distance').val();
-					//console.log(jQuery(this).attr('data-lat')+'--'+jQuery(this).attr('data-lng')+'---'+searchlong+'--'+searchlat+'--'+finalinstallerrdistance);
-					jQuery(this).removeAttr('data-position');
-					jQuery(this).attr('data-position',finalinstallerrdistance);
-					if(finalinstallerrdistance > selectdistance){
-						
-							jQuery(this).hide();
-					}else{
-							jQuery(this).show();
-					}
+					jQuery(this).show();
+					jQuery(this).find('.distance').hide();
+					jQuery(this).find('.miles').html('');
 				});
-				jQuery('.installerCol6').each(function(i, obj) {
-					var p2 = new google.maps.LatLng(jQuery(this).attr('data-lat'), jQuery(this).attr('data-lng'));
-					var finalinstallerrdistance=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-					finalinstallerrdistance=parseFloat(finalinstallerrdistance);
-					jQuery(this).removeAttr('data-position');
-					jQuery(this).attr('data-position',finalinstallerrdistance);
-					
-				});
+				return;
+			}
 
-				/*jQuery('.ship-to-installer .row .col-md-6 div.installer').sort(function (a, b) {
+			if (hasValidCoords(searchlat, searchlong)) {
+				computeInstallerDistances(searchlat, searchlong);
+				return;
+			}
 
-					var contentA =parseInt( jQuery(a).attr('data-position'));
-					var contentB =parseInt( jQuery(b).attr('data-position'));
-					return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
-				 }).appendTo(".ship-to-installer");*/
-				jQuery('.installerCol6').sort(function (a, b) {
-					var contentA =parseInt( jQuery(a).attr('data-position'));
-					var contentB =parseInt( jQuery(b).attr('data-position'));
-					return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
-				}).appendTo(".allInstallersRow");
-				
-				jQuery('.installer-list').removeClass('hide');
-				setTimeout(function(){
-					 jQuery('body').trigger('processStop'); 
-					 jQuery('html,body').animate({
-						scrollTop: jQuery(".location-search").offset().top},
-					'slow');
-					}, 3000);
-			}else{
-					  jQuery('.installer').each(function(i, obj) {
-						  jQuery(this).show();
-						  jQuery(this).find('.distance').hide();
-						  jQuery(this).find('.miles').html();
-					  });		  
-			 }
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({
+				address: locationInput,
+				componentRestrictions: {country: 'SA'}
+			}, function(results, status) {
+				if (status === 'OK' && results[0] && results[0].geometry && results[0].geometry.location) {
+					searchlat = results[0].geometry.location.lat();
+					searchlong = results[0].geometry.location.lng();
+					computeInstallerDistances(searchlat, searchlong);
+				} else {
+					jQuery('.installer').each(function(i, obj) {
+						jQuery(this).show();
+						jQuery(this).find('.distance').hide();
+						jQuery(this).find('.miles').html('');
+					});
+				}
+			});
 		});
 		jQuery('#clear-input').click(function(){
 			jQuery('#tyinstaller').val('');
+			searchlat = null;
+			searchlong = null;
 			jQuery('.clear-btn').addClass('d-none');
 		});
 

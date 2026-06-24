@@ -86,6 +86,61 @@ class Productlisting extends \Magento\Framework\App\Helper\AbstractHelper
         return $attributeValue;
     }
 
+    /**
+     * Resolve a product attribute label for the current store, falling back to admin labels.
+     */
+    public function getProductAttributeLabel($product, string $attributeCode): string
+    {
+        $attribute = $product->getResource()->getAttribute($attributeCode);
+        if (!$attribute) {
+            return '';
+        }
+
+        $value = trim((string)$attribute->getFrontend()->getValue($product));
+        if ($value !== '' && strcasecmp($value, 'no') !== 0) {
+            return $value;
+        }
+
+        $optionId = $product->getData($attributeCode);
+        if ($optionId && $attribute->usesSource()) {
+            $adminLabel = $attribute->getSource()->getOptionText($optionId);
+            if ($adminLabel) {
+                return trim((string)$adminLabel);
+            }
+        }
+
+        $rawValue = $product->getResource()->getAttributeRawValue(
+            (int)$product->getId(),
+            $attributeCode,
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID
+        );
+
+        if ($rawValue && $attribute->usesSource()) {
+            $defaultLabel = $attribute->getSource()->getOptionText($rawValue);
+            if ($defaultLabel) {
+                return trim((string)$defaultLabel);
+            }
+        }
+
+        return is_scalar($rawValue) ? trim((string)$rawValue) : '';
+    }
+
+    public function translateSpecLabel(string $value): string
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return '';
+        }
+
+        // Store-view labels may already be localized (e.g. Arabic option text).
+        if (preg_match('/[\x{0600}-\x{06FF}]/u', $value)) {
+            return $value;
+        }
+
+        $translated = (string)__($value);
+        return $translated !== '' ? $translated : $value;
+    }
+
     public function getSet1price($_product)
     {
         $final_price = $_product->getPriceInfo()->getPrice('final_price')->getValue();

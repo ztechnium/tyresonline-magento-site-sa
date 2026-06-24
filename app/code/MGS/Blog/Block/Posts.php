@@ -60,6 +60,9 @@ class Posts extends \Magento\Framework\View\Element\Template
     protected function _addBreadcrumbs()
     {
         $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
+        if (!$breadcrumbsBlock) {
+            return;
+        }
         $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
         $pageTitle = $this->_blogHelper->getConfig('general_settings/title');
         $breadcrumbsBlock->addCrumb(
@@ -73,8 +76,8 @@ class Posts extends \Magento\Framework\View\Element\Template
         $breadcrumbsBlock->addCrumb(
             'blog',
             [
-                'label' => $pageTitle,
-                'title' => $pageTitle,
+                'label' => __($pageTitle),
+                'title' => __($pageTitle),
                 'link' => ''
             ]
         );
@@ -102,13 +105,22 @@ class Posts extends \Magento\Framework\View\Element\Template
     protected function _prepareLayout()
     {
         $post = $this->getCurrentUrl();
-        $pageTitle = $this->getConfig('general_settings/title');
-        $metaKeywords = $this->getConfig('general_settings/meta_keywords');
-        $metaDescription = $this->getConfig('general_settings/meta_description');
+        $storeId = (int)$this->_storeManager->getStore()->getId();
+        $titleConfig = $this->_blogHelper->getStoreConfig('blog/general_settings/title', $storeId)
+            ?: $this->getConfig('general_settings/title');
+        $pageTitle = ($titleConfig && $titleConfig !== 'Blog') ? $titleConfig : __('Blog');
+        $metaKeywords = $this->_blogHelper->getStoreConfig('blog/general_settings/meta_keywords', $storeId)
+            ?: $this->getConfig('general_settings/meta_keywords');
+        $metaDescription = $this->_blogHelper->getStoreConfig('blog/general_settings/meta_description', $storeId)
+            ?: $this->getConfig('general_settings/meta_description');
         $this->_addBreadcrumbs();
         $this->pageConfig->addBodyClass('blog-post-list');
         if ($pageTitle) {
             $this->pageConfig->getTitle()->set($pageTitle);
+            $titleBlock = $this->getLayout()->getBlock('page.main.title');
+            if ($titleBlock) {
+                $titleBlock->setPageTitle($pageTitle);
+            }
         }
         if ($metaKeywords) {
             $this->pageConfig->setKeywords($metaKeywords);

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="Tyre image unavailable">
+  <rect width="320" height="320" fill="#f3f4f6"/>
+  <circle cx="160" cy="160" r="92" fill="none" stroke="#d1d5db" stroke-width="28"/>
+  <circle cx="160" cy="160" r="34" fill="#e5e7eb" stroke="#d1d5db" stroke-width="8"/>
+  <path d="M160 68v24M160 228v24M68 160h24M228 160h24M96 96l17 17M207 207l17 17M96 224l17-17M207 113l17-17" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -1,5 +1,8 @@
 <?php
 $helper = $this->helper('MGS\Blog\Helper\Data');
+$contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$lazyBlank = $contentImageHelper->getLazyloadBlankUrl();
+$contentImageOnError = $block->escapeHtmlAttr($contentImageHelper->getContentJsFallbackUrl());
 $collection = $block->getPostCollection();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $baseURL = $this->getBaseUrl();
@@ -22,7 +25,7 @@ $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 		<?php
 		$blogHelper = $this->helper('MGS\Blog\Helper\Data');
 		$lazyLoad = true;
-		$baseImage = $mediaURL.'images/blank.png';
+		$baseImage = $lazyBlank;
 		$showShortContent = $this->getConfig('show_short_content');
 		$viewAs = $this->getConfig('view_as');
 		$showThumbnail = $this->getConfig('show_thumbnail');
@@ -63,7 +66,7 @@ $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 													<?php if(!$lazyLoad){
 														$baseImage = $post->getThumbnailUrl();
 													} ?>
-													<img src="<?php echo $baseImage; ?>" width="640px" height="423px" class="lazyload" data-src="<?php echo $post->getThumbnailUrl(); ?>" alt="<?php echo $post->getTitle(); ?>" />
+													<img src="<?php echo $baseImage; ?>" width="640px" height="423px" class="lazyload" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 												</a>
 											<?php endif ?>
 										</picture>
@@ -111,7 +114,7 @@ $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 										<?php if(!$lazyLoad){
 											$baseImage = $post->getThumbnailUrl();
 										} ?>
-										<img src="<?php echo $baseImage; ?>" class="img-responsive<?php if($lazyLoad): ?> lazy<?php endif ?>" data-src="<?php echo $post->getThumbnailUrl(); ?>" alt="<?php echo $post->getTitle(); ?>" />
+										<img src="<?php echo $baseImage; ?>" class="img-responsive<?php if($lazyLoad): ?> lazy<?php endif ?>" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 									</a>
 								<?php endif ?>
 							</div>

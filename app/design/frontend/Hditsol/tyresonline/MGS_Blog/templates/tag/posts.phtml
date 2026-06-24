@@ -1,5 +1,8 @@
 <?php
 $helper = $this->helper('MGS\Blog\Helper\Data');
+$contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$lazyBlank = $contentImageHelper->getLazyloadBlankUrl();
+$contentImageOnError = $block->escapeHtmlAttr($contentImageHelper->getContentJsFallbackUrl());
 $collection = $block->getCollection();
 $showThumbnail = $this->getConfig('general_settings/show_thumbnail');
 ?>
@@ -15,7 +18,7 @@ $showThumbnail = $this->getConfig('general_settings/show_thumbnail');
             <div class="blog-post post-item-info">
 				<div class="image-wrap picture aspect-custom loader <?php if ($showThumbnail): ?>has-image<?php endif; ?>">
 			    <picture>
-					<img class="lazyload" src="https://media.tyresonline.ae/media/images/section/blank.png" data-src="<?php echo $post->getThumbnailUrl(); ?>" alt="<?php echo $post->getTitle(); ?>">
+					<img class="lazyload" src="<?= $block->escapeUrl($lazyBlank) ?>" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 				</picture>
 				</div>
                  <div class="post-info">
@@ -27,10 +30,13 @@ $showThumbnail = $this->getConfig('general_settings/show_thumbnail');
 				<?php if ($post->getShortContent()): ?>
 					<div class="post-content">
 						<div class="post-short-description">
-							<?php echo substr($post->getShortContent(),0,110); 
-								if(strlen($post->getShortContent()) > 105){
-									echo " ...";
-								}
+							<?php
+							$shortContent = html_entity_decode(strip_tags((string) $post->getShortContent()), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+							$shortContent = preg_replace('/\s+/u', ' ', trim($shortContent));
+							echo $block->escapeHtml(substr($shortContent, 0, 110));
+							if (strlen($shortContent) > 105) {
+								echo ' ...';
+							}
 							?>
 						</div>
 						<div class="post-link text-center">
