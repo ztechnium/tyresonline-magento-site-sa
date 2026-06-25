@@ -20,6 +20,19 @@ $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 $baseUrl = $this->getBaseUrl();
 $timeZone = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
 $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getCode();
+
+$sanitizeBannerUrl = static function (?string $url): string {
+    $url = trim((string) $url);
+    if ($url === '' || stripos($url, 'bicycle-tyres') !== false) {
+        return '';
+    }
+
+    $url = preg_replace('/([?&])_=\d+&?/', '$1', $url) ?? $url;
+    $url = preg_replace('/([?&])is_ajax=1&?/', '$1', $url) ?? $url;
+    $url = str_replace(['?&', '&&', 'UP+TO+AED+700+OFF', 'mobile-tyre-fitting-service-in-ksa'], ['?', '&', 'UP+TO+SAR+700+OFF', 'mobile-tyre-fitting-service-in-uae'], $url);
+
+    return rtrim($url, '?&');
+};
 ?>
 
 <div class="promotions-offers">
@@ -97,6 +110,7 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                                     $offerBrandLogoUrl = $offerCategoryWise->getBrandLogo()
                                         ? $contentImageHelper->getBannerImageUrl($offerCategoryWise->getBrandLogo())
                                         : '';
+                                    $offerShopUrl = $sanitizeBannerUrl($offerCategoryWise->getUrlBanner());
                                     ?>
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-3">
                                         <div class="box">
@@ -119,9 +133,11 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                                                         <img src="<?= $block->escapeUrl($lazyBlank) ?>" width="383" height="136" class="lazyload" data-src="<?= $block->escapeUrl($offerBannerUrl) ?>" alt="<?= $block->escapeHtmlAttr($offerTitle) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'">
                                                     </picture>
                                                 </div>
+                                                <?php if ($offerShopUrl) : ?>
                                                 <div class="shownow">
-                                                    <a href="<?php echo $this->getBaseUrl() . $offerCategoryWise->getUrlBanner(); ?>"><?php echo __('SHOP NOW'); ?></a>
+                                                    <a href="<?php echo $block->escapeUrl($this->getBaseUrl() . $offerShopUrl); ?>"><?php echo __('SHOP NOW'); ?></a>
                                                 </div>
+                                                <?php endif; ?>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -138,6 +154,7 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                                     $offerDescription = $offerCategoryWise->getContentAr() ?: $offerCategoryWise->getContent();
                                 }
                                 $offerModalBannerUrl = $contentImageHelper->getBannerImageUrl($offerImage2);
+                                $offerShopUrl = $sanitizeBannerUrl($offerCategoryWise->getUrlBanner());
                                 ?>
                                 <!-- offers Modal -->
                                 <!-- loop // >> loop this modal like offers slider and id dynamic id -->
@@ -157,9 +174,11 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                                         <div class="text-block">
                                             <?php echo $offerDescription; ?>
                                         </div>
+                                        <?php if ($offerShopUrl) : ?>
                                         <div class="shopnow">
-                                            <a href="<?php echo $this->getBaseUrl() . $offerCategoryWise->getUrlBanner(); ?>" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span><?php echo __('SHOP NOW'); ?></span></a>
+                                            <a href="<?php echo $block->escapeUrl($this->getBaseUrl() . $offerShopUrl); ?>" class="button button-primary-100 text-uppercase button-rounded filled-slide-right"><span><?php echo __('SHOP NOW'); ?></span></a>
                                         </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <!-- End Modal -->

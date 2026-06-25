@@ -44,10 +44,12 @@ $getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
 			<div class="location-search-wrap">
 				<div class="d-flex flex-wrap align-items-center justify-content-center">
 					<input id="tyinstaller" name="installerarea" type="text"
-						placeholder="<?php //echo __('Enter a location...'); ?>">
+						placeholder="<?php echo __('Enter a location...'); ?>">
 					<div class="serach-distance" style="display:none;">
 						<select id="serach_distance" class="input_select dropdown-select">
-							<option value="30" selected>30 Km</option>
+							<option value="30">30 Km</option>
+							<option value="50">50 Km</option>
+							<option value="100" selected>100 Km</option>
 						</select>
 					</div>
 					<button type="submit" id="calculatedistace"
@@ -55,6 +57,7 @@ $getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
 							<?php echo __('SEARCH LOCATION'); ?>
 						</span></button>
 				</div>
+				<p id="storelocator-search-message" class="storelocator-search-message" style="display:none;" role="alert"></p>
 			</div>
 		</div>
 
@@ -237,6 +240,9 @@ $getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
     </div>
   </div>
 <!-- end Modal for installer map -->
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=<?php echo $block->escapeHtml($gmapApiKey); ?>&libraries=places,geometry"
+	async defer></script>
 <script type="text/javascript">
   require([
     'jquery'
@@ -246,120 +252,202 @@ $getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
 		var searchlat = null;
 		var searchlong = null;
 
+		var cityFallbackCoords = {
+			'riyadh': [24.7136, 46.6753],
+			'الرياض': [24.7136, 46.6753],
+			'jeddah': [21.4858, 39.1925],
+			'جدة': [21.4858, 39.1925],
+			'jiddah': [21.4858, 39.1925],
+			'dammam': [26.3927, 49.9777],
+			'الدمام': [26.3927, 49.9777],
+			'khobar': [26.2172, 50.1971],
+			'الخبر': [26.2172, 50.1971],
+			'dhahran': [26.2361, 50.0393],
+			'الظهران': [26.2361, 50.0393],
+			'makkah': [21.3891, 39.8579],
+			'مكة': [21.3891, 39.8579],
+			'mecca': [21.3891, 39.8579],
+			'madinah': [24.5247, 39.5692],
+			'medina': [24.5247, 39.5692],
+			'المدينة': [24.5247, 39.5692],
+			'taif': [21.4373, 40.5127],
+			'الطائف': [21.4373, 40.5127],
+			'abha': [18.2164, 42.5053],
+			'أبها': [18.2164, 42.5053],
+			'tabuk': [28.3838, 36.5550],
+			'تبوك': [28.3838, 36.5550],
+			'hail': [27.5114, 41.7208],
+			'حائل': [27.5114, 41.7208],
+			'jubail': [27.0046, 49.6601],
+			'الجبيل': [27.0046, 49.6601],
+			'yanbu': [24.0895, 38.0618],
+			'ينبع': [24.0895, 38.0618],
+			'khamis': [18.3000, 42.7333],
+			'خميس': [18.3000, 42.7333],
+			'buraidah': [26.3260, 43.9750],
+			'بريدة': [26.3260, 43.9750],
+			'ahsa': [25.3832, 49.5879],
+			'الاحساء': [25.3832, 49.5879],
+			'الأحساء': [25.3832, 49.5879]
+		};
+
 		function hasValidCoords(lat, lng) {
 			return isFinite(parseFloat(lat)) && isFinite(parseFloat(lng));
 		}
 
+		function showSearchMessage(message) {
+			var $message = jQuery('#storelocator-search-message');
+			if (!$message.length) {
+				return;
+			}
+			if (!message) {
+				$message.hide().text('');
+				return;
+			}
+			$message.text(message).show();
+		}
+
+		function resolveFallbackCoords(locationInput) {
+			var normalized = (locationInput || '').toLowerCase().trim();
+			if (!normalized) {
+				return null;
+			}
+			var match = null;
+			jQuery.each(cityFallbackCoords, function (city, coords) {
+				if (normalized.indexOf(city.toLowerCase()) !== -1) {
+					match = {lat: coords[0], lng: coords[1]};
+					return false;
+				}
+			});
+			return match;
+		}
+
+		function distanceKm(lat1, lng1, lat2, lng2) {
+			if (google.maps.geometry && google.maps.geometry.spherical) {
+				var p1 = new google.maps.LatLng(parseFloat(lat1), parseFloat(lng1));
+				var p2 = new google.maps.LatLng(parseFloat(lat2), parseFloat(lng2));
+				return parseFloat(
+					(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2)
+				);
+			}
+			var toRad = function (value) { return value * Math.PI / 180; };
+			var r = 6371;
+			var dLat = toRad(lat2 - lat1);
+			var dLng = toRad(lng2 - lng1);
+			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(toRad(lat1)) * Math.cos(toRad(lat2))
+				* Math.sin(dLng / 2) * Math.sin(dLng / 2);
+			return parseFloat((r * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))).toFixed(2));
+		}
+
+		function showAllInstallers(resetDistance) {
+			jQuery('.installer').each(function () {
+				jQuery(this).show();
+				if (resetDistance) {
+					jQuery(this).find('.distance').hide();
+					jQuery(this).find('.miles').html('');
+				}
+			});
+			jQuery('.installer-list').removeClass('hide');
+		}
+
 		function computeInstallerDistances(lat, lng) {
-			if (!hasValidCoords(lat, lng) || !google.maps.geometry || !google.maps.geometry.spherical) {
+			if (!hasValidCoords(lat, lng)) {
+				showSearchMessage(storeCode === 'en'
+					? 'Could not locate that city. Please try another spelling.'
+					: 'تعذر تحديد المدينة. يرجى تجربة اسم آخر.');
+				showAllInstallers(true);
 				return false;
 			}
 
-			var p1 = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
-			var selectdistance = jQuery('#serach_distance').val();
+			var selectdistance = parseInt(jQuery('#serach_distance').val(), 10) || 100;
 
-			jQuery('.loading-mask').css('display','block !important');
 			jQuery('body').trigger('processStart');
+			showSearchMessage('');
 
-			jQuery('.installer').each(function(i, obj) {
+			var visibleCount = 0;
+			jQuery('.installer').each(function () {
 				var installerLat = parseFloat(jQuery(this).attr('data-lat'));
 				var installerLng = parseFloat(jQuery(this).attr('data-lng'));
 
 				if (!hasValidCoords(installerLat, installerLng)) {
 					jQuery(this).find('.distance').hide();
+					jQuery(this).show();
 					return;
 				}
 
-				var p2 = new google.maps.LatLng(installerLat, installerLng);
-				var finalinstallerrdistance = parseFloat(
-					(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2)
-				);
-
+				var finalinstallerrdistance = distanceKm(lat, lng, installerLat, installerLng);
 				if (!isFinite(finalinstallerrdistance)) {
 					jQuery(this).find('.distance').hide();
+					jQuery(this).show();
 					return;
 				}
 
-				if(storeCode == 'en'){
-					jQuery(this).find('.miles').html(finalinstallerrdistance+' kms');
-				}else{
-					jQuery(this).find('.miles').html(' كيلومترات '+finalinstallerrdistance);
+				if (storeCode === 'en') {
+					jQuery(this).find('.miles').html(finalinstallerrdistance + ' kms');
+				} else {
+					jQuery(this).find('.miles').html(' كيلومترات ' + finalinstallerrdistance);
 				}
 				jQuery(this).find('.distance').show();
-				jQuery(this).removeAttr('data-position');
 				jQuery(this).attr('data-position', finalinstallerrdistance);
-				if(finalinstallerrdistance > selectdistance){
+				if (finalinstallerrdistance > selectdistance) {
 					jQuery(this).hide();
-				}else{
+				} else {
 					jQuery(this).show();
+					visibleCount++;
 				}
 			});
 
-			jQuery('.installerCol6').each(function(i, obj) {
+			jQuery('.installerCol6').each(function () {
 				var installerLat = parseFloat(jQuery(this).attr('data-lat'));
 				var installerLng = parseFloat(jQuery(this).attr('data-lng'));
-
 				if (!hasValidCoords(installerLat, installerLng)) {
+					jQuery(this).attr('data-position', 9999);
 					return;
 				}
-
-				var p2 = new google.maps.LatLng(installerLat, installerLng);
-				var finalinstallerrdistance = parseFloat(
-					(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2)
+				jQuery(this).attr(
+					'data-position',
+					distanceKm(lat, lng, installerLat, installerLng)
 				);
-
-				if (!isFinite(finalinstallerrdistance)) {
-					return;
-				}
-
-				jQuery(this).removeAttr('data-position');
-				jQuery(this).attr('data-position', finalinstallerrdistance);
 			});
 
 			jQuery('.installerCol6').sort(function (a, b) {
-				var contentA = parseInt(jQuery(a).attr('data-position'), 10);
-				var contentB = parseInt(jQuery(b).attr('data-position'), 10);
-				return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
-			}).appendTo(".allInstallersRow");
+				var contentA = parseFloat(jQuery(a).attr('data-position')) || 9999;
+				var contentB = parseFloat(jQuery(b).attr('data-position')) || 9999;
+				return contentA - contentB;
+			}).appendTo('.allInstallersRow');
 
 			jQuery('.installer-list').removeClass('hide');
-			setTimeout(function(){
+
+			if (visibleCount === 0) {
+				showSearchMessage(storeCode === 'en'
+					? 'No fitment centres found within ' + selectdistance + ' km. Showing all locations.'
+					: 'لا توجد مراكز ضمن ' + selectdistance + ' كم. يتم عرض جميع المواقع.');
+				showAllInstallers(true);
+			}
+
+			setTimeout(function () {
 				jQuery('body').trigger('processStop');
 				jQuery('html,body').animate({
-					scrollTop: jQuery(".location-search").offset().top},
-				'slow');
-			}, 3000);
+					scrollTop: jQuery('.installer-list').offset().top - 20
+				}, 'slow');
+			}, 500);
 
 			return true;
 		}
 
-		if (document.getElementById('tyinstaller') !=null) {
-			var input = document.getElementById('tyinstaller');
-			var autocompleteSearch = new google.maps.places.Autocomplete(input);
-			autocompleteSearch.setComponentRestrictions({'country': ['sa']});
-			autocompleteSearch.addListener('place_changed', function(){
-				var placeSearch = autocompleteSearch.getPlace();
-				if (!placeSearch || !placeSearch.geometry || !placeSearch.geometry.location) {
-					searchlat = null;
-					searchlong = null;
-					return;
-				}
-				searchlat = placeSearch.geometry.location.lat();
-				searchlong = placeSearch.geometry.location.lng();
-				jQuery('.clear-btn').removeClass('d-none');
-			});
-		}
-
-    	jQuery('#calculatedistace').click(function(e){
-			e.preventDefault();
-			var locationInput = jQuery('#tyinstaller').val();
-
+		function runLocationSearch(locationInput) {
 			if (!locationInput) {
-				jQuery('.installer').each(function(i, obj) {
-					jQuery(this).show();
-					jQuery(this).find('.distance').hide();
-					jQuery(this).find('.miles').html('');
-				});
+				showSearchMessage('');
+				showAllInstallers(true);
+				return;
+			}
+
+			var fallback = resolveFallbackCoords(locationInput);
+			if (fallback) {
+				searchlat = fallback.lat;
+				searchlong = fallback.lng;
+				computeInstallerDistances(searchlat, searchlong);
 				return;
 			}
 
@@ -368,32 +456,89 @@ $getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
 				return;
 			}
 
+			if (!(window.google && google.maps && google.maps.Geocoder)) {
+				showSearchMessage(storeCode === 'en'
+					? 'Location not found. Try a major city such as Riyadh, Jeddah, or Dammam.'
+					: 'لم يتم العثور على الموقع. جرّب مدينة مثل الرياض أو جدة أو الدمام.');
+				showAllInstallers(true);
+				return;
+			}
+
 			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode({
 				address: locationInput,
 				componentRestrictions: {country: 'SA'}
-			}, function(results, status) {
+			}, function (results, status) {
 				if (status === 'OK' && results[0] && results[0].geometry && results[0].geometry.location) {
 					searchlat = results[0].geometry.location.lat();
 					searchlong = results[0].geometry.location.lng();
 					computeInstallerDistances(searchlat, searchlong);
-				} else {
-					jQuery('.installer').each(function(i, obj) {
-						jQuery(this).show();
-						jQuery(this).find('.distance').hide();
-						jQuery(this).find('.miles').html('');
-					});
+					return;
 				}
+
+				fallback = resolveFallbackCoords(locationInput);
+				if (fallback) {
+					searchlat = fallback.lat;
+					searchlong = fallback.lng;
+					computeInstallerDistances(searchlat, searchlong);
+					return;
+				}
+
+				showSearchMessage(storeCode === 'en'
+					? 'Location not found. Try a major city such as Riyadh, Jeddah, or Dammam.'
+					: 'لم يتم العثور على الموقع. جرّب مدينة مثل الرياض أو جدة أو الدمام.');
+				showAllInstallers(true);
 			});
+		}
+
+		function initGoogleMapsEnhancements() {
+			if (!(window.google && google.maps)) {
+				return;
+			}
+
+			if (document.getElementById('tyinstaller') != null && google.maps.places) {
+				var input = document.getElementById('tyinstaller');
+				var autocompleteSearch = new google.maps.places.Autocomplete(input);
+				autocompleteSearch.setComponentRestrictions({'country': ['sa']});
+				autocompleteSearch.addListener('place_changed', function () {
+					var placeSearch = autocompleteSearch.getPlace();
+					if (!placeSearch || !placeSearch.geometry || !placeSearch.geometry.location) {
+						searchlat = null;
+						searchlong = null;
+						return;
+					}
+					searchlat = placeSearch.geometry.location.lat();
+					searchlong = placeSearch.geometry.location.lng();
+					jQuery('.clear-btn').removeClass('d-none');
+				});
+			}
+		}
+
+		jQuery('#calculatedistace').click(function (e) {
+			e.preventDefault();
+			runLocationSearch(jQuery.trim(jQuery('#tyinstaller').val()));
 		});
+
+		jQuery('#tyinstaller').on('keypress', function (e) {
+			if (e.which === 13) {
+				e.preventDefault();
+				jQuery('#calculatedistace').trigger('click');
+			}
+		});
+
 		jQuery('#clear-input').click(function(){
 			jQuery('#tyinstaller').val('');
 			searchlat = null;
 			searchlong = null;
+			showSearchMessage('');
 			jQuery('.clear-btn').addClass('d-none');
 		});
 
 		$('#installerShowMap').on('show.bs.modal', function(event) {
+			if (!(window.google && google.maps)) {
+				return;
+			}
+
 			var map;
 			var myMarker;
 			var myLatlng;
@@ -427,5 +572,17 @@ $getInstallerField = function ($installer, $field, $rtlField) use ($storeCode) {
 		$(".installerShowMap .close").on("click", function () {
 			$("#installerShowMap").trigger('click');
 		});
+
+		(function waitForGoogleMaps(attempts) {
+			if (window.google && google.maps) {
+				initGoogleMapsEnhancements();
+				return;
+			}
+			if (attempts < 80) {
+				setTimeout(function () {
+					waitForGoogleMaps(attempts + 1);
+				}, 150);
+			}
+		})(0);
 });
 </script>

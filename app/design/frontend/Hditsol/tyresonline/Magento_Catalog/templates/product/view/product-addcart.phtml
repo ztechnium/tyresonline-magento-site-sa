@@ -1,0 +1,988 @@
+<?php
+
+use Magento\Framework\App\Action\Action;
+
+$_product = $block->getProduct();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$listingHelper = $this->helper('Hdweb\Tyrefinder\Helper\Productlisting');
+$currencysymbol = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currency = $currencysymbol->getStore()->getCurrentCurrencyCode();
+$StockRegistry = $objectManager->get('\Magento\CatalogInventory\Api\StockRegistryInterface');
+$StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+$tabbyinstallmentmaxvalue = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/tabbyinstallment');
+$tabbyfourday = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('productsearch/general/tabbyfourday');
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+//$getBaseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+$getBaseUrl = $this->getBaseUrl();
+$tabbyUrl = $getBaseUrl . 'tabby-payment-options';
+
+$displayName = $_product->getResource()->getAttribute("display_name")->getFrontend()->getValue($_product);
+$bolt_hole = $_product->getResource()->getAttribute("bolt_rim")->getFrontend()->getValue($_product);
+$parts_category = $_product->getResource()->getAttribute("parts_category")->getFrontend()->getValue($_product);
+$voltage = $_product->getResource()->getAttribute("voltage")->getFrontend()->getValue($_product);
+$material_number  = $_product->getResource()->getAttribute("material_number")->getFrontend()->getValue($_product);
+$description = $_product->getResource()->getAttribute("description")->getFrontend()->getValue($_product);
+$capacity = $_product->getResource()->getAttribute("capacity")->getFrontend()->getValue($_product);
+$cold_test_current_a = $_product->getResource()->getAttribute("cold_test_current_a")->getFrontend()->getValue($_product);
+$length_mm = $_product->getResource()->getAttribute("length_mm")->getFrontend()->getValue($_product);
+$width_mm = $_product->getResource()->getAttribute("width_mm")->getFrontend()->getValue($_product);
+$height_mm = $_product->getResource()->getAttribute("height_mm")->getFrontend()->getValue($_product);
+$post_positions = $_product->getResource()->getAttribute("post_positions")->getFrontend()->getValue($_product);
+$hold_down_type = $_product->getResource()->getAttribute("hold_down_type")->getFrontend()->getValue($_product);
+$terminal_type = $_product->getResource()->getAttribute("terminal_type")->getFrontend()->getValue($_product);
+$battery_type = $_product->getResource()->getAttribute("battery_type")->getFrontend()->getValue($_product);
+$box_code = $_product->getResource()->getAttribute("box_code")->getFrontend()->getValue($_product);
+$model_rim = $_product->getResource()->getAttribute("model_rim")->getFrontend()->getValue($_product);
+$color = $_product->getResource()->getAttribute("color_rim")->getFrontend()->getValue($_product);
+$finish = $_product->getResource()->getAttribute("finish")->getFrontend()->getValue($_product);
+$bolt_pattern = $_product->getResource()->getAttribute("bolt_pattern")->getFrontend()->getValue($_product);
+$hub_bore = $_product->getResource()->getAttribute("hub_bore")->getFrontend()->getValue($_product);
+//$wheel_size = $_product->getResource()->getAttribute("wheel_size")->getFrontend()->getValue($_product);
+//$offset = $_product->getResource()->getAttribute("offset")->getFrontend()->getValue($_product);
+//$pcd_rim = $_product->getResource()->getAttribute("pcd_rim")->getFrontend()->getValue($_product);
+$warranty_workmanship_mat = $_product->getResource()->getAttribute("warranty_workmanship_mat")->getFrontend()->getValue($_product);
+$perItem = $_product->getResource()->getAttribute("per_item")->getFrontend()->getValue($_product);
+$oil_grade = $_product->getResource()->getAttribute("oil_grade")->getFrontend()->getValue($_product);
+$acea_specification = $_product->getResource()->getAttribute("acea_specification")->getFrontend()->getValue($_product);
+$api_specification = $_product->getResource()->getAttribute("api_specification")->getFrontend()->getValue($_product);
+$manufacturers_approval = $_product->getResource()->getAttribute("manufacturers_approval")->getFrontend()->getValue($_product);
+$ruleDiscount = $_product->getResource()->getAttribute("rule_discount")->getFrontend()->getValue($_product);
+
+
+$width = $_product->getResource()->getAttribute("width")->getFrontend()->getValue($_product);
+$profile = $_product->getResource()->getAttribute("height")->getFrontend()->getValue($_product);
+$diameter = $_product->getResource()->getAttribute("rim")->getFrontend()->getValue($_product);
+$_attributehelper = $this->helper('Hdweb\Addattribute\Helper\Productdetails');
+$size = $_attributehelper->getProductSize($_product, true);
+$attributeSetId = $_product->getAttributeSetId();
+
+
+$load_index = $_product->getResource()->getAttribute("load_index")->getFrontend()->getValue($_product);
+$speed_index = $_product->getResource()->getAttribute("speed_index")->getFrontend()->getValue($_product);
+
+$origin = $_product->getResource()->getAttribute("manufacturer")->getFrontend()->getValue($_product);
+$manufactoryYear = $_product->getResource()->getAttribute("year")->getFrontend()->getValue($_product);
+$treadware = $_product->getResource()->getAttribute("treadwear")->getFrontend()->getValue($_product);
+$traction = $_product->getResource()->getAttribute("traction")->getFrontend()->getValue($_product);
+$temperature = $_product->getResource()->getAttribute("temperature")->getFrontend()->getValue($_product);
+$warranty_period = $_product->getResource()->getAttribute("warranty_period")->getFrontend()->getValue($_product);
+$sku = $_product->getResource()->getAttribute("sku")->getFrontend()->getValue($_product);
+
+$showAutoParts = 0;
+$autopartsCategories = array(7, 8, 37, 38, 49);
+$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+$categoryCollection = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+$product = $productRepository->getById($_product->getId());
+$categoryIds = $product->getCategoryIds();
+$categories = $categoryCollection->create()
+	->addAttributeToSelect('*')
+	->addAttributeToFilter('entity_id', $categoryIds);
+$cateName = array();
+$cateIds = array();
+foreach ($categories as $category) {
+	$cateName[] = $category->getName();
+	$cateIds[] = $category->getId();
+}
+if (!empty(array_intersect($autopartsCategories, $cateIds))) {
+	$showAutoParts = 1;
+}
+
+$isTyre = false;
+if (($width != null && $width != 'No') || ($profile != null && $profile != 'None') || ($diameter != null && $diameter != 'No')) {
+	$isTyre = true;
+}
+$fuel_efficiency = $_product->getResource()->getAttribute("fuel_efficiency")->getFrontend()->getValue($_product);
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$wet_grip = $_product->getResource()->getAttribute("wet_grip")->getFrontend()->getValue($_product);
+$noise_levels = $_product->getResource()->getAttribute("noise_levels")->getFrontend()->getValue($_product);
+$youtubeLink = $_product->getResource()->getAttribute("youtube_link")->getFrontend()->getValue($_product);
+$frontvehicleicon = $_product->getResource()->getAttribute("vehicle")->getFrontend()->getValue($_product);
+
+$autoparts_1 = '';
+$autoparts_2 = '';
+$autoparts_3 = '';
+
+$autoparts_1 = $_product->getResource()->getAttribute("auto_parts_warranty_1")->getFrontend()->getValue($_product);
+$autoparts_2 = $_product->getResource()->getAttribute("auto_parts_warranty_2")->getFrontend()->getValue($_product);
+$autoparts_3 = $_product->getResource()->getAttribute("auto_parts_warranty_terms")->getFrontend()->getValue($_product);
+
+$auto_parts_inc1 = $_product->getResource()->getAttribute("auto_parts_installation_1")->getFrontend()->getValue($_product);
+$auto_parts_inc2 = $_product->getResource()->getAttribute("auto_parts_installation_2")->getFrontend()->getValue($_product);
+
+$article_number_org  = $_product->getResource()->getAttribute("article_number_org")->getFrontend()->getValue($_product);
+
+$autoPartsAttr = 0;
+if ($parts_category == 'Battery' || $parts_category == 'Brake Pads' || $parts_category == 'Brake Discs' || $parts_category == 'Sensor' || $parts_category == 'Oil Filter' || $parts_category == 'Lubricants' || $parts_category == 'Wheel Protector') {
+	$autoPartsAttr = 1;
+}
+
+$isAnyRuleExist = $AnyRuleExist = $listingHelper->isAnyRuleExist($_product);
+$set4price = $listingHelper->getSet4price($_product);
+$set1price = $listingHelper->getSet1price($_product);
+$set2price = $listingHelper->getSet2price($_product);
+$productpriceWC = $listingHelper->getSet1priceWithoutCurrency($_product);
+$tabbyMethodAvailable = $_product->getResource()->getAttribute("tabby_method")->getFrontend()->getValue($_product);
+
+$tabby_method_class = '';
+$notaabbyinstallerclass = '';
+$set4PriceNumberOnly = str_replace(',', '', $set4price);
+
+if ($parts_category == 'Bicycle Tyres') {
+	$set4PriceNumberOnly = str_replace(',', '', $set1price);
+}
+
+if ($tabbyMethodAvailable == 'No' || $set4PriceNumberOnly <= $tabbyfourday || $set4PriceNumberOnly >= $tabbyinstallmentmaxvalue) {
+	$notaabbyinstallerclass = 'hidetabbyinstaller';
+	$tabby_method_class = 'no-tabby';
+}
+
+$stockQty = 0;
+$prod_qty =  $listingHelper->getSalebleQty($_product->getEntityId());
+$isInStock = $StockRegistry->getProductStockStatus($_product->getEntityId());
+if ($prod_qty >= 8) {
+	$stockQty = 8;
+} else {
+	$stockQty = $prod_qty;
+}
+
+$borderColor = "";
+$bkgColor = "";
+$strikePriceClass = '';
+$offer_price = '';
+if (count($isAnyRuleExist) > 0) {
+	$borderColor = 'border:2px solid ' . $isAnyRuleExist[4];
+	$bkgColor = 'background-color: ' . $isAnyRuleExist[4];
+
+	if ($isAnyRuleExist[6] > 3 && $isAnyRuleExist[5] > 0) {
+		$strikePriceClass = 'strike-price';
+	}
+}
+
+$ruleDiscountPrice = '';
+$ruleDiscountAmount = '';
+if ($ruleDiscount > 0) {
+	$strikePriceClass = 'strike-price';
+	$ruleDiscountAmount = $listingHelper->getVatIncPrice($ruleDiscount);
+	$ruleDiscountPrice = $set4price - $ruleDiscountAmount;
+}
+
+$swatchHelper = $objectManager->get('Magento\Swatches\Helper\Data');
+//$color_code ="wheel_protector_color"; 
+if ($_product->getId() == 6973) {
+	$color_code = "alignment_car_type";
+} else {
+	$color_code = "wheel_protector_color";
+}
+$defaultSelected = array();
+$outOfStockPhone = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('hdweb/general/call_us_contact');
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+$outputHelper = $this->helper('Magento\Catalog\Helper\Output');
+$brandImg = '';
+$brand_title = '';
+if ($_product->getMgsBrand()) {
+	$brand = $outputHelper->productAttribute($_product, $_product->getMgsBrand(), 'mgs_brand');
+	$brandDetails = $listingHelper->getBrandDetails($brand);
+	$brandImg = $listingHelper->getBrandImageUrl($brandDetails);
+	$brand_title = $brandDetails->getName();
+}
+
+$httprequest = $objectManager->get('\Magento\Framework\App\Request\Http');
+$nibbleAutoOpen = $httprequest->getParam('auto_open');
+
+$oem_tyres = $_product->getResource()->getAttribute("oem_tyres")->getFrontend()->getValue($_product);
+$nibbleAPIKey = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('hdwebapi/general/nibble_apikey');
+$nibbleAPISecretKey = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('hdwebapi/general/nibble_api_secretkey');
+
+$isBicycleCat = 0;
+if (in_array(629, $categoryIds)) {
+	$isBicycleCat = 1;
+}
+$bicycle_category = $_product->getResource()->getAttribute("bicycle_category")->getFrontend()->getValue($_product);
+$bicycle_prefomace = $_product->getResource()->getAttribute("bicycle_prefomace")->getFrontend()->getValue($_product);
+$bicycleColour = $_product->getResource()->getAttribute("colour")->getFrontend()->getValue($_product);
+$tyre_bead = $_product->getResource()->getAttribute("tyre_bead")->getFrontend()->getValue($_product);
+$wheel_size = $_product->getResource()->getAttribute("wheel_size")->getFrontend()->getValue($_product);
+$hideaddtocart = $_product->getResource()->getAttribute("hideaddtocart")->getFrontend()->getValue($_product);
+$rating = $_product->getResource()->getAttribute("star_rating")->getFrontend()->getValue($_product);
+$reviewsNumber = $_product->getResource()->getAttribute("reviews_number")->getFrontend()->getValue($_product);
+
+$regularPricewithoutVat = $_product->getPrice();
+$regularPrice = $listingHelper->getVatIncPrice($regularPricewithoutVat);
+$specialfromdate = $_product->getSpecialFromDate();
+$specialtodate = $_product->getSpecialToDate();
+$today = time();
+$specialprice = $_product->getSpecialPrice();
+$hasSpecialPrice = '';
+if ($specialprice)
+	if ($specialprice < $regularPricewithoutVat) {
+		if ((is_null($specialfromdate) && is_null($specialtodate)) || ($today >= strtotime($specialfromdate) && is_null($specialtodate)) || ($today <= strtotime($specialtodate) && is_null($specialfromdate)) || ($today >= strtotime($specialfromdate) && $today <= strtotime($specialtodate))) {
+			$hasSpecialPrice = 1;
+		}
+	}
+$showPrice = 0;
+if ($regularPricewithoutVat > 0) {
+	$showPrice = 1;
+}
+if ($parts_category == 'Wheel Protector') {
+	$showPrice = 1;
+}
+?>
+<div class="products product-add-cart d-none d-lg-block">
+	<div class="product-addcart-wrap d-flex h-100 flex-wrap position-relative">
+		<div class="w-100">
+			<div class="product-addcart regular-product-list tyres-productset4">
+				<div class="stoke-status">
+					<?php if ($_product->getIsSalable() && $hideaddtocart == __('No')) : ?>
+						<span class="instoke"><?php echo __('In Stock'); ?></span>
+					<?php else : ?>
+						<span class="outstoke"><?php echo __('Call Us'); ?></span>
+					<?php endif; ?>
+				</div>
+				<div class="product-price d-flex flex-wrap h-100">
+					<?php if ($showPrice) : ?>
+						<div class="product-price-content d-flex flex-wrap w-100 align-self-end align-items-center">
+							<?php if ($parts_category == 'Tyres') : //start for Tyres 
+							?>
+								<?php if ($parts_category == 'Bicycle Tyres') : ?>
+									<?php if ($hasSpecialPrice) : ?>
+										<div class="price strike-price-main">
+											<sub class="aed"><?php echo __($currency) ?></sub>
+											<strong class="special-price"><?php echo $regularPrice; ?></strong>
+										</div>
+									<?php endif; ?>
+									<div class="price sale set2price">
+										<sub class="aed"><?php echo __($currency) ?></sub>
+										<strong class="single-tyre-price"><?php echo number_format($set1price, 2); ?></strong>
+										<span><?php echo __($perItem); ?></span>
+									</div>
+									<div class="price set1price">
+										<sub class="aed"><?php echo __($currency) ?></sub>
+										<strong class="settwoprice"><?php echo number_format($set2price, 2); ?></strong>
+										<span class="set2"><?php echo __('set of 2'); ?></span>
+									</div>
+								<?php else : ?>
+									<?php if ($hasSpecialPrice) : ?>
+										<div class="price strike-price-main">
+											<sub class="aed"><?php echo __($currency) ?></sub>
+											<strong class="special-price"><?php echo $regularPrice; ?></strong>
+										</div>
+									<?php endif; ?>
+									<div class="price sale set2price">
+										<sub class="aed"><?php echo __($currency) ?></sub>
+										<strong class="single-tyre-price"><?php echo number_format($set1price, 2); ?></strong>
+									</div>
+									<div class="w-100"></div>
+									<?php if (!empty($isAnyRuleExist[7])) : ?>
+										<div class="price set4price <?php echo $strikePriceClass; ?>">
+											<span class="set2"><?php echo __('Set of 4') . ':'; ?></span>
+											<sub class="aed"><?php echo __($currency) ?> </sub>
+											<strong class="setfourprice"><?php echo number_format($set4price, 2); ?></strong>
+										</div>
+										<div class="price set2price">
+											<span class="set2" style="display: none;"><?php echo __('Set of 4') . ':'; ?></span>
+											<sub class="aed"><?php echo __($currency) ?></sub>
+											<strong class="settwoprice"><?php echo number_format($isAnyRuleExist[7], 2); ?></strong>
+										</div>
+									<?php else : ?>
+										<?php if ($ruleDiscountPrice) : ?>
+											<div class="price sale set4price <?php echo $strikePriceClass; ?>">
+												<span class="set4"><?php echo __('Set of 4') . ':'; ?></span>
+												<sub class="aed"><?php echo __($currency) ?> </sub>
+												<strong class="setfourprice"><?php echo number_format($set4price, 2); ?></strong>
+											</div>
+											<div class="price set2price">
+												<span class="set2" style="display: none;"><?php echo __('Set of 4') . ':'; ?></span>
+												<sub class="aed"><?php echo __($currency) ?></sub>
+												<strong class="settwoprice"><?php echo number_format($ruleDiscountPrice, 2); ?></strong>
+											</div>
+										<?php else : ?>
+											<div class="price set4price <?php echo $strikePriceClass; ?>" style="display: none;">
+												<span class="set4"><?php echo __('Set of 4') . ':'; ?></span>
+												<sub class="aed"><?php echo __($currency) ?> </sub>
+												<strong class="setfourprice"><?php echo number_format($set4price, 2); ?></strong>
+											</div>
+											<div class="price set2price" style="display: block;">
+												<span class="set2"><?php echo __('Set of 1') . ':'; ?></span>
+												<sub class="aed"><?php echo __($currency) ?></sub>
+												<strong class="settwoprice"><?php echo number_format($set1price, 2); ?></strong>
+											</div>
+										<?php endif; ?>
+									<?php endif; ?>
+								<?php endif; ?>
+							<?php else : ?>
+								<?php if ($hasSpecialPrice) : ?>
+									<div class="price strike-price">
+										<sub class="aed"><?php echo __($currency) ?></sub>
+										<strong class="special-price"><?php echo $regularPrice; ?></strong>
+									</div>
+								<?php endif; ?>
+								<div class="price w-100 sale set2price">
+									<sub class="aed"><?php echo __($currency) ?></sub>
+									<strong class="single-tyre-price"><?php echo number_format($set1price, 2); ?></strong>
+									<span class="per-item"><?php echo __($perItem); ?></span>
+								</div>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+				<?php if ($autoPartsAttr == 1) : ?>
+					<div class="auto-parts-warranty">
+						<span>
+							<?php echo __($auto_parts_inc1); ?><br>
+							<?php echo __($auto_parts_inc2); ?>
+						</span>
+					</div>
+				<?php endif; ?>
+				<div class="info-text">
+					<span><?php echo __('All prices include VAT'); ?></span>
+				</div>
+				<?php if ($warranty_workmanship_mat) : ?>
+					<div class="offer-text">
+						<span><?php echo __($warranty_workmanship_mat); ?></span>
+					</div>
+				<?php endif; ?>
+				<?php if ($parts_category == 'Bicycle Tyres' && $wheel_size != '') : ?>
+					<div class="related-bicycle">
+						<div class="current-wheel-size">
+							<span><?php echo __('Size: '); ?></span>
+							<span><?php echo $wheel_size; ?></span>
+						</div>
+
+						<?php
+						$bicyclePatternId = $_product->getPattern();
+						$bicyclePatternProducts = $objectManager->create('Hdweb\Rfc\Helper\Data')->getBicyclePatternProducts($bicyclePatternId, $_product->getId());
+						?>
+						<?php if ($bicyclePatternProducts->count() > 0) : ?>
+							<ul class="list-custom d-none align-items-center">
+								<li class="active">
+									<a href="<?php echo $this->getBaseUrl() . $_product->getUrlKey() . '.html'; ?>">
+										<?php echo $wheel_size; ?>
+									</a>
+								</li>
+								<?php foreach ($bicyclePatternProducts as $bicyclePatternProduct) : ?>
+									<?php
+									$wheelSize =  $objectManager->create('Hdweb\Rfc\Helper\Data')->getOptionLabelByValue('wheel_size', $bicyclePatternProduct->getWheelSize());
+									?>
+									<li>
+										<a href="<?php echo $this->getBaseUrl() . $bicyclePatternProduct->getUrlKey() . '.html'; ?>">
+											<?php echo $wheelSize; ?>
+										</a>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+				<div class="cart-qty-wrap">
+					<?php if ($_product->getIsSalable() && $hideaddtocart == __('No') && $showPrice && $stockQty >= 4) : ?>
+						<?php $postParamsProductBlock = $block->getLayout()->createBlock('\Magento\CatalogWidget\Block\Product\ProductsList'); ?>
+						<?php $postParams = $postParamsProductBlock->getAddToCartPostParams($_product); ?>
+						<?php $addtocartUrl = $postParams['action']; ?>
+						<?php if ($parts_category == 'Lubricants' && $_product->getHasOptions()) {
+							$cartHelper = $objectManager->get('Magento\Checkout\Helper\Cart');
+							$addtocartUrl = $cartHelper->getAddUrl($_product);
+						} ?>
+						<?php if ($_product->getTypeId() != 'configurable') { ?>
+							<form data-product-sku="<?php echo $_product->getSku(); ?>" action="<?php echo $addtocartUrl; ?>" method="post" id="product_addtocart_form" class="tyro_cart_box h-100" novalidate="novalidate">
+								<input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
+								<input type="hidden" name="selected_configurable_option" value="">
+								<input type="hidden" name="related_product" id="related-products-field" value="">
+								<input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+								<input type="hidden" name="item" value="<?php echo $postParams['data']['product']; ?>">
+								<?php echo $block->getBlockHtml('formkey') ?>
+								<div class="quantity-buy-section">
+									<?php if ($_product->getIsSalable() && $hideaddtocart == __('No') && $showPrice && $stockQty >= 4) : ?>
+										<?php if ($parts_category == 'Lubricants' && $_product->getHasOptions()) : ?>
+											<?php $customOptions = $objectManager->get('Magento\Catalog\Model\Product\Option')->getProductOptionCollection($_product);
+											$optionId = array();
+											foreach ($customOptions->getData() as $o) {
+												$optionId = $o['option_id'];
+											}
+											?>
+											<?php if ($optionId != '') : ?>
+												<div class="lubricants-options">
+													<label class="label" for="select_<?php echo $optionId; ?>">
+														<span><?php echo __('Litre'); ?> <span class="sub text-danger">*</span></span>
+													</label>
+													<select name="options[<?php echo $optionId; ?>]" id="select_<?php echo $optionId; ?>" class="required product-custom-option admin__control-select select2-qty-search" title="" data-selector="options[<?php echo $optionId; ?>]" aria-required="true">
+														<?php foreach ($customOptions as $optionKey => $optionVal) { ?>
+															<?php foreach ($optionVal->getValues() as $valuesKey => $valuesVal) { ?>
+																<option value="<?php echo $valuesVal->getId(); ?>" price="<?php echo $valuesVal->getPrice(); ?>"><?php echo $valuesVal->getTitle(); ?></option>
+															<?php } ?>
+														<?php } ?>
+													</select>
+												</div>
+											<?php endif; ?>
+										<?php endif; ?>
+										<?php if ($parts_category != 'Lubricants') : ?>
+											<div class="qty-selection">
+												<?php
+												$defaultQty = 4;
+												if ($parts_category == 'Bicycle Tyres') {
+													$defaultQty = 1;
+												} elseif (count($AnyRuleExist) > 0 && $AnyRuleExist[6] > 3) {
+													$defaultQty = 1;
+												}
+												?>
+												<button type="button" class="qty-btn minus">
+													<img src="<?php echo $mediaUrl . 'images/icon/quantity-minus.svg' ?>" alt="minus" class="product-icon">
+												</button>
+												<input name="qty" class="qty-input" value="<?php echo $defaultQty; ?>" data-unitprice="<?= $productpriceWC ?>" <?php echo ($ruleDiscountAmount) ? "data-rule-discount=" . $ruleDiscountAmount   :  ""; ?> <?php echo (count($AnyRuleExist) > 0 && $AnyRuleExist[6] >= 2) ? "data-discountqty=" . $AnyRuleExist[5]   :  "";  ?> <?php echo (count($AnyRuleExist) > 0 && $AnyRuleExist[6] >= 2) ? "data-totalqty=" . $AnyRuleExist[6] : "";  ?> data-istabby="<?php echo $tabbyMethodAvailable; ?>" data-partscat="<?php echo $parts_category; ?>" data-stockqty="<?php echo $stockQty ?>" data-minqty="1" data-maxqty="<?php echo $stockQty ?>" readonly></input>
+												<button type="button" class="qty-btn plus" <?php echo ($stockQty == 4) ? "style='opacity: 0.2;' disabled" : ""; ?>>
+													<img src="<?php echo $mediaUrl . 'images/icon/quantity-plus.svg' ?>" alt="plus" class="product-icon">
+												</button>
+											</div>
+										<?php endif; ?>
+										<div class="buy-button">
+											<button type="submit" class="btn tocart btn-buy"><?php echo __('Buy'); ?></button>
+										</div>
+									<?php else : ?>
+										<div class="call-us-wrap d-flex justify-content-center">
+											<div class="call-us-qty">
+												<a href="tel:<?php echo $outOfStockPhone; ?>" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
+													<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+														<path d="M13.5098 16.8124C12.7854 16.8124 11.7679 16.5504 10.2442 15.6991C8.39129 14.6601 6.95812 13.7008 5.11527 11.8628C3.33847 10.0871 2.47383 8.93742 1.26369 6.73535C-0.10342 4.24902 0.129627 2.94574 0.390135 2.38873C0.70037 1.72299 1.1583 1.3248 1.75019 0.929587C2.08639 0.709319 2.44216 0.5205 2.81301 0.365525C2.85012 0.349568 2.88463 0.334353 2.91543 0.320623C3.09912 0.237869 3.37744 0.11281 3.72998 0.246404C3.96525 0.334724 4.17529 0.515447 4.50408 0.840154C5.17836 1.50515 6.09978 2.98619 6.43971 3.71353C6.66793 4.20375 6.81896 4.52734 6.81933 4.89027C6.81933 5.31517 6.60559 5.64285 6.34619 5.9965C6.29758 6.06293 6.24933 6.12638 6.20258 6.18799C5.92017 6.55908 5.8582 6.66633 5.89902 6.85781C5.98178 7.24263 6.59891 8.3882 7.6131 9.40017C8.6273 10.4121 9.73984 10.9903 10.1262 11.0727C10.3258 11.1154 10.4353 11.0508 10.8182 10.7584C10.8732 10.7164 10.9296 10.673 10.9886 10.6296C11.3842 10.3353 11.6966 10.1271 12.1115 10.1271H12.1137C12.4748 10.1271 12.7839 10.2837 13.296 10.542C13.964 10.879 15.4896 11.7885 16.1587 12.4636C16.4841 12.7916 16.6656 13.0009 16.7543 13.2358C16.8879 13.5895 16.7621 13.8667 16.68 14.0522C16.6663 14.083 16.6511 14.1168 16.6351 14.1543C16.4789 14.5244 16.289 14.8795 16.0677 15.2148C15.6733 15.8049 15.2736 16.2617 14.6064 16.5723C14.2638 16.7344 13.8888 16.8165 13.5098 16.8124Z" fill="white" />
+													</svg>
+													<span><?php echo __('Call us') ?></span>
+												</a>
+											</div>
+											<div class="whatsapp-qty">
+												<a href="https://api.whatsapp.com/send?phone=97180025589737&text=Hello%20Tyres%20Online" target="_blank" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
+													<span><?php echo __('Call on Whatsapp') ?></span>
+													<img src="<?= $block->getViewFileUrl('images/icon/whatsapp-colored.svg'); ?>" alt="<?php echo __('Whats App'); ?>" />
+												</a>
+											</div>
+										</div>
+									<?php endif; ?>
+									<?php if (count($defaultSelected) > 0) : ?>
+										<input type="hidden" id="select-product-id-<?php echo $_product->getId(); ?>" name="serviceproduct[]" value="<?php echo $defaultSelected[0]; ?>">
+									<?php endif; ?>
+								</div>
+							</form>
+						<?php } else { ?>
+							<form data-role="tocart-form" data-product-sku="<?php echo $_product->getSku(); ?>" action="<?php echo $block->getUrl('oilservice/index/addservicetocart'); ?>" method="post">
+								<input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
+								<input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+								<input type="hidden" name="item" value="<?php echo $postParams['data']['product']; ?>">
+								<?php echo $block->getBlockHtml('formkey') ?>
+								<div class="qty-cart-width">
+									<div class="row g-3 gy-0 justify-content-center justify-content-md-start">
+										<div class="qty-selection col-4">
+											<select name="qty" class="select2-qty w-100 select_qty" data-unitprice="<?= $productpriceWC ?>" <?php echo (count($AnyRuleExist) > 0) ? "data-discountqty=" . $AnyRuleExist[5]   :  "";  ?> <?php echo (count($AnyRuleExist) > 0) ? "data-totalqty=" . $AnyRuleExist[6] : "";  ?> data-istabby="<?php echo $tabbyMethodAvailable; ?>" data-partscat="<?php echo $parts_category; ?>">
+												<option value="1" selected="">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+											</select>
+										</div>
+										<div class="add-to-cart col-8 align-self-end">
+											<button type="submit" class="button filled-slide-up button-primary-grey text-uppercase action"><span><?php echo __('Add To Cart'); ?></span></button>
+										</div>
+									</div>
+								</div>
+								<?php if (count($defaultSelected) > 0) : ?>
+									<input type="hidden" id="select-product-id-<?php echo $_product->getId(); ?>" name="serviceproduct[]" value="<?php echo $defaultSelected[0]; ?>">
+								<?php endif; ?>
+							</form>
+						<?php } ?>
+						<?php if ($_product->getIsNegotiate() && $storeManager->getStore()->getCode() == 'en') : ?>
+							<nibble-button api-key="<?php echo $nibbleAPIKey; ?>" product-id="<?php echo $_product->getId(); ?>" <?php if ($nibbleAutoOpen) : ?> auto-open="true" <?php endif; ?>></nibble-button>
+						<?php endif; ?>
+					<?php else : ?>
+						<div class="d-flex">
+							<div class="call-us-qty">
+								<a href="tel:<?php echo $outOfStockPhone; ?>" class="button custom-size button-primary-100 button-rounded filled-slide-up"><span><?php echo __('Call Us'); ?></span></a>
+							</div>
+							<div class="whatsapp-qty">
+								<a href="https://api.whatsapp.com/send?phone=97180025589737&text=Hello%20Tyres%20Online" target="_blank" class="button custom-size button-primary-100 button-rounded filled-slide-up">
+									<span>
+										<img src="<?= $block->getViewFileUrl('images/icon/whatsapp-colored.svg'); ?>" alt="<?php echo __('WhatsApp'); ?>" />
+									</span>
+									<span><?php echo __('WhatsApp') ?></span>
+								</a>
+							</div>
+						</div>
+					<?php endif; ?>
+				</div>
+				<?php /* Start for customer group inquiry */ ?>
+				<?php
+				$httpContext = $objectManager->get(\Magento\Framework\App\Http\Context::class);
+				$customerGroupId = (int) $httpContext->getValue(\Magento\Customer\Model\Context::CONTEXT_GROUP);
+				$customerGroupName = $listingHelper->getCustomerGroupName($customerGroupId);
+				?>
+				<?php if ($customerGroupName == 'TyresOnline') : ?>
+					<?php
+					$params = $this->getRequest()->getParams();
+					$inquiryTyreSize = '';
+					if ($size) {
+						$inquiryTyreSize = $size;
+					}
+					?>
+					<span class="inquiry-sticky-button" title="<?php echo __('Inquiry'); ?>" data-bs-toggle="modal" data-bs-target="#customerGroupInquiryModal">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+							<path d="M447.1 0h-384c-35.25 0-64 28.75-64 63.1v287.1c0 35.25 28.75 63.1 64 63.1h96v83.1c0 9.838 11.03 15.55 19.12 9.7l124.9-93.7h144c35.25 0 64-28.75 64-63.1V63.1C511.1 28.75 483.2 0 447.1 0zM480 352c0 17.6-14.4 32-32 32h-144.1c-6.928 0-13.67 2.248-19.21 6.406L192 460v-60c0-8.838-7.164-16-16-16H64c-17.6 0-32-14.4-32-32V64c0-17.6 14.4-32 32-32h384c17.6 0 32 14.4 32 32V352zM345.5 109.1c-7.617-7.559-17.5-12.83-28.23-13.78c-13.24-1.172-25.9 3.414-35.16 12.59L157.9 232.1c-2.234 2.215-3.754 5.039-4.375 8.113L141.3 300.1c-2.234 11.11 7.633 20.91 18.83 18.68L221.3 307.5c3.094-.6133 5.938-2.125 8.172-4.344l123.1-122.2c7.617-7.555 12.92-17.37 13.87-28.02c1.168-13.14-3.457-25.7-12.71-34.88L345.5 109.1zM210.3 277.3L177.3 283.9l6.594-32.71l86.88-86.23l26.38 26.18L210.3 277.3zM331.1 157.4l-11.3 11.22l-26.38-26.18l11.31-11.22c4.688-4.645 12.28-4.652 16.97 .0039l9.41 9.336C335.8 145.2 335.8 152.8 331.1 157.4z" />
+						</svg>
+					</span>
+					<!-- Modal -->
+					<div class="modal fade" id="customerGroupInquiryModal" tabindex="-1" aria-labelledby="customerGroupInquiryModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered bs-custom-modal">
+							<div class="modal-content">
+								<div class="modal-title theme-bg">
+									<h5>Inquiry</h5>
+									<span class="close white" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+											<path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256L7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256L312.1 375z"></path>
+										</svg></span>
+								</div>
+								<div class="modal-body">
+									<div class="before-save">
+										<form class="form form theme-form-style4" id="customer-group-inquiry-modal-form" method="post" autocomplete="off">
+											<div class="row">
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+													<div class="form-group">
+														<label for="first-name" class="label">First Name <sup>*</sup></label>
+														<input type="text" name="firstname" id="first-name" value="" title="<?php echo __('First Name') ?>" class="input-text form-control" data-validate="{required:true}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+													<div class="form-group">
+														<label for="last-name" class="label">Last Name <sup>*</sup></label>
+														<input type="text" name="lastname" id="last-name" value="" title="<?php echo __('Last Name') ?>" class="input-text form-control" data-validate="{required:true}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+													<div class="form-group">
+														<label for="mobile-number" class="label">Mobile Number <sup>*</sup></label>
+														<input type="number" placeholder="5XXXXXXXX" name="mobile_number" id="mobile-number" value="" title="<?php echo __('Mobile Number') ?>" class="input-text form-control" data-validate='{"required":true, "minlength":9, "maxlength":9, "validate-number":1}'>
+													</div>
+												</div>
+												<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+													<div class="form-group">
+														<label for="tyre-size" class="label">Tyre Size <sup>*</sup></label>
+														<input type="text" name="tyre_size" id="tyre-size" value="<?php echo $inquiryTyreSize; ?>" title="<?php echo __('Tyre Size') ?>" class="input-text form-control" data-validate="{required:true}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+													<div class="form-group">
+														<label for="comment" class="label">Comment</label>
+														<textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="after-save hide">
+										<div class="alert alert-success text-center" role="alert"><?php echo __('Thank you for your inquiry. We will get back to you soon.') ?></div>
+									</div>
+								</div>
+								<div class="modal-footer justify-content-center">
+									<button type="button" class="button button-primary-200 button-rounded filled-slide-right fw-normal text-uppercase inquiry-post-btn"><span><?php echo __('Submit') ?></span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script type="text/javascript">
+						require([
+							"jquery",
+							"mage/mage"
+						], function($) {
+
+							var tyreSize = '<?php echo $inquiryTyreSize; ?>';
+							customerGroupInquiryModal.addEventListener('shown.bs.modal', function() {
+								$('.before-save').show();
+								$('.after-save').hide();
+								$('.inquiry-post-btn').show();
+							});
+							var customerGroupInquiryModalForm = $('#customer-group-inquiry-modal-form');
+							customerGroupInquiryModalForm.mage('validation', {});
+							$(document).ready(function() {
+								$(".inquiry-post-btn").on("click", function() {
+									if (customerGroupInquiryModalForm.validation('isValid')) {
+										$.ajax({
+											url: "<?php echo $this->getBaseUrl() . 'booking/index/savecustomergroupinquiry'; ?>",
+											method: 'POST',
+											data: customerGroupInquiryModalForm.serialize(),
+											success: function(response) {
+												if (response.status == 'success') {
+													$(':input', '#customer-group-inquiry-modal-form')
+														.not(':button, :submit, :reset, :hidden')
+														.each(function() {
+															if ($(this).attr('name') !== 'tyre_size' || tyreSize === '') {
+																$(this).val('');
+																if (this.type === 'checkbox' || this.type === 'radio') {
+																	$(this).prop('checked', false);
+																} else if (this.type === 'select-one' || this.type === 'select-multiple') {
+																	$(this).prop('selected', false);
+																}
+															}
+														});
+													$('.before-save').hide();
+													$('.after-save').show();
+													$('.inquiry-post-btn').hide();
+												} else {
+													// Handle other cases if needed
+												}
+											},
+											error: function() {
+												// Handle error cases if needed
+											}
+										});
+									} else {
+										console.log('form not valid');
+									}
+								});
+							});
+						});
+					</script>
+				<?php endif; ?>
+				<?php /* End for customer group inquiry */ ?>
+			</div>
+			<?php if (count($isAnyRuleExist) > 0 && $isAnyRuleExist[0]) : //if offer make col-md-5 
+			?>
+				<div class="offer-image">
+					<img src="<?php echo $mediaUrl . 'images/section/blank.png'; ?>" width="858px" height="158px" data-src="<?php echo $isAnyRuleExist[3] ?>" class="lazyload" alt="Offer">
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+<!-- Sticky add to cart -->
+<div class="addtocart-stickybar hover-transition">
+	<div class="container-fluid">
+		<div class="main-wrap d-flex align-items-center justify-content-center justify-content-xl-center">
+			<div class="left d-none">
+				<div class="d-flex align-items-center">
+					<div class="brand-logo d-md-none d-lg-block">
+						<img src="<?php echo $mediaUrl . 'images/section/blank.png'; ?>" width="307px" height="96px" data-src="<?php echo $brandImg; ?>" class="lazyload" alt="<?php echo $brand_title; ?>" />
+					</div>
+					<div class="product-name">
+						<span><?php echo $_product->getName(); ?></span>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<?php if ($_product->getIsSalable() && $hideaddtocart == __('No') && $showPrice && $stockQty >= 4) : ?>
+					<?php if ($_product->getTypeId() != 'configurable') : ?>
+						<div class="product-addcart regular-product-list tyres-productset4">
+							<div class="first">
+								<div class="stoke-status">
+									<?php if ($_product->getIsSalable() && $hideaddtocart == __('No')) : ?>
+										<span class="instoke"><?php echo __('In Stock'); ?></span>
+									<?php else : ?>
+										<span class="outstoke"><?php echo __('Call Us'); ?></span>
+									<?php endif; ?>
+								</div>
+								<div class="product-price d-flex flex-wrap">
+									<?php if ($showPrice) : ?>
+										<div class="product-price-content d-flex flex-wrap w-100 align-self-end align-items-center">
+											<?php if ($parts_category == 'Tyres') : //start for Tyres 
+											?>
+												<?php if ($parts_category == 'Bicycle Tyres') : ?>
+													<?php if ($hasSpecialPrice) : ?>
+														<div class="price strike-price-main">
+															<sub class="aed"><?php echo __($currency) ?></sub>
+															<strong class="special-price"><?php echo $regularPrice; ?></strong>
+														</div>
+													<?php endif; ?>
+													<div class="price sale set2price">
+														<sub class="aed"><?php echo __($currency) ?></sub>
+														<strong class="single-tyre-price"><?php echo number_format($set1price, 2); ?></strong>
+														<span><?php echo __($perItem); ?></span>
+													</div>
+													<div class="price set1price">
+														<sub class="aed"><?php echo __($currency) ?></sub>
+														<strong class="settwoprice"><?php echo number_format($set2price, 2); ?></strong>
+														<span class="set2"><?php echo __('set of 2'); ?></span>
+													</div>
+												<?php else : ?>
+													<?php if ($hasSpecialPrice) : ?>
+														<div class="price strike-price-main">
+															<sub class="aed"><?php echo __($currency) ?></sub>
+															<strong class="special-price"><?php echo $regularPrice; ?></strong>
+														</div>
+													<?php endif; ?>
+													<div class="price sale set2price">
+														<sub class="aed"><?php echo __($currency) ?></sub>
+														<strong class="single-tyre-price"><?php echo number_format($set1price, 2); ?></strong>
+													</div>
+													<div class="w-100"></div>
+													<?php if (!empty($isAnyRuleExist[7])) : ?>
+														<div class="price set4price <?php echo $strikePriceClass; ?>">
+															<span class="set2"><?php echo __('Set of 4') . ':'; ?></span>
+															<sub class="aed"><?php echo __($currency) ?> </sub>
+															<strong class="setfourprice"><?php echo number_format($set4price, 2); ?></strong>
+														</div>
+														<div class="price set2price">
+															<span class="set2" style="display: none;"><?php echo __('Set of 4') . ':'; ?></span>
+															<sub class="aed"><?php echo __($currency) ?></sub>
+															<strong class="settwoprice"><?php echo number_format($isAnyRuleExist[7], 2); ?></strong>
+														</div>
+													<?php else : ?>
+														<?php if ($ruleDiscountPrice) : ?>
+															<div class="price sale set4price <?php echo $strikePriceClass; ?>">
+																<span class="set4"><?php echo __('Set of 4') . ':'; ?></span>
+																<sub class="aed"><?php echo __($currency) ?> </sub>
+																<strong class="setfourprice"><?php echo number_format($set4price, 2); ?></strong>
+															</div>
+															<div class="price set2price">
+																<span class="set2" style="display: none;"><?php echo __('Set of 4') . ':'; ?></span>
+																<sub class="aed"><?php echo __($currency) ?></sub>
+																<strong class="settwoprice"><?php echo number_format($ruleDiscountPrice, 2); ?></strong>
+															</div>
+														<?php else : ?>
+															<div class="price set4price <?php echo $strikePriceClass; ?>" style="display: none;">
+																<span class="set4"><?php echo __('Set of 4') . ':'; ?></span>
+																<sub class="aed"><?php echo __($currency) ?> </sub>
+																<strong class="setfourprice"><?php echo number_format($set4price, 2); ?></strong>
+															</div>
+															<div class="price set2price" style="display: block;">
+																<span class="set2"><?php echo __('Set of 1') . ':'; ?></span>
+																<sub class="aed"><?php echo __($currency) ?></sub>
+																<strong class="settwoprice"><?php echo number_format($set1price, 2); ?></strong>
+															</div>
+														<?php endif; ?>
+													<?php endif; ?>
+												<?php endif; ?>
+											<?php else : ?>
+												<?php if ($hasSpecialPrice) : ?>
+													<div class="price strike-price">
+														<sub class="aed"><?php echo __($currency) ?></sub>
+														<strong class="special-price"><?php echo $regularPrice; ?></strong>
+													</div>
+												<?php endif; ?>
+												<div class="price w-100 sale set2price">
+													<sub class="aed"><?php echo __($currency) ?></sub>
+													<strong class="single-tyre-price"><?php echo number_format($set1price, 2); ?></strong>
+													<span class="per-item"><?php echo __($perItem); ?></span>
+												</div>
+											<?php endif; ?>
+										</div>
+									<?php endif; ?>
+								</div>
+								<?php if ($autoPartsAttr == 1) : ?>
+									<div class="auto-parts-warranty">
+										<span>
+											<?php echo __($auto_parts_inc1); ?><br>
+											<?php echo __($auto_parts_inc2); ?>
+										</span>
+									</div>
+								<?php endif; ?>
+								<?php if ($warranty_workmanship_mat) : ?>
+									<div class="offer-text">
+										<span><?php echo __($warranty_workmanship_mat); ?></span>
+									</div>
+								<?php endif; ?>
+								<?php if ($parts_category == 'Bicycle Tyres' && $wheel_size != '') : ?>
+									<div class="related-bicycle">
+										<div class="current-wheel-size">
+											<span><?php echo __('Size: '); ?></span>
+											<span><?php echo $wheel_size; ?></span>
+										</div>
+
+										<?php
+										$bicyclePatternId = $_product->getPattern();
+										$bicyclePatternProducts = $objectManager->create('Hdweb\Rfc\Helper\Data')->getBicyclePatternProducts($bicyclePatternId, $_product->getId());
+										?>
+										<?php if ($bicyclePatternProducts->count() > 0) : ?>
+											<ul class="list-custom d-none align-items-center">
+												<li class="active">
+													<a href="<?php echo $this->getBaseUrl() . $_product->getUrlKey() . '.html'; ?>">
+														<?php echo $wheel_size; ?>
+													</a>
+												</li>
+												<?php foreach ($bicyclePatternProducts as $bicyclePatternProduct) : ?>
+													<?php
+													$wheelSize =  $objectManager->create('Hdweb\Rfc\Helper\Data')->getOptionLabelByValue('wheel_size', $bicyclePatternProduct->getWheelSize());
+													?>
+													<li>
+														<a href="<?php echo $this->getBaseUrl() . $bicyclePatternProduct->getUrlKey() . '.html'; ?>">
+															<?php echo $wheelSize; ?>
+														</a>
+													</li>
+												<?php endforeach; ?>
+											</ul>
+										<?php endif; ?>
+									</div>
+								<?php endif; ?>
+							</div>
+							<div class="second">
+								<div class="cart-qty-wrap">
+									<?php if ($_product->getIsSalable() && $hideaddtocart == __('No') && $showPrice && $stockQty >= 4) : ?>
+										<?php $postParamsProductBlock = $block->getLayout()->createBlock('\Magento\CatalogWidget\Block\Product\ProductsList'); ?>
+										<?php $postParams = $postParamsProductBlock->getAddToCartPostParams($_product); ?>
+										<?php $addtocartUrl = $postParams['action']; ?>
+										<?php if ($parts_category == 'Lubricants' && $_product->getHasOptions()) {
+											$cartHelper = $objectManager->get('Magento\Checkout\Helper\Cart');
+											$addtocartUrl = $cartHelper->getAddUrl($_product);
+										} ?>
+										<?php if ($_product->getTypeId() != 'configurable') { ?>
+											<form data-product-sku="<?php echo $_product->getSku(); ?>" action="<?php echo $addtocartUrl; ?>" method="post" id="product_addtocart_form_btm" class="tyro_cart_box h-100" novalidate="novalidate">
+												<input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
+												<input type="hidden" name="selected_configurable_option" value="">
+												<input type="hidden" name="related_product" id="related-products-field" value="">
+												<input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+												<input type="hidden" name="item" value="<?php echo $postParams['data']['product']; ?>">
+												<?php echo $block->getBlockHtml('formkey') ?>
+												<div class="quantity-buy-section">
+													<?php if ($_product->getIsSalable() && $hideaddtocart == __('No') && $showPrice && $stockQty >= 4) : ?>
+														<?php if ($parts_category == 'Lubricants' && $_product->getHasOptions()) : ?>
+															<?php $customOptions = $objectManager->get('Magento\Catalog\Model\Product\Option')->getProductOptionCollection($_product);
+															$optionId = array();
+															foreach ($customOptions->getData() as $o) {
+																$optionId = $o['option_id'];
+															}
+															?>
+															<?php if ($optionId != '') : ?>
+																<div class="lubricants-options">
+																	<label class="label" for="select_<?php echo $optionId; ?>">
+																		<span><?php echo __('Litre'); ?> <span class="sub text-danger">*</span></span>
+																	</label>
+																	<select name="options[<?php echo $optionId; ?>]" id="select_<?php echo $optionId; ?>" class="required product-custom-option admin__control-select select2-qty-search" title="" data-selector="options[<?php echo $optionId; ?>]" aria-required="true">
+																		<?php foreach ($customOptions as $optionKey => $optionVal) { ?>
+																			<?php foreach ($optionVal->getValues() as $valuesKey => $valuesVal) { ?>
+																				<option value="<?php echo $valuesVal->getId(); ?>" price="<?php echo $valuesVal->getPrice(); ?>"><?php echo $valuesVal->getTitle(); ?></option>
+																			<?php } ?>
+																		<?php } ?>
+																	</select>
+																</div>
+															<?php endif; ?>
+														<?php endif; ?>
+														<?php if ($parts_category != 'Lubricants') : ?>
+														<div class="qty-selection">
+															<button type="button" class="qty-btn minus">
+																<img src="<?php echo $mediaUrl . 'images/icon/quantity-minus.svg' ?>" alt="minus" class="product-icon">
+															</button>
+															<?php
+															$defaultQty = 4;
+															if ($parts_category == 'Bicycle Tyres') {
+																$defaultQty = 1;
+															} elseif (count($AnyRuleExist) > 0 && $AnyRuleExist[6] > 3) {
+																$defaultQty = 1;
+															}
+															?>
+															<input name="qty" class="qty-input" value="<?php echo $defaultQty; ?>" data-unitprice="<?= $productpriceWC ?>" <?php echo ($ruleDiscountAmount) ? "data-rule-discount=" . $ruleDiscountAmount   :  ""; ?> <?php echo (count($AnyRuleExist) > 0 && $AnyRuleExist[6] >= 2) ? "data-discountqty=" . $AnyRuleExist[5]   :  "";  ?> <?php echo (count($AnyRuleExist) > 0 && $AnyRuleExist[6] >= 2) ? "data-totalqty=" . $AnyRuleExist[6] : "";  ?> data-istabby="<?php echo $tabbyMethodAvailable; ?>" data-partscat="<?php echo $parts_category; ?>" data-stockqty="<?php echo $stockQty ?>" data-minqty="1" data-maxqty="<?php echo $stockQty ?>" readonly></input>
+															<button type="button" class="qty-btn plus" <?php echo ($stockQty == 4) ? "style='opacity: 0.2;' disabled" : ""; ?>>
+																<img src="<?php echo $mediaUrl . 'images/icon/quantity-plus.svg' ?>" alt="plus" class="product-icon">
+															</button>
+														</div>
+														<?php endif; ?>
+														<div class="buy-button">
+															<button type="submit" class="btn tocart btn-buy"><?php echo __('Buy'); ?></button>
+														</div>
+													<?php else : ?>
+														<div class="call-us-wrap d-flex justify-content-center">
+															<div class="call-us-qty">
+																<a href="tel:<?php echo $outOfStockPhone; ?>" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+																		<path d="M13.5098 16.8124C12.7854 16.8124 11.7679 16.5504 10.2442 15.6991C8.39129 14.6601 6.95812 13.7008 5.11527 11.8628C3.33847 10.0871 2.47383 8.93742 1.26369 6.73535C-0.10342 4.24902 0.129627 2.94574 0.390135 2.38873C0.70037 1.72299 1.1583 1.3248 1.75019 0.929587C2.08639 0.709319 2.44216 0.5205 2.81301 0.365525C2.85012 0.349568 2.88463 0.334353 2.91543 0.320623C3.09912 0.237869 3.37744 0.11281 3.72998 0.246404C3.96525 0.334724 4.17529 0.515447 4.50408 0.840154C5.17836 1.50515 6.09978 2.98619 6.43971 3.71353C6.66793 4.20375 6.81896 4.52734 6.81933 4.89027C6.81933 5.31517 6.60559 5.64285 6.34619 5.9965C6.29758 6.06293 6.24933 6.12638 6.20258 6.18799C5.92017 6.55908 5.8582 6.66633 5.89902 6.85781C5.98178 7.24263 6.59891 8.3882 7.6131 9.40017C8.6273 10.4121 9.73984 10.9903 10.1262 11.0727C10.3258 11.1154 10.4353 11.0508 10.8182 10.7584C10.8732 10.7164 10.9296 10.673 10.9886 10.6296C11.3842 10.3353 11.6966 10.1271 12.1115 10.1271H12.1137C12.4748 10.1271 12.7839 10.2837 13.296 10.542C13.964 10.879 15.4896 11.7885 16.1587 12.4636C16.4841 12.7916 16.6656 13.0009 16.7543 13.2358C16.8879 13.5895 16.7621 13.8667 16.68 14.0522C16.6663 14.083 16.6511 14.1168 16.6351 14.1543C16.4789 14.5244 16.289 14.8795 16.0677 15.2148C15.6733 15.8049 15.2736 16.2617 14.6064 16.5723C14.2638 16.7344 13.8888 16.8165 13.5098 16.8124Z" fill="white" />
+																	</svg>
+																	<span><?php echo __('Call us') ?></span>
+																</a>
+															</div>
+															<div class="whatsapp-qty">
+																<a href="https://api.whatsapp.com/send?phone=97180025589737&text=Hello%20Tyres%20Online" target="_blank" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
+																	<span><?php echo __('Call on Whatsapp') ?></span>
+																	<img src="<?= $block->getViewFileUrl('images/icon/whatsapp-colored.svg'); ?>" alt="<?php echo __('Whats App'); ?>" />
+																</a>
+															</div>
+														</div>
+													<?php endif; ?>
+													<?php if (count($defaultSelected) > 0) : ?>
+														<input type="hidden" id="select-product-id-<?php echo $_product->getId(); ?>" name="serviceproduct[]" value="<?php echo $defaultSelected[0]; ?>">
+													<?php endif; ?>
+												</div>
+											</form>
+										<?php } else { ?>
+											<form data-role="tocart-form" data-product-sku="<?php echo $_product->getSku(); ?>" action="<?php echo $block->getUrl('oilservice/index/addservicetocart'); ?>" method="post">
+												<input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
+												<input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+												<input type="hidden" name="item" value="<?php echo $postParams['data']['product']; ?>">
+												<?php echo $block->getBlockHtml('formkey') ?>
+												<div class="qty-cart-width">
+													<div class="row g-3 gy-0 justify-content-center justify-content-md-start">
+														<div class="qty-selection col-4">
+															<select name="qty" class="select2-qty w-100 select_qty" data-unitprice="<?= $productpriceWC ?>" <?php echo (count($AnyRuleExist) > 0) ? "data-discountqty=" . $AnyRuleExist[5]   :  "";  ?> <?php echo (count($AnyRuleExist) > 0) ? "data-totalqty=" . $AnyRuleExist[6] : "";  ?> data-istabby="<?php echo $tabbyMethodAvailable; ?>" data-partscat="<?php echo $parts_category; ?>">
+																<option value="1" selected="">1</option>
+																<option value="2">2</option>
+																<option value="3">3</option>
+																<option value="4">4</option>
+																<option value="5">5</option>
+																<option value="6">6</option>
+																<option value="7">7</option>
+																<option value="8">8</option>
+															</select>
+														</div>
+														<div class="add-to-cart col-8 align-self-end">
+															<button type="submit" class="button filled-slide-up button-primary-grey text-uppercase action"><span><?php echo __('Add To Cart'); ?></span></button>
+														</div>
+													</div>
+												</div>
+												<?php if (count($defaultSelected) > 0) : ?>
+													<input type="hidden" id="select-product-id-<?php echo $_product->getId(); ?>" name="serviceproduct[]" value="<?php echo $defaultSelected[0]; ?>">
+												<?php endif; ?>
+											</form>
+										<?php } ?>
+										<?php if ($_product->getIsNegotiate() && $storeManager->getStore()->getCode() == 'en') : ?>
+											<nibble-button api-key="<?php echo $nibbleAPIKey; ?>" product-id="<?php echo $_product->getId(); ?>" <?php if ($nibbleAutoOpen) : ?> auto-open="true" <?php endif; ?>></nibble-button>
+										<?php endif; ?>
+									<?php else : ?>
+										<div class="d-flex">
+											<div class="call-us-qty">
+												<a href="tel:<?php echo $outOfStockPhone; ?>" class="button custom-size button-primary-100 button-rounded filled-slide-up"><span><?php echo __('Call Us'); ?></span></a>
+											</div>
+											<div class="whatsapp-qty">
+												<a href="https://api.whatsapp.com/send?phone=97180025589737&text=Hello%20Tyres%20Online" target="_blank" class="button custom-size button-primary-100 button-rounded filled-slide-up">
+													<span>
+														<img src="<?= $block->getViewFileUrl('images/icon/whatsapp-colored.svg'); ?>" alt="<?php echo __('WhatsApp'); ?>" />
+													</span>
+													<span><?php echo __('WhatsApp') ?></span>
+												</a>
+											</div>
+										</div>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
+					<?php else : ?>
+						<form data-role="tocart-form" data-product-sku="<?php echo $_product->getSku(); ?>" action="<?php echo $block->getUrl('oilservice/index/addservicetocart'); ?>" method="post">
+							<div class="addtocart-wrap d-flex justify-content-center justify-content-md-end">
+								<input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
+								<input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+								<input type="hidden" name="item" value="<?php echo $postParams['data']['product']; ?>">
+								<?php echo $block->getBlockHtml('formkey') ?>
+								<div class="qty select2-style3">
+									<select name="qty" class="select2-qty w-100 select_qty select_qty_btm" data-unitprice="<?= $productpriceWC ?>" <?php echo (count($AnyRuleExist) > 0) ? "data-discountqty=" . $AnyRuleExist[5]   :  "";  ?> <?php echo (count($AnyRuleExist) > 0) ? "data-totalqty=" . $AnyRuleExist[6] : "";  ?> data-istabby="<?php echo $tabbyMethodAvailable; ?>" data-partscat="<?php echo $parts_category; ?>">
+										<option value="1" selected="">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+									</select>
+								</div>
+								<div class="add-to-cart addtocart">
+									<button type="submit" class="button button-primary-200 button-rounded filled-slide-right fw-500">
+										<span>
+											<?php echo __('Add To Cart'); ?>
+										</span>
+									</button>
+								</div>
+								<?php if (count($defaultSelected) > 0) : ?>
+									<input type="hidden" id="select-product-id-btm-<?php echo $_product->getId(); ?>" name="serviceproduct[]" value="<?php echo $defaultSelected[0]; ?>">
+								<?php endif; ?>
+							</div>
+						</form>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="info-video" data-izimodal-title="Video" style="display:none;"></div>

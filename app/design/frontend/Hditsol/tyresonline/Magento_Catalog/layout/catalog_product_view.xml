@@ -9,6 +9,7 @@
 	<head>
 		<css src="css/product-details.css" media="all"/>
 		<css src="css/product-list.css" media="all"/>
+		<script src="https://cdn.nibble.website/widget/nibble-button.min.js" src_type="url"/>
 	</head>
 	<body>
 		<referenceBlock name="product.info.review" remove="true" />
@@ -16,13 +17,23 @@
 		<referenceBlock name="view.addto.compare" remove="true" />
 		<referenceBlock name="breadcrumbs" remove="true" />
 		<referenceBlock name="product.info" remove="true" />
+		<referenceBlock name="product.info.tabby.promotion" remove="true" />
 		<referenceContainer name="content">
 			<container name="product.attribute.info" label="Product attribute container" htmlTag="div" htmlClass="product-add-form">
-				<block class="Magento\Catalog\Block\Product\View" name="catalog.product.view.custom" template="Magento_Catalog::product/view/custom_attribute.phtml" before="-" />  
+				<block class="Magento\Catalog\Block\Product\View" name="catalog.product.view.custom" template="Magento_Catalog::product/view/custom_attribute.phtml" before="-" />
 			</container>
-			<block class="Magento\Catalog\Block\Product\View" after="product.info.details" name="product-extra" template="Magento_Catalog::product/view/alloygator-wheel-detail-block.phtml"/>		
-			<block class="Magento\Catalog\Block\Product\View" name="product-custom-related-products" template="Magento_Catalog::product/view/custom-related-product.phtml"/>
+		<block class="Magento\Catalog\Block\Product\View" name="catalog.product.view.addcart" template="Magento_Catalog::product/view/product-addcart.phtml" before="product-specs" />
+		<block class="Magento\Catalog\Block\Product\View" after="product.info.details" name="product-extra" template="Magento_Catalog::product/view/alloygator-wheel-detail-block.phtml"/>		
+		<block class="Magento\Catalog\Block\Product\View" name="product-specs" template="Magento_Catalog::product/view/product-specs.phtml"/>
+		<block class="Magento\Catalog\Block\Product\View" name="product-people-asked" template="Magento_Catalog::product/view/product-people-asked.phtml" after="product-specs"/>
+		<block class="Magento\Catalog\Block\Product\View" name="product-why-choose" template="Magento_Catalog::product/view/product-why-choose.phtml" after="product-people-asked"/>
+		<block class="Magento\Catalog\Block\Product\View" name="product-custom-related-products" template="Magento_Catalog::product/view/custom-related-product.phtml" after="product-specs"/>
 		</referenceContainer>
+		<!-- <referenceContainer name="content.aside">
+			<referenceBlock name="product.related.custom" label="Product related block">
+				<block class="Magento\Catalog\Block\Product\View" after="product.custom.related.products" name="product-custom-related-products" template="Magento_Catalog::product/view/custom-related-product.phtml"/>
+			</referenceBlock>
+		</referenceContainer> -->
 		<move element="product.attribute.info" destination="product.info.main"  before="product.info.price"/>
 		<move element="product-custom-related-products" destination="content" after="catalog.product.view.custom"/>
 	</body>

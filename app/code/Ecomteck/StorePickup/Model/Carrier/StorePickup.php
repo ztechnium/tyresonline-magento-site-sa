@@ -124,11 +124,24 @@ class StorePickup extends AbstractCarrier implements CarrierInterface
             $areaCode = $state->getAreaCode();
             if($areaCode != 'adminhtml') {
 				$discountCollector = $objectManager->get('Amasty\Coupons\Model\DiscountCollector');
-    			$cart            = $objectManager->get('\Magento\Checkout\Model\Cart');
-    			$quoteRepository = $objectManager->get('Magento\Quote\Model\QuoteRepository');
-    			$cartId          = $cart->getQuote()->getId();
-    			$quote = $quoteRepository->getActive($cartId);
-    			$pickup_store = $quote->getPickupStore();
+                $quoteId = null;
+                foreach ($request->getAllItems() as $item) {
+                    if ($item->getQuoteId()) {
+                        $quoteId = (int)$item->getQuoteId();
+                        break;
+                    }
+                }
+                if (!$quoteId) {
+                    $quoteId = (int)$request->getData('quote_id');
+                }
+                if ($quoteId) {
+                    $conn = $objectManager->get(\Magento\Framework\App\ResourceConnection::class)->getConnection();
+                    $quoteRow = $conn->fetchRow(
+                        'SELECT pickup_store, base_subtotal_with_discount FROM quote WHERE entity_id = ?',
+                        [$quoteId]
+                    );
+                    if (is_array($quoteRow)) {
+    			$pickup_store = $quoteRow['pickup_store'] ?? null;
     			if($pickup_store){
     				$storesFactory = $objectManager->get('Ecomteck\StoreLocator\Model\StoresFactory');
     				$storeCollection = $storesFactory->create()->load($pickup_store, 'stores_id');
@@ -137,8 +150,7 @@ class StorePickup extends AbstractCarrier implements CarrierInterface
     				}
 					$renderedCodes = $discountCollector->getCouponCodes();
 					if($renderedCodes){
-						//echo '<pre>';print_r($renderedCodes);die;
-						$totalwithDiscount = $quote->getBaseSubtotalWithDiscount() * 1.05;
+						$totalwithDiscount = ((float)($quoteRow['base_subtotal_with_discount'] ?? 0)) * 1.05;
 						if (in_array("MATO22", $renderedCodes) && $pickup_store == 2 && $totalwithDiscount > 2000){	
 							$shippingPrice = 0;
 						}
@@ -147,12 +159,14 @@ class StorePickup extends AbstractCarrier implements CarrierInterface
 						}
 					}
     			}
+                    }
 				/* $getRulesWithAmount = $discountCollector->getDiscountAmount();
 				
 				if($getRulesWithAmount == 0){
 					$quote->setCouponCode('')->save();
 					$discountCollector->flushAmount();
 				} */
+                }
             }
 			/* end shipping amount based on the store installer */ 
 			

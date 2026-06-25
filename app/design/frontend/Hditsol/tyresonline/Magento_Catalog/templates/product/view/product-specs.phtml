@@ -1,0 +1,113 @@
+<?php
+$_product = $block->getProduct();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$tyreImageOnError = $block->escapeHtmlAttr($productImageHelper->getJsFallbackUrl());
+$lazyBlank = $productImageHelper->getLazyloadBlankUrl();
+$mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+  ->getStore()
+  ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$_productNameStripped = $block->stripTags($_product->getName(), null, true);
+$imageDisplayArea = 'category_page_grid';
+$image_width = 1020;
+$image_height = 1020;
+$productImage = $productImageHelper->getFallbackImageUrl($_product, $imageDisplayArea, $image_width, $image_height);
+
+$getAttributeValue = static function ($attributeCode) use ($_product) {
+  $attribute = $_product->getResource()->getAttribute($attributeCode);
+  if (!$attribute) {
+    return '';
+  }
+
+  $value = trim((string) $attribute->getFrontend()->getValue($_product));
+  return in_array(strtolower($value), ['', 'no', 'none', 'n/a'], true) ? '' : $value;
+};
+
+$categoryNames = [];
+foreach ($_product->getCategoryCollection()->addAttributeToSelect('name') as $category) {
+  $name = trim((string) $category->getName());
+  if ($name !== '' && !in_array($name, ['Default Category', 'Root Catalog'], true)) {
+    $categoryNames[] = $name;
+  }
+}
+
+$specRows = array_filter([
+  __('Category')->render() => implode(', ', array_unique($categoryNames)),
+  __('Vehicle')->render() => $getAttributeValue('vehicle'),
+  __('Load Index')->render() => $getAttributeValue('load_index'),
+  __('Speed Rating')->render() => $getAttributeValue('speed_index'),
+  __('Wet Traction')->render() => $getAttributeValue('wet_grip'),
+  __('Fuel Efficiency')->render() => $getAttributeValue('fuel_efficiency'),
+  __('External noise')->render() => $getAttributeValue('noise_levels'),
+  __('Origin')->render() => $getAttributeValue('manufacturer'),
+  __('Manufactory Year')->render() => $getAttributeValue('year'),
+  __('Warranty')->render() => $getAttributeValue('warranty_period'),
+]);
+
+$description = trim(strip_tags((string) $_product->getDescription()));
+$hasProductDetails = $description !== '' && strcasecmp($description, (string) $_product->getName()) !== 0;
+?>
+<div class="products product-specs">
+  <div class="specs-container">
+    <div class="specs-content">
+      <?php if ($hasProductDetails): ?>
+      <div class="specs-arrow" onclick="toggleContent()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M37.4986 8.90548L30.0946 8.90548C29.1736 8.90548 28.2916 9.27148 27.6406 9.92248L4.01561 33.5475C3.69351 33.8695 3.43799 34.2519 3.26366 34.6727C3.08934 35.0935 2.99961 35.5445 2.99961 36C2.99961 36.4555 3.08933 36.9065 3.26366 37.3273C3.43799 37.7481 3.69351 38.1304 4.01561 38.4525L27.6406 62.0775C27.9627 62.3999 28.3452 62.6556 28.7664 62.8299C29.1875 63.0042 29.6389 63.0936 30.0946 63.093L37.4986 63.0945C38.1843 63.0934 38.8542 62.8894 39.424 62.508C39.9938 62.1266 40.4379 61.585 40.7003 60.9516C40.9626 60.3181 41.0315 59.6211 40.8981 58.9485C40.7648 58.276 40.4353 57.658 39.9511 57.1725L19.1101 36.3315C19.0224 36.2435 18.9731 36.1243 18.9731 36C18.9731 35.8757 19.0224 35.7565 19.1101 35.6685L39.9511 14.8275C40.436 14.3423 40.7662 13.7242 40.8999 13.0514C41.0337 12.3786 40.965 11.6812 40.7025 11.0475C40.44 10.4137 39.9956 9.87196 39.4253 9.49071C38.8551 9.10945 38.1846 8.9058 37.4986 8.90548ZM65.5306 8.90548L58.1266 8.90548C57.671 8.90545 57.2199 8.99526 56.7991 9.16977C56.3783 9.34428 55.996 9.60006 55.6741 9.92248L32.0491 33.5475C31.727 33.8695 31.4715 34.2519 31.2972 34.6727C31.1228 35.0935 31.0331 35.5445 31.0331 36C31.0331 36.4555 31.1228 36.9065 31.2972 37.3273C31.4715 37.7481 31.727 38.1304 32.0491 38.4525L55.6741 62.0775C55.9959 62.3999 56.3782 62.6556 56.7991 62.8298C57.2199 63.0041 57.6711 63.0935 58.1266 63.093L65.5306 63.0945C66.2167 63.0945 66.8874 62.891 67.4579 62.5099C68.0284 62.1287 68.4731 61.587 68.7357 60.9532C68.9984 60.3193 69.0672 59.6219 68.9335 58.9489C68.7998 58.276 68.4696 57.6578 67.9846 57.1725L47.1436 36.3315C47.0559 36.2435 47.0066 36.1243 47.0066 36C47.0066 35.8757 47.0559 35.7565 47.1436 35.6685L67.9846 14.8275C68.4696 14.3422 68.7998 13.724 68.9335 13.051C69.0672 12.3781 68.9984 11.6806 68.7357 11.0468C68.4731 10.413 68.0284 9.87123 67.4579 9.49009C66.8874 9.10895 66.2167 8.90551 65.5306 8.90548Z" fill="black" />
+        </svg>
+      </div>
+      <div class="details-arrow" onclick="toggleContent()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M34.5014 63.0945H41.9054C42.8264 63.0945 43.7084 62.7285 44.3594 62.0775L67.9844 38.4525C68.3065 38.1305 68.562 37.7481 68.7363 37.3273C68.9107 36.9065 69.0004 36.4555 69.0004 36C69.0004 35.5445 68.9107 35.0935 68.7363 34.6727C68.562 34.2519 68.3065 33.8696 67.9844 33.5475L44.3594 9.92248C44.0373 9.60012 43.6548 9.34438 43.2336 9.17009C42.8125 8.99579 42.3611 8.90639 41.9054 8.907L34.5014 8.90548C33.8157 8.90661 33.1458 9.11064 32.576 9.49204C32.0062 9.87345 31.5621 10.415 31.2997 11.0484C31.0374 11.6819 30.9685 12.3789 31.1019 13.0515C31.2352 13.724 31.5647 14.342 32.0489 14.8275L52.8899 35.6685C52.9776 35.7565 53.0269 35.8757 53.0269 36C53.0269 36.1243 52.9776 36.2435 52.8899 36.3315L32.0489 57.1725C31.564 57.6577 31.2338 58.2758 31.1001 58.9486C30.9663 59.6214 31.035 60.3188 31.2975 60.9525C31.56 61.5863 32.0044 62.128 32.5747 62.5093C33.1449 62.8906 33.8154 63.0942 34.5014 63.0945ZM6.46938 63.0945H13.8734C14.329 63.0945 14.7801 63.0047 15.2009 62.8302C15.6217 62.6557 16.004 62.3999 16.3259 62.0775L39.9509 38.4525C40.273 38.1305 40.5285 37.7481 40.7028 37.3273C40.8772 36.9065 40.9669 36.4555 40.9669 36C40.9669 35.5445 40.8772 35.0935 40.7028 34.6727C40.5285 34.2519 40.273 33.8696 39.9509 33.5475L16.3259 9.92248C16.0041 9.60012 15.6218 9.34438 15.2009 9.17018C14.7801 8.99588 14.3289 8.90648 13.8734 8.907L6.46938 8.90548C5.78329 8.90548 5.11258 9.10902 4.54208 9.49014C3.97158 9.87126 3.52688 10.413 3.26427 11.0468C3.00166 11.6805 2.93283 12.3781 3.06654 13.051C3.20026 13.724 3.53042 14.3422 4.01544 14.8275L24.8564 35.6685C24.9441 35.7565 24.9934 35.8757 24.9934 36C24.9934 36.1243 24.9441 36.2435 24.8564 36.3315L4.01544 57.1725C3.53042 57.6578 3.20026 58.276 3.06654 58.9489C2.93283 59.6219 3.00166 60.3193 3.26427 60.9532C3.52688 61.587 3.97158 62.1288 4.54208 62.5099C5.11258 62.891 5.78329 63.0945 6.46938 63.0945Z" fill="black" />
+        </svg>
+      </div>
+      <?php endif; ?>
+      <div class="specs-table" id="specs-table">
+        <h2><?= $block->escapeHtml(__('Technical specs:')) ?></h2>
+        <table>
+          <?php foreach ($specRows as $label => $value): ?>
+            <tr>
+              <td><?= $block->escapeHtml($label) ?></td>
+              <td><?= $block->escapeHtml($value) ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+      </div>
+      <?php if ($hasProductDetails): ?>
+      <div class="details-content" id="details-content">
+        <h2><?= $block->escapeHtml(__('Dig Into the Details :')) ?></h2>
+        <p><?= $block->escapeHtml($description) ?></p>
+      </div>
+      <?php endif; ?>
+    </div>
+    <div class="specs-image">
+      <img src="<?= $block->escapeUrl($lazyBlank) ?>" width="1020" height="1020" data-src="<?= $block->escapeUrl($productImage) ?>" class="lazyload" alt="<?= $block->escapeHtmlAttr($_productNameStripped) ?>" title="<?= $block->escapeHtmlAttr($_productNameStripped) ?>" data-product-image="1" onerror="this.onerror=null;this.src='<?= $tyreImageOnError ?>'" />
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleContent() {
+    const specsTable = document.getElementById('specs-table');
+    const detailsContent = document.getElementById('details-content');
+
+    if (!specsTable || !detailsContent) return;
+
+    specsTable.classList.toggle('fade-out');
+    detailsContent.classList.toggle('show');
+  };
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const specsContent = document.querySelector('.specs-content');
+    if (!specsContent) return;
+    let startX = 0;
+
+    specsContent.addEventListener('touchstart', e => startX = e.changedTouches[0].screenX);
+
+    specsContent.addEventListener('touchend', e => {
+      const diffX = e.changedTouches[0].screenX - startX;
+      if (Math.abs(diffX) > 50) toggleContent();
+    });
+  });
+</script>

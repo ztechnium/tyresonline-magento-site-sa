@@ -1,0 +1,46 @@
+<div class="products product-people-asked">
+  <h3><?= $block->escapeHtml(__('People Have Also Asked')) ?></h3>
+  <ul class="people-asked-list">
+    <li class="people-asked-item">
+      <div class="people-asked-row">
+        <span class="people-asked-number">01</span>
+        <span class="people-asked-question"><?= $block->escapeHtml(__('Why should I use winter tyres instead of all-season tyres?')) ?></span>
+        <span class="people-asked-icon">+</span>
+      </div>
+      <div class="people-asked-answer"><?= $block->escapeHtml(__('Winter tyres are designed for cold weather and provide better grip, handling, and safety compared to all-season tyres when temperatures drop below 7°C.')) ?></div>
+    </li>
+    <li class="people-asked-item">
+      <div class="people-asked-row">
+        <span class="people-asked-number">02</span>
+        <span class="people-asked-question"><?= $block->escapeHtml(__('How do winter tyres improve safety in cold weather?')) ?></span>
+        <span class="people-asked-icon">+</span>
+      </div>
+      <div class="people-asked-answer"><?= $block->escapeHtml(__('Winter tyres use special rubber compounds and tread patterns to maintain flexibility and traction on snow, ice, and cold roads, reducing braking distances and risk of skidding.')) ?></div>
+    </li>
+    <li class="people-asked-item">
+      <div class="people-asked-row">
+        <span class="people-asked-number">03</span>
+        <span class="people-asked-question"><?= $block->escapeHtml(__('When should I switch to winter tyres?')) ?></span>
+        <span class="people-asked-icon">+</span>
+      </div>
+      <div class="people-asked-answer"><?= $block->escapeHtml(__('You should switch to winter tyres when the average daily temperature consistently falls below 7°C, usually in late autumn or early winter.')) ?></div>
+    </li>
+    <li class="people-asked-item">
+      <div class="people-asked-row">
+        <span class="people-asked-number">04</span>
+        <span class="people-asked-question"><?= $block->escapeHtml(__('Can I use winter tyres year-round?')) ?></span>
+        <span class="people-asked-icon">+</span>
+      </div>
+      <div class="people-asked-answer"><?= $block->escapeHtml(__('It is not recommended to use winter tyres year-round as they wear out faster in warm weather and may not perform as well as summer or all-season tyres.')) ?></div>
+    </li>
+  </ul>
+</div>
+<script>
+document.querySelectorAll('.people-asked-icon').forEach(function(icon) {
+  icon.addEventListener('click', function() {
+    var item = this.closest('.people-asked-item');
+    item.classList.toggle('active');
+    this.textContent = item.classList.contains('active') ? '-' : '+';
+  });
+});
+</script>

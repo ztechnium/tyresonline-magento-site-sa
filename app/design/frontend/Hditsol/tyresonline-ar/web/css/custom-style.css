@@ -241,3 +241,266 @@ margin-left: 7px !important;
     right: auto;
   }
 }
+
+/* KSA: hide Tabby payment widgets on PDP and sticky footer */
+.catalog-product-view .tabby-pay-later,
+.catalog-product-view .tabby-pay-later-list,
+.catalog-product-view .or-tabby-pay,
+.catalog-product-view .tabby-product-detail,
+.catalog-product-view #tabbyPromo,
+.catalog-product-view [id*="tabby"],
+.addtocart-stickybar .tabby-pay-later,
+.addtocart-stickybar .tabby-pay-later-list,
+.addtocart-stickybar .or-tabby-pay {
+  display: none !important;
+}
+
+/* Arabic RTL: fitting locations / store locator */
+.storelocator,
+.fitting-location,
+.fitting-location-box {
+  direction: rtl;
+  text-align: right;
+}
+
+.storelocator .location-search h1,
+.storelocator .tyres-fitting-text h2,
+.storelocator .tyres-fitting-text p,
+.fitting-location .modal-title-custom,
+.fitting-location .modal-title-custom h2 {
+  text-align: right;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .installer_name,
+.storelocator .installer-list .installer .installer_detail .installer_title .address,
+.storelocator .installer-list .installer .installer_detail .shop_timing_block .opening_hours_text1,
+.storelocator .installer-list .installer .installer_detail .shop_timing_block .opening_hours_text2,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .loc-name,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .loc-addr,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .shop_timing_block .installer_date_time div,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .loction-offer,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .select-installer {
+  text-align: right;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .address .location-icon,
+.storelocator .installer-list .installer .installer_detail .shop_timing_block .installer_date_time .icon,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .loc-addr .location-icon,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .shop_timing_block .installer_date_time .icon {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer_title .distance,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .distance {
+  padding-left: 0;
+  padding-right: 28px;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .list-details .loction-offer {
+  margin-left: 0;
+  margin-right: -16px;
+  border-radius: 0 30px 30px 0;
+}
+
+.storelocator .installer-list .installer .installer_detail .installer-action-custom .google-map-direction a,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .installer-action-custom .google-map-direction a,
+.fitting-location-box .fittingLocationList li .list_2 {
+  text-align: right;
+}
+
+.fitting-location-box .fittingLocationList li .list_2 a {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .select-installer .checkbox + label:before {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .select-installer .checkbox:checked + label:after {
+  right: auto;
+  left: 13px;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit label,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit .input-text,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit select {
+  text-align: right !important;
+  direction: rtl;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit label,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit .label,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .pickup-date label,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .pickup-time label,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .select-installer .checkbox + label {
+  display: block;
+  width: 100%;
+  text-align: right !important;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit .control {
+  text-align: right;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit .input-text {
+  background-position: right 10px center !important;
+  padding-right: 35px !important;
+  padding-left: 10px !important;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit select,
+.fitting-location .bh-sl-loc-list .allInstaller .installer .datetimesubmit .storePickuptimepicker {
+  background-position: left 7px center !important;
+  padding: 8px 10px 8px 28px !important;
+}
+
+.storelocator .location-search-wrap input,
+.fitting-location .location-search-wrap input[type="text"] {
+  text-align: right !important;
+  direction: rtl;
+  border-radius: 0 10px 10px 0;
+  border-right: 1px solid #b3b3b3;
+  border-left: 0;
+}
+
+.storelocator .location-search-wrap input::placeholder,
+.fitting-location .location-search-wrap input[type="text"]::placeholder {
+  text-align: right;
+  direction: rtl;
+}
+
+.fitting-location .location-search-wrap .serach-distance .input_select,
+.storelocator .location-search-wrap .serach-distance .input_select {
+  text-align: right !important;
+  direction: rtl;
+}
+
+.fitting-location .modal-title-custom {
+  padding-left: 0;
+  padding-right: 30px;
+  text-align: right;
+}
+
+.fitting-location .bh-sl-loc-list .allInstaller {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+#mycartinstallerModal .ui-datepicker,
+.fitting-location .ui-datepicker {
+  direction: rtl;
+}
+
+#mycartinstallerModal .ui-datepicker select.ui-datepicker-month,
+#mycartinstallerModal .ui-datepicker select.ui-datepicker-year {
+  direction: rtl;
+  text-align: right;
+}
+
+.storelocator .location-search-wrap .serach-distance {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.fitting-location-box .checkout_title {
+  flex-direction: row-reverse;
+  text-align: right;
+  padding: 15px 10px 15px 26px;
+}
+
+.fitting-location-box .checkout_title svg {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.fitting-location-box .box-head .form_filds_custom .link {
+  justify-content: flex-start;
+  padding-left: 0;
+  padding-right: 60px;
+}
+
+.fitting-location-box .box-head .form_filds_custom .icon {
+  left: auto;
+  right: 10px;
+}
+
+.fitting-location-box .fittingLocationList li {
+  text-align: right;
+}
+
+.fitting-location-box .fittingLocationList li .closeList {
+  left: auto;
+  right: 2px;
+  border-radius: 0 0 0 50px;
+}
+
+.fitting-location-box .fittingLocationList li .closeList svg {
+  left: auto;
+  right: 7px;
+}
+
+#mycartinstallerModal .modal-body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Arabic RTL: checkout page labels, inputs, selects */
+#onestepcheckout-page {
+  direction: rtl;
+  text-align: right;
+}
+
+#onestepcheckout-page .fieldset.address .field .label,
+#onestepcheckout-page .opc-wrapper .field label,
+#onestepcheckout-page .opc-wrapper .vehicle-info-block .field label,
+#onestepcheckout-page .opc-wrapper .form-login .field label,
+#onestepcheckout-page #giftcard-form .label,
+#onestepcheckout-page .order-comment-form .label,
+#onestepcheckout-page .fieldset.address > .field.choice .label,
+#onestepcheckout-page .checkout-payment-method .payment-method-title label {
+  text-align: right !important;
+  float: none !important;
+}
+
+#onestepcheckout-page .fieldset.address .field .control,
+#onestepcheckout-page .opc-wrapper .field .control {
+  float: none !important;
+  width: 100% !important;
+}
+
+#onestepcheckout-page .input-text,
+#onestepcheckout-page textarea,
+#onestepcheckout-page select,
+#onestepcheckout-page .opc-wrapper .field .control input,
+#onestepcheckout-page .opc-wrapper .field .control select {
+  text-align: right !important;
+  direction: rtl;
+}
+
+#onestepcheckout-page .input-text::placeholder,
+#onestepcheckout-page textarea::placeholder {
+  text-align: right;
+  direction: rtl;
+}
+
+.checkout-index-index .select2-container .select2-selection--single .select2-selection__rendered {
+  text-align: right !important;
+  direction: rtl;
+  padding-right: 10px !important;
+  padding-left: 28px !important;
+}
+
+#onestepcheckout-page .checkout-payment-method .payment-method-title {
+  direction: rtl;
+}
+
+#onestepcheckout-page .shipping-method-info-block,
+#onestepcheckout-page .table-checkout-shipping-method {
+  text-align: right;
+  direction: rtl;
+}

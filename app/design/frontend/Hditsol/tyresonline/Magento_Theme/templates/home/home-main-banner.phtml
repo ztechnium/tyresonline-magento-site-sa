@@ -1,5 +1,8 @@
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$lazyBlank = $contentImageHelper->getLazyloadBlankUrl();
+$contentImageOnError = $block->escapeHtmlAttr($contentImageHelper->getContentJsFallbackUrl());
 $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
    ->getStore()
    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
@@ -140,13 +143,18 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                }
             }
             ?>
-            <?php if ($offerImage1) : ?>
+            <?php
+            $offerBannerUrl = $contentImageHelper->getBannerImageUrl($offerImage1);
+            $offerBrandLogoUrl = $banner->getBrandLogo()
+               ? $contentImageHelper->getBannerImageUrl($banner->getBrandLogo())
+               : '';
+            ?>
                <div class="item <?php echo $banner->getBannerId(); ?>">
                   <div class="box">
                      <div class="top d-flex align-items-center justify-content-between">
                         <div class="brand-logo">
-                           <?php if ($banner->getBrandLogo()) : ?>
-                              <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $banner->getBrandLogo(); ?>" class="lazyload" alt="<?php echo $offerTitle; ?>" />
+                           <?php if ($offerBrandLogoUrl) : ?>
+                              <img src="<?= $block->escapeUrl($lazyBlank) ?>" width="383" height="136" data-src="<?= $block->escapeUrl($offerBrandLogoUrl) ?>" class="lazyload" alt="<?= $block->escapeHtmlAttr($offerTitle) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
                            <?php endif; ?>
                         </div>
                         <?php if (isset($banner['to_date']) && $banner['to_date'] != '') : ?>
@@ -159,7 +167,7 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                      </div>
                      <div class="image-wrap picture loader aspect-custom">
                         <picture>
-                           <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage1; ?>" alt="<?php echo $offerTitle; ?>">
+                           <img src="<?= $block->escapeUrl($lazyBlank) ?>" width="383" height="136" class="lazyload" data-src="<?= $block->escapeUrl($offerBannerUrl) ?>" alt="<?= $block->escapeHtmlAttr($offerTitle) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'">
                         </picture>
                      </div>
                      <div class="shownow">
@@ -167,7 +175,6 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
                      </div>
                   </div>
                </div>
-            <?php endif; ?>
          <?php endforeach; ?>
 
       </div>
@@ -182,10 +189,11 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
       $offerImage2 = $banner->getBannerImageTwo();
       $offerDescription = $banner->getContent();
    } else {
-      $offerTitle = $banner->getTitleAr();
-      $offerImage2 = $banner->getBannerImageTwoAr();
-      $offerDescription = $banner->getContentAr();
+      $offerTitle = $banner->getTitleAr() ?: $banner->getTitle();
+      $offerImage2 = $banner->getBannerImageTwoAr() ?: $banner->getBannerImageTwo();
+      $offerDescription = $banner->getContentAr() ?: $banner->getContent();
    }
+   $offerModalBannerUrl = $contentImageHelper->getBannerImageUrl($offerImage2);
    ?>
    <!-- offers Modal -->
    <!-- loop // >> loop this modal like offers slider and id dynamic id -->
@@ -199,7 +207,7 @@ $storeCode = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->g
          </div>
          <div class="image-wrap picture loader aspect-custom">
             <picture>
-               <img src="<?= $block->getViewFileUrl('images/blank.png'); ?>" width="383px" height="136px" class="lazyload" data-src="<?php echo $mediaURL . 'mageplaza/bannerslider/banner/image/' . $offerImage2; ?>" alt="<?php echo $offerTitle; ?>">
+               <img src="<?= $block->escapeUrl($lazyBlank) ?>" width="383" height="136" class="lazyload" data-src="<?= $block->escapeUrl($offerModalBannerUrl) ?>" alt="<?= $block->escapeHtmlAttr($offerTitle) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'">
             </picture>
          </div>
          <div class="text-block">
