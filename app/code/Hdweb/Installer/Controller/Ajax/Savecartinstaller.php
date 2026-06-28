@@ -27,6 +27,7 @@ class Savecartinstaller extends \Magento\Framework\App\Action\Action
      */
     protected $resultRawFactory;
     protected $_cartModel;
+    protected $_resource;
     protected $_storeinsatllerModel;
     protected $_addressRepository;
     protected $_customerRepository;
@@ -99,13 +100,13 @@ class Savecartinstaller extends \Magento\Framework\App\Action\Action
                  $store_data = $store_info->getData();
                  $response = [
                             'message' 			=> 'success',
-                            'name' 				=> $store_data['name'],
-                            'name_rtl'              => $store_data['name_rtl'],
-                            'address' 			=> $store_data['address'],
-                            'address_rtl'           => $store_data['address_rtl'],
-                            'installer_lat' 	=> $store_data['latitude'],
-                            'installer_lng' 	=> $store_data['longitude'],
-                            'pickup_service'	=> $store_data['pickup_service'],
+                            'name' 				=> $store_data['name'] ?? '',
+                            'name_rtl'              => $store_data['name_rtl'] ?? ($store_data['name'] ?? ''),
+                            'address' 			=> $store_data['address'] ?? '',
+                            'address_rtl'           => $store_data['address_rtl'] ?? ($store_data['address'] ?? ''),
+                            'installer_lat' 	=> $store_data['latitude'] ?? '',
+                            'installer_lng' 	=> $store_data['longitude'] ?? '',
+                            'pickup_service'	=> $store_data['pickup_service'] ?? 0,
                             'installer_date' 	=> $pickup_date,
                             'installer_time' 	=> $pickup_time
                         ];

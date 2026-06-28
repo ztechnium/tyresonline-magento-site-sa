@@ -21,10 +21,10 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_index_index"/>
     <head>
         <!-- <css src="Ecomteck_OneStepCheckout::css/one-step-checkout-m.css" />
         <css src="Ecomteck_OneStepCheckout::css/one-step-checkout-l.css" media="screen and (min-width: 768px)"/> -->
-		<css src="Ecomteck_OneStepCheckout::css/one-step-checkout.css" />
         <css src="Ecomteck_Core::css/fontawesome/css/fontawesome-all.min.css" />
     </head>
     <body>
@@ -54,7 +54,7 @@
         </referenceBlock>
 
         <referenceContainer name="content">
-            <block class="Magento\GiftMessage\Block\Cart\GiftOptions" name="onestepcheckout.gift_options" template="Ecomteck_OneStepCheckout::gift-message/gift_options.phtml" cacheable="false"></block>
+            <block class="Magento\GiftMessage\Block\Cart\GiftOptions" name="onestepcheckout.gift_options" template="Ecomteck_OneStepCheckout::gift-message/gift_options.phtml" cacheable="false" before="checkout.root"></block>
             <container name="cleancheckout_footer_wrapper" after="checkout.root" htmlTag="div" htmlClass="one-step-checkout-footer-wrapper">
                 <block class="Ecomteck\OneStepCheckout\Block\BackToStore"
                        name="one_step_checkout_back_to_store"

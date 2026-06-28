@@ -938,6 +938,14 @@
     transform: scale(1);
 }
 
+.garage .garage_switch .switch .switch-selection {
+    display: none;
+}
+
+.garage .garage_switch .container_switch {
+    text-align: center;
+}
+
 
 @media screen and (max-width: 767px){
 .garage {

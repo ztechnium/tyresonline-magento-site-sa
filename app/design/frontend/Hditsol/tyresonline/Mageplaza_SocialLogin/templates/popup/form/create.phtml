@@ -319,7 +319,7 @@ $mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterfac
              <div class="account-verification-content">
           <div class="modal-text-cl text-center">
             <h3 class="mb-0 fw-light"><?php echo __('Your Account has been created') ?></h3>
-            <p class="fw-light">Please verify your account by clicking the link <br> sent to your email.</p>
+            <p class="fw-light"><?= $block->escapeHtml(__('Please verify your account by clicking the link sent to your email.')) ?></p>
             <div class="text-center mt-4">
               <button type="button" class="action login button button-primary button-rounded filled-slide-right fst-italic" id="bnt-social-login-callback">
                         <span><?php echo __('Login');?></span>

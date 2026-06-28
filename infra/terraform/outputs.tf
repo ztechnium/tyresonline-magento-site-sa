@@ -34,6 +34,48 @@ output "s3_media_bucket" {
   value = aws_s3_bucket.sa_prod_media.bucket
 }
 
+output "cdn_domain_name" {
+  value = var.cdn_domain_name
+}
+
+output "cloudfront_domain_name" {
+  description = "CNAME target for dnet.sa: cdn → this value"
+  value       = aws_cloudfront_distribution.cdn.domain_name
+}
+
+output "cloudfront_distribution_id" {
+  value = aws_cloudfront_distribution.cdn.id
+}
+
+output "acm_dns_validation" {
+  description = "Add these CNAME records on dnet.sa BEFORE CloudFront finishes"
+  value = {
+    for dvo in aws_acm_certificate.cdn.domain_validation_options : dvo.domain_name => {
+      name  = dvo.resource_record_name
+      type  = dvo.resource_record_type
+      value = dvo.resource_record_value
+    }
+  }
+}
+
+output "dnet_sa_dns_records" {
+  description = "Exact records to add at https://dnet.sa for tyresonline.sa"
+  value = <<-EOT
+    === 1) ACM certificate validation (add first, wait ~5 min) ===
+    Type: CNAME
+    Host: ${try(tolist(aws_acm_certificate.cdn.domain_validation_options)[0].resource_record_name, "see acm_dns_validation")}
+    Target: ${try(tolist(aws_acm_certificate.cdn.domain_validation_options)[0].resource_record_value, "see acm_dns_validation")}
+
+    === 2) CDN hostname (add after CloudFront is Deployed) ===
+    Type: CNAME
+    Host: cdn.tyresonline.sa
+    Target: ${aws_cloudfront_distribution.cdn.domain_name}
+
+    === DO NOT CHANGE ===
+    stg.tyresonline.sa  A  →  ${aws_instance.sa_prod.public_ip}
+  EOT
+}
+
 output "vpc_id" {
   value = local.vpc_id
 }

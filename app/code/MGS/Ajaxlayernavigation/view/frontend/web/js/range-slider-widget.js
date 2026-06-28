@@ -24,13 +24,15 @@ define(['jquery', 'Magento_Catalog/js/price-utils', 'mage/template', 'jquery/ui'
         $.widget('smileEs.rangeSlider', widget, {
             _create: function () {
                 this._super();
-                const $handles = $('.ui-slider-handle');
-                const $fromLabel = $('[data-label="from"]');
-                const $toLabel = $('[data-label="to"]');
+                var $handles = this.element.find('.ui-slider-handle');
+                var $fromLabel = this.element.find('[data-label="from"]');
+                var $toLabel = this.element.find('[data-label="to"]');
+
                 if ($handles.length >= 2) {
                     $handles.eq(0).append($fromLabel);
                     $handles.eq(1).append($toLabel);
                 }
+
                 this.sliderBar = this.element.find('[data-role="slider-bar"]');
                 const sliderOptions = this.sliderBar.slider('option');
                 this.min = sliderOptions.min;
@@ -51,8 +53,8 @@ define(['jquery', 'Magento_Catalog/js/price-utils', 'mage/template', 'jquery/ui'
                 this.element.find('[data-role="from-label"]').text(currency + ' ' + this.from);
                 this.element.find('[data-role="to-label"]').text(currency + ' ' + this.to);
 
-                $('.slider-price-form .price-from').val(this.from);
-                $('.slider-price-form .price-to').val(this.to);
+                this.element.find('.slider-price-form .price-from').val(this.from);
+                this.element.find('.slider-price-form .price-to').val(this.to);
             },
             _updateSliderValues: function() {
                 this._refreshDisplay();
@@ -60,8 +62,8 @@ define(['jquery', 'Magento_Catalog/js/price-utils', 'mage/template', 'jquery/ui'
             },
             _bindInputEvents: function () {
                 const self = this;
-                const $fromInput = $('.slider-price-form .price-from');
-                const $toInput = $('.slider-price-form .price-to');
+                const $fromInput = this.element.find('.slider-price-form .price-from');
+                const $toInput = this.element.find('.slider-price-form .price-to');
             
                 const sanitizeValue = function (val, min, max) {
                     val = parseFloat(val);

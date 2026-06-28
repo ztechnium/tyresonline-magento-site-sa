@@ -38,6 +38,20 @@ define([
          */
         _create: function () {
             this._bind();
+
+            if ($('body').hasClass('checkout-index-index') || $('body').hasClass('checkout-cart-index')) {
+                var self = this;
+
+                setInterval(function () {
+                    if ($.active === 0 && self.loaderStarted > 0) {
+                        self.loaderStarted = 0;
+
+                        if (self.spinner) {
+                            self.spinner.hide();
+                        }
+                    }
+                }, 1000);
+            }
         },
 
         /**
@@ -62,8 +76,8 @@ define([
          * @param {EventObject} e
          * @private
          */
-        _contentUpdated: function (e) {
-            this.show(e);
+        _contentUpdated: function () {
+            return false;
         },
 
         /**
@@ -97,8 +111,12 @@ define([
         hide: function () {
             if (this.loaderStarted > 0) {
                 this.loaderStarted--;
+            }
 
-                if (this.loaderStarted === 0) {
+            if (this.loaderStarted <= 0) {
+                this.loaderStarted = 0;
+
+                if (this.spinner) {
                     this.spinner.hide();
                 }
             }

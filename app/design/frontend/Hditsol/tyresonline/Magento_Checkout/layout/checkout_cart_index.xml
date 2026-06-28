@@ -101,5 +101,10 @@
 		</referenceBlock> -->
 		<!-- <referenceBlock name="checkout.cart.order.actions.gift_options" remove="true"/> -->
 		<!-- <referenceBlock name="cart-pickup-dropoff" remove="true"/> -->
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="checkout.loader.fix"
+                   template="Magento_Checkout::checkout-loader-fix.phtml"/>
+        </referenceContainer>
     </body>
 </page>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Outputs checkoutConfig for cart totals (Knockout) when the shipping block is not rendered.
+ *
+ * @var $block \Magento\Checkout\Block\Cart\Shipping
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php $serializedCheckoutConfig = /* @noEscape */ $block->getSerializedCheckoutConfig(); ?>
+<?php
+$scriptString = <<<script
+    window.checkoutConfig = {$serializedCheckoutConfig};
+    window.customerData = window.checkoutConfig.customerData;
+    window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

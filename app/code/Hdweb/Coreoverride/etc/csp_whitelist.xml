@@ -4,6 +4,7 @@
         <policy id="script-src">
             <values>
                 <value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
                 <value id="google-api" type="host">*.googleapis.com</value>
                 <value id="gstatic" type="host">*.gstatic.com</value>
                 <value id="google" type="host">*.google.com</value>
@@ -29,6 +30,7 @@
 		<policy id="img-src">
             <values>
 				<value id="tyresonline" type="host">*.tyresonline.com</value>
+				<value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
                 <value id="google-api" type="host">*.googleapis.com</value>
 				<value id="gstatic" type="host">*.gstatic.com</value>
 				<value id="google" type="host">*.google.com</value>
@@ -54,6 +56,7 @@
         <policy id="connect-src">
             <values>
 				<value id="tyresonline" type="host">*.tyresonline.com</value>
+				<value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
                 <value id="google-api" type="host">*.googleapis.com</value>
 				<value id="gstatic" type="host">*.gstatic.com</value>
 				<value id="google" type="host">*.google.com</value>
@@ -79,7 +82,7 @@
         <policy id="frame-src">
             <values>
 				<value id="tyresonline" type="host">*.tyresonline.com</value>
-				<value id="tyresonline" type="host">*.tyresonline.com</value>
+				<value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
                 <value id="google-api" type="host">*.googleapis.com</value>
 				<value id="gstatic" type="host">*.gstatic.com</value>
 				<value id="google" type="host">*.google.com</value>
@@ -105,6 +108,7 @@
         <policy id="font-src">
             <values>
 				<value id="tyresonline" type="host">*.tyresonline.com</value>
+				<value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
                 <value id="google-api" type="host">*.googleapis.com</value>
 				<value id="gstatic" type="host">*.gstatic.com</value>
 				<value id="google" type="host">*.google.com</value>
@@ -130,6 +134,7 @@
         <policy id="media-src">
             <values>
 				<value id="tyresonline" type="host">*.tyresonline.com</value>
+				<value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
                 <value id="google-api" type="host">*.googleapis.com</value>
 				<value id="gstatic" type="host">*.gstatic.com</value>
 				<value id="google" type="host">*.google.com</value>
@@ -150,6 +155,12 @@
 				<value id="wheel-size" type="host">*.wheel-size.com</value>
 				<value id="googlecom" type="host">*.google.com</value>
 				<value id="googleae" type="host">*.google.ae</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="tyresonline" type="host">*.tyresonline.com</value>
+                <value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
             </values>
         </policy>
     </policies>

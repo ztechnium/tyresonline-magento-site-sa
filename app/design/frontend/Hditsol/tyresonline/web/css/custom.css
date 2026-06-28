@@ -409,6 +409,22 @@
     margin-bottom: 10px;
 }
 
+.all-brands .brand-list-wraper .brand-list li .logo-box {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+}
+
+.all-brands .brand-list-wraper .brand-list li .logo-box img {
+    max-height: 50px;
+    max-width: 100%;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+}
+
 /* End Brands page (all-tyre-brands) */
 
 /* Start Pattern view page */

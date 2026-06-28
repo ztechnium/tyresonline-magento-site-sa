@@ -26,6 +26,7 @@ define(
                         return true;
                     }
                     $(element).attr('disabled', true);
+                    $('body').trigger('processStop');
                     location.href = config.checkoutUrl;
                 }
             );

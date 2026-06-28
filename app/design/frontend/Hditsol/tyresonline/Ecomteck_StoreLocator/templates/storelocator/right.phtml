@@ -275,6 +275,10 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
 
 
 <!-- End All installer in map model -->
+<?php $gmapApiKey = $block->storelocatorConfig->getApiKeySettings(); ?>
+<?php if ($gmapApiKey): ?>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
+<?php endif; ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -301,6 +305,22 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
     var todaydate='<?php echo $todaydate ?>';
     //console.log('date-'+todaydate);
     var allStoreOpeningdatetimep=<?php echo json_encode($allStoreOpeningdatetimep) ?>;
+
+	function whenGoogleMapsReady(callback, attempt) {
+		attempt = attempt || 0;
+		if (window.google && google.maps) {
+			callback();
+			return;
+		}
+		if (attempt >= 50) {
+			console.error('Google Maps did not load for cart fitting locations');
+			return;
+		}
+		setTimeout(function () {
+			whenGoogleMapsReady(callback, attempt + 1);
+		}, 200);
+	}
+
 	require(["jquery", "mage/storage", "mage/calendar"], function($, storage){
 		$( document ).ajaxComplete(function( event, xhr, settings ) {
 			/* start installer checkbox code */
@@ -528,7 +548,7 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
 				).done(
 					function (response) {
 						if(response.message == 'fail') {
-						   alert('<?php echo $noslotAvailableText;?>');
+						   alert(<?= /* @noEscape */ json_encode((string)$noslotAvailableText) ?>);
 						   jQuery('select[data-storetimeid='+storeid+']').html(jQuery('<option>', {
 							 value: '',
 							 text: 'No time slot is available.',
@@ -536,41 +556,51 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
 							 selected  : 'selected',
 						 }));
 						}						
-						$('body').trigger('processStop');
 					}
-				);
+				).fail(function () {
+					alert(<?= /* @noEscape */ json_encode((string)$noslotAvailableText) ?>);
+				}).always(function () {
+					$('body').trigger('processStop');
+				});
 			}
 			 
 		 });
 		 
 		 // Start display all installer marker on the map
-		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
-		
-		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
-		  zoom: 8,
-		  center: new google.maps.LatLng(23.88, 45.07),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-		
-		var infowindow = new google.maps.InfoWindow();
+		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>;
 
-		var marker, i;
-		
-		for (i = 0; i < allInstallerlocations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
-			map: map
-		  });
-		  
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {  
-			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
-			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
-            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
-			  infowindow.open(map, marker);
+		function initAllInstallerMap() {
+			if (!allInstallerlocations.length || !document.getElementById('map_canvas_all_installer')) {
+				return;
 			}
-		  })(marker, i));
+
+			var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+			  zoom: 8,
+			  center: new google.maps.LatLng(23.88, 45.07),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+
+			for (i = 0; i < allInstallerlocations.length; i++) {
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+				  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+							'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+							'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			}
 		}
+
+		whenGoogleMapsReady(initAllInstallerMap);
 	  // End display all installer marker on the map
 	  /*one line below is to solve design issue modal over modal*/
 	  /*jQuery('#viewAllInMap').appendTo("body");*/
@@ -581,33 +611,38 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
     });
 
     function resetAllInstallerMap(){
-    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
-		
-		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
-		  zoom: 8,
-		  center: new google.maps.LatLng(23.88, 45.07),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-		
-		var infowindow = new google.maps.InfoWindow();
+    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>;
 
-		var marker, i;
-		
-		for (i = 0; i < allInstallerlocations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
-			map: map
-		  });
-		  
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {  
-			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
-			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
-            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
-			  infowindow.open(map, marker);
+		whenGoogleMapsReady(function () {
+			if (!allInstallerlocations.length || !document.getElementById('map_canvas_all_installer')) {
+				return;
 			}
-		  })(marker, i));
-		}
+
+			var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+			  zoom: 8,
+			  center: new google.maps.LatLng(23.88, 45.07),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+
+			for (i = 0; i < allInstallerlocations.length; i++) {
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+				  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+							'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+							'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			}
+		});
     }
     function sortInstallers(selectedMarkerLat,selectedMarkerLng){
 		if(selectedMarkerLat != "" && selectedMarkerLng != "") {

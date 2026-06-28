@@ -51,6 +51,26 @@ class Data extends AbstractHelper
     protected $customerSession;
 
     /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
+     * @var TransportBuilder
+     */
+    protected $transportBuilder;
+
+    /**
+     * @var StateInterface
+     */
+    protected $inlineTranslation;
+
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
+
+    /**
      * Data constructor.
      * @param Context $context
      * @param StoreManagerInterface $storeManager

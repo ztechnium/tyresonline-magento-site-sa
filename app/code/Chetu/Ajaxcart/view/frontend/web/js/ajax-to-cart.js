@@ -4,7 +4,8 @@ define([
     'jquery/ui',
     'mage/validation/validation',
     'chetu/ajaxsuite',
-    'mage/mage'
+    'mage/mage',
+    'mage/cookies'
 ], function ($, $t) {
     'use strict';
 
@@ -44,10 +45,37 @@ define([
             }
         },
 
+        stopLoaders: function () {
+            if (this.isLoaderEnabled()) {
+                $('body').trigger(this.options.ajaxSuite.processStop);
+            }
+            $(this.options.ajaxCart.minicartSelector).trigger('contentUpdated');
+        },
+
         _bind: function () {
             this.initElements();
             this.initEvents();
-            this.options.ajaxCart.formKey = $(this.options.ajaxCart.formKeyInputSelector).val();
+            this.syncFormKeyInputs();
+        },
+
+        /**
+         * FPC-cached PLP pages embed a stale form_key; session cookie is authoritative.
+         */
+        getFormKey: function () {
+            var key = $.mage.cookies.get('form_key');
+            if (key) {
+                return key;
+            }
+            return $(this.options.ajaxCart.formKeyInputSelector).first().val();
+        },
+
+        syncFormKeyInputs: function () {
+            var key = this.getFormKey();
+            if (!key) {
+                return;
+            }
+            $(this.options.ajaxCart.formKeyInputSelector).val(key);
+            this.options.ajaxCart.formKey = key;
         },
 
         initElements: function () {
@@ -65,6 +93,7 @@ define([
         initEvents: function () {
             var self = this;
             $('body').delegate(self.options.ajaxCart.addToCartButtonSelector, 'click', function (e) {
+                self.syncFormKeyInputs();
                 var colorId = null, sizeId = null;
                 var selectedColor = $(this).closest('.product-item-details').find('.swatch-attribute.color .swatch-option.color.selected');
                 if (selectedColor.length > 0) {
@@ -114,7 +143,7 @@ define([
                         delete params.ajaxcart_error;
                     }
 
-                    params.form_key = self.options.ajaxCart.formKey;
+                    params.form_key = self.getFormKey();
                     self.showPopup(params, additionUrl, isWishlist, colorId, sizeId);
                 } else {
                     var form = $(this).closest('form');
@@ -129,12 +158,13 @@ define([
                             return;
                         }
                         e.preventDefault();
+                        self.syncFormKeyInputs();
                         var params = form.serialize();
                     } else {
                         var productId = $(this).closest('li.product-item').find('div.price-box').data('product-id');
                         if (productId) {
                             e.stopImmediatePropagation();
-                            var params = {product: productId, form_key: self.options.ajaxCart.formKey};
+                            var params = {product: productId, form_key: self.getFormKey()};
                         } else {
                             return;
                         }
@@ -273,8 +303,8 @@ define([
                         self.showMessagePopup(params, true, additionUrl, isWishlist);
                     }
                 },
-                error: function (response) {
-                    // do anything
+                error: function () {
+                    self.stopLoaders();
                 }
             });
         },
@@ -286,6 +316,7 @@ define([
                 isWishlist = false,
                 additionUrl = '';
 
+            self.syncFormKeyInputs();
             if (inputItemWishlist.length && inputItemWishlist.val()) {
                 isWishlist = true;
                 if (actionUrl.search('checkout/cart/add') != -1) {
@@ -333,6 +364,9 @@ define([
 
                     //self.enableAddToCartButton(form);
                     self.showMessagePopup(form.serialize(), true, additionUrl, isWishlist);
+                },
+                error: function () {
+                    self.stopLoaders();
                 }
             });
         },
@@ -340,6 +374,7 @@ define([
         //In product details page
         ajaxSubmit: function (form) {
             var self = this;
+            self.syncFormKeyInputs();
             $(self.options.ajaxCart.minicartSelector).trigger('contentLoading');
             //self.disableAddToCartButton(form);
 
@@ -378,6 +413,9 @@ define([
                     } else {
                         self.showMessagePopup(form.serialize(), true);
                     }
+                },
+                error: function () {
+                    self.stopLoaders();
                 }
             });
         },
@@ -477,8 +515,8 @@ define([
 
                     }
                 },
-                error: function (response) {
-                    // do anything
+                error: function () {
+                    self.stopLoaders();
                 }
             });
         },

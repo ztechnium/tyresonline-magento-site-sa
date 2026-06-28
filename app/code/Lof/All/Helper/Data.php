@@ -58,6 +58,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     protected $_coreRegistry;
 
+    /**
+     * @var \Lof\All\Model\License
+     */
+    protected $_license;
+
+    /**
+     * @var \Magento\Framework\HTTP\PhpEnvironment\RemoteAddress
+     */
+    protected $_remoteAddress;
+
+    /**
+     * @var \Magento\Framework\Module\Dir\Reader
+     */
+    protected $_moduleReader;
+
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,

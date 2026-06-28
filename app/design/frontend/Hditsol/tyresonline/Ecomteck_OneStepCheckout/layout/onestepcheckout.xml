@@ -21,11 +21,13 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_index_index"/>
     <head>
         <!-- <css src="Ecomteck_OneStepCheckout::css/one-step-checkout-m.css" />
         <css src="Ecomteck_OneStepCheckout::css/one-step-checkout-l.css" media="screen and (min-width: 768px)"/> -->
 		<remove src="Ecomteck_OneStepCheckout::css/one-step-checkout.css"/>
 		<css src="css/one-step-checkout.css"/>
+		<css src="css/shopping-cart.css"/>
         <css src="Ecomteck_Core::css/fontawesome/css/fontawesome-all.min.css" />
     </head>
     <body>
@@ -55,6 +57,13 @@
         </referenceBlock>
 
         <referenceContainer name="content">
+            <container name="checkout.fitting.section" htmlTag="div" htmlClass="checkout-fitting-section" before="checkout.root">
+                <block class="Magento\Framework\View\Element\Template" name="checkout.fitting.service" template="Hdweb_Installer::fitting-service.phtml"/>
+                <container name="checkout.installer.container" htmlTag="div" htmlClass="checkout-installer-wrap">
+                    <block class="Magento\Framework\View\Element\Template" name="checkout-installer" template="Hdweb_Installer::cart-installer.phtml"/>
+                    <block class="Magento\Framework\View\Element\Template" name="checkout-pickup-dropoff" template="Hdweb_Installer::pickupdrop-service.phtml"/>
+                </container>
+            </container>
             <block class="Magento\GiftMessage\Block\Cart\GiftOptions" name="onestepcheckout.gift_options" template="Ecomteck_OneStepCheckout::gift-message/gift_options.phtml" cacheable="false"></block>
             <container name="cleancheckout_footer_wrapper" after="checkout.root" htmlTag="div" htmlClass="one-step-checkout-footer-wrapper">
                 <block class="Ecomteck\OneStepCheckout\Block\BackToStore"
@@ -74,6 +83,10 @@
                 <argument name="jsLayout" xsi:type="array">
                     <item name="components" xsi:type="array">
                         <item name="checkout" xsi:type="array">
+                            <item name="component" xsi:type="string">uiComponent</item>
+                            <item name="config" xsi:type="array">
+                                <item name="template" xsi:type="string">Magento_Checkout/onepage</item>
+                            </item>
                             <item name="children" xsi:type="array">
                                 <item name="steps" xsi:type="array">
                                     <item name="children" xsi:type="array">
@@ -229,6 +242,9 @@
                                     </item>
                                 </item>
                             </item>
+                        </item>
+                        <item name="checkoutProvider" xsi:type="array">
+                            <item name="component" xsi:type="string">uiComponent</item>
                         </item>
                     </item>
                 </argument>

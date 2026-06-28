@@ -20,6 +20,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     protected $_shipconfig;
 	protected $cart;
     protected $_productRepository;
+    protected $wishlistData;
+    protected $_adminUser;
 
     public function __construct(
     \Magento\Framework\App\Helper\Context $context, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Framework\Message\ManagerInterface $messageManager, \Magento\Framework\App\ResourceConnection $resource, \Magento\Catalog\Model\Category $categoryData, \Magento\Wishlist\Helper\Data $wishlistData, \Magento\Catalog\Model\CategoryFactory $categoryFactory, \Magento\Customer\Model\Session $customerSession, \Magento\Shipping\Model\Config $shipconfig,
@@ -32,7 +34,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         $this->_resource = $resource;
         $this->categoryData = $categoryData;
         $this->wishlistData = $wishlistData;
-        $this->_scopeConfig = $context->getScopeConfig();
         $this->_shipconfig = $shipconfig;
         $this->_categoryFactory = $categoryFactory;
         $this->_customerSession = $customerSession;

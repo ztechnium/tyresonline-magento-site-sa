@@ -81,6 +81,9 @@ class Router implements RouterInterface
                 if (count($identifiers) == 1) {
                     $brandUrl = $identifiers[0];
                 }
+                if ($brandUrl === '' || $brandUrl === null) {
+                    return null;
+                }
                 $brand = $this->_brandCollection->getCollection()
                     ->addFieldToFilter('status', array('eq' => 1))
                     ->addFieldToFilter('url_key', array('eq' => $brandUrl))

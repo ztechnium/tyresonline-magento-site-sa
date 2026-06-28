@@ -1802,3 +1802,67 @@ margin: 0;
         font-size: 14px;
     }
 }
+
+/* Checkout fitting block — reuse cart styles, keep layout tight with checkout form */
+#onestepcheckout-page .checkout-fitting-section {
+    width: 65%;
+    float: left;
+    clear: both;
+    margin: 0 0 20px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+#onestepcheckout-page .checkout-fitting-section .garage {
+    margin-bottom: 15px;
+    border-radius: 0 0 25px 25px;
+}
+
+#onestepcheckout-page .checkout-fitting-section .garage_switch .container_switch {
+    text-align: center;
+}
+
+#onestepcheckout-page .checkout-fitting-section .garage .garage_switch .switch {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#onestepcheckout-page .checkout-fitting-section .garage .garage_switch .switch .switch-selection {
+    display: none;
+}
+
+#onestepcheckout-page .checkout-fitting-section .fitting-location-box {
+    margin-bottom: 0;
+}
+
+/* Installer modals must stay hidden until opened — prevents giant close icon / locator leak */
+#onestepcheckout-page .modal.fade:not(.show) {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+#onestepcheckout-page .checkout-fitting-section .close svg,
+#onestepcheckout-page .checkout-fitting-section .closeList svg {
+    width: 16px;
+    height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+}
+
+#onestepcheckout-page #checkout {
+    clear: both;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 767px) {
+    #onestepcheckout-page .checkout-fitting-section {
+        width: 100%;
+        float: none;
+        padding: 0 10px;
+    }
+}

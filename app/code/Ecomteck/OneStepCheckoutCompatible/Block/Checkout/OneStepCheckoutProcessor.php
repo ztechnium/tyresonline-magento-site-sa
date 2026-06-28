@@ -70,6 +70,11 @@ class OneStepCheckoutProcessor implements LayoutProcessorInterface
     protected $_moduleList;
 
     /**
+     * @var ArrayManager
+     */
+    protected $arrayManager;
+
+    /**
      * @param ScopeConfigInterface $scopeConfig
      * @param ModuleManager $moduleManager
      * @param CheckoutSession $checkoutSession

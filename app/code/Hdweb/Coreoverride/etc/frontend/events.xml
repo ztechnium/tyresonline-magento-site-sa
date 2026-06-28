@@ -3,4 +3,9 @@
 	<event name="catalog_category_load_after">
         <observer instance="Hdweb\Coreoverride\Observer\CategoryLoadAfter" name="hdweb_coreoverride_catalog_product_load_after"/>
     </event>
+    <event name="layout_load_before">
+        <observer name="hdweb_coreoverride_ensure_checkout_layout_handle"
+                  instance="Hdweb\Coreoverride\Observer\EnsureCheckoutLayoutHandleObserver"
+                  sortOrder="1"/>
+    </event>
 </config>

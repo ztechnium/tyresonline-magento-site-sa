@@ -251,12 +251,63 @@ if ($request->getFullActionName() == 'cms_index_index') {
 
         } else {
           $('.review-panel .inner').addClass('loaded');
-          $('.review-panel-iframe').attr('src', 'https://www.tyresonline.ae/google-reviews.html');
+          $('.review-panel-iframe').attr('src', '/google-reviews.html');
         }
       });
     });
   </script>
 <?php } ?>
+<?php $isHomePage = isset($cmsPage) && $cmsPage && (string)$cmsPage->getIdentifier() === 'home'; ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var shouldDelayChat = <?php echo $isHomePage ? 'true' : 'false'; ?>;
+        var loadChatWidget = function() {
+            if (window.__freshchatWidgetLoaded) {
+                return;
+            }
+
+            window.__freshchatWidgetLoaded = true;
+
+            var script = document.createElement("script");
+            script.src = "https://uae.fw-cdn.com/40150004/90607.js";
+            script.setAttribute("chat", "true");
+            script.async = true;
+            document.body.appendChild(script);
+        };
+
+        if (!shouldDelayChat) {
+            loadChatWidget();
+            return;
+        }
+
+        var activated = false;
+        var activateChat = function() {
+            if (activated) {
+                return;
+            }
+
+            activated = true;
+            window.removeEventListener("scroll", activateChat, passiveOptions);
+            window.removeEventListener("mousemove", activateChat);
+            window.removeEventListener("touchstart", activateChat);
+            window.removeEventListener("keydown", activateChat);
+            loadChatWidget();
+        };
+
+        var passiveOptions = { passive: true };
+
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(loadChatWidget, { timeout: 8000 });
+        } else {
+            window.setTimeout(loadChatWidget, 8000);
+        }
+
+        window.addEventListener("scroll", activateChat, passiveOptions);
+        window.addEventListener("mousemove", activateChat, { once: true });
+        window.addEventListener("touchstart", activateChat, { once: true, passive: true });
+        window.addEventListener("keydown", activateChat, { once: true });
+    });
+</script>
 
 <?php /* 
 <div id="userNote" class="iziModal izimodal-usernote">

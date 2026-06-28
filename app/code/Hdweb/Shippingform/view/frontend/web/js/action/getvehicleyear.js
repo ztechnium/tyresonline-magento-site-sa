@@ -28,13 +28,14 @@ define(
                                         $("select[name='year']").html(v.vehicleyear);
                                 });
                             }
-                            $('body').trigger('processStop');
                         }
 
                 ).fail(
                         function (response) {
                         }
-                );
+                ).always(function () {
+                    $('body').trigger('processStop');
+                });
             };
         }
 );

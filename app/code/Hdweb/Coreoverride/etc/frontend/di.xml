@@ -7,4 +7,14 @@
            </argument>
        </arguments>
    </type>
+   <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+       <plugin name="hdweb_coreoverride_checkout_layout_processor"
+               type="Hdweb\Coreoverride\Plugin\Checkout\LayoutProcessorPlugin"
+               sortOrder="5"/>
+   </type>
+   <type name="Magento\Checkout\Block\Onepage">
+       <plugin name="hdweb_coreoverride_checkout_onepage"
+               type="Hdweb\Coreoverride\Plugin\Checkout\OnepagePlugin"
+               sortOrder="5"/>
+   </type>
 </config>

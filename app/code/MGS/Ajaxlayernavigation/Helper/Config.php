@@ -6,6 +6,11 @@ use Magento\Store\Model\ScopeInterface;
 
 class Config extends AbstractHelper
 {
+    /**
+     * @var \Magento\Framework\Pricing\PriceCurrencyInterface
+     */
+    protected $_priceCurrency;
+
     public function __construct(
         \Magento\Framework\App\Helper\Context $context, 
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency

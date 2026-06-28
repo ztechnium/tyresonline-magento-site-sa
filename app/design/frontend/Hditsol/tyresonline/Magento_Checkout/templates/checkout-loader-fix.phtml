@@ -1,0 +1,30 @@
+<script>
+require(['jquery'], function ($) {
+    function resetCheckoutLoader() {
+        if ($.active !== 0) {
+            return;
+        }
+
+        var loader = $('[data-container="body"]').data('mageLoader');
+
+        if (loader) {
+            loader.loaderStarted = 0;
+
+            if (loader.spinner) {
+                loader.spinner.hide();
+            }
+        }
+
+        $('.loading-mask').hide();
+    }
+
+    $(function () {
+        setInterval(resetCheckoutLoader, 1000);
+        $(document).on('ajaxError', resetCheckoutLoader);
+        $(window).on('load', function () {
+            setTimeout(resetCheckoutLoader, 500);
+            setTimeout(resetCheckoutLoader, 2000);
+        });
+    });
+});
+</script>

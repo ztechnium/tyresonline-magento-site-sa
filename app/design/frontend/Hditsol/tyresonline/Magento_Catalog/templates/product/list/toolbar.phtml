@@ -23,17 +23,17 @@
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
     ?>
-    <?php if($category->getId() == 4 || $category->getId() == 5): ?>
+    <?php if ($category && ($category->getId() == 4 || $category->getId() == 5)): ?>
       <div class="product-topnav-mobile d-md-none">
         <ul class="list-custom d-flex justify-content-between">
           <li>
           <?php $params = $this->getRequest()->getParams(); ?>
             <?php if(isset($params['width']) && $params['width'] != ''): ?>
             <span class="custom-button d-flex align-items-center red search-result"> 
-              <?php if(isset($params['width']) && $params['width'] != ''): ?>
+              <?php if(isset($params['width']) && $params['width'] != '' && isset($params['height'], $params['rim'])): ?>
                 <?php echo $params['width'].'/'.$params['height'].' R'.$params['rim']; ?>
               <?php endif; ?>
-              <?php if(isset($params['width_rear']) && $params['width_rear'] != ''): ?>
+              <?php if(isset($params['width_rear']) && $params['width_rear'] != '' && isset($params['height_rear'], $params['rim_rear'])): ?>
                 <?php echo ' - '.$params['width_rear'].'/'.$params['height_rear'].' R'.$params['rim_rear']; ?>
               <?php endif; ?>
             </span>
@@ -63,13 +63,13 @@
                 <?php $params = $this->getRequest()->getParams(); ?>
                 <div class="search-selection-list">
                   <ul class="list-custom d-flex flex-wrap align-items-center">
-                    <?php if(isset($params['width']) && $params['width'] != ''): ?>
+                    <?php if(isset($params['width']) && $params['width'] != '' && isset($params['height'], $params['rim'])): ?>
                       <li class="text"><?php echo __('Your Selections');?> :</li>
                     <?php endif; ?>
-                    <?php if(isset($params['width']) && $params['width'] != ''): ?>
+                    <?php if(isset($params['width']) && $params['width'] != '' && isset($params['height'], $params['rim'])): ?>
                       <li><span><?php echo $params['width'].'/'.$params['height'].' R'.$params['rim']; ?></span></li>
                     <?php endif; ?>
-                    <?php if(isset($params['width_rear']) && $params['width_rear'] != ''): ?>
+                    <?php if(isset($params['width_rear']) && $params['width_rear'] != '' && isset($params['height_rear'], $params['rim_rear'])): ?>
                       <li><span><?php echo $params['width_rear'].'/'.$params['height_rear'].' R'.$params['rim_rear']; ?></span></li>
                     <?php endif; ?>
                   </ul>

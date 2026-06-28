@@ -144,9 +144,9 @@ resource "aws_elasticache_cluster" "sa_prod" {
 }
 
 resource "aws_instance" "sa_prod" {
-  ami                    = data.aws_ami.ubuntu_2404.id
-  instance_type          = var.ec2_instance_type
-  key_name               = var.ec2_key_name
+  ami                         = data.aws_ami.ubuntu_2404.id
+  instance_type               = var.ec2_instance_type
+  key_name                    = var.ec2_key_name
   subnet_id                   = var.ec2_subnet_id
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sa_prod_ec2.id]
@@ -166,9 +166,13 @@ resource "aws_instance" "sa_prod" {
   })
 
   lifecycle {
-    ignore_changes = [user_data]
+    ignore_changes = [user_data, ami]
   }
 }
+
+# IAM profile for S3 media sync is created in cloudfront.tf.
+# Attach manually after apply (provider has no association resource in v5):
+#   aws ec2 associate-iam-instance-profile --instance-id <id> --iam-instance-profile Name=tyresonline-sa-prod-ec2-s3-media
 
 resource "aws_s3_bucket" "sa_prod_media" {
   bucket = "${var.project}-media"

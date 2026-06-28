@@ -17,8 +17,8 @@ define(["jquery"], // Require jquery
 		'use strict';
 	var pluginName = 'storeLocator';
 
-	// Only allow for one instantiation of this script and make sure Google Maps API is included
-	if (typeof $.fn[pluginName] !== 'undefined' || typeof google === 'undefined') {
+	// Only allow for one instantiation of this script
+	if (typeof $.fn[pluginName] !== 'undefined') {
 		return;
 	}
 
@@ -61,7 +61,7 @@ define(["jquery"], // Require jquery
 		'loading'                    : false,
 		'locationsPerPage'           : 10,
 		'mapSettings'                : {
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			mapTypeId: 'roadmap',
 			zoom     : 12
 		},
 		'markerCluster'              : null,

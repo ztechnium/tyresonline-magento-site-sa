@@ -19,6 +19,7 @@ class View extends \Magento\Framework\App\Action\Action
     private $layerResolver;
     protected $resultForwardFactory;
     protected $_brandHelper;
+    protected $resultPageFactory;
 
     public function __construct(
         Context $context,

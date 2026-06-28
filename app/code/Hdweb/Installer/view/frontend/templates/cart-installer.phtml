@@ -28,13 +28,13 @@ if ($collection) {
     $hasInstaller = 'Change';
     $store_info = $collection->getFirstItem();
     $store_data = $store_info->getData();
-    $installer_name     = $store_data['name'];
-    $installer_name_rtl     = $store_data['name_rtl'];
-    $installer_address  = $store_data['address'];
-    $installer_address_rtl  = $store_data['address_rtl'];
-    $pickup_installer_service  = $store_data['pickup_service'];
-    $installer_lat   = $store_data['latitude'];
-    $installer_lng  = $store_data['longitude'];
+    $installer_name     = $store_data['name'] ?? '';
+    $installer_name_rtl     = $store_data['name_rtl'] ?? ($store_data['name'] ?? '');
+    $installer_address  = $store_data['address'] ?? '';
+    $installer_address_rtl  = $store_data['address_rtl'] ?? ($store_data['address'] ?? '');
+    $pickup_installer_service  = $store_data['pickup_service'] ?? 0;
+    $installer_lat   = $store_data['latitude'] ?? '';
+    $installer_lng  = $store_data['longitude'] ?? '';
     $installer_datetime = date("l, F d, Y", strtotime($quote->getPickupDate())).' '.$quote->getPickupTime();
 }
 }
@@ -319,27 +319,20 @@ $storeCode = $storeManager->getStore()->getCode();
                                         jQuery("#selectedInstaller").attr("data-lat",response.installer_lat);    
                                         jQuery("#selectedInstaller").attr("data-lng",response.installer_lng);    
                                         selectedPickupStore=pickup_store;
-                                    }     
-                                    /* quote.shippingAddress(quote.shippingAddress()); 
-                                      var deferred = $.Deferred();
-                                      getTotalsAction([], deferred);
-                                     totals.isLoading(true);
-                                        getPaymentInformationAction(deferred);
-                                        $.when(deferred).done(function() {
-                                            totals.isLoading(false);
-                                        }); */
-									 if(response.pickup_service == 0){ /* remove pickup charge if no pickup_service */
-										$('#custom-vehicle-div .pickupDropOption .no').trigger('click'); //remove pickup/drop charges
-									 }
+                                    }
+                                    if (response.pickup_service == 0) {
+                                        $('#custom-vehicle-div .pickupDropOption .no').trigger('click');
+                                    }
                                      totalsDefaultProvider.estimateTotals(quote.shippingAddress()); 
-                                     $('body').trigger('processStop');
                                      $('#mycartinstallerModal .close').trigger('click');
-									 /* jQuery(".checkout button.checkout").attr('data-bs-toggle', '');
-									 jQuery(".checkout button.checkout").attr('data-bs-target', ''); */
 									 jQuery('.action.checkout').show();
 									 jQuery('.restrict-checkout').hide();
                                 }
-                            );
+                            ).fail(function () {
+                                alert('<?php echo __('Unable to save fitting location. Please try again.'); ?>');
+                            }).always(function () {
+                                $('body').trigger('processStop');
+                            });
                     }else{
                         alert(noDateOrTimeSelectedTxt);
                     }
@@ -362,10 +355,13 @@ $storeCode = $storeManager->getStore()->getCode();
                                        jQuery('.fittingLocationList').hide();   
                                        selectedPickupStore=""; 
                                     }     
-                                     $('body').trigger('processStop');
                                      location.reload();
                                 }
-                            );
+                            ).fail(function () {
+                                alert('<?php echo __('Unable to remove fitting location. Please try again.'); ?>');
+                            }).always(function () {
+                                $('body').trigger('processStop');
+                            });
                });
         });
         // Code goes here

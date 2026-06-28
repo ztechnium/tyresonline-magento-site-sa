@@ -28,13 +28,14 @@ define(
                                         $("select[name='region']").html(v.area);
                                 });
                             }
-                            $('body').trigger('processStop');
                         }
 
                 ).fail(
                         function (response) {
                         }
-                );
+                ).always(function () {
+                    $('body').trigger('processStop');
+                });
             };
         }
 );

@@ -7,8 +7,8 @@
         <plugin name="result-varnish-cache" type="Magento\PageCache\Model\Controller\Result\VarnishPlugin" disabled="false"/>
     </type>
     <type name="Magento\Framework\View\Layout">
-        <plugin name="mgt-varnish-layout-plugin" type="Mgt\Varnish\Model\Plugin\LayoutPlugin"/>
-        <plugin name="layout-model-caching-unique-name" type="Magento\PageCache\Model\Layout\LayoutPlugin" disabled="true"/>
+        <plugin name="mgt-varnish-layout-plugin" type="Mgt\Varnish\Model\Plugin\LayoutPlugin" disabled="true"/>
+        <plugin name="layout-model-caching-unique-name" type="Magento\PageCache\Model\Layout\LayoutPlugin"/>
     </type>
     <type name="Mgt\Varnish\Model\Logger\Handler">
         <arguments>
