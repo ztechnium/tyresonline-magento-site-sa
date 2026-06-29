@@ -257,11 +257,16 @@ $notAvailable = 'No time slot is available.';
 
 <div id="info-video" style="display:none;"></div>
 
-<!-- End All installer in map model -->
 <?php $gmapApiKey = $block->storelocatorConfig->getApiKeySettings(); ?>
 <?php if ($gmapApiKey): ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
 <?php endif; ?>
+<?php $deferStoreLocatorInit = (bool)$block->getData('defer_init'); ?>
+<?php if ($deferStoreLocatorInit): ?>
+<script type="text/javascript">
+    window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
+</script>
+<?php else: ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -271,6 +276,7 @@ $notAvailable = 'No time slot is available.';
         }
     }
 </script>
+<?php endif; ?>
 <?php if(!$isDisplayDateTime) { ?>
 <style type="text/css">
 .storelocator .datetimesubmit{display: none;}

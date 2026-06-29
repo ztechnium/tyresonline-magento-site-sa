@@ -279,6 +279,12 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
 <?php if ($gmapApiKey): ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
 <?php endif; ?>
+<?php $deferStoreLocatorInit = (bool)$block->getData('defer_init'); ?>
+<?php if ($deferStoreLocatorInit): ?>
+<script type="text/javascript">
+    window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
+</script>
+<?php else: ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -288,6 +294,7 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
         }
     }
 </script>
+<?php endif; ?>
 <?php if(!$isDisplayDateTime) { ?>
 <style type="text/css">
 .storelocator .datetimesubmit{display: none;}

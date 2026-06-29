@@ -9,6 +9,15 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 
 echo "Deploying cart fitting locations fix from $REPO_ROOT ..."
 
+sudo cp -v "$REPO_ROOT/app/code/Ecomteck/StoreLocator/view/frontend/web/js/plugins/storeLocator/jquery.storelocator.js" \
+  "$MAGENTO/app/code/Ecomteck/StoreLocator/view/frontend/web/js/plugins/storeLocator/jquery.storelocator.js"
+
+sudo cp -v "$REPO_ROOT/app/code/Hdweb/Installer/view/frontend/templates/cart-installer.phtml" \
+  "$MAGENTO/app/code/Hdweb/Installer/view/frontend/templates/cart-installer.phtml"
+
+sudo cp -v "$REPO_ROOT/app/design/frontend/Hditsol/tyresonline/Magento_Checkout/layout/checkout_cart_index.xml" \
+  "$MAGENTO/app/design/frontend/Hditsol/tyresonline/Magento_Checkout/layout/checkout_cart_index.xml"
+
 sudo cp -v "$REPO_ROOT/app/code/Ecomteck/StoreLocator/view/frontend/web/js/ecomteck_storelocator.js" \
   "$MAGENTO/app/code/Ecomteck/StoreLocator/view/frontend/web/js/ecomteck_storelocator.js"
 
@@ -25,6 +34,9 @@ sudo cp -v "$REPO_ROOT/app/code/Hdweb/Addattribute/Helper/Productdetails.php" \
 
 sudo chown -R www-data:www-data \
   "$MAGENTO/app/code/Ecomteck/StoreLocator/view/frontend/web/js/ecomteck_storelocator.js" \
+  "$MAGENTO/app/code/Ecomteck/StoreLocator/view/frontend/web/js/plugins/storeLocator/jquery.storelocator.js" \
+  "$MAGENTO/app/code/Hdweb/Installer/view/frontend/templates/cart-installer.phtml" \
+  "$MAGENTO/app/design/frontend/Hditsol/tyresonline/Magento_Checkout/layout/checkout_cart_index.xml" \
   "$MAGENTO/app/design/frontend/Hditsol/tyresonline/Ecomteck_StoreLocator/templates/storelocator/right.phtml" \
   "$MAGENTO/app/design/frontend/Hditsol/tyresonline-ar/Ecomteck_StoreLocator/templates/storelocator/right.phtml" \
   "$MAGENTO/app/code/Hdweb/Addattribute/Helper/Productdetails.php" 2>/dev/null || true

@@ -30,10 +30,6 @@
 							</block>
 							<block class="Magento\Framework\View\Element\Template" name="cart.fitting.service" template="Hdweb_Installer::fitting-service.phtml" after="checkout.cart.form"/>
 							<container name="checkout.cart.widget" as="checkout_cart_widget" label="Shopping Cart Items After" after="cart-items"/>
-							<container name="cart.bottom" after="checkout.cart.form" htmlTag="div" htmlClass="shopping-cart-bottom">
-								<block class="Magento\Framework\View\Element\Template" name="cart-installer" template="Hdweb_Installer::cart-installer.phtml" before="-" />
-								<block class="Magento\Framework\View\Element\Template" name="cart-pickup-dropoff" template="Hdweb_Installer::pickupdrop-service.phtml" after="cart-installer" />
-							</container>
 						</container>
 						<container name="cart.bottom.main" label="coupon discount" htmlTag="div" htmlClass="discount-cart-summary-wrap" after="-">
 							<container name="cart.bottom.left" before="cart.summary" htmlTag="div" htmlClass="shopping-cart-bottom">
