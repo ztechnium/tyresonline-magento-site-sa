@@ -96,6 +96,29 @@ class ProductImage extends AbstractHelper
         }
     }
 
+    /**
+     * Resolve a placeholder when the catalog image file is missing on disk.
+     * Avoids calling the catalog image helper to prevent recursive plugin calls.
+     */
+    public function resolveMissingProductImageUrl(
+        Product $product,
+        string $imageRole = 'category_page_grid',
+        int $width = 300,
+        int $height = 300
+    ): string {
+        $brandUrl = $this->getBrandFallbackUrl($product);
+        if ($brandUrl !== null) {
+            return $brandUrl;
+        }
+
+        $mediaPlaceholder = $this->getMediaPlaceholderUrl();
+        if ($mediaPlaceholder !== null) {
+            return $mediaPlaceholder;
+        }
+
+        return $this->getThemePlaceholderUrl();
+    }
+
     public function getJsFallbackUrl(): string
     {
         $mediaPlaceholder = $this->getMediaPlaceholderUrl();
