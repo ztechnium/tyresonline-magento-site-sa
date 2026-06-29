@@ -408,22 +408,35 @@ require(['jquery', 'ecomteck_storelocator'], function ($, initStoreLocator) {
 	}
 
 	require(["jquery", "mage/storage", "mage/calendar"], function($, storage){
+		function resolveInstallerStoreId($checkbox) {
+			var storesId = $checkbox.attr('data-storesid') || $checkbox.data('storesid');
+			if (!storesId) {
+				var idMatch = ($checkbox.attr('id') || '').match(/checkboxInstaller(\d+)/);
+				storesId = idMatch ? idMatch[1] : '';
+			}
+			return storesId;
+		}
+
+		$(document).off('change.installerCheckbox', '.checkboxInstaller').on('change.installerCheckbox', '.checkboxInstaller', function () {
+			var $checkbox = $(this);
+			var storesId = resolveInstallerStoreId($checkbox);
+			if (!storesId) {
+				return;
+			}
+
+			var isChecked = $checkbox.prop('checked');
+			var $panel = $('#submitInstaller' + storesId);
+
+			if (isChecked) {
+				$('.checkboxInstaller').not($checkbox).prop('checked', false);
+				$('.datetimesubmit').not($panel).hide();
+				$panel.show();
+			} else {
+				$panel.hide();
+			}
+		});
+
 		$( document ).ajaxComplete(function( event, xhr, settings ) {
-			/* start installer checkbox code */
-			$('.checkboxInstaller').change(function() {
-		        var ischecked= $(this).is(':checked');
-		        storesId = $(this).attr("data-storesid");
-		        $('.checkboxInstaller').attr('checked', false);
-      			$(this).attr('checked', true);
-		        $('.datetimesubmit').hide();
-		        if (ischecked) {
-		            $('#submitInstaller'+storesId).show();
-		        } else {
-		        	$(this).attr('checked', false);
-		            $('#submitInstaller'+storesId).hide();
-		        }
-		    });
-		    /* end installer checkbox code */
 		    /* $(".storePickupdatepicker").datepicker({
 	          showMonthAfterYear: false,
 	          dateFormat:'mm/dd/yy',

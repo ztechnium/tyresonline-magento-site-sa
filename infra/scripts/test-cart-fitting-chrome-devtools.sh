@@ -99,29 +99,39 @@ STATE=$(run_cdt evaluate_script "() => {
 }")
 echo "before_check: $STATE"
 
-# Click Select Installer checkbox via evaluate (more reliable than snapshot uid)
+# Click Select Installer via label (real user interaction)
 run_cdt evaluate_script "() => {
   const cb = document.querySelector('#mycartinstallerModal .checkboxInstaller');
-  if (!cb) return { clicked: false };
-  cb.checked = true;
-  cb.dispatchEvent(new Event('change', { bubbles: true }));
-  return { clicked: true };
+  const label = cb ? document.querySelector('label[for=\"' + cb.id + '\"]') : null;
+  if (label) {
+    label.click();
+    return { clicked: 'label', id: cb.id };
+  }
+  if (cb) {
+    cb.click();
+    return { clicked: 'checkbox', id: cb.id };
+  }
+  return { clicked: false };
 }" >/dev/null
 sleep 1
 
 AFTER=$(run_cdt evaluate_script "() => {
-  const first = document.querySelector('#mycartinstallerModal .allInstaller .installer');
+  const cb = document.querySelector('#mycartinstallerModal .checkboxInstaller:checked') ||
+    document.querySelector('#mycartinstallerModal .checkboxInstaller');
+  const storesId = cb?.getAttribute('data-storesid') || (cb?.id || '').replace('checkboxInstaller', '');
+  const panel = storesId ? document.querySelector('#submitInstaller' + storesId) : null;
   const visible = (el) => {
     if (!el) return false;
     const cs = getComputedStyle(el);
     return cs.display !== 'none' && cs.visibility !== 'hidden' && el.offsetParent !== null;
   };
-  const datetime = first?.querySelector('.datetimesubmit');
   return {
-    datetimeFound: !!datetime,
-    datetimeVisible: visible(datetime),
-    dateInputFound: !!first?.querySelector('.storePickupdatepicker'),
-    timeSelectFound: !!first?.querySelector('.storePickuptimepicker'),
+    checkboxChecked: !!cb?.checked,
+    panelStyle: panel?.getAttribute('style'),
+    datetimeFound: !!panel,
+    datetimeVisible: visible(panel),
+    dateInputFound: !!panel?.querySelector('.storePickupdatepicker'),
+    timeSelectFound: !!panel?.querySelector('.storePickuptimepicker'),
   };
 }")
 echo "after_check: $AFTER"
@@ -153,8 +163,10 @@ if not before.get('checkboxFound'):
     errors.append('Select Installer checkbox not found')
 if not before.get('checkboxVisible'):
     errors.append('Select Installer checkbox not visible')
-if not after.get('datetimeFound'):
-    errors.append('date/time block missing after selecting installer')
+if not after.get('checkboxChecked'):
+    errors.append('checkbox not checked after click')
+if not after.get('datetimeVisible'):
+    errors.append('date/time panel still hidden after selecting installer')
 if not after.get('dateInputFound'):
     errors.append('date picker missing after selecting installer')
 if not after.get('timeSelectFound'):
