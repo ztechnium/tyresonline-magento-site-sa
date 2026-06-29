@@ -1,0 +1,36 @@
+name: Fix ElasticSuite export (is_invalid)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fix-export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: cursor/fix-elasticsuite-is-invalid-column-48f5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+
+      - name: Write SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          install -m 600 /dev/stdin ~/.ssh/staging.pem <<< "$SSH_PRIVATE_KEY"
+
+      - name: Run snapshot + fix
+        env:
+          AWS_REGION: eu-north-1
+          EC2_HOST: ec2-16-170-225-52.eu-north-1.compute.amazonaws.com
+          SSH_KEY: ~/.ssh/staging.pem
+        run: bash infra/scripts/fix-export-with-snapshots.sh
