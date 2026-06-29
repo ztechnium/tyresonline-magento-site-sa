@@ -11,6 +11,11 @@ use Magento\Checkout\Block\Checkout\LayoutProcessor;
  */
 class LayoutProcessorPlugin
 {
+    public function beforeProcess(LayoutProcessor $subject, array $jsLayout): array
+    {
+        return [CheckoutJsLayoutNormalizer::normalize($jsLayout)];
+    }
+
     public function aroundProcess(LayoutProcessor $subject, callable $proceed, array $jsLayout): array
     {
         return $proceed(CheckoutJsLayoutNormalizer::normalize($jsLayout));

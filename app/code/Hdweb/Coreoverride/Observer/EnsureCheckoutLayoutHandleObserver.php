@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Hdweb\Coreoverride\Observer;
 
+use Magento\Framework\App\Request\Http as HttpRequest;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
@@ -17,9 +18,14 @@ class EnsureCheckoutLayoutHandleObserver implements ObserverInterface
         'onestepcheckout_index_index',
     ];
 
+    public function __construct(
+        private readonly HttpRequest $request
+    ) {
+    }
+
     public function execute(Observer $observer): void
     {
-        $action = (string) $observer->getData('full_action_name');
+        $action = $this->request->getFullActionName();
         if (!in_array($action, self::CHECKOUT_ACTIONS, true)) {
             return;
         }
