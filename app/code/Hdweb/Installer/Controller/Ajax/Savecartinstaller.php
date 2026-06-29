@@ -1,152 +1,138 @@
 <?php
 
-/**
- * Copyright © 2016 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
+declare(strict_types=1);
 
 namespace Hdweb\Installer\Controller\Ajax;
 
-use Magento\Customer\Api\AccountManagementInterface;
+use Ecomteck\StoreLocator\Model\ResourceModel\Stores\CollectionFactory;
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Serialize\Serializer\Json;
+use Psr\Log\LoggerInterface;
 
-class Savecartinstaller extends \Magento\Framework\App\Action\Action
+class Savecartinstaller extends Action implements CsrfAwareActionInterface, HttpPostActionInterface
 {
-
-    /**
-     * @var \Magento\Framework\Json\Helper\Data $helper
-     */
-    protected $helper;
-
-    /**
-     * @var \Magento\Framework\Controller\Result\JsonFactory
-     */
-    protected $resultJsonFactory;
-
-    /**
-     * @var \Magento\Framework\Controller\Result\RawFactory
-     */
-    protected $resultRawFactory;
-    protected $_cartModel;
-    protected $_resource;
-    protected $_storeinsatllerModel;
-    protected $_addressRepository;
-    protected $_customerRepository;
-    protected $_checkoutSession;
-    protected $collectionFactory;
-    protected $json;
-
-    /**
-
-     *
-     * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Framework\Json\Helper\Data $helper
-     * @param AccountManagementInterface $customerAccountManagement
-     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
-     * @param \Magento\Framework\Controller\Result\RawFactory $resultRawFactory
-     */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context, \Magento\Framework\Json\Helper\Data $helper, \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory, \Magento\Framework\Controller\Result\RawFactory $resultRawFactory, \Magento\Checkout\Model\Cart $cartModel, \Magento\Framework\App\ResourceConnection $resource, \Magento\Customer\Api\AddressRepositoryInterface $addressRepository, \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository, \Magento\Checkout\Model\Session $checkoutSession,
-        \Ecomteck\StoreLocator\Model\ResourceModel\Stores\CollectionFactory $collectionFactory,
-         \Magento\Framework\Serialize\Serializer\Json $json
+        Context $context,
+        private readonly JsonFactory $resultJsonFactory,
+        private readonly CheckoutSession $checkoutSession,
+        private readonly CollectionFactory $collectionFactory,
+        private readonly Json $json,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct($context);
-        $this->helper               = $helper;
-        $this->resultJsonFactory    = $resultJsonFactory;
-        $this->_cartModel           = $cartModel;
-        $this->_resource            = $resource;
-        $this->resultRawFactory     = $resultRawFactory;
-        $this->_customerRepository  = $customerRepository;
-        $this->_addressRepository   = $addressRepository;
-        $this->_checkoutSession     = $checkoutSession;
-        $this->collectionFactory = $collectionFactory;
-        $this->json = $json;
+    }
+
+    public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
+    {
+        return null;
+    }
+
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return true;
     }
 
     public function execute()
     {
-        
-       // $post_Param = $this->getRequest()->getPost();
-        $post_Param = $this->json->unserialize($this->getRequest()->getContent());
+        try {
+            $content = (string) $this->getRequest()->getContent();
+            $postParam = $content !== '' ? (array) $this->json->unserialize($content) : [];
+        } catch (\InvalidArgumentException $exception) {
+            $this->logger->error('savecartinstaller: invalid JSON payload', ['exception' => $exception]);
 
-        if (isset($post_Param['pickup_store']) && isset($post_Param['pickup_date']) && isset($post_Param['pickup_time'])) {
-            $storeid = $post_Param['pickup_store'];
+            return $this->jsonResponse(['message' => 'fail', 'error' => 'invalid_payload']);
+        }
 
-            $pickup_store = $post_Param['pickup_store'];
-            $pickup_date  = $post_Param['pickup_date'];
-            $pickup_time  = $post_Param['pickup_time'];
+        try {
+            if (isset($postParam['pickup_store'], $postParam['pickup_date'], $postParam['pickup_time'])) {
+                return $this->saveInstallerSelection($postParam);
+            }
 
-            $quote = $this->_checkoutSession->getQuote();
-            $quote->setPickupDate($pickup_date);
-            $quote->setPickupTime($pickup_time);
-            $quote->setPickupStore($pickup_store);
+            if (isset($postParam['installer_id']) && (int) $postParam['installer_id'] === 0) {
+                return $this->clearInstallerSelection();
+            }
+        } catch (\Throwable $exception) {
+            $this->logger->error('savecartinstaller: save failed', ['exception' => $exception]);
 
-            $quote->setDeliveryDate($pickup_date);
-            $quote->setDeliveryComment($pickup_time);
+            return $this->jsonResponse(['message' => 'fail', 'error' => 'server_error']);
+        }
 
-            $quote->save();
+        return $this->jsonResponse(['message' => 'fail', 'error' => 'missing_fields']);
+    }
 
-            $this->_checkoutSession->setPickupdate($pickup_date);
-            $this->_checkoutSession->setPickuptime($pickup_time);
-            $this->_checkoutSession->setPickupstoreid($pickup_store);
+    private function saveInstallerSelection(array $postParam)
+    {
+        $pickupStore = trim((string) $postParam['pickup_store']);
+        $pickupDate = trim((string) $postParam['pickup_date']);
+        $pickupTime = trim((string) $postParam['pickup_time']);
 
-            $response=array();
+        if ($pickupStore === '' || $pickupDate === '' || $pickupTime === '') {
+            return $this->jsonResponse(['message' => 'fail', 'error' => 'missing_fields']);
+        }
 
-            $collection = $this->collectionFactory->create();
-            $collection->addActiveFilter();
-            $collection->AddFieldToFilter("stores_id", (int) $pickup_store);
-            if ($collection) {
-                 $store_info = $collection->getFirstItem();
-                 $store_data = $store_info->getData();
-                 $response = [
-                            'message' 			=> 'success',
-                            'name' 				=> $store_data['name'] ?? '',
-                            'name_rtl'              => $store_data['name_rtl'] ?? ($store_data['name'] ?? ''),
-                            'address' 			=> $store_data['address'] ?? '',
-                            'address_rtl'           => $store_data['address_rtl'] ?? ($store_data['address'] ?? ''),
-                            'installer_lat' 	=> $store_data['latitude'] ?? '',
-                            'installer_lng' 	=> $store_data['longitude'] ?? '',
-                            'pickup_service'	=> $store_data['pickup_service'] ?? 0,
-                            'installer_date' 	=> $pickup_date,
-                            'installer_time' 	=> $pickup_time
-                        ];
+        $collection = $this->collectionFactory->create();
+        $collection->addActiveFilter();
+        $collection->addFieldToFilter('stores_id', (int) $pickupStore);
 
-                 $resultJson = $this->resultJsonFactory->create();
-                 return $resultJson->setData($response);         
-            }else{
-                     $response = [
-                        'message' => 'fail',
-                    ];
-            }         
-        }elseif(isset($post_Param['installer_id']) && $post_Param['installer_id'] == 0 ){
+        $store = $collection->getFirstItem();
+        if (!$store->getId()) {
+            return $this->jsonResponse(['message' => 'fail', 'error' => 'installer_not_found']);
+        }
 
-            $quote = $this->_checkoutSession->getQuote();
-            $quote->setPickupDate('');
-            $quote->setPickupTime('');
-            $quote->setPickupStore('');
+        $quote = $this->checkoutSession->getQuote();
+        $quote->setPickupDate($pickupDate);
+        $quote->setPickupTime($pickupTime);
+        $quote->setPickupStore($pickupStore);
+        $quote->setDeliveryDate($pickupDate);
+        $quote->setDeliveryComment($pickupTime);
+        $quote->save();
 
-            $quote->setDeliveryDate('');
-            $quote->setDeliveryComment('');
+        $this->checkoutSession->setPickupdate($pickupDate);
+        $this->checkoutSession->setPickuptime($pickupTime);
+        $this->checkoutSession->setPickupstoreid($pickupStore);
 
-            $quote->save();
+        $storeData = $store->getData();
 
-            $this->_checkoutSession->unsetPickupdate();
-            $this->_checkoutSession->unsetPickuptime();
-            $this->_checkoutSession->unsetPickupstoreid();
+        return $this->jsonResponse([
+            'message' => 'success',
+            'name' => $storeData['name'] ?? '',
+            'name_rtl' => $storeData['name_rtl'] ?? ($storeData['name'] ?? ''),
+            'address' => $storeData['address'] ?? '',
+            'address_rtl' => $storeData['address_rtl'] ?? ($storeData['address'] ?? ''),
+            'installer_lat' => $storeData['latitude'] ?? '',
+            'installer_lng' => $storeData['longitude'] ?? '',
+            'pickup_service' => $storeData['pickup_service'] ?? 0,
+            'installer_date' => $pickupDate,
+            'installer_time' => $pickupTime,
+        ]);
+    }
 
-            $response=array();
+    private function clearInstallerSelection()
+    {
+        $quote = $this->checkoutSession->getQuote();
+        $quote->setPickupDate('');
+        $quote->setPickupTime('');
+        $quote->setPickupStore('');
+        $quote->setDeliveryDate('');
+        $quote->setDeliveryComment('');
+        $quote->save();
 
-                     $response = [
-                        'message' => 'success',
-                    ];
-            $resultJson = $this->resultJsonFactory->create();
-            return $resultJson->setData($response);
-        }else {
-              $response = [
-                        'message' => 'fail',
-                    ];
-            $resultJson = $this->resultJsonFactory->create();
-            return $resultJson->setData($response);
-        }  
+        $this->checkoutSession->unsetPickupdate();
+        $this->checkoutSession->unsetPickuptime();
+        $this->checkoutSession->unsetPickupstoreid();
+
+        return $this->jsonResponse(['message' => 'success']);
+    }
+
+    private function jsonResponse(array $data)
+    {
+        return $this->resultJsonFactory->create()->setData($data);
     }
 }

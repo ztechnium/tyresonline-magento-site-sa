@@ -164,7 +164,7 @@ $storeCode = $storeManager->getStore()->getCode();
     <div class="modal-content">
         <span class="close" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256L7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256L312.1 375z"/></svg></span>
       <div class="modal-body">
-		<?php echo $this->getLayout()->createBlock("Ecomteck\StoreLocator\Block\StoreLocator")->setTemplate("Ecomteck_StoreLocator::storelocator/right.phtml")->toHtml() ?>
+		<?php echo $this->getLayout()->createBlock("Ecomteck\StoreLocator\Block\StoreLocator")->setTemplate("Ecomteck_StoreLocator::storelocator/right.phtml")->setData('defer_init', true)->setData('cartref', 1)->toHtml() ?>
       </div>
     </div>
   </div>
@@ -198,210 +198,206 @@ $storeCode = $storeManager->getStore()->getCode();
 <input type="hidden" id="different_destination_lng" value=""/>
 <input type="hidden" id="is_different_destination" value=""/>
 <script type="text/javascript">
-  require([
-    'jquery',
-    'mage/storage',
-    'Magento_Checkout/js/action/get-totals',
-    'Magento_Checkout/js/model/quote',
-    'Magento_Checkout/js/action/get-payment-information',
-    'Magento_Checkout/js/model/totals',
-    'Magento_Checkout/js/model/cart/totals-processor/default'
-     ], function ($,storage,getTotalsAction,quote,getPaymentInformationAction, totals, totalsDefaultProvider) {
+  require(['jquery'], function ($) {
     'use strict';
 
-    var selectedPickupStore="<?php echo $pickup_store ?>";
-    var pickup_installer_service="<?php echo $pickup_installer_service ?>";
-    var installer_lat="<?php echo $installer_lat ?>";
-    var installer_lng="<?php echo $installer_lng ?>";
+    var selectedPickupStore = "<?php echo $pickup_store ?>";
     var changeTxt = '<?php echo __('Change'); ?>';
     var noDateOrTimeSelectedTxt = '<?php echo __('Please select date and time'); ?>';
-	var hasMobileVanTyreService = "<?php echo $hasMobileVanTyreService ?>";
+    var saveFailedTxt = '<?php echo __('Unable to save fitting location. Please try again.'); ?>';
+    var hasMobileVanTyreService = "<?php echo $hasMobileVanTyreService ?>";
     var storeCode = '<?php echo $storeCode; ?>';
-      /* var options = {
-                type: 'popup',
-                modalClass: 'mycartinstallerModal_modal',
-                responsive: true,
-                innerScroll: true,
-                buttons: [{
-                    text: $.mage.__('Continue'),
-                    class: 'mymodal1',
-                    click: function () {
-                        this.closeModal();
-                    }
-                }]
-            }; */
+    var saveInstallerUrl = "<?php echo $block->escapeUrl($block->getUrl('installer/ajax/savecartinstaller')) ?>";
 
-            /* var mycartinstallerModal = modal(options, $('#mycartinstallerModal'));
-            $("#cart-installer-location").on('click',function(){
-				alert('Test');
-                $("#mycartinstallerModal").modal("openModal");
-				$(".storePickupdatepicker").val('');
-				$(".storePickuptimepicker").val('');
-            }); */
+    function getFormKey() {
+        return $('input[name="form_key"]').val() || '';
+    }
 
-        jQuery(document).ready(function() {
-           var carturl = "<?php echo $this->getUrl().'checkout/cart'?>";
-           var checkouturl = "<?php echo $this->getUrl().'checkout'?>";
-		  /* jQuery(".checkout button.checkout").attr('data-bs-toggle', 'modal');
-		   jQuery(".checkout button.checkout").attr('data-bs-target', '#mycartinstallerModal');
-               $('.checkout').click(function(e){
-                    var installerLat = $('#pickup_installer_lat').val();
-                    var installerLng = $('#pickup_installer_lng').val();
-                    if(installerLat != '' && installerLat != ''){ // check is no fitting selected
-					    jQuery(".checkout button.checkout").attr('data-bs-toggle', '');
-						jQuery(".checkout button.checkout").attr('data-bs-target', '');
-                        return true;
-                    } else{
-                        if(installerLat == '' && installerLng == ''){
-                          // alert('Please select fitting installer and proceed to checkout.');
-                          //$("#mycartinstallerModal").modal("openModal");
-						 // $('#mycartinstallerModal').modal('show');
-							jQuery(".checkout button.checkout").attr('data-bs-toggle', 'modal');
-							jQuery(".checkout button.checkout").attr('data-bs-target', '#mycartinstallerModal');
-                            e.preventDefault();
-                            e.stopImmediatePropagation();
-                            return false;
-                        }
-                    }
-                    
-                }); */
-				
-				var installerLat = $('#pickup_installer_lat').val();
-                var installerLng = $('#pickup_installer_lng').val();
-				
-				if(installerLat != '' && installerLat != ''){
-					jQuery('.action.checkout').show();
-					jQuery('.restrict-checkout').hide();
-				}else if(hasMobileVanTyreService == 1){
-					jQuery('.action.checkout').show();
-					jQuery('.restrict-checkout').hide();
-				}else{
-					jQuery('.action.checkout').hide();
-					jQuery('.restrict-checkout').show();
-				}
+    function postInstallerData(data) {
+        var url = saveInstallerUrl;
 
-              jQuery(document).on('click', '.submitstore', function(){
-                    var pickup_date=jQuery(this).parent().parent().find('.storePickupdatepicker').val();
-                    //var pickup_time=jQuery(this).parent().parent().find('.storePickuptimepicker').val();
-                    var pickup_time=jQuery(this).parent().parent().find('.storePickuptimepicker option:selected').val();
-                    var pickup_store=jQuery(this).parent().parent().find('.pickup_store_id').val();
-					console.log(pickup_date);
-					console.log(pickup_time);
-                    if(pickup_date != "" && (pickup_time != "" && typeof pickup_time !== "undefined")){
-                           var customurl = "<?php echo $this->getUrl().'installer/ajax/savecartinstaller'?>";
-                            var data = {'pickup_store': pickup_store,'pickup_date': pickup_date, 'pickup_time': pickup_time};
+        if (getFormKey()) {
+            url += (url.indexOf('?') === -1 ? '?' : '&') + 'form_key=' + encodeURIComponent(getFormKey());
+        }
 
-                            $('body').trigger('processStart');
-                             return storage.post(
-                                'installer/ajax/savecartinstaller',
-                                JSON.stringify(data),
-                                true
-                            ).done(
-                                function (response) {
-                                    //console.log(response);
-                                    if(response.message == 'success') {  
-                                        if(storeCode == 'en'){
-                                           jQuery('#selected-installer-name').text(response.name);
-                                           jQuery('#selected-installer-addr').text(response.address);
-                                        } else {
-                                           jQuery('#selected-installer-name').text(response.name_rtl);
-                                           jQuery('#selected-installer-addr').text(response.address_rtl);
-                                        }
-                                       jQuery('#pickup_installer_lat').val(response.installer_lat);
-                                       jQuery('#pickup_installer_lng').val(response.installer_lng);
-                                       jQuery('#pickup_installer_service').val(response.pickup_service);
-                                        var installerDate = new Date(response.installer_date);
-                                        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-                                        var installerDatetime = installerDate.toLocaleDateString('en-US', options) +' '+response.installer_time; 
-                                        jQuery('#selected-installer-date-time').text(installerDatetime);
-                                        jQuery('#cart-installer-location').text(changeTxt);   
-                                        jQuery('.fittingLocationList').show();
-                                        jQuery("#selectedInstaller").attr("data-lat",response.installer_lat);    
-                                        jQuery("#selectedInstaller").attr("data-lng",response.installer_lng);    
-                                        selectedPickupStore=pickup_store;
-                                    }
-                                    if (response.pickup_service == 0) {
-                                        $('#custom-vehicle-div .pickupDropOption .no').trigger('click');
-                                    }
-                                     totalsDefaultProvider.estimateTotals(quote.shippingAddress()); 
-                                     $('#mycartinstallerModal .close').trigger('click');
-									 jQuery('.action.checkout').show();
-									 jQuery('.restrict-checkout').hide();
-                                }
-                            ).fail(function () {
-                                alert('<?php echo __('Unable to save fitting location. Please try again.'); ?>');
-                            }).always(function () {
-                                $('body').trigger('processStop');
-                            });
-                    }else{
-                        alert(noDateOrTimeSelectedTxt);
-                    }
-              });
+        return $.ajax({
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            global: true,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(function (response) {
+            if (typeof response === 'string') {
+                try {
+                    return JSON.parse(response);
+                } catch (e) {
+                    return { message: 'fail', error: 'invalid_response' };
+                }
+            }
 
-              $(document).on('click', '#cancel-selected-installer', function(){
-                var installerId =   0;
-                $('body').trigger('processStart');
-                var data = {'installer_id': installerId};
-                        return storage.post(
-                                'installer/ajax/savecartinstaller',
-                                JSON.stringify(data),
-                                true
-                            ).done(
-                                function (response) {
-                                    if(response.message == 'success') {  
-                                       jQuery('#selected-installer-name').text('');
-                                       jQuery('#selected-installer-addr').text('');  
-                                       jQuery('#selected-installer-date-time').text('');   
-                                       jQuery('.fittingLocationList').hide();   
-                                       selectedPickupStore=""; 
-                                    }     
-                                     location.reload();
-                                }
-                            ).fail(function () {
-                                alert('<?php echo __('Unable to remove fitting location. Please try again.'); ?>');
-                            }).always(function () {
-                                $('body').trigger('processStop');
-                            });
-               });
+            return response;
         });
-        // Code goes here
+    }
 
-        $(document).ready(function() {
-          var map = null;
-          var myMarker;
-          var myLatlng;
+    function refreshCartTotals() {
+        window.location.reload();
+    }
 
-          function initializeGMap(lat, lng) {
-            myLatlng = new google.maps.LatLng(lat, lng);
+    function getInstallerPanelFields($button) {
+        var $panel = $button.closest('.datetimesubmit');
 
-            var myOptions = {
-              zoom: 18,
-              zoomControl: true,
-              center: myLatlng,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
+        if (!$panel.length) {
+            $panel = $button.closest('.installer').find('.datetimesubmit').first();
+        }
+
+        return {
+            pickup_date: $panel.find('.storePickupdatepicker').val(),
+            pickup_time: $panel.find('.storePickuptimepicker option:selected').val(),
+            pickup_store: $panel.find('.pickup_store_id').val(),
+            timeDisabled: $panel.find('.storePickuptimepicker option:selected').prop('disabled')
+        };
+    }
+
+    function hasValidInstallerSelection(fields) {
+        return fields.pickup_date &&
+            fields.pickup_store &&
+            fields.pickup_time &&
+            !fields.timeDisabled;
+    }
+
+    $(function () {
+        var installerLat = $('#pickup_installer_lat').val();
+        var installerLng = $('#pickup_installer_lng').val();
+
+        if (installerLat !== '' && installerLng !== '') {
+            $('.action.checkout').show();
+            $('.restrict-checkout').hide();
+        } else if (hasMobileVanTyreService == 1) {
+            $('.action.checkout').show();
+            $('.restrict-checkout').hide();
+        } else {
+            $('.action.checkout').hide();
+            $('.restrict-checkout').show();
+        }
+
+        $(document).on('click', '.submitstore', function (event) {
+            event.preventDefault();
+
+            var fields = getInstallerPanelFields($(this));
+
+            if (!hasValidInstallerSelection(fields)) {
+                alert(noDateOrTimeSelectedTxt);
+                return;
+            }
+
+            var data = {
+                pickup_store: fields.pickup_store,
+                pickup_date: fields.pickup_date,
+                pickup_time: fields.pickup_time
             };
 
-            map = new google.maps.Map(document.getElementById("map_canvas_selected_instlr"), myOptions);
+            $('body').trigger('processStart');
+
+            postInstallerData(data).done(function (response) {
+                if (response.message === 'success') {
+                    if (storeCode === 'en') {
+                        $('#selected-installer-name').text(response.name);
+                        $('#selected-installer-addr').text(response.address);
+                    } else {
+                        $('#selected-installer-name').text(response.name_rtl);
+                        $('#selected-installer-addr').text(response.address_rtl);
+                    }
+
+                    $('#pickup_installer_lat').val(response.installer_lat);
+                    $('#pickup_installer_lng').val(response.installer_lng);
+                    $('#pickup_installer_service').val(response.pickup_service);
+
+                    var installerDate = new Date(response.installer_date);
+                    var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    var installerDatetime = installerDate.toLocaleDateString('en-US', dateOptions) + ' ' + response.installer_time;
+
+                    $('#selected-installer-date-time').text(installerDatetime);
+                    $('#cart-installer-location').text(changeTxt);
+                    $('.fittingLocationList').show();
+                    $('#selectedInstaller').attr('data-lat', response.installer_lat);
+                    $('#selectedInstaller').attr('data-lng', response.installer_lng);
+                    selectedPickupStore = fields.pickup_store;
+
+                    if (response.pickup_service == 0) {
+                        $('#custom-vehicle-div .pickupDropOption .no').trigger('click');
+                    }
+
+                    refreshCartTotals();
+                    $('#mycartinstallerModal .close').trigger('click');
+                    $('.action.checkout').show();
+                    $('.restrict-checkout').hide();
+                } else {
+                    alert(saveFailedTxt);
+                }
+            }).fail(function (xhr) {
+                console.error('savecartinstaller failed', xhr.status, xhr.responseText);
+                alert(saveFailedTxt);
+            }).always(function () {
+                $('body').trigger('processStop');
+            });
+        });
+
+        $(document).on('click', '#cancel-selected-installer', function () {
+            $('body').trigger('processStart');
+
+            postInstallerData({ installer_id: 0 }).done(function (response) {
+                if (response.message === 'success') {
+                    $('#selected-installer-name').text('');
+                    $('#selected-installer-addr').text('');
+                    $('#selected-installer-date-time').text('');
+                    $('.fittingLocationList').hide();
+                    selectedPickupStore = '';
+                }
+
+                location.reload();
+            }).fail(function () {
+                alert('<?php echo __('Unable to remove fitting location. Please try again.'); ?>');
+            }).always(function () {
+                $('body').trigger('processStop');
+            });
+        });
+
+        var map = null;
+        var myMarker;
+        var myLatlng;
+
+        function initializeGMap(lat, lng) {
+            myLatlng = new google.maps.LatLng(lat, lng);
+
+            map = new google.maps.Map(document.getElementById('map_canvas_selected_instlr'), {
+                zoom: 18,
+                zoomControl: true,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
 
             myMarker = new google.maps.Marker({
-              position: myLatlng
+                position: myLatlng
             });
             myMarker.setMap(map);
-          }
+        }
 
-          // Re-init map before show modal
-          $('#selectedInstallerPopupModal').on('show.bs.modal', function(event) {
+        $('#selectedInstallerPopupModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             initializeGMap(button.data('lat'), button.data('lng'));
-            $("#location-map").css("width", "100%");
-            $("#map_canvas_selected_instlr").css("width", "100%");
-          });
+            $('#location-map').css('width', '100%');
+            $('#map_canvas_selected_instlr').css('width', '100%');
+        });
 
-          // Trigger map resize event after modal shown
-          $('#selectedInstallerPopupModal').on('shown.bs.modal', function() {
-            google.maps.event.trigger(map, "resize");
-            map.setCenter(myLatlng);
-          });
-        });   
-   });   
+        $('#selectedInstallerPopupModal').on('shown.bs.modal', function () {
+            if (map && myLatlng) {
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(myLatlng);
+            }
+        });
+    });
+  });
 </script>    

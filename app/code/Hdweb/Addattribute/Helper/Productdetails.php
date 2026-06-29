@@ -7,12 +7,15 @@ class Productdetails extends \Magento\Framework\App\Helper\AbstractHelper
     protected $ruleFactory;
     protected $catalogruleFactory;
     protected $productFactory;
+    protected $_productloader;
     protected $productCollectionFactory;
     protected $_storeManager;
     protected $_customerSession;
     //protected $_brandFactory;
     protected $request;
+    protected $date;
     protected $_priceHelper;
+    protected $serialize;
     protected $_resource;
     protected $scopeConfig;
     

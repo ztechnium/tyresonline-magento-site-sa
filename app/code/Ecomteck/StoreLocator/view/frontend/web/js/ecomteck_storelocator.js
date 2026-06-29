@@ -56,7 +56,17 @@ define([
                 return;
             }
 
-            $('#bh-sl-map-container').storeLocator(config);
+            var $container = $('#mycartinstallerModal #bh-sl-map-container');
+            if (!$container.length) {
+                $container = $('#bh-sl-map-container').first();
+            }
+
+            if (!$container.length) {
+                console.error('Store locator container was not found');
+                return;
+            }
+
+            $container.storeLocator(config);
         });
     }
 

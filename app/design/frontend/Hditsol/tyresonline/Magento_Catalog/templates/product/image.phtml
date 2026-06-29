@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var $block \Magento\Catalog\Block\Product\Image
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$productImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$tyreImageOnError = $escaper->escapeHtmlAttr($productImageHelper->getJsFallbackUrl());
+?>
+<img class="<?= $escaper->escapeHtmlAttr($block->getClass()) ?>"
+     src="<?= $escaper->escapeUrl($block->getImageUrl()) ?>"
+     alt="<?= $escaper->escapeHtmlAttr($block->getLabel()) ?>"
+     width="<?= $escaper->escapeHtmlAttr($block->getWidth()) ?>"
+     height="<?= $escaper->escapeHtmlAttr($block->getHeight()) ?>"
+     data-product-image="1"
+     onerror="this.onerror=null;this.src='<?= $tyreImageOnError ?>'"/>

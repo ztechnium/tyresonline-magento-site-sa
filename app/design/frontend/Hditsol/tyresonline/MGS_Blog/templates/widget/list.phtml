@@ -1,5 +1,8 @@
 <?php
 $helper = $this->helper('MGS\Blog\Helper\Data');
+$contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+$lazyBlank = $contentImageHelper->getLazyloadBlankUrl();
+$contentImageOnError = $block->escapeHtmlAttr($contentImageHelper->getContentJsFallbackUrl());
 $collection = $block->getPostCollection();
 $_collectionSize = count($collection);
 ?>
@@ -43,7 +46,7 @@ $_collectionSize = count($collection);
 										<?php else: ?>
 											<div class="image">
 												<a class="post-title-link" title="<?php echo $post->getTitle(); ?>" href="<?php echo $helper->getPostUrl($post); ?>">
-													<img src="<?php echo $post->getThumbnailUrl(); ?>" class="img-responsive" alt="<?php echo $post->getTitle(); ?>" />
+													<img src="<?= $block->escapeUrl($lazyBlank) ?>" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" class="img-responsive lazyload" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 												</a>
 											</div>
 										<?php endif ?>
@@ -105,7 +108,7 @@ $_collectionSize = count($collection);
 										<?php else: ?>
 											<div class="image">
 												<a class="post-title-link" title="<?php echo $post->getTitle(); ?>" href="<?php echo $helper->getPostUrl($post); ?>">
-													<img src="<?php echo $post->getThumbnailUrl(); ?>" class="img-responsive" alt="<?php echo $post->getTitle(); ?>" />
+													<img src="<?= $block->escapeUrl($lazyBlank) ?>" data-src="<?= $block->escapeUrl($contentImageHelper->getBlogThumbnailUrl($post)) ?>" class="img-responsive lazyload" alt="<?= $block->escapeHtmlAttr($post->getTitle()) ?>" data-content-image="1" onerror="this.onerror=null;this.src='<?= $contentImageOnError ?>'" />
 												</a>
 											</div>
 										<?php endif ?>

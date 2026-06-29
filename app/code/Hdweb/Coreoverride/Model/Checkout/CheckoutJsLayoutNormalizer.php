@@ -154,6 +154,21 @@ class CheckoutJsLayoutNormalizer
             }
         );
 
+        self::ensurePath(
+            $jsLayout,
+            ['components', 'checkout', 'children', 'steps', 'children', 'billing-step', 'children', 'payment', 'children', 'renders', 'children'],
+            static function (array &$node): void {
+                foreach ($node as $groupCode => &$groupConfig) {
+                    if (!is_array($groupConfig)) {
+                        $groupConfig = [];
+                    }
+                    if (!isset($groupConfig['methods']) || !is_array($groupConfig['methods'])) {
+                        $groupConfig['methods'] = [];
+                    }
+                }
+            }
+        );
+
         return $jsLayout;
     }
 

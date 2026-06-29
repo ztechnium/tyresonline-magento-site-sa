@@ -105,11 +105,16 @@ foreach ($storeCollection as $key => $store) {
 }
 
 $cartRef=$this->getCartref();
+$deferStoreLocatorInit = (bool)$block->getData('defer_init');
 $isDisplayDateTime=0;
-if(isset($cartRef) && !empty($cartRef)){
+if((isset($cartRef) && !empty($cartRef)) || $deferStoreLocatorInit){
 	$isDisplayDateTime=1;
 }
 $notAvailable = 'No time slot is available.';
+$noSlotOptionText = (string) __('No time slot is available.');
+$noslotAvailableText = __('The installer is not available on the selected date. Select a different date.');
+$mobileVanInstallerId = (int) $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')
+    ->getValue('installer/general/mobilevan_fitment_service_installer');
 ?>
 <div class="fitting-location">
 <div class="bh-sl-container">
@@ -257,7 +262,89 @@ $notAvailable = 'No time slot is available.';
 
 <div id="info-video" style="display:none;"></div>
 
-<!-- End All installer in map model -->
+<?php $gmapApiKey = $block->storelocatorConfig->getApiKeySettings(); ?>
+<?php if ($gmapApiKey): ?>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
+<?php endif; ?>
+<?php if ($deferStoreLocatorInit): ?>
+<script type="text/javascript">
+    window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
+</script>
+<script type="text/javascript">
+require(['jquery', 'ecomteck_storelocator'], function ($, initStoreLocator) {
+    'use strict';
+
+    var storeLocatorStarted = false;
+
+    function bootCartStoreLocator() {
+        var $modal = $('#mycartinstallerModal');
+        if (!$modal.length || typeof window.checkoutStoreLocatorConfig === 'undefined') {
+            return;
+        }
+        if ($modal.data('storeLocatorReady')) {
+            return;
+        }
+        if (storeLocatorStarted && !$modal.data('storeLocatorAllowRetry')) {
+            return;
+        }
+
+        storeLocatorStarted = true;
+        $modal.removeData('storeLocatorAllowRetry');
+
+        var config = $.extend(true, {}, window.checkoutStoreLocatorConfig, {
+            callbackSuccess: function () {
+                $modal.data('storeLocatorReady', true);
+                $(document).trigger('installerStoresLoaded');
+                if (window.google && window.google.maps) {
+                    google.maps.event.trigger(window, 'resize');
+                }
+            }
+        });
+
+        initStoreLocator(config);
+
+        setTimeout(function () {
+            if ($modal.data('storeLocatorReady')) {
+                return;
+            }
+            var installerCount = $modal.find('.allInstaller .installer').length;
+            if (installerCount > 0) {
+                $modal.data('storeLocatorReady', true);
+                $(document).trigger('installerStoresLoaded');
+                return;
+            }
+            storeLocatorStarted = false;
+            $modal.data('storeLocatorAllowRetry', true);
+            if ($modal.is(':visible')) {
+                bootCartStoreLocator();
+            }
+        }, 4000);
+    }
+
+    $(function () {
+        $('#mycartinstallerModal').on('shown.bs.modal', bootCartStoreLocator);
+        $('#mycartinstallerModal').on('hidden.bs.modal', function () {
+            var $modal = $(this);
+            if ($modal.find('.allInstaller .installer').length === 0) {
+                $modal.removeData('storeLocatorReady');
+                storeLocatorStarted = false;
+            }
+        });
+        $(document).on(
+            'click',
+            '#cart-installer-location, [data-bs-target="#mycartinstallerModal"], [data-target="#mycartinstallerModal"], .checkout_title[data-bs-target="#mycartinstallerModal"]',
+            function () {
+                setTimeout(bootCartStoreLocator, 300);
+            }
+        );
+        setTimeout(bootCartStoreLocator, 2000);
+    });
+});
+</script>
+<style type="text/css">
+#mycartinstallerModal #installerLoading { display: none; }
+</style>
+<?php else: ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -267,6 +354,7 @@ $notAvailable = 'No time slot is available.';
         }
     }
 </script>
+<?php endif; ?>
 <?php if(!$isDisplayDateTime) { ?>
 <style type="text/css">
 .storelocator .datetimesubmit{display: none;}
@@ -284,26 +372,54 @@ $notAvailable = 'No time slot is available.';
     var todaydate='<?php echo $todaydate ?>';
     //console.log('date-'+todaydate);
     var allStoreOpeningdatetimep=<?php echo json_encode($allStoreOpeningdatetimep) ?>;
-	//console.log(allStoreOpeningdatetimep);
+    var noSlotOptionText = <?= /* @noEscape */ json_encode($noSlotOptionText) ?>;
+    var mobileVanInstallerId = <?= (int) $mobileVanInstallerId ?>;
 
+	function whenGoogleMapsReady(callback, attempt) {
+		attempt = attempt || 0;
+		if (window.google && google.maps) {
+			callback();
+			return;
+		}
+		if (attempt >= 50) {
+			console.error('Google Maps did not load for cart fitting locations');
+			return;
+		}
+		setTimeout(function () {
+			whenGoogleMapsReady(callback, attempt + 1);
+		}, 200);
+	}
 
-	require(["jquery", "mage/calendar"], function($){
+	require(["jquery", "mage/calendar", "mage/storage"], function($, storage){
+		function resolveInstallerStoreId($checkbox) {
+			var storesId = $checkbox.attr('data-storesid') || $checkbox.data('storesid');
+			if (!storesId) {
+				var idMatch = ($checkbox.attr('id') || '').match(/checkboxInstaller(\d+)/);
+				storesId = idMatch ? idMatch[1] : '';
+			}
+			return storesId;
+		}
+
+		$(document).off('change.installerCheckbox', '.checkboxInstaller').on('change.installerCheckbox', '.checkboxInstaller', function () {
+			var $checkbox = $(this);
+			var storesId = resolveInstallerStoreId($checkbox);
+			if (!storesId) {
+				return;
+			}
+
+			var isChecked = $checkbox.prop('checked');
+			var $panel = $('#submitInstaller' + storesId);
+
+			if (isChecked) {
+				$('.checkboxInstaller').not($checkbox).prop('checked', false);
+				$('.datetimesubmit').not($panel).hide();
+				$panel.show();
+			} else {
+				$panel.hide();
+			}
+		});
+
 		$( document ).ajaxComplete(function( event, xhr, settings ) {
-			/* start installer checkbox code */
-			$('.checkboxInstaller').change(function() {
-		        var ischecked= $(this).is(':checked');
-		        storesId = $(this).attr("data-storesid");
-		        $('.checkboxInstaller').attr('checked', false);
-      			$(this).attr('checked', true);
-		        $('.datetimesubmit').hide();
-		        if (ischecked) {
-		            $('#submitInstaller'+storesId).show();
-		        } else {
-		        	$(this).attr('checked', false);
-		            $('#submitInstaller'+storesId).hide();
-		        }
-		    });
-		    /* end installer checkbox code */
 		    /* $(".storePickupdatepicker").datepicker({
 	          showMonthAfterYear: false,
 	          dateFormat:'mm/dd/yy',
@@ -324,8 +440,10 @@ $notAvailable = 'No time slot is available.';
 					  jQuery(this).closest('.control').find('.storePickupdatepicker').parents(".datetimesubmit").append($('#ui-datepicker-div'));
 					},
 					beforeShowDay: function (date) {
-						var day = date.getDay();
-						return [(day == 5 ? false : disableSpecificDate(date)), ''];
+						if (date.getDay() === 0) {
+							return [false, ''];
+						}
+						return [disableSpecificDate(date), ''];
 					}
 				});
 			 });
@@ -348,186 +466,164 @@ $notAvailable = 'No time slot is available.';
 				if (dateArr[2].length == 1) dateArr[2] = "0" + dateArr[2];
 				return excludeDays.indexOf(dateArr.join("-")) == -1;
 			}
-	     	jQuery('.storePickupdatepicker').change(function(){ 
-				//var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];  
-				var weekdays =["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-				var date = jQuery(this).datepicker('getDate');
-			    var selecteddate=jQuery(this).val();
-			    //var selecctedday=jQuery(this).datepicker('getDate').getDay();
-				var selecctedday = weekdays[date.getDay()];
-				
-			    var storeid=jQuery(this).attr('data-storeid');
+			function getInstallerSchedule(storeId) {
+				return allStoreOpeningdatetimep[storeId] || allStoreOpeningdatetimep[String(storeId)] || null;
+			}
 
-			    jQuery('select[data-storetimeid='+storeid+']').empty();
+			function resolveInstallerTimes(schedule, dayIndex, dayName) {
+				if (!schedule || typeof schedule !== 'object') {
+					return null;
+				}
 
-			    /* selecteddate=selecteddate.replace("/", "");
-			    selecteddate=selecteddate.replace("/", "");
-				
-			    todaydate=todaydate.replace("/", "");
-			    todaydate=todaydate.replace("/", ""); */
-			     
-			    var storeStartEnddate=allStoreOpeningdatetimep[storeid][selecctedday];
+				return schedule[dayIndex] || schedule[String(dayIndex)] || schedule[dayName] || null;
+			}
 
-			    /* var selectedStoreEndDate="00:00";
-			    if(storeStartEnddate != ''){
-			    	storeStartEnddate=storeStartEnddate.toString();
-                  var storeStartEnddateArray = storeStartEnddate.split(","); 
-                  selectedStoreEndDate=storeStartEnddateArray[1];
-                  selectedStoreEndDate=selectedStoreEndDate.replace(/\"/g, "");
-             
-			    }
+			function appendNoTimeSlotOption(storeId) {
+				jQuery('select[data-storetimeid=' + storeId + ']').append(jQuery('<option>', {
+					value: '',
+					text: noSlotOptionText,
+					disabled: 'disabled',
+					selected: 'selected'
+				}));
+			}
 
-			    if(selectedStoreEndDate != '00:00') {
-				jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-					 value: 'am',
-					 text: 'AM',
-				 }));
+			function convertSlotTime(timeStr) {
+				var parts = jQuery.trim(timeStr).split(' ');
+				var modifier = (parts[1] || '').toUpperCase();
+				var timeParts = (parts[0] || '').split(':');
+				var hours = parseInt(timeParts[0], 10);
+				var minutes = timeParts[1] || '00';
 
-				jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-					 value: 'pm',
-					 text: 'PM',
-				 }));
-			   }else{
-					 jQuery('select[data-storetimeid='+storeid+']')
-				    .find('option')
-				    .remove()
-			   } */
-			   
-			  /* jQuery.each(alldatetime, function(key,value) { 
-				var valueKey=key+value;
-				valueKey=value;
-				
-				if(typeof storeStartEnddate[0] !== "undefined" && typeof storeStartEnddate[1] !== "undefined"){ 
-						var storeStartdate=storeStartEnddate[0];
-						var storeEndDate=storeStartEnddate[1];
-						key=key.replace(".", "");
-						storeStartdate=storeStartdate.replace(":", "");
-						storeEndDate=storeEndDate.replace(":", "");
-						storeStartdate=storeStartdate.replace(/\"/g, "");
-						storeEndDate=storeEndDate.replace(/\"/g, "");
-					
-					   if(key >= storeStartdate   && key <= storeEndDate){ 	
-							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-								 value: valueKey,
-								 text: valueKey,
-							 }));	
-						}else{
-								jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-								 value: valueKey,
-								 text: valueKey,
-								 disabled  : 'disabled',
-							 }));	
-						} 	
-				 }else{
-							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-								 value: valueKey,
-								 text: valueKey,
-								 disabled  : 'disabled',
-							 }));	
-				 }     
+				if (modifier === 'PM' && hours !== 12) {
+					hours += 12;
+				}
+				if (modifier === 'AM' && hours === 12) {
+					hours = 0;
+				}
 
-			}); */
-			var installerTimes = allStoreOpeningdatetimep[storeid][selecctedday];
-			//var installerTimes = allStoreOpeningdatetimep[storeid]["الثلاثاء"];
-			
-			if(typeof installerTimes !== "undefined" && typeof installerTimes !== "undefined"){ 
-			
-				jQuery.each(installerTimes, function(key,timeSlots) {
-					var storeStartTime = timeSlots.split("-");
+				return String(hours).padStart(2, '0') + ':' + minutes;
+			}
+
+			function populateInstallerTimeSlots(storeId, selectedDate, dayIndex, dayName) {
+				var $select = jQuery('select[data-storetimeid=' + storeId + ']');
+				$select.empty();
+
+				var installerTimes = resolveInstallerTimes(getInstallerSchedule(storeId), dayIndex, dayName);
+				if (!installerTimes || !installerTimes.length) {
+					appendNoTimeSlotOption(storeId);
+					return;
+				}
+
+				var optionsAdded = 0;
+				jQuery.each(installerTimes, function(key, timeSlots) {
+					if (!timeSlots) {
+						return;
+					}
+
+					var storeStartTime = String(timeSlots).split('-');
 					var timeStr = jQuery.trim(storeStartTime[0]);
-					var endtimeStr = jQuery.trim(storeStartTime[1]);
-					const convertTime = timeStr => {
-					   const [time, modifier] = timeStr.split(' ');
-					   let [hours, minutes] = time.split(':');
-					   if (hours === '12') {
-						  hours = '00';
-					   }
-					   if (modifier === 'م') {
-						  hours = parseInt(hours, 10) + 12;
-					   }
-					   return hours+':'+minutes;
-					};
-					var storeOpentimeStr = convertTime(timeStr);
-					var storeEndtimeStr = convertTime(endtimeStr);
-					
-					var dt = new Date();
-					var currentTime = dt.getHours() + ":" + dt.getMinutes();
-					if(todaydate == selecteddate){
-						//console.log('same date');
-						if(typeof timeSlots != "undefined" && typeof timeSlots != ""){
-							var storestartDate = new Date(selecteddate +' '+ storeOpentimeStr);
-							var storeEndDate = new Date(selecteddate +' '+ currentTime);
-							if(storeEndDate < storestartDate){
-								jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-									 value: timeSlots,
-									 text: timeSlots,
-								 }));
-							}else{
-								//console.log('skip');
-								return;
-							}
-						}else{
-							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-							 value: timeSlots,
-							 text: timeSlots,
-							 disabled  : 'disabled',
-						 }));
-						}
-					}else{
-						//console.log('not same date');
-						if(typeof timeSlots != "undefined" && typeof timeSlots != ""){
-							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-								 value: timeSlots,
-								 text: timeSlots,
-							 }));
-						}else{
-							jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-							 value: timeSlots,
-							 text: timeSlots,
-							 disabled  : 'disabled',
-						 }));
+					var storeOpentimeStr = convertSlotTime(timeStr);
+					var currentTime = new Date();
+					var isToday = todaydate === selectedDate;
+
+					if (isToday) {
+						var slotStart = new Date(selectedDate + ' ' + storeOpentimeStr);
+						if (isNaN(slotStart.getTime()) || currentTime >= slotStart) {
+							return;
 						}
 					}
-					
+
+					$select.append(jQuery('<option>', {
+						value: timeSlots,
+						text: timeSlots
+					}));
+					optionsAdded++;
 				});
-			}else{
-				jQuery('select[data-storetimeid='+storeid+']').append(jQuery('<option>', {
-					 value: '',
-					 text: '<?php echo __($notAvailable); ?>',
-					 disabled  : 'disabled',
-				 }));
+
+				if (optionsAdded === 0) {
+					appendNoTimeSlotOption(storeId);
+				}
 			}
-    	    }); 	
+
+	     	jQuery('.storePickupdatepicker').change(function(){
+				var weekdays = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+				var date = jQuery(this).datepicker('getDate');
+				if (!date) {
+					return;
+				}
+
+			    var selecteddate = jQuery(this).val();
+				var dayIndex = date.getDay();
+				var selecctedday = weekdays[dayIndex];
+			    var storeid = jQuery(this).attr('data-storeid');
+
+				populateInstallerTimeSlots(storeid, selecteddate, dayIndex, selecctedday);
+    	    });
          });
+
+		 jQuery(document).on('change', '.storePickupdatepicker', function() {
+			 var storeid = jQuery(this).attr('data-storeid');
+			 var selecteddate = jQuery(this).val();
+			 if (mobileVanInstallerId && String(storeid) === String(mobileVanInstallerId)) {
+				var data = {'pickup_date': selecteddate};
+				$('body').trigger('processStart');
+				return storage.post(
+					'installer/ajax/Checkmobilevaninstaller',
+					JSON.stringify(data),
+					true
+				).done(function (response) {
+					if (response.message == 'fail') {
+						alert(<?= /* @noEscape */ json_encode((string)$noslotAvailableText) ?>);
+						jQuery('select[data-storetimeid=' + storeid + ']').html(jQuery('<option>', {
+							value: '',
+							text: noSlotOptionText,
+							disabled: 'disabled',
+							selected: 'selected'
+						}));
+					}
+				}).fail(function () {
+					alert(<?= /* @noEscape */ json_encode((string)$noslotAvailableText) ?>);
+				}).always(function () {
+					$('body').trigger('processStop');
+				});
+			 }
+		 });
 		 
 		 // Start display all installer marker on the map
-		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
-		
-		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
-		  zoom: 8,
-		  center: new google.maps.LatLng(24.90, 55.55),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-		
-		var infowindow = new google.maps.InfoWindow();
+		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>;
 
-		var marker, i;
-		
-		for (i = 0; i < allInstallerlocations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
-			map: map
-		  });
-		  
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {  
-			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
-			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
-            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
-			  infowindow.open(map, marker);
+		function initAllInstallerMap() {
+			if (!allInstallerlocations.length || !document.getElementById('map_canvas_all_installer')) {
+				return;
 			}
-		  })(marker, i));
+
+			var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+			  zoom: 8,
+			  center: new google.maps.LatLng(23.88, 45.07),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+
+			for (i = 0; i < allInstallerlocations.length; i++) {
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+				  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+							'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+							'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			}
 		}
+
+		whenGoogleMapsReady(initAllInstallerMap);
 	  // End display all installer marker on the map
 	  /*one line below is to solve design issue modal over modal*/
 	  /*jQuery('#viewAllInMap').appendTo("body");*/
@@ -538,33 +634,38 @@ $notAvailable = 'No time slot is available.';
     });
 
     function resetAllInstallerMap(){
-    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
-		
-		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
-		  zoom: 8,
-		  center: new google.maps.LatLng(24.90, 55.55),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-		
-		var infowindow = new google.maps.InfoWindow();
+    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>;
 
-		var marker, i;
-		
-		for (i = 0; i < allInstallerlocations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
-			map: map
-		  });
-		  
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {  
-			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
-			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
-            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
-			  infowindow.open(map, marker);
+		whenGoogleMapsReady(function () {
+			if (!allInstallerlocations.length || !document.getElementById('map_canvas_all_installer')) {
+				return;
 			}
-		  })(marker, i));
-		}
+
+			var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+			  zoom: 8,
+			  center: new google.maps.LatLng(23.88, 45.07),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+
+			for (i = 0; i < allInstallerlocations.length; i++) {
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+				  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+							'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+							'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			}
+		});
     }
     function sortInstallers(selectedMarkerLat,selectedMarkerLng){
 		if(selectedMarkerLat != "" && selectedMarkerLng != "") {
