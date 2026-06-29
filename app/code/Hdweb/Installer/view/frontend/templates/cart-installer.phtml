@@ -243,20 +243,7 @@ $storeCode = $storeManager->getStore()->getCode();
     }
 
     function refreshCartTotals() {
-        if (typeof require === 'undefined') {
-            return;
-        }
-
-        require([
-            'Magento_Checkout/js/model/quote',
-            'Magento_Checkout/js/model/cart/totals-processor/default'
-        ], function (quote, totalsDefaultProvider) {
-            try {
-                totalsDefaultProvider.estimateTotals(quote.shippingAddress());
-            } catch (e) {
-                console.warn('Could not refresh cart totals after installer save', e);
-            }
-        });
+        window.location.reload();
     }
 
     function getInstallerPanelFields($button) {

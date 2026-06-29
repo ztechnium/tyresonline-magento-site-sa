@@ -10,16 +10,24 @@ echo "=== Deploy cart totals fix ==="
 sudo mkdir -p "$MAGENTO/$THEME_BASE/templates/cart" "$MAGENTO/app/code/Hdweb/Core/Model/Checkout"
 
 sudo cp -v "$SRC/totals.phtml" "$MAGENTO/$THEME_BASE/templates/cart/totals.phtml"
-sudo cp -v "$SRC/checkout-config.phtml" "$MAGENTO/$THEME_BASE/templates/cart/checkout-config.phtml"
+sudo cp -v "$SRC/checkout_cart_index.xml" "$MAGENTO/$THEME_BASE/layout/checkout_cart_index.xml"
 sudo cp -v "$SRC/CompositeConfigProvider.php" "$MAGENTO/app/code/Hdweb/Core/Model/Checkout/CompositeConfigProvider.php"
+if [ -f "$SRC/fix-knockout-template-loader-ksa.sh" ]; then
+    sudo cp -v "$SRC/fix-knockout-template-loader-ksa.sh" /tmp/fix-knockout-template-loader-ksa.sh
+    sudo bash /tmp/fix-knockout-template-loader-ksa.sh
+fi
 if [ -f "$SRC/Data.php" ]; then
     sudo cp -v "$SRC/Data.php" "$MAGENTO/app/code/Meetanshi/OrderUpload/Helper/Data.php"
 fi
 
 sudo chown -R www-data:www-data \
     "$MAGENTO/$THEME_BASE/templates/cart/totals.phtml" \
-    "$MAGENTO/$THEME_BASE/templates/cart/checkout-config.phtml" \
+    "$MAGENTO/$THEME_BASE/layout/checkout_cart_index.xml" \
     "$MAGENTO/app/code/Hdweb/Core/Model/Checkout/CompositeConfigProvider.php"
+if [ -f "$MAGENTO/app/code/Hdweb/Installer/view/frontend/templates/cart-installer.phtml" ] && [ -f "$SRC/cart-installer.phtml" ]; then
+    sudo cp -v "$SRC/cart-installer.phtml" "$MAGENTO/app/code/Hdweb/Installer/view/frontend/templates/cart-installer.phtml"
+    sudo chown www-data:www-data "$MAGENTO/app/code/Hdweb/Installer/view/frontend/templates/cart-installer.phtml"
+fi
 [ -f "$MAGENTO/app/code/Meetanshi/OrderUpload/Helper/Data.php" ] && \
     sudo chown www-data:www-data "$MAGENTO/app/code/Meetanshi/OrderUpload/Helper/Data.php"
 

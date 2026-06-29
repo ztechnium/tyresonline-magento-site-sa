@@ -82,19 +82,7 @@
 				</referenceContainer>
 			</referenceBlock>
         </referenceContainer>
-		<!-- <referenceBlock name="checkout.cart.shipping">
-			<arguments>
-				<argument name="jsLayout" xsi:type="array">
-					<item name="components" xsi:type="array">
-						<item name="block-summary" xsi:type="array">
-							<item name="config" xsi:type="array">
-								<item name="componentDisabled" xsi:type="boolean">true</item>
-							</item>
-						</item>
-					</item>
-				</argument>
-			</arguments>
-		</referenceBlock> -->
+		<referenceBlock name="checkout.cart.shipping" remove="true"/>
 		<!-- <referenceBlock name="checkout.cart.order.actions.gift_options" remove="true"/> -->
 		<!-- <referenceBlock name="cart-pickup-dropoff" remove="true"/> -->
         <referenceContainer name="before.body.end">
