@@ -3,6 +3,12 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 ->getStore()
 ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$scopeConfig = $objectManager->get(\Magento\Framework\App\Config\ScopeConfigInterface::class);
+$cdnMediaBase = rtrim((string) $scopeConfig->getValue(
+    'web/secure/base_media_url',
+    \Magento\Framework\App\Config\ScopeInterface::SCOPE_TYPE_DEFAULT
+), '/');
+$ksaMapUrl = ($cdnMediaBase !== '' ? $cdnMediaBase : rtrim($mediaURL, '/')) . '/images/icon/ksa-map.png';
 $baseURL = $this->getBaseUrl();
 ?>
 
@@ -89,7 +95,7 @@ $baseURL = $this->getBaseUrl();
     </div>
 
     <div class="map-image">
-    	<img src="<?php echo $mediaURL; ?>images/icon/ksa-map.png" width="480" height="372" alt="<?php echo __('TyresOnline KSA Map'); ?>" loading="lazy" />
+    	<img src="<?= $block->escapeUrl($ksaMapUrl) ?>" width="480" height="372" alt="<?= $block->escapeHtmlAttr(__('TyresOnline KSA Map')) ?>" decoding="async" />
     </div>
 
     <div class="bottom-text">
