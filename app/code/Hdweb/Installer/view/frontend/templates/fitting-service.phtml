@@ -9,6 +9,7 @@ if(isset($_COOKIE['mobilevanservice_data']) || $hasMobileVanTyreServiceProduct){
 	$hasMobileVanTyreService = 1;
 }
 $isStarlightProducts = $objectManager->create('Hdweb\Installer\Helper\Data')->isStarlightProducts();
+$hideFitmentStatusBar = $block->getRequest()->getFullActionName() === 'checkout_index_index';
 ?>
 <?php if($isEnablefitmentinstaller != ''):?>
 <div class="garage">
@@ -16,16 +17,16 @@ $isStarlightProducts = $objectManager->create('Hdweb\Installer\Helper\Data')->is
 	<div class="garage_switch">
 		<div class="container_switch">
 		  <div class="switch-title"><span><?php echo __('With Fitment?');?></span></div>
-		  <div class="switch">
-			<input type="radio" class="switch-input" name="fitment_installer" value="1" id="fully-fitted" checked>
-			<label for="fully-fitted" class="switch-label switch-label-off"><?php echo __('Yes');?></label>
-			<input type="radio" class="switch-input" name="fitment_installer" value="0" id="mail-order">
-			<label for="mail-order" class="switch-label switch-label-on"><?php echo __('No');?></label>
-			<span class="switch-selection"></span>
+		  <div class="switch fitment-toggle">
+			<input type="radio" class="fitment-toggle-input" name="fitment_installer" value="1" id="fully-fitted" checked>
+			<label for="fully-fitted" class="fitment-toggle-label"><?php echo __('Yes');?></label>
+			<input type="radio" class="fitment-toggle-input" name="fitment_installer" value="0" id="mail-order">
+			<label for="mail-order" class="fitment-toggle-label"><?php echo __('No');?></label>
 		  </div>
 		</div>
 	</div>
 
+	<?php if (!$hideFitmentStatusBar): ?>
 	<div class="garage-info" id="ship_to_installer">
 		<div class="not_selected">
 			<p><?php echo __('With Fitment - Deliver to Fitting Location');?></p>
@@ -37,6 +38,7 @@ $isStarlightProducts = $objectManager->create('Hdweb\Installer\Helper\Data')->is
 			<p><?php echo __('Without Fitment - Deliver to Shipping Address');?></p>
 		</div>
 	</div>
+	<?php endif; ?>
 	<input type="hidden" id="fitment_installerId" value="<?php echo $isEnablefitmentinstaller;?>" />
 	<?php else:?>
 		<?php if(!isset($_COOKIE['mobilevanservice_data'])):?>

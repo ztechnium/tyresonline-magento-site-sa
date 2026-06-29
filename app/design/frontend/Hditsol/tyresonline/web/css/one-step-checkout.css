@@ -1822,13 +1822,30 @@ margin: 0;
     text-align: center;
 }
 
-#onestepcheckout-page .checkout-fitting-section .garage .garage_switch .switch {
-    display: inline-block;
+#onestepcheckout-page .checkout-fitting-section .garage .garage_switch .switch,
+#onestepcheckout-page .checkout-fitting-section .garage .garage_switch .fitment-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     margin-top: 10px;
+}
+
+#onestepcheckout-page .checkout-fitting-section .garage .garage_switch .fitment-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
 }
 
 #onestepcheckout-page .checkout-fitting-section .garage .garage_switch .switch .switch-selection {
     display: none;
+}
+
+#onestepcheckout-page .checkout-fitting-section .garage-info#ship_to_installer,
+#onestepcheckout-page .checkout-fitting-section .garage-info#ship_to_address {
+    display: none !important;
 }
 
 #onestepcheckout-page .checkout-fitting-section .fitting-location-box {

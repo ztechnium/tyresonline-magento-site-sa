@@ -884,15 +884,27 @@
     font-weight: 500;
 }
 
-.garage .garage_switch .switch{
+.garage .garage_switch .switch,
+.garage .garage_switch .fitment-toggle {
     text-align: center;
     margin-top: 10px;
 }
 
-.garage .garage_switch .switch input[type="radio"] {
-    display: none;
+.garage .garage_switch .switch input[type="radio"],
+.garage .garage_switch .fitment-toggle input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+    pointer-events: none;
 }
-.garage .garage_switch .switch label {
+.garage .garage_switch .switch label,
+.garage .garage_switch .fitment-toggle-label {
     position: relative;
     display: inline-block;
     padding: 3px 10px 3px 25px;
@@ -900,39 +912,48 @@
     font-size: 14px;
 }
 .garage .garage_switch .switch label::before,
-.garage .garage_switch .switch label::after {
+.garage .garage_switch .switch label::after,
+.garage .garage_switch .fitment-toggle-label::before,
+.garage .garage_switch .fitment-toggle-label::after {
     position: absolute;
     content: '';
     border-radius: 100%;
     -webkit-transition: all .2s;
     transition: all .2s;
 }
-.garage .garage_switch .switch label::before {
+.garage .garage_switch .switch label::before,
+.garage .garage_switch .fitment-toggle-label::before {
     left: 0;
+    top: 50%;
     width: 18px;
     height: 18px;
-    margin-top: 0;
+    margin-top: -9px;
     background: #fff;
     border: 1px solid #bababa;
 }
-.garage .garage_switch .switch label:hover::before {
+.garage .garage_switch .switch label:hover::before,
+.garage .garage_switch .fitment-toggle-label:hover::before {
     background: #fff;
 }
-.garage .garage_switch .switch label::after {
+.garage .garage_switch .switch label::after,
+.garage .garage_switch .fitment-toggle-label::after {
     opacity: 0;
     left: 4px;
+    top: 50%;
     width: 10px;
     height: 10px;
-    top: 7px;
+    margin-top: -5px;
     background: #000;
-    -webkit-transform: scale(2);
-    transform: scale(2);
+    -webkit-transform: scale(0);
+    transform: scale(0);
 }
-.garage .garage_switch .switch input[type="radio"]:checked + label::before {
+.garage .garage_switch .switch input[type="radio"]:checked + label::before,
+.garage .garage_switch .fitment-toggle input[type="radio"]:checked + .fitment-toggle-label::before {
     background: #fff;
     border: 1px solid #000;
 }
-.garage .garage_switch .switch input[type="radio"]:checked + label::after {
+.garage .garage_switch .switch input[type="radio"]:checked + label::after,
+.garage .garage_switch .fitment-toggle input[type="radio"]:checked + .fitment-toggle-label::after {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
