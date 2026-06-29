@@ -274,32 +274,70 @@ $mobileVanInstallerId = (int) $objectManager->get('Magento\Framework\App\Config\
 require(['jquery', 'ecomteck_storelocator'], function ($, initStoreLocator) {
     'use strict';
 
+    var storeLocatorStarted = false;
+
     function bootCartStoreLocator() {
         var $modal = $('#mycartinstallerModal');
-        if (!$modal.length || $modal.data('storeLocatorReady')) {
+        if (!$modal.length || typeof window.checkoutStoreLocatorConfig === 'undefined') {
             return;
         }
-        if (typeof window.checkoutStoreLocatorConfig === 'undefined') {
+        if ($modal.data('storeLocatorReady')) {
+            return;
+        }
+        if (storeLocatorStarted && !$modal.data('storeLocatorAllowRetry')) {
             return;
         }
 
-        initStoreLocator(window.checkoutStoreLocatorConfig);
-        $modal.data('storeLocatorReady', true);
+        storeLocatorStarted = true;
+        $modal.removeData('storeLocatorAllowRetry');
 
-        if (window.google && window.google.maps) {
-            google.maps.event.trigger(window, 'resize');
-        }
+        var config = $.extend(true, {}, window.checkoutStoreLocatorConfig, {
+            callbackSuccess: function () {
+                $modal.data('storeLocatorReady', true);
+                $(document).trigger('installerStoresLoaded');
+                if (window.google && window.google.maps) {
+                    google.maps.event.trigger(window, 'resize');
+                }
+            }
+        });
+
+        initStoreLocator(config);
+
+        setTimeout(function () {
+            if ($modal.data('storeLocatorReady')) {
+                return;
+            }
+            var installerCount = $modal.find('.allInstaller .installer').length;
+            if (installerCount > 0) {
+                $modal.data('storeLocatorReady', true);
+                $(document).trigger('installerStoresLoaded');
+                return;
+            }
+            storeLocatorStarted = false;
+            $modal.data('storeLocatorAllowRetry', true);
+            if ($modal.is(':visible')) {
+                bootCartStoreLocator();
+            }
+        }, 4000);
     }
 
     $(function () {
         $('#mycartinstallerModal').on('shown.bs.modal', bootCartStoreLocator);
+        $('#mycartinstallerModal').on('hidden.bs.modal', function () {
+            var $modal = $(this);
+            if ($modal.find('.allInstaller .installer').length === 0) {
+                $modal.removeData('storeLocatorReady');
+                storeLocatorStarted = false;
+            }
+        });
         $(document).on(
             'click',
             '#cart-installer-location, [data-bs-target="#mycartinstallerModal"], [data-target="#mycartinstallerModal"], .checkout_title[data-bs-target="#mycartinstallerModal"]',
             function () {
-                setTimeout(bootCartStoreLocator, 400);
+                setTimeout(bootCartStoreLocator, 300);
             }
         );
+        setTimeout(bootCartStoreLocator, 2000);
     });
 });
 </script>
