@@ -88,12 +88,31 @@ class SetDefaultShippingObserver implements ObserverInterface
         }
         $shippingAddress = $quote->getShippingAddress();
 
+        if (!$shippingAddress->getCountryId()) {
+            $shippingAddress->setCountryId($this->directoryHelper->getDefaultCountry());
+        }
+
         if (!$shippingAddress->getShippingMethod()) {
-            if (!$shippingAddress->getCountryId()) {
-                $shippingAddress->setCountryId($this->directoryHelper->getDefaultCountry());
+            $shippingAddress->setShippingMethod($this->getDefaultShippingMethod());
+        }
+
+        $shippingAddress->setCollectShippingRates(true);
+        $quote->collectTotals();
+
+        $selectedMethod = (string) $shippingAddress->getShippingMethod();
+        $rates = $shippingAddress->getAllShippingRates();
+        foreach ($rates as $rate) {
+            if ($rate->getCarrier() . '_' . $rate->getMethod() === $selectedMethod) {
+                return;
             }
-            $shippingAddress->setCollectShippingRates(true)
-                ->setShippingMethod($this->getDefaultShippingMethod());
+        }
+
+        if ($rates !== []) {
+            $firstRate = reset($rates);
+            $shippingAddress->setShippingMethod(
+                $firstRate->getCarrier() . '_' . $firstRate->getMethod()
+            );
+            $quote->collectTotals();
         }
     }
 }

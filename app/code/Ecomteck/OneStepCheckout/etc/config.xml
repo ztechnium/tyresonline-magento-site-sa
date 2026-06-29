@@ -29,7 +29,7 @@
             <general>
                 <enable>1</enable>
                 <router_name>checkout</router_name>
-                <default_shipping_method>flatrate_flatrate</default_shipping_method>
+                <default_shipping_method>storepickup_storepickup</default_shipping_method>
                 <default_payment_method>checkmo</default_payment_method>
                 <allow_update_product_qty>1</allow_update_product_qty>
                 <allow_remove_product>1</allow_remove_product>

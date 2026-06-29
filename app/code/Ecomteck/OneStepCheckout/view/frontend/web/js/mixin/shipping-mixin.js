@@ -57,10 +57,32 @@ define([
             quoteIsVirtual: ko.observable(quote.isVirtual()),
             initialize: function () {
                 this._super();
+                var self = this;
                 var selectedShippingMethod = window.checkoutConfig.selectedShippingMethod;
                 if (selectedShippingMethod) {
                     this.selectShippingMethod(selectedShippingMethod);
                 }
+
+                this.rates.subscribe(function (rates) {
+                    if (!rates || !rates.length) {
+                        return;
+                    }
+
+                    var currentMethod = quote.shippingMethod();
+                    if (!currentMethod || !currentMethod.carrier_code) {
+                        self.selectShippingMethod(rates[0]);
+                        return;
+                    }
+
+                    var methodIsAvailable = rates.some(function (rate) {
+                        return rate.carrier_code === currentMethod.carrier_code
+                            && rate.method_code === currentMethod.method_code;
+                    });
+
+                    if (!methodIsAvailable) {
+                        self.selectShippingMethod(rates[0]);
+                    }
+                });
 
                 getPaymentInformation();
 

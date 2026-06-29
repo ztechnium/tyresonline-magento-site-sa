@@ -21,6 +21,11 @@ class DataAssignObserver implements ObserverInterface
      */
     protected $collectionFactory;
 
+    /**
+     * @var \Magento\Directory\Model\RegionFactory
+     */
+    protected $regionFactory;
+
     public function __construct(
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
         CollectionFactory $collectionFactory,
