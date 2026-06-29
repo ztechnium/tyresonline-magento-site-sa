@@ -14,4 +14,14 @@
                 name="hdweb_elasticsuite_tracker_event_queue_schema_guard"
                 type="Hdweb\Coreoverride\Plugin\ElasticsuiteTracker\ResourceModel\EventQueuePlugin" />
     </type>
+    <type name="Smile\ElasticsuiteTracker\Model\EventQueue">
+        <plugin sortOrder="10"
+                name="hdweb_elasticsuite_tracker_event_queue_safe_count"
+                type="Hdweb\Coreoverride\Plugin\ElasticsuiteTracker\Model\EventQueuePlugin" />
+    </type>
+    <type name="Smile\ElasticsuiteTracker\Model\System\Message\WarningAboutInvalidTrackerEvents">
+        <plugin sortOrder="10"
+                name="hdweb_elasticsuite_tracker_invalid_events_message_guard"
+                type="Hdweb\Coreoverride\Plugin\ElasticsuiteTracker\System\Message\WarningAboutInvalidTrackerEventsPlugin" />
+    </type>
 </config>
