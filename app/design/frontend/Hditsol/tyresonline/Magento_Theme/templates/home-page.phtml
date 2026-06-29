@@ -3,12 +3,7 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 ->getStore()
 ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-$scopeConfig = $objectManager->get(\Magento\Framework\App\Config\ScopeConfigInterface::class);
-$cdnMediaBase = rtrim((string) $scopeConfig->getValue(
-    'web/secure/base_media_url',
-    \Magento\Store\Model\ScopeInterface::SCOPE_TYPE_DEFAULT
-), '/');
-$ksaMapUrl = ($cdnMediaBase !== '' ? $cdnMediaBase : rtrim($mediaURL, '/')) . '/images/icon/ksa-map.png';
+$ksaMapUrl = 'https://cdn.tyresonline.sa/media/images/icon/ksa-map.png';
 $baseURL = $this->getBaseUrl();
 ?>
 
