@@ -9,15 +9,16 @@ if(isset($_COOKIE['mobilevanservice_data']) || $hasMobileVanTyreServiceProduct){
 	$hasMobileVanTyreService = 1;
 }
 $isStarlightProducts = $objectManager->create('Hdweb\Installer\Helper\Data')->isStarlightProducts();
-$hideFitmentStatusBar = $block->getRequest()->getFullActionName() === 'checkout_index_index';
+$isCheckoutPage = $block->getRequest()->getFullActionName() === 'checkout_index_index';
 ?>
 <?php if($isEnablefitmentinstaller != ''):?>
 <div class="garage">
 	<?php if(!$hasMobileVanTyreService && !$isStarlightProducts):?>
+		<?php if (!$isCheckoutPage): ?>
 	<div class="garage_switch">
 		<div class="container_switch">
 		  <div class="switch-title"><span><?php echo __('With Fitment?');?></span></div>
-		  <div class="switch fitment-toggle">
+		  <div class="fitment-toggle" role="radiogroup" aria-label="<?php echo $block->escapeHtmlAttr(__('With Fitment?')); ?>">
 			<input type="radio" class="fitment-toggle-input" name="fitment_installer" value="1" id="fully-fitted" checked>
 			<label for="fully-fitted" class="fitment-toggle-label"><?php echo __('Yes');?></label>
 			<input type="radio" class="fitment-toggle-input" name="fitment_installer" value="0" id="mail-order">
@@ -26,7 +27,6 @@ $hideFitmentStatusBar = $block->getRequest()->getFullActionName() === 'checkout_
 		</div>
 	</div>
 
-	<?php if (!$hideFitmentStatusBar): ?>
 	<div class="garage-info" id="ship_to_installer">
 		<div class="not_selected">
 			<p><?php echo __('With Fitment - Deliver to Fitting Location');?></p>
@@ -38,7 +38,7 @@ $hideFitmentStatusBar = $block->getRequest()->getFullActionName() === 'checkout_
 			<p><?php echo __('Without Fitment - Deliver to Shipping Address');?></p>
 		</div>
 	</div>
-	<?php endif; ?>
+		<?php endif; ?>
 	<input type="hidden" id="fitment_installerId" value="<?php echo $isEnablefitmentinstaller;?>" />
 	<?php else:?>
 		<?php if(!isset($_COOKIE['mobilevanservice_data'])):?>
@@ -75,7 +75,10 @@ require([
 	'Magento_Checkout/js/action/get-totals',
 	'Magento_Checkout/js/model/cart/totals-processor/default'
 	], function($,storage,quote,getTotalsAction,totalsDefaultProvider){
-	jQuery('.container_switch input[type=radio]').change(function() {
+	if (!jQuery('.fitment-toggle-input').length) {
+		return;
+	}
+	jQuery('.fitment-toggle-input').change(function() {
 		if(this.value == "0"){
 			jQuery("#ship_to_address").show();
 			jQuery("#ship_to_installer").hide();
@@ -125,5 +128,58 @@ require([
 <style>
 .checkout-cart-index .cart.table-wrapper {
     border-radius: 25px;
+}
+.garage .fitment-toggle-input {
+    display: none !important;
+}
+.garage .fitment-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+.garage .fitment-toggle-label {
+    position: relative;
+    display: inline-block;
+    padding: 3px 10px 3px 25px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.garage .fitment-toggle-label::before,
+.garage .fitment-toggle-label::after {
+    position: absolute;
+    content: '';
+    border-radius: 100%;
+    transition: all .2s;
+}
+.garage .fitment-toggle-label::before {
+    left: 0;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    margin-top: -9px;
+    background: #fff;
+    border: 1px solid #bababa;
+}
+.garage .fitment-toggle-label::after {
+    opacity: 0;
+    left: 4px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    background: #000;
+    transform: scale(0);
+}
+.garage .fitment-toggle-input:checked + .fitment-toggle-label::before {
+    border-color: #000;
+}
+.garage .fitment-toggle-input:checked + .fitment-toggle-label::after {
+    opacity: 1;
+    transform: scale(1);
+}
+#onestepcheckout-page .checkout-fitting-section .garage_switch {
+    display: none !important;
 }
 </style>
