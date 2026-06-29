@@ -105,8 +105,9 @@ foreach ($storeCollection as $key => $store) {
 }
 
 $cartRef=$this->getCartref();
+$deferStoreLocatorInit = (bool)$block->getData('defer_init');
 $isDisplayDateTime=0;
-if(isset($cartRef) && !empty($cartRef)){
+if((isset($cartRef) && !empty($cartRef)) || $deferStoreLocatorInit){
 	$isDisplayDateTime=1;
 }
 $noslotAvailableText = __('The installer is not available on the selected date. Select a different date.');
@@ -282,7 +283,6 @@ $mobileVanInstallerId = (int) $objectManager->get('Magento\Framework\App\Config\
 <?php if ($gmapApiKey): ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
 <?php endif; ?>
-<?php $deferStoreLocatorInit = (bool)$block->getData('defer_init'); ?>
 <?php if ($deferStoreLocatorInit): ?>
 <script type="text/javascript">
     window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
