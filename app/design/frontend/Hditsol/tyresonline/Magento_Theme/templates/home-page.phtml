@@ -106,11 +106,11 @@ $baseURL = $this->getBaseUrl();
 <div class="container-fluid px-0">
 <div class="image-wrap picture loader aspect-custom">
 	<picture>
-	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae-sm.webp'); ?>" media="(max-width: 767px)">
-	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae-sm.jpg'); ?>" media="(max-width: 767px)">
-	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.webp'); ?>" media="(min-width: 768px)">
-	  <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.jpg'); ?>" media="(min-width: 768px)">
-	  <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Welcome To Tyres Online KSA');?>" width="1920px" height="943px" data-src="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.jpg'); ?>">
+	  <source srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae-sm.webp'); ?>" media="(max-width: 767px)" type="image/webp">
+	  <source srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae-sm.jpg'); ?>" media="(max-width: 767px)">
+	  <source srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.webp'); ?>" media="(min-width: 768px)" type="image/webp">
+	  <source srcset="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.jpg'); ?>" media="(min-width: 768px)">
+	  <img src="<?= $block->getViewFileUrl('images/banner/welcome-to-tyres-online-uae.jpg'); ?>" alt="<?= $block->escapeHtmlAttr(__('Welcome To Tyres Online KSA')) ?>" width="1920" height="943" decoding="async">
 	</picture>
 </div>
 
@@ -118,8 +118,8 @@ $baseURL = $this->getBaseUrl();
 <div class="top position-relative w-100">
 	  <div class="shape">
 	  	<picture>
-	  	 <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/section/Welcome-banner-top-shape.webp'); ?>">
-	  	 <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Welcome To Tyres Online KSA');?>" width="1920px" height="150px" data-src="<?= $block->getViewFileUrl('images/section/Welcome-banner-top-shape.webp'); ?>">
+	  	 <source srcset="<?= $block->getViewFileUrl('images/section/Welcome-banner-top-shape.webp'); ?>" type="image/webp">
+	  	 <img src="<?= $block->getViewFileUrl('images/section/Welcome-banner-top-shape.webp'); ?>" alt="<?= $block->escapeHtmlAttr(__('Welcome To Tyres Online KSA')) ?>" width="1920" height="150" decoding="async">
 	  	</picture>
 	  </div>
     <div class="heading-style6 white text-center">
@@ -131,8 +131,8 @@ $baseURL = $this->getBaseUrl();
 <div class="bottom position-relative w-100">
 		  <div class="shape">
 	  	<picture>
-	  	 <source class="lazyload" srcset="<?= $block->getViewFileUrl('images/blank.png'); ?>" data-srcset="<?= $block->getViewFileUrl('images/section/Welcome-banner-bottom-shape.webp'); ?>">
-	  	 <img class="lazyload" src="<?= $block->getViewFileUrl('images/blank.png'); ?>" alt="<?php echo __('Welcome To Tyres Online KSA');?>" width="1920px" height="150px" data-src="<?= $block->getViewFileUrl('images/section/Welcome-banner-bottom-shape.webp'); ?>">
+	  	 <source srcset="<?= $block->getViewFileUrl('images/section/Welcome-banner-bottom-shape.webp'); ?>" type="image/webp">
+	  	 <img src="<?= $block->getViewFileUrl('images/section/Welcome-banner-bottom-shape.webp'); ?>" alt="<?= $block->escapeHtmlAttr(__('Welcome To Tyres Online KSA')) ?>" width="1920" height="150" decoding="async">
 	  	</picture>
 	  </div>
  <div class="heading-style6 white text-center">
