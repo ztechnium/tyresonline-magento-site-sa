@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: cursor/fix-elasticsuite-is-invalid-column-48f5
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

@@ -4,6 +4,7 @@ cd /var/www/magento
 sudo cp /tmp/env.php.prod app/etc/env.php
 sudo chown ubuntu:www-data app/etc/env.php
 
+php bin/magento setup:upgrade --keep-generated
 php bin/magento setup:di:compile
 php bin/magento setup:static-content:deploy -f en_US ar_SA
 php bin/magento indexer:reindex
