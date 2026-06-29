@@ -242,31 +242,6 @@ $storeCode = $storeManager->getStore()->getCode();
         jQuery(document).ready(function() {
            var carturl = "<?php echo $this->getUrl().'checkout/cart'?>";
            var checkouturl = "<?php echo $this->getUrl().'checkout'?>";
-
-           function initCartFittingStoreLocator() {
-               var $modal = jQuery('#mycartinstallerModal');
-               if (!$modal.length || $modal.data('storeLocatorReady')) {
-                   return;
-               }
-               if (typeof window.checkoutStoreLocatorConfig === 'undefined') {
-                   return;
-               }
-               require(['ecomteck_storelocator'], function (initStoreLocator) {
-                   initStoreLocator(window.checkoutStoreLocatorConfig);
-                   $modal.data('storeLocatorReady', true);
-               });
-           }
-
-           jQuery('#mycartinstallerModal').on('shown.bs.modal', function () {
-               initCartFittingStoreLocator();
-               if (window.google && window.google.maps) {
-                   google.maps.event.trigger(window, 'resize');
-               }
-           });
-
-           jQuery(document).on('click', '[data-bs-target="#mycartinstallerModal"], [data-target="#mycartinstallerModal"], #cart-installer-location, .checkout_title[data-bs-target="#mycartinstallerModal"]', function () {
-               setTimeout(initCartFittingStoreLocator, 300);
-           });
 		  /* jQuery(".checkout button.checkout").attr('data-bs-toggle', 'modal');
 		   jQuery(".checkout button.checkout").attr('data-bs-target', '#mycartinstallerModal');
                $('.checkout').click(function(e){

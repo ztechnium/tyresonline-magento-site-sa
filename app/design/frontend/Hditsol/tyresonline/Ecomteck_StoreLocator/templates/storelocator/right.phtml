@@ -284,6 +284,42 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
 <script type="text/javascript">
     window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
 </script>
+<script type="text/javascript">
+require(['jquery', 'ecomteck_storelocator'], function ($, initStoreLocator) {
+    'use strict';
+
+    function bootCartStoreLocator() {
+        var $modal = $('#mycartinstallerModal');
+        if (!$modal.length || $modal.data('storeLocatorReady')) {
+            return;
+        }
+        if (typeof window.checkoutStoreLocatorConfig === 'undefined') {
+            return;
+        }
+
+        initStoreLocator(window.checkoutStoreLocatorConfig);
+        $modal.data('storeLocatorReady', true);
+
+        if (window.google && window.google.maps) {
+            google.maps.event.trigger(window, 'resize');
+        }
+    }
+
+    $(function () {
+        $('#mycartinstallerModal').on('shown.bs.modal', bootCartStoreLocator);
+        $(document).on(
+            'click',
+            '#cart-installer-location, [data-bs-target="#mycartinstallerModal"], [data-target="#mycartinstallerModal"], .checkout_title[data-bs-target="#mycartinstallerModal"]',
+            function () {
+                setTimeout(bootCartStoreLocator, 400);
+            }
+        );
+    });
+});
+</script>
+<style type="text/css">
+#mycartinstallerModal #installerLoading { display: none; }
+</style>
 <?php else: ?>
 <script type="text/x-magento-init">
     {
