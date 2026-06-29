@@ -17,7 +17,7 @@ set -euo pipefail
 AWS_REGION="${AWS_REGION:-eu-north-1}"
 EC2_NAME_TAG="${EC2_NAME_TAG:-tyresonline-sa-prod-ec2}"
 RDS_INSTANCE="${RDS_INSTANCE:-tyresonline-sa-prod}"
-EC2_HOST="${EC2_HOST:-ec2-16-170-225-52.eu-north-1.compute.amazonaws.com}"
+EC2_HOST="${EC2_HOST:-ec2-16-170-202-188.eu-north-1.compute.amazonaws.com}"
 SSH_USER="${SSH_USER:-ubuntu}"
 SSH_KEY="${SSH_KEY:-staging-key-tyresonline.pem}"
 MAGENTO="${MAGENTO:-/var/www/magento}"

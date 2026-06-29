@@ -29,6 +29,6 @@ jobs:
       - name: Run snapshot + fix
         env:
           AWS_REGION: eu-north-1
-          EC2_HOST: ec2-16-170-225-52.eu-north-1.compute.amazonaws.com
+          EC2_HOST: ec2-16-170-202-188.eu-north-1.compute.amazonaws.com
           SSH_KEY: ~/.ssh/staging.pem
         run: bash infra/scripts/fix-export-with-snapshots.sh
