@@ -1,0 +1,10 @@
+{
+    "elasticsuite_tracker_log_event": {
+        "column": {
+            "is_invalid": true
+        },
+        "index": {
+            "ELASTICSUITE_TRACKER_LOG_EVENT_IS_INVALID": true
+        }
+    }
+}

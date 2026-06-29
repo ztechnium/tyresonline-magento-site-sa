@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order">
-		<column xsi:type="text" name="order_type" nullable="true" comment="Order Type"/>				
+        <column xsi:type="text" name="order_type" nullable="true" comment="Order Type"/>
+    </table>
+    <table name="elasticsuite_tracker_log_event" resource="default" engine="innodb" comment="ElasticSuite Tracker Log Event">
+        <column name="is_invalid"
+                xsi:type="smallint"
+                nullable="false"
+                default="0"
+                comment="Has invalid data"/>
+        <index referenceId="ELASTICSUITE_TRACKER_LOG_EVENT_IS_INVALID" indexType="btree">
+            <column name="is_invalid"/>
+        </index>
     </table>
 </schema>
