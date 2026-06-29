@@ -198,7 +198,7 @@ $storeCode = $storeManager->getStore()->getCode();
 <input type="hidden" id="different_destination_lng" value=""/>
 <input type="hidden" id="is_different_destination" value=""/>
 <script type="text/javascript">
-  require(['jquery', 'mage/storage'], function ($, storage) {
+  require(['jquery'], function ($) {
     'use strict';
 
     var selectedPickupStore = "<?php echo $pickup_store ?>";
@@ -207,6 +207,40 @@ $storeCode = $storeManager->getStore()->getCode();
     var saveFailedTxt = '<?php echo __('Unable to save fitting location. Please try again.'); ?>';
     var hasMobileVanTyreService = "<?php echo $hasMobileVanTyreService ?>";
     var storeCode = '<?php echo $storeCode; ?>';
+    var saveInstallerUrl = "<?php echo $block->escapeUrl($block->getUrl('installer/ajax/savecartinstaller')) ?>";
+
+    function getFormKey() {
+        return $('input[name="form_key"]').val() || '';
+    }
+
+    function postInstallerData(data) {
+        var url = saveInstallerUrl;
+
+        if (getFormKey()) {
+            url += (url.indexOf('?') === -1 ? '?' : '&') + 'form_key=' + encodeURIComponent(getFormKey());
+        }
+
+        return $.ajax({
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            global: true,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(function (response) {
+            if (typeof response === 'string') {
+                try {
+                    return JSON.parse(response);
+                } catch (e) {
+                    return { message: 'fail', error: 'invalid_response' };
+                }
+            }
+
+            return response;
+        });
+    }
 
     function refreshCartTotals() {
         if (typeof require === 'undefined') {
@@ -235,8 +269,16 @@ $storeCode = $storeManager->getStore()->getCode();
         return {
             pickup_date: $panel.find('.storePickupdatepicker').val(),
             pickup_time: $panel.find('.storePickuptimepicker option:selected').val(),
-            pickup_store: $panel.find('.pickup_store_id').val()
+            pickup_store: $panel.find('.pickup_store_id').val(),
+            timeDisabled: $panel.find('.storePickuptimepicker option:selected').prop('disabled')
         };
+    }
+
+    function hasValidInstallerSelection(fields) {
+        return fields.pickup_date &&
+            fields.pickup_store &&
+            fields.pickup_time &&
+            !fields.timeDisabled;
     }
 
     $(function () {
@@ -258,28 +300,21 @@ $storeCode = $storeManager->getStore()->getCode();
             event.preventDefault();
 
             var fields = getInstallerPanelFields($(this));
-            var pickup_date = fields.pickup_date;
-            var pickup_time = fields.pickup_time;
-            var pickup_store = fields.pickup_store;
 
-            if (!pickup_date || !pickup_time) {
+            if (!hasValidInstallerSelection(fields)) {
                 alert(noDateOrTimeSelectedTxt);
                 return;
             }
 
             var data = {
-                pickup_store: pickup_store,
-                pickup_date: pickup_date,
-                pickup_time: pickup_time
+                pickup_store: fields.pickup_store,
+                pickup_date: fields.pickup_date,
+                pickup_time: fields.pickup_time
             };
 
             $('body').trigger('processStart');
 
-            storage.post(
-                'installer/ajax/savecartinstaller',
-                JSON.stringify(data),
-                true
-            ).done(function (response) {
+            postInstallerData(data).done(function (response) {
                 if (response.message === 'success') {
                     if (storeCode === 'en') {
                         $('#selected-installer-name').text(response.name);
@@ -302,7 +337,7 @@ $storeCode = $storeManager->getStore()->getCode();
                     $('.fittingLocationList').show();
                     $('#selectedInstaller').attr('data-lat', response.installer_lat);
                     $('#selectedInstaller').attr('data-lng', response.installer_lng);
-                    selectedPickupStore = pickup_store;
+                    selectedPickupStore = fields.pickup_store;
 
                     if (response.pickup_service == 0) {
                         $('#custom-vehicle-div .pickupDropOption .no').trigger('click');
@@ -315,7 +350,8 @@ $storeCode = $storeManager->getStore()->getCode();
                 } else {
                     alert(saveFailedTxt);
                 }
-            }).fail(function () {
+            }).fail(function (xhr) {
+                console.error('savecartinstaller failed', xhr.status, xhr.responseText);
                 alert(saveFailedTxt);
             }).always(function () {
                 $('body').trigger('processStop');
@@ -325,11 +361,7 @@ $storeCode = $storeManager->getStore()->getCode();
         $(document).on('click', '#cancel-selected-installer', function () {
             $('body').trigger('processStart');
 
-            storage.post(
-                'installer/ajax/savecartinstaller',
-                JSON.stringify({ installer_id: 0 }),
-                true
-            ).done(function (response) {
+            postInstallerData({ installer_id: 0 }).done(function (response) {
                 if (response.message === 'success') {
                     $('#selected-installer-name').text('');
                     $('#selected-installer-addr').text('');
