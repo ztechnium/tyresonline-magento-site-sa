@@ -749,14 +749,22 @@ class Stores extends AbstractModel implements StoresInterface, RoutableInterface
                             $dateTimeEnd->setTimezone(new \DateTimeZone($timezone->getConfigTimezone()));
                             $dateTimeEnd->setTime($endHour, $endMinute);
                             $endTime = $dateTimeEnd->format('h:i A');
+                            $slotLabel = $startTime . ' - ' . $endTime;
                             
                             if(count($timeSlots) > 1){
                                 $html[] = '<li><i>'.$startTime.' - '.$endTime.'</i></li>';
-								$timeSlotArray[$dayOfWeek][] = $startTime.' - '.$endTime;
                             } else {
                                 $html[] = '<i>'.$startTime.' - '.$endTime.'</i>';
-								$timeSlotArray[$dayOfWeek][] = $startTime.' - '.$endTime;
                             }
+
+                            if (!isset($timeSlotArray[(int) $key])) {
+                                $timeSlotArray[(int) $key] = [];
+                            }
+                            $timeSlotArray[(int) $key][] = $slotLabel;
+                            if (!isset($timeSlotArray[$dayOfWeek])) {
+                                $timeSlotArray[$dayOfWeek] = [];
+                            }
+                            $timeSlotArray[$dayOfWeek][] = $slotLabel;
                         }
                     }
                     if(count($timeSlots) > 1){
@@ -769,7 +777,7 @@ class Stores extends AbstractModel implements StoresInterface, RoutableInterface
            // return implode("\n",$html);
             return $timeSlotArray;
         }
-        return '';
+        return [];
     }
 
     /**
