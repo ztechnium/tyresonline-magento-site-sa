@@ -29,39 +29,52 @@ class Getvehicleyear extends \Magento\Framework\App\Action\Action
         \Hdweb\Tyrefinder\Helper\Data $finderhelper
     ) {
         parent::__construct($context);
-        $this->helper              = $helper;
-        $this->resultJsonFactory   = $resultJsonFactory;
-        $this->_cartModel          = $cartModel;
-        $this->_customerRepository = $customerRepository;
-        $this->finderhelper          = $finderhelper;
+        $this->helper = $helper;
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->cartModel = $cartModel;
+        $this->customerRepository = $customerRepository;
+        $this->finderhelper = $finderhelper;
     }
 
     public function execute()
     {
-
         $vehiclemodel = $this->helper->jsonDecode($this->getRequest()->getContent());
+        $response = [[
+            'vehicleyear' => '<option value="">' . __('Select Year') . '</option>',
+        ]];
 
-        $make         = $vehiclemodel['make'];
-        $vehiclemodel = $vehiclemodel['model'];
-        if ($vehiclemodel) {
-			$wheelApiKey = $this->finderhelper::WHEEL_SEARCH_APIKEY;
-			$modelyear_url = "https://api.wheel-size.com/v2/years/?user_key=".$wheelApiKey."&make=".$make."&model=".$vehiclemodel. "&region=medm";
-			$modelyear = file_get_contents($modelyear_url);
-			$modelyear =json_decode($modelyear);
-            $yearSelectHtml    = '<option value="">' . __('Select Year') . '</option>';
-			if ($modelyear && !empty($modelyear->data) && count($modelyear->data) > 0) {
-				foreach ($modelyear->data as $yearOption) {
-					$yearSelectHtml .= '<option value="' . $yearOption->slug . '">' . $yearOption->name . '</option>';
-				}
-			}
-			
+        if (!is_array($vehiclemodel) || empty($vehiclemodel['model']) || empty($vehiclemodel['make'])) {
+            return $this->resultJsonFactory->create()->setData($response);
+        }
+
+        try {
+            $make = (string) $vehiclemodel['make'];
+            $model = (string) $vehiclemodel['model'];
+            $wheelApiKey = $this->finderhelper::WHEEL_SEARCH_APIKEY;
+            $modelyearUrl = 'https://api.wheel-size.com/v2/years/?user_key='
+                . $wheelApiKey
+                . '&make='
+                . urlencode($make)
+                . '&model='
+                . urlencode($model)
+                . '&region=medm';
+            $modelyear = json_decode((string) file_get_contents($modelyearUrl));
+            $yearSelectHtml = '<option value="">' . __('Select Year') . '</option>';
+
+            if ($modelyear && !empty($modelyear->data)) {
+                foreach ($modelyear->data as $yearOption) {
+                    $yearSelectHtml .= '<option value="' . htmlspecialchars($yearOption->slug, ENT_QUOTES, 'UTF-8') . '">'
+                        . htmlspecialchars($yearOption->name, ENT_QUOTES, 'UTF-8') . '</option>';
+                }
+            }
+
             $response[] = [
                 'vehicleyear' => $yearSelectHtml,
             ];
-
-            $resultJson = $this->resultJsonFactory->create();
-            return $resultJson->setData($response);
-
+        } catch (\Throwable $exception) {
+            // Return placeholder options when the lookup fails.
         }
+
+        return $this->resultJsonFactory->create()->setData($response);
     }
 }

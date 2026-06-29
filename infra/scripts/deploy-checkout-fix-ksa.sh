@@ -10,13 +10,15 @@ sudo mkdir -p "$MAGENTO/app/code/Hdweb/Coreoverride/Model/Checkout" \
     "$MAGENTO/app/code/Hdweb/Coreoverride/Observer" \
     "$MAGENTO/app/code/Hdweb/Coreoverride/etc/frontend" \
     "$MAGENTO/app/code/Ecomteck/OneStepCheckoutCompatible/Block/Checkout" \
+    "$MAGENTO/app/code/Hdweb/Shippingform/Controller/Ajax" \
     "$MAGENTO/app/design/frontend/Hditsol/tyresonline/Magento_Checkout/templates"
 
 sudo cp -v "$SRC/CheckoutJsLayoutNormalizer.php" "$MAGENTO/app/code/Hdweb/Coreoverride/Model/Checkout/"
 sudo cp -v "$SRC/LayoutProcessorPlugin.php" "$MAGENTO/app/code/Hdweb/Coreoverride/Plugin/Checkout/"
 sudo cp -v "$SRC/OnepagePlugin.php" "$MAGENTO/app/code/Hdweb/Coreoverride/Plugin/Checkout/"
 sudo cp -v "$SRC/EnsureCheckoutLayoutHandleObserver.php" "$MAGENTO/app/code/Hdweb/Coreoverride/Observer/"
-sudo cp -v "$SRC/OneStepCheckoutProcessor.php" "$MAGENTO/app/code/Ecomteck/OneStepCheckoutCompatible/Block/Checkout/"
+sudo cp -v "$SRC/Getvehiclemodel.php" "$MAGENTO/app/code/Hdweb/Shippingform/Controller/Ajax/"
+sudo cp -v "$SRC/Getvehicleyear.php" "$MAGENTO/app/code/Hdweb/Shippingform/Controller/Ajax/"
 sudo cp -v "$SRC/frontend_di.xml" "$MAGENTO/app/code/Hdweb/Coreoverride/etc/frontend/di.xml"
 sudo cp -v "$SRC/frontend_events.xml" "$MAGENTO/app/code/Hdweb/Coreoverride/etc/frontend/events.xml"
 if [ -f "$SRC/checkout-loader-fix.phtml" ]; then
@@ -28,7 +30,8 @@ sudo chown -R www-data:www-data \
     "$MAGENTO/app/code/Hdweb/Coreoverride/Plugin/Checkout" \
     "$MAGENTO/app/code/Hdweb/Coreoverride/Observer" \
     "$MAGENTO/app/code/Hdweb/Coreoverride/etc/frontend" \
-    "$MAGENTO/app/code/Ecomteck/OneStepCheckoutCompatible/Block/Checkout"
+    "$MAGENTO/app/code/Ecomteck/OneStepCheckoutCompatible/Block/Checkout" \
+    "$MAGENTO/app/code/Hdweb/Shippingform/Controller/Ajax"
 
 cd "$MAGENTO"
 sudo rm -rf generated/code/Hdweb/Coreoverride/ var/page_cache/* var/view_preprocessed/*
