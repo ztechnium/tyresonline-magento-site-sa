@@ -6,7 +6,7 @@ $mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 $scopeConfig = $objectManager->get(\Magento\Framework\App\Config\ScopeConfigInterface::class);
 $cdnMediaBase = rtrim((string) $scopeConfig->getValue(
     'web/secure/base_media_url',
-    \Magento\Framework\App\Config\ScopeInterface::SCOPE_TYPE_DEFAULT
+    \Magento\Store\Model\ScopeInterface::SCOPE_TYPE_DEFAULT
 ), '/');
 $ksaMapUrl = ($cdnMediaBase !== '' ? $cdnMediaBase : rtrim($mediaURL, '/')) . '/images/icon/ksa-map.png';
 $baseURL = $this->getBaseUrl();
