@@ -3,4 +3,9 @@
 	 <preference for="Magento\CatalogSearch\Block\SearchResult\ListProduct" type="Hdweb\Tyrefinder\Block\Product\ListProduct" />
 	 <preference for="Magento\Catalog\Block\Product\ListProduct" type="Hdweb\Tyrefinder\Block\Product\ListProduct" />
 	<preference for="Magento\Checkout\Controller\Cart\Add" type="Hdweb\Tyrefinder\Controller\Cart\Add" />
+    <type name="Magento\Cms\Model\Template\Filter">
+        <plugin name="hdweb_tyrefinder_cms_content_image_fallback"
+                type="Hdweb\Tyrefinder\Plugin\Cms\Template\FilterPlugin"
+                sortOrder="20"/>
+    </type>
 </config>

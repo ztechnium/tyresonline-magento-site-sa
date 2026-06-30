@@ -59,7 +59,12 @@ $sideBarBlock = $block->getLayout()->createBlock('MGS\Blog\Block\Sidebar');
         <div class="post-content">
 			<div class="post-short-description">
 				<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
-				<?php echo $objectManager->get('\Magento\Cms\Model\Template\FilterProvider')->getBlockFilter()->filter($post->getContent()); ?>
+				<?php
+				$filteredContent = $objectManager->get('\Magento\Cms\Model\Template\FilterProvider')
+					->getBlockFilter()
+					->filter($post->getContent());
+				echo $contentImageHelper->normalizeContentHtmlImages((string) $filteredContent);
+				?>
 			</div>
         </div>
     <?php endif; ?>

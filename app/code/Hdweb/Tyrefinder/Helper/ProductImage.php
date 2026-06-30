@@ -23,6 +23,7 @@ class ProductImage extends AbstractHelper
     private const LAZYLOAD_BLANK = 'images/section/blank.png';
     private const BANNER_MEDIA_PATH = 'mageplaza/bannerslider/banner/image/';
     private const BLOG_MEDIA_PATH = 'mgs_blog/';
+    private const PRODUCTION_MEDIA_HOST = 'https://www.tyresonline.sa/media/';
 
     private Filesystem\Directory\ReadInterface $mediaDirectory;
 
@@ -193,12 +194,57 @@ class ProductImage extends AbstractHelper
             return $this->getContentPlaceholderUrl();
         }
 
+        $url = $this->rewriteLegacyMediaHost($url);
         $relative = $this->urlToMediaRelativePath($url);
         if ($relative !== null && $this->mediaFileExists($relative)) {
             return $url;
         }
 
+        if ($this->isProductionMediaUrl($url)) {
+            return $url;
+        }
+
         return $this->getContentPlaceholderUrl();
+    }
+
+    /**
+     * Rewrites legacy UAE media hosts and adds onerror fallbacks to CMS/blog HTML images.
+     */
+    public function normalizeContentHtmlImages(string $html): string
+    {
+        if ($html === '' || !str_contains($html, '<img')) {
+            return $html;
+        }
+
+        $html = $this->rewriteLegacyMediaHostsInHtml($html);
+
+        $fallback = htmlspecialchars($this->getContentJsFallbackUrl(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        if ($fallback === '') {
+            return $html;
+        }
+
+        return (string) preg_replace_callback(
+            '/<img\b[^>]*>/i',
+            static function (array $matches) use ($fallback): string {
+                $tag = $matches[0];
+                if (stripos($tag, 'onerror=') !== false) {
+                    return $tag;
+                }
+
+                if (!preg_match('/\ssrc=["\']([^"\']+)["\']/i', $tag, $srcMatch)) {
+                    return $tag;
+                }
+
+                $src = $srcMatch[1];
+                if (!str_contains($src, '/media/') && !str_contains($src, 'wysiwyg/')) {
+                    return $tag;
+                }
+
+                return rtrim(substr($tag, 0, -1))
+                    . ' onerror="this.onerror=null;this.src=\'' . $fallback . '\'" />';
+            },
+            $html
+        );
     }
 
     public function mediaFileExists(?string $relativePath): bool
@@ -390,13 +436,19 @@ class ProductImage extends AbstractHelper
                 }
             }
 
-            return null;
+            return self::PRODUCTION_MEDIA_HOST . ltrim($relative, '/');
         }
+
+        $src = $this->rewriteLegacyMediaHost($src);
 
         if (preg_match('#^https?://[^/]+/media/(.+)$#i', $src, $matches)) {
             $relative = ltrim($matches[1], '/');
             if ($this->mediaFileExists($relative)) {
                 return $this->getMediaBaseUrl() . $relative;
+            }
+
+            if ($this->isProductionMediaUrl($src)) {
+                return $src;
             }
 
             return null;
@@ -407,6 +459,8 @@ class ProductImage extends AbstractHelper
             if ($this->mediaFileExists($relative)) {
                 return $this->getMediaBaseUrl() . $relative;
             }
+
+            return self::PRODUCTION_MEDIA_HOST . $relative;
         }
 
         if (filter_var($src, FILTER_VALIDATE_URL)) {
@@ -414,6 +468,35 @@ class ProductImage extends AbstractHelper
         }
 
         return null;
+    }
+
+    private function rewriteLegacyMediaHostsInHtml(string $html): string
+    {
+        $replacements = [
+            'https://media.tyresonline.ae/media/' => self::PRODUCTION_MEDIA_HOST,
+            'http://media.tyresonline.ae/media/' => self::PRODUCTION_MEDIA_HOST,
+            '//media.tyresonline.ae/media/' => self::PRODUCTION_MEDIA_HOST,
+        ];
+
+        return str_replace(array_keys($replacements), array_values($replacements), $html);
+    }
+
+    private function rewriteLegacyMediaHost(string $url): string
+    {
+        return str_replace(
+            [
+                'https://media.tyresonline.ae/media/',
+                'http://media.tyresonline.ae/media/',
+                '//media.tyresonline.ae/media/',
+            ],
+            self::PRODUCTION_MEDIA_HOST,
+            $url
+        );
+    }
+
+    private function isProductionMediaUrl(string $url): bool
+    {
+        return str_starts_with($url, self::PRODUCTION_MEDIA_HOST);
     }
 
     private function urlToMediaRelativePath(string $url): ?string

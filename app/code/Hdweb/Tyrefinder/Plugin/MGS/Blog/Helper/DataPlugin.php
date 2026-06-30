@@ -20,13 +20,29 @@ class DataPlugin
             return $result;
         }
 
-        $url = $this->productImageHelper->getBlogThumbnailUrl($post);
+        return $this->renderBlogImage((string) $post->getTitle(), $this->productImageHelper->getBlogThumbnailUrl($post));
+    }
+
+    public function afterGetImagePost(Data $subject, string $result, $post): string
+    {
+        if ($post->getImageType() === 'video' || ($post->getVideoBigId() !== '' && $post->getVideoBigId() !== null)) {
+            return $result;
+        }
+
+        return $this->renderBlogImage(
+            (string) $post->getTitle(),
+            $this->productImageHelper->getBlogFeaturedImageUrl($post)
+        );
+    }
+
+    private function renderBlogImage(string $title, string $url): string
+    {
         $fallback = htmlspecialchars(
             $this->productImageHelper->getContentJsFallbackUrl(),
             ENT_QUOTES | ENT_SUBSTITUTE,
             'UTF-8'
         );
-        $title = htmlspecialchars((string) $post->getTitle(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $title = htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $src = htmlspecialchars($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
         return '<img class="img-responsive" alt="' . $title . '" src="' . $src
