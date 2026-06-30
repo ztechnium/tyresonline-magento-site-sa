@@ -45,12 +45,14 @@ define([
                 var self = this;
 
                 setInterval(function () {
-                    if ($.active === 0 && self.loaderStarted > 0) {
+                    if (self.loaderStarted > 0 || $('body').hasClass('ajax-loading')) {
                         self.loaderStarted = 0;
 
                         if (self.spinner) {
                             self.spinner.hide();
                         }
+
+                        $('body').removeClass('ajax-loading').attr('aria-busy', false);
                     }
                 }, 1000);
             }

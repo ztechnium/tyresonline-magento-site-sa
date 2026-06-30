@@ -173,7 +173,8 @@ require(['jquery', 'mage/loader'], function ($) {
             }
         }
         $('body').trigger('processStop');
-        $('.loading-mask').hide();
+        $('.loading-mask').hide().attr('aria-hidden', 'true');
+        $('body').removeClass('ajax-loading').attr('aria-busy', false);
     }
 
     $(document).on('click', ".fsloaderclose", function() {

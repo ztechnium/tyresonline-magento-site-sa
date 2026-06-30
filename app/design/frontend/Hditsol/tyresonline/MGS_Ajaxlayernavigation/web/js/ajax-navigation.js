@@ -14,6 +14,7 @@ define([
              
         },
         _filterRequest: null,
+        _loaderResetTimer: null,
         _create: function () {
             this.url = $(location).attr('href'); 
             this.useAjax = this.options.useAjax;
@@ -230,8 +231,24 @@ define([
             }
 
             $body.trigger('processStop');
-            $('.loading-mask').hide();
+            $('.loading-mask').hide().attr('aria-hidden', 'true');
             $('body').removeClass('ajax-loading').attr('aria-busy', false);
+        },
+
+        scheduleLoaderReset: function() {
+            var self = this,
+                delays = [0, 100, 300, 800, 1500, 3000];
+
+            if (self._loaderResetTimer) {
+                window.clearTimeout(self._loaderResetTimer);
+                self._loaderResetTimer = null;
+            }
+
+            delays.forEach(function (delay) {
+                window.setTimeout(function () {
+                    self.resetPageLoader();
+                }, delay);
+            });
         },
 
         clearFilterLoadingState: function() {
@@ -294,8 +311,9 @@ define([
                 url: url,
                 dataType: "json",
                 data: { is_ajax: 1 },
-                showLoader: true
+                showLoader: false
             }).done(function(data) {
+                window.MGS_FILTER_UPDATING = true;
                 if (data.list) {
                     if($('body').hasClass('page-layout-1column')){
                         $(".product-container.category-product-container").replaceWith(data.list);
@@ -330,25 +348,19 @@ define([
 				
 				self.reInitFunction();
                 self.clearFilterLoadingState();
+                window.MGS_FILTER_UPDATING = false;
+                self.scheduleLoaderReset();
 
             }).fail(function(jqXHR, textStatus, errorThrown) {
+                window.MGS_FILTER_UPDATING = false;
                 if (textStatus !== 'abort') {
                     console.log(errorThrown);
                 }
             }).always(function() {
                 self._filterRequest = null;
                 self.clearFilterLoadingState();
-
-                // mage.apply can trigger extra loader starts during widget re-init.
-                window.setTimeout(function () {
-                    if ($.active === 0) {
-                        self.resetPageLoader();
-                    }
-                }, 0);
-
-                window.setTimeout(function () {
-                    self.resetPageLoader();
-                }, 300);
+                window.MGS_FILTER_UPDATING = false;
+                self.scheduleLoaderReset();
             });
         },
 
