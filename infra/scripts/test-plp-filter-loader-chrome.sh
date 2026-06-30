@@ -52,12 +52,15 @@ RESULT=$(run_cdt evaluate_script "async () => {
   await new Promise((resolve) => setTimeout(resolve, 6000));
 
   const mask = document.querySelector('.loading-mask');
-  const maskVisible = !!(mask && mask.offsetParent !== null && getComputedStyle(mask).display !== 'none' && getComputedStyle(mask).visibility !== 'hidden');
-  const afterCount = document.querySelectorAll('.product-item, .item.product').length;
+  const maskVisible = !!(mask && getComputedStyle(mask).display !== 'none' && getComputedStyle(mask).visibility !== 'hidden');
+  const ajaxLoading = document.body.classList.contains('ajax-loading');
+  const loader = window.jQuery ? window.jQuery('[data-container=body]').data('mageLoader') : null;
 
   return {
-    ok: !maskVisible,
+    ok: !maskVisible && !ajaxLoading && (!loader || loader.loaderStarted === 0),
     maskVisible,
+    ajaxLoading,
+    loaderStarted: loader ? loader.loaderStarted : null,
     beforeCount,
     afterCount,
     pageUrl: window.location.href,
