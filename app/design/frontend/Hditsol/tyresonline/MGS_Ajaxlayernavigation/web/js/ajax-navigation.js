@@ -12,7 +12,8 @@ define([
     $.widget('mage.ajaxnavigation', {
         options: {
              
-        }, 
+        },
+        _filterRequest: null,
         _create: function () {
             this.url = $(location).attr('href'); 
             this.useAjax = this.options.useAjax;
@@ -79,13 +80,13 @@ define([
                     }
                 }
             });
-            $(".mgs-layered-checkbox").on('change',function(){
+            $(".mgs-layered-checkbox").off('change.mgsAjaxFilter').on('change.mgsAjaxFilter',function(){
                 self.applyFilter($(this).parent().next());
                 return false;
             });
 
-            $(".mgs-ajax-layer-item" ).off();
-            $(".mgs-ajax-layer-item").on("click", function(e) {
+            $(".mgs-ajax-layer-item" ).off('click.mgsAjaxFilter');
+            $(".mgs-ajax-layer-item").on("click.mgsAjaxFilter", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var checkboxWrapper = $(this).prev(),
@@ -96,8 +97,8 @@ define([
                 return false;
             });
 
-            $(".filter-active-item-link").off();
-            $(".state-item-remove").on("click", function(e) {
+            $(".filter-active-item-link").off('click.mgsAjaxFilter');
+            $(".state-item-remove").off('click.mgsAjaxFilter').on("click.mgsAjaxFilter", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 //self.applyFilter($(this).next());
@@ -112,24 +113,23 @@ define([
             });
 
 
-            $( ".swatch-attribute-options a" ).off();
-            $(".swatch-attribute-options a").on("click", function(e) {
+            $( ".swatch-attribute-options a" ).off('click.mgsAjaxFilter');
+            $(".swatch-attribute-options a").on("click.mgsAjaxFilter", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 self.applyFilter($(this));
                 return false;
             });
 
-            $(".filter-active-item-clear-all").off();
-            $(".filter-active-item-clear-all").on("click", function(e) {
+            $(".filter-active-item-clear-all").off('click.mgsAjaxFilter');
+            $(".filter-active-item-clear-all").on("click.mgsAjaxFilter", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 self.applyFilter($(this));
                 return false;
             });
-            // show hide filter
-            $( ".filter-content dt" ).off();
-            $(".filter-content dt").on("click", function(e) {
+            $( ".filter-content dt" ).off('click.mgsAjaxFilter');
+            $(".filter-content dt").on("click.mgsAjaxFilter", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 self.toggleFilter($(this));
@@ -217,20 +217,46 @@ define([
             this.ajax_init($(el).attr('href'));
         },
 
+        resetPageLoader: function() {
+            var $body = $('[data-container="body"]'),
+                loader = $body.data('mageLoader');
+
+            if (loader) {
+                loader.loaderStarted = 0;
+
+                if (loader.spinner) {
+                    loader.spinner.hide();
+                }
+            }
+
+            $body.trigger('processStop');
+            $('.loading-mask').hide();
+            $('body').removeClass('ajax-loading').attr('aria-busy', false);
+        },
+
+        clearFilterLoadingState: function() {
+            $('.mgs-layered-checkbox.loading').removeClass('loading');
+        },
+
         ajax_init: function(url) {
             var self = this;
             if (!this.useAjax) {
                 window.location = decodeURIComponent(url);
                 return false;
             }
+
+            if (self._filterRequest && self._filterRequest.readyState !== 4) {
+                self._filterRequest.abort();
+            }
+
             window.history.pushState("", "", decodeURIComponent(url));
-            $.ajax({
+            self._filterRequest = $.ajax({
                 method: "GET",
                 url: decodeURIComponent(url),
                 dataType: "json",
                 data: { is_ajax: 1 },
                 showLoader: true
-            }) .done(function(data) {
+            }).done(function(data) {
                 if (data.list) {
                     if($('body').hasClass('page-layout-1column')){
                         $(".product-container.category-product-container").replaceWith(data.list);
@@ -264,9 +290,26 @@ define([
                 }
 				
 				self.reInitFunction();
-                
+                self.clearFilterLoadingState();
+
             }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
+                if (textStatus !== 'abort') {
+                    console.log(errorThrown);
+                }
+            }).always(function() {
+                self._filterRequest = null;
+                self.clearFilterLoadingState();
+
+                // mage.apply can trigger extra loader starts during widget re-init.
+                window.setTimeout(function () {
+                    if ($.active === 0) {
+                        self.resetPageLoader();
+                    }
+                }, 0);
+
+                window.setTimeout(function () {
+                    self.resetPageLoader();
+                }, 300);
             });
         },
 

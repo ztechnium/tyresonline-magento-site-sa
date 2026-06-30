@@ -39,7 +39,9 @@ define([
         _create: function () {
             this._bind();
 
-            if ($('body').hasClass('checkout-index-index') || $('body').hasClass('checkout-cart-index')) {
+            if ($('body').hasClass('checkout-index-index')
+                || $('body').hasClass('checkout-cart-index')
+                || $('body').hasClass('catalog-category-view')) {
                 var self = this;
 
                 setInterval(function () {

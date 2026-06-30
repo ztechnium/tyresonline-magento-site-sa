@@ -192,7 +192,9 @@ require(['jquery', 'mage/loader'], function ($) {
     });
 
     $(function () {
-        if ($('body').hasClass('checkout-index-index') || $('body').hasClass('checkout-cart-index')) {
+        if ($('body').hasClass('checkout-index-index')
+            || $('body').hasClass('checkout-cart-index')
+            || $('body').hasClass('catalog-category-view')) {
             setInterval(resetStuckLoader, 1000);
         }
     });
