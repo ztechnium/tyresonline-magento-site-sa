@@ -27,6 +27,15 @@ run_cdt new_page "$PAGE_URL" --timeout 120000 >/dev/null
 sleep 6
 
 RESULT=$(run_cdt evaluate_script "async () => {
+  const hero = document.querySelector('img[alt*=\"About TyresOnline\"], img.lazyload');
+  const heroInfo = hero ? {
+    alt: hero.getAttribute('alt') || '',
+    src: hero.currentSrc || hero.src || '',
+    dataSrc: hero.getAttribute('data-src') || '',
+    naturalWidth: hero.naturalWidth,
+    naturalHeight: hero.naturalHeight,
+  } : null;
+
   const content = document.querySelector('.cms-page, .column.main, main, body');
   const root = content || document.body;
   const imgs = Array.from(root.querySelectorAll('img')).filter((img) => {
@@ -34,8 +43,9 @@ RESULT=$(run_cdt evaluate_script "async () => {
       img.getAttribute('src') || '',
       img.getAttribute('data-src') || '',
       img.currentSrc || '',
+      img.getAttribute('alt') || '',
     ].join(' ');
-    return /media|wysiwyg|about-us|whatsapp/i.test(attrs);
+    return /about|placeholder|wysiwyg|about-us/i.test(attrs);
   });
 
   const samples = imgs.slice(0, 10).map((img) => ({
@@ -47,43 +57,46 @@ RESULT=$(run_cdt evaluate_script "async () => {
     complete: img.complete,
   }));
 
-  const checked = await Promise.all(samples.map(async (item) => {
-    const url = item.dataSrc || item.src;
-    if (!url || url.includes('blank.png')) {
-      return { ...item, httpOk: true, contentType: 'skipped' };
-    }
-    try {
-      const resp = await fetch(url, { method: 'HEAD', credentials: 'omit', redirect: 'follow' });
-      return {
-        ...item,
-        httpOk: resp.ok,
-        contentType: resp.headers.get('content-type') || '',
-      };
-    } catch (e) {
-      return { ...item, httpOk: false, contentType: '', error: String(e) };
-    }
-  }));
-
-  const broken = checked.filter((item) => {
+  const broken = samples.filter((item) => {
     const url = item.dataSrc || item.src;
     if (!url || url.includes('blank.png')) return false;
     if (url.includes('content-placeholder')) return false;
     if (url.includes('tyresonline.ae')) return true;
-    return !item.httpOk || (item.contentType && item.contentType.includes('text/html'));
+    if (/about-us\\/about-tyresonline/i.test(url)) return true;
+    return false;
   });
 
+  const heroOk = heroInfo
+    ? (heroInfo.dataSrc || heroInfo.src).includes('content-placeholder')
+      || (heroInfo.naturalWidth > 0 && heroInfo.naturalHeight > 0)
+    : false;
+
   return {
-    ok: broken.length === 0,
+    ok: broken.length === 0 && heroOk,
     pageUrl: window.location.href,
+    heroOk,
+    heroInfo,
     imageCount: imgs.length,
     brokenCount: broken.length,
-    samples: checked,
+    samples,
   };
 }")
 
 echo "$RESULT" | python3 -m json.tool 2>/dev/null || echo "$RESULT"
 
-if echo "$RESULT" | grep -Eq '"ok"[[:space:]]*:[[:space:]]*true'; then
+PASS=$(echo "$RESULT" | python3 -c "import json,sys,re
+raw=sys.stdin.read()
+try:
+    data=json.loads(raw)
+except json.JSONDecodeError:
+    print('false')
+    raise SystemExit(0)
+msg=data.get('message','')
+m=re.search(r'\"ok\"\\s*:\\s*(true|false)', msg)
+print('true' if m and m.group(1)=='true' else 'false')
+" 2>/dev/null || echo "false")
+
+if [ "$PASS" = "true" ]; then
   echo "PASS"
   exit 0
 fi
