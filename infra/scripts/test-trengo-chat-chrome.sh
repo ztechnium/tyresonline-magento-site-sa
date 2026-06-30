@@ -27,29 +27,50 @@ run_cdt new_page "$PAGE_URL" --timeout 120000 >/dev/null
 sleep 8
 
 RESULT=$(run_cdt evaluate_script "async () => {
-  const launcher = document.querySelector('#trengo-web-widget iframe.trengo-vue-iframe, .TrengoWidgetLauncher__iframe iframe');
-  if (launcher) {
-    launcher.click();
+  const launcherFrame = document.querySelector('.TrengoWidgetLauncher__iframe iframe');
+  let launcher = null;
+  if (launcherFrame?.contentDocument) {
+    const img = launcherFrame.contentDocument.querySelector('img');
+    if (img) {
+      await new Promise((resolve) => {
+        if (img.complete) {
+          resolve();
+          return;
+        }
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+        setTimeout(resolve, 3000);
+      });
+      launcher = {
+        src: img.currentSrc || img.src || '',
+        naturalWidth: img.naturalWidth,
+        naturalHeight: img.naturalHeight,
+      };
+    }
+  }
+
+  if (launcherFrame) {
+    launcherFrame.click();
   }
   await new Promise((resolve) => setTimeout(resolve, 3500));
 
   const panel = document.querySelector('.TrengoWidgetPanel__iframe iframe');
   if (!panel || !panel.contentDocument) {
-    return { ok: false, reason: 'chat-panel-missing' };
+    return { ok: false, reason: 'chat-panel-missing', launcher };
   }
 
   const doc = panel.contentDocument;
   const win = panel.contentWindow;
   const icon = doc.querySelector('i.material-icons');
   if (!icon) {
-    return { ok: false, reason: 'material-icon-missing' };
+    return { ok: false, reason: 'material-icon-missing', launcher };
   }
 
   const rawText = (icon.textContent || '').trim();
   const fontFamily = win.getComputedStyle(icon).fontFamily || '';
   let materialLoaded = false;
   try {
-    materialLoaded = await win.document.fonts.load('24px \"Material Icons\"');
+    await win.document.fonts.load('24px \"Material Icons\"');
     materialLoaded = win.document.fonts.check('24px \"Material Icons\"');
   } catch (e) {
     materialLoaded = false;
@@ -62,9 +83,13 @@ RESULT=$(run_cdt evaluate_script "async () => {
     }
   }
 
-  const ok = materialLoaded && rawText === 'keyboard_arrow_down' && /Material Icons/i.test(fontFamily);
+  const launcherOk = !!(launcher && launcher.naturalWidth > 0 && launcher.naturalHeight > 0);
+  const panelOk = materialLoaded && rawText === 'keyboard_arrow_down' && /Material Icons/i.test(fontFamily);
   return {
-    ok,
+    ok: launcherOk && panelOk,
+    launcherOk,
+    panelOk,
+    launcher,
     rawText,
     fontFamily,
     materialLoaded,
@@ -87,9 +112,9 @@ echo "$PAYLOAD" | python3 -m json.tool
 
 OK=$(echo "$PAYLOAD" | python3 -c "import sys,json; print('true' if json.load(sys.stdin).get('ok') else 'false')")
 if [ "$OK" = "true" ]; then
-  echo "PASS: Trengo Material Icons font loaded for close button"
+  echo "PASS: Trengo launcher image and panel close icon both OK"
   exit 0
 fi
 
-echo "FAIL: Trengo chat icon still broken (see details above)"
+echo "FAIL: Trengo chat widget still broken (see details above)"
 exit 1

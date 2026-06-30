@@ -25,6 +25,20 @@
 				<value id="wheel-size" type="host">*.wheel-size.com</value>
 				<value id="googlecom" type="host">*.google.com</value>
 				<value id="googleae" type="host">*.google.ae</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
+                <value id="tiktok" type="host">*.tiktok.com</value>
+                <value id="metricool" type="host">*.metricool.com</value>
+                <value id="brevo" type="host">*.brevo.com</value>
+                <value id="snapchat" type="host">*.snapchat.com</value>
+                <value id="sc-static" type="host">sc-static.net</value>
+                <value id="googlesyndication" type="host">*.googlesyndication.com</value>
+                <value id="fw-cdn" type="host">*.fw-cdn.com</value>
+                <value id="doubleclick" type="host">*.doubleclick.net</value>
+                <value id="fastbase" type="host">fastbase.com</value>
+                <value id="snapchat-tr" type="host">tr.snapchat.com</value>
+                <value id="snapchat-tr6" type="host">tr6.snapchat.com</value>
+                <value id="sibautomation" type="host">sibautomation.com</value>
             </values>
         </policy>
 		<policy id="img-src">
@@ -51,6 +65,10 @@
 				<value id="wheel-size" type="host">*.wheel-size.com</value>
 				<value id="googlecom" type="host">*.google.com</value>
 				<value id="googleae" type="host">*.google.ae</value>
+                <value id="metricool" type="host">*.metricool.com</value>
+                <value id="trengo-s3" type="host">trengo.s3.eu-central-1.amazonaws.com</value>
+                <value id="doubleclick" type="host">*.doubleclick.net</value>
+                <value id="tyresonline-ae" type="host">media.tyresonline.ae</value>
             </values>
         </policy>
         <policy id="connect-src">
@@ -77,6 +95,16 @@
 				<value id="wheel-size" type="host">*.wheel-size.com</value>
 				<value id="googlecom" type="host">*.google.com</value>
 				<value id="googleae" type="host">*.google.ae</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
+                <value id="tiktok" type="host">*.tiktok.com</value>
+                <value id="metricool" type="host">*.metricool.com</value>
+                <value id="brevo" type="host">*.brevo.com</value>
+                <value id="doubleclick" type="host">*.doubleclick.net</value>
+                <value id="snapchat-tr" type="host">tr.snapchat.com</value>
+                <value id="snapchat-tr6" type="host">tr6.snapchat.com</value>
+                <value id="tiktokw" type="host">*.tiktokw.us</value>
+                <value id="sibautomation" type="host">sibautomation.com</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -129,6 +157,9 @@
 				<value id="wheel-size" type="host">*.wheel-size.com</value>
 				<value id="googlecom" type="host">*.google.com</value>
 				<value id="googleae" type="host">*.google.ae</value>
+                <value id="fonts-bunny" type="host">fonts.bunny.net</value>
+                <value id="cdnjs" type="host">cdnjs.cloudflare.com</value>
+                <value id="bootstrapcdn" type="host">maxcdn.bootstrapcdn.com</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
@@ -162,6 +193,9 @@
             <values>
                 <value id="tyresonline" type="host">*.tyresonline.com</value>
                 <value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
+                <value id="fonts-bunny" type="host">fonts.bunny.net</value>
+                <value id="cdnjs" type="host">cdnjs.cloudflare.com</value>
+                <value id="bootstrapcdn" type="host">maxcdn.bootstrapcdn.com</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
