@@ -42,7 +42,7 @@ RESULT=$(run_cdt evaluate_script "async () => {
     target.trigger('click');
   }
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 16; i++) {
     await new Promise((resolve) => setTimeout(resolve, 500));
     const mask = document.querySelector('.loading-mask');
     const loader = jq('[data-container=body]').data('mageLoader');

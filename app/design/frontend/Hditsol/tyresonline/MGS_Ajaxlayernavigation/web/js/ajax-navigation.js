@@ -322,46 +322,51 @@ define([
                 showLoader: false
             }).done(function(data) {
                 window.MGS_FILTER_UPDATING = true;
-                if (data.list) {
-                    if($('body').hasClass('page-layout-1column')){
-                        $(".product-container.category-product-container").replaceWith(data.list);
-                        $("#filter-container").html(data.state);
-                    }else {
-                        //$(".order-last .toolbar-products").remove();
-						$(".order-last .toolbar-products").replaceWith(data.state);
-                        //$(".order-last .main-product-listing").remove();
-						$(".order-last .main-product-listing").replaceWith(data.list);
-                       // $(".order-last .filter-active").remove();
-                        $(".product-container.category-product-container").replaceWith(data.list);
-                        $('.search.results').replaceWith(data.list);
-                        $("#filter-container").html(data.state);
+
+                try {
+                    if (data.list) {
+                        if($('body').hasClass('page-layout-1column')){
+                            $(".product-container.category-product-container").replaceWith(data.list);
+                            $("#filter-container").html(data.state);
+                        }else {
+                            $(".order-last .toolbar-products").replaceWith(data.state);
+                            $(".order-last .main-product-listing").replaceWith(data.list);
+                            $(".product-container.category-product-container").replaceWith(data.list);
+                            $('.search.results').replaceWith(data.list);
+                            $("#filter-container").html(data.state);
+                        }
                     }
-                }
-                if (data.filters) {
-                    $(".sidebar .filter").remove();
-                    $(".page-layout-1column .order-last .filter.mgs-filter").remove();
-                    $(".sidebar").prepend(data.filters);
-                    $(".page-layout-1column .category-product-actions").prepend(data.filters);
-                }
-                self.url = url;
-                self.initNavigation();
-                $(mage.apply);
-                if (self.isMobile()) {
-                    if ($('body').hasClass('filter-active')) {
-                        $('.block.filter').addClass('active');
-                    } else {
-                        //$('.filter-options').hide();
+                    if (data.filters) {
+                        $(".sidebar .filter").remove();
+                        $(".page-layout-1column .order-last .filter.mgs-filter").remove();
+                        $(".sidebar").prepend(data.filters);
+                        $(".page-layout-1column .category-product-actions").prepend(data.filters);
                     }
+                    self.url = url;
+                } finally {
+                    self.clearFilterLoadingState();
+                    self.hidePageLoader();
                 }
-				
-				self.reInitFunction();
-                self.clearFilterLoadingState();
-                window.MGS_FILTER_UPDATING = false;
-                self.hidePageLoader();
-                self.scheduleLoaderReset();
+
+                window.setTimeout(function () {
+                    window.MGS_FILTER_UPDATING = true;
+
+                    try {
+                        self.initNavigation();
+                        mage.apply();
+                        if (self.isMobile()) {
+                            if ($('body').hasClass('filter-active')) {
+                                $('.block.filter').addClass('active');
+                            }
+                        }
+                        self.reInitFunction();
+                    } finally {
+                        window.MGS_FILTER_UPDATING = false;
+                        self.scheduleLoaderReset();
+                    }
+                }, 0);
 
             }).fail(function(jqXHR, textStatus, errorThrown) {
-                window.MGS_FILTER_UPDATING = false;
                 self.hidePageLoader();
                 if (textStatus !== 'abort') {
                     console.log(errorThrown);
@@ -374,8 +379,6 @@ define([
                 if (window.MGS_FILTER_IN_PROGRESS) {
                     self.hidePageLoader();
                 }
-
-                self.scheduleLoaderReset();
             });
         },
 
