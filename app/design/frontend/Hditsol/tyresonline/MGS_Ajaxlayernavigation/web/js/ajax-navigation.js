@@ -14,7 +14,6 @@ define([
              
         },
         _filterRequest: null,
-        _loaderResetTimer: null,
         _create: function () {
             this.url = $(location).attr('href'); 
             this.useAjax = this.options.useAjax;
@@ -235,18 +234,25 @@ define([
             $('body').removeClass('ajax-loading').attr('aria-busy', false);
         },
 
+        showPageLoader: function() {
+            window.MGS_FILTER_IN_PROGRESS = true;
+            $('[data-container="body"]').trigger('processStart');
+        },
+
+        hidePageLoader: function() {
+            window.MGS_FILTER_IN_PROGRESS = false;
+            this.resetPageLoader();
+        },
+
         scheduleLoaderReset: function() {
             var self = this,
-                delays = [0, 100, 300, 800, 1500, 3000];
-
-            if (self._loaderResetTimer) {
-                window.clearTimeout(self._loaderResetTimer);
-                self._loaderResetTimer = null;
-            }
+                delays = [100, 400, 1000];
 
             delays.forEach(function (delay) {
                 window.setTimeout(function () {
-                    self.resetPageLoader();
+                    if (!window.MGS_FILTER_IN_PROGRESS) {
+                        self.resetPageLoader();
+                    }
                 }, delay);
             });
         },
@@ -306,6 +312,8 @@ define([
                 // Ignore cross-origin history errors; filtering can still continue.
             }
 
+            self.showPageLoader();
+
             self._filterRequest = $.ajax({
                 method: "GET",
                 url: url,
@@ -349,10 +357,12 @@ define([
 				self.reInitFunction();
                 self.clearFilterLoadingState();
                 window.MGS_FILTER_UPDATING = false;
+                self.hidePageLoader();
                 self.scheduleLoaderReset();
 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 window.MGS_FILTER_UPDATING = false;
+                self.hidePageLoader();
                 if (textStatus !== 'abort') {
                     console.log(errorThrown);
                 }
@@ -360,6 +370,11 @@ define([
                 self._filterRequest = null;
                 self.clearFilterLoadingState();
                 window.MGS_FILTER_UPDATING = false;
+
+                if (window.MGS_FILTER_IN_PROGRESS) {
+                    self.hidePageLoader();
+                }
+
                 self.scheduleLoaderReset();
             });
         },

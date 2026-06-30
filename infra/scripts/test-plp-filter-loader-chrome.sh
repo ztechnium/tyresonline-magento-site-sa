@@ -35,36 +35,34 @@ RESULT=$(run_cdt evaluate_script "async () => {
   const clickTarget = document.querySelector('.mgs-ajax-layer-item')
     || document.querySelector('.mgs-layered-checkbox');
 
-  const beforeCount = document.querySelectorAll('.product-item, .item.product').length;
   const jq = window.jQuery;
-  if (jq && jq.fn) {
-    const target = jq('.mgs-ajax-layer-item').first();
-    if (target.length) {
-      target.trigger('click');
-    } else {
-      const checkbox = jq('.mgs-layered-checkbox').first();
-      checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
-    }
-  } else {
-    clickTarget.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+  const samples = [];
+  const target = jq('.mgs-ajax-layer-item').first();
+  if (target.length) {
+    target.trigger('click');
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 6000));
+  for (let i = 0; i < 8; i++) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const mask = document.querySelector('.loading-mask');
+    const loader = jq('[data-container=body]').data('mageLoader');
+    samples.push({
+      t: (i + 1) * 0.5,
+      visibleMask: !!(mask && getComputedStyle(mask).display !== 'none' && getComputedStyle(mask).visibility !== 'hidden'),
+      loaderStarted: loader ? loader.loaderStarted : null,
+      ajaxLoading: document.body.classList.contains('ajax-loading'),
+      filterInProgress: !!window.MGS_FILTER_IN_PROGRESS,
+    });
+  }
 
-  const mask = document.querySelector('.loading-mask');
-  const maskVisible = !!(mask && getComputedStyle(mask).display !== 'none' && getComputedStyle(mask).visibility !== 'hidden');
-  const ajaxLoading = document.body.classList.contains('ajax-loading');
-  const loader = window.jQuery ? window.jQuery('[data-container=body]').data('mageLoader') : null;
+  const sawLoader = samples.some((s) => s.visibleMask || s.loaderStarted > 0 || s.filterInProgress);
+  const final = samples[samples.length - 1];
 
   return {
-    ok: !maskVisible && !ajaxLoading && (!loader || loader.loaderStarted === 0),
-    maskVisible,
-    ajaxLoading,
-    loaderStarted: loader ? loader.loaderStarted : null,
-    beforeCount,
-    afterCount,
-    pageUrl: window.location.href,
-    activeAjax: window.jQuery ? window.jQuery.active : null,
+    ok: sawLoader && !final.visibleMask && !final.ajaxLoading && final.loaderStarted === 0,
+    sawLoader,
+    final,
+    samples,
   };
 }")
 

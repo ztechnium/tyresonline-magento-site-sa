@@ -193,10 +193,21 @@ require(['jquery', 'mage/loader'], function ($) {
     });
 
     $(function () {
-        if ($('body').hasClass('checkout-index-index')
-            || $('body').hasClass('checkout-cart-index')
-            || $('body').hasClass('catalog-category-view')) {
+        if ($('body').hasClass('checkout-index-index') || $('body').hasClass('checkout-cart-index')) {
             setInterval(resetStuckLoader, 1000);
+        }
+
+        if ($('body').hasClass('catalog-category-view')) {
+            setInterval(function () {
+                if (window.MGS_FILTER_IN_PROGRESS) {
+                    return;
+                }
+
+                var loader = $('[data-container="body"]').data('mageLoader');
+                if (loader && loader.loaderStarted > 0) {
+                    resetStuckLoader();
+                }
+            }, 3000);
         }
     });
 	$(document).on('click', ".selected-size, .tyre-search .search-wrap input", function() {

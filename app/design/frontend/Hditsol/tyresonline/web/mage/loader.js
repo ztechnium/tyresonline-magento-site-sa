@@ -39,20 +39,16 @@ define([
         _create: function () {
             this._bind();
 
-            if ($('body').hasClass('checkout-index-index')
-                || $('body').hasClass('checkout-cart-index')
-                || $('body').hasClass('catalog-category-view')) {
+            if ($('body').hasClass('checkout-index-index') || $('body').hasClass('checkout-cart-index')) {
                 var self = this;
 
                 setInterval(function () {
-                    if (self.loaderStarted > 0 || $('body').hasClass('ajax-loading')) {
+                    if ($.active === 0 && self.loaderStarted > 0) {
                         self.loaderStarted = 0;
 
                         if (self.spinner) {
                             self.spinner.hide();
                         }
-
-                        $('body').removeClass('ajax-loading').attr('aria-busy', false);
                     }
                 }, 1000);
             }
