@@ -238,10 +238,42 @@ define([
             $('.mgs-layered-checkbox.loading').removeClass('loading');
         },
 
+        normalizeFilterUrl: function(url) {
+            var normalized = decodeURIComponent(String(url || ''));
+
+            if (!normalized) {
+                return window.location.href;
+            }
+
+            if (normalized.indexOf('http') !== 0) {
+                return normalized;
+            }
+
+            try {
+                var parsed = new URL(normalized);
+                return window.location.origin + parsed.pathname + parsed.search;
+            } catch (e) {
+                return normalized;
+            }
+        },
+
+        toHistoryUrl: function(url) {
+            if (url.indexOf('http') === 0) {
+                try {
+                    var parsed = new URL(url);
+                    return parsed.pathname + parsed.search;
+                } catch (e) {
+                    return url;
+                }
+            }
+
+            return url;
+        },
+
         ajax_init: function(url) {
             var self = this;
             if (!this.useAjax) {
-                window.location = decodeURIComponent(url);
+                window.location = self.normalizeFilterUrl(url);
                 return false;
             }
 
@@ -249,10 +281,17 @@ define([
                 self._filterRequest.abort();
             }
 
-            window.history.pushState("", "", decodeURIComponent(url));
+            url = self.normalizeFilterUrl(url);
+
+            try {
+                window.history.pushState("", "", self.toHistoryUrl(url));
+            } catch (e) {
+                // Ignore cross-origin history errors; filtering can still continue.
+            }
+
             self._filterRequest = $.ajax({
                 method: "GET",
-                url: decodeURIComponent(url),
+                url: url,
                 dataType: "json",
                 data: { is_ajax: 1 },
                 showLoader: true
