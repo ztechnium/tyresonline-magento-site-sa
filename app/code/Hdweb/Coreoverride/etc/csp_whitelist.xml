@@ -129,6 +129,7 @@
 				<value id="wheel-size" type="host">*.wheel-size.com</value>
 				<value id="googlecom" type="host">*.google.com</value>
 				<value id="googleae" type="host">*.google.ae</value>
+                <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
         <policy id="media-src">
@@ -161,6 +162,7 @@
             <values>
                 <value id="tyresonline" type="host">*.tyresonline.com</value>
                 <value id="tyresonline-sa" type="host">*.tyresonline.sa</value>
+                <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
     </policies>
