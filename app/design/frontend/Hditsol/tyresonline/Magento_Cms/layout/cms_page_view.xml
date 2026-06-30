@@ -5,5 +5,6 @@
     </head>
     <body>
 	    <attribute name="class" value="overflow-hidden-custom"/>
+        <referenceBlock name="cms_page" class="Hdweb\Tyrefinder\Block\Cms\Page"/>
 	</body>
 </page>

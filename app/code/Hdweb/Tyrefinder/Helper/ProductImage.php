@@ -24,6 +24,13 @@ class ProductImage extends AbstractHelper
     private const BANNER_MEDIA_PATH = 'mageplaza/bannerslider/banner/image/';
     private const BLOG_MEDIA_PATH = 'mgs_blog/';
     private const PRODUCTION_MEDIA_HOST = 'https://www.tyresonline.sa/media/';
+    private const PRODUCTION_MEDIA_BLOCKED_PREFIXES = [
+        'wysiwyg/about-us/',
+        'images/offers/',
+    ];
+    private const PRODUCTION_MEDIA_BLOCKED_FILES = [
+        'wysiwyg/tyresonline-whatsapp-1.svg',
+    ];
 
     private Filesystem\Directory\ReadInterface $mediaDirectory;
 
@@ -329,6 +336,17 @@ class ProductImage extends AbstractHelper
 
     private function shouldUseProductionMediaFallback(string $relative): bool
     {
+        $relative = ltrim(str_replace('\\', '/', $relative), '/');
+        if ($relative === '' || in_array($relative, self::PRODUCTION_MEDIA_BLOCKED_FILES, true)) {
+            return false;
+        }
+
+        foreach (self::PRODUCTION_MEDIA_BLOCKED_PREFIXES as $prefix) {
+            if (str_starts_with($relative, $prefix)) {
+                return false;
+            }
+        }
+
         return str_starts_with($relative, 'wysiwyg/');
     }
 
