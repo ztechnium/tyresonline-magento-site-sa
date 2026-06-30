@@ -14,7 +14,7 @@ define([
              
         }, 
         _create: function () {
-            this.url = $(location).attr('href'); 
+            this.url = this.normalizeFilterUrl($(location).attr('href'));
             this.useAjax = this.options.useAjax;
             this.usePrice_slide = this.options.use_range_price;
             this.minPrice = $("#price-range-slider").data("from");
@@ -206,27 +206,76 @@ define([
 
         applyToolbarElement: function(param, value) {
             var self = this,
-                urlParams = self.urlParams(self.url),
-                url = self.url.split("?")[0];
+                baseUrl = self.normalizeFilterUrl(self.url),
+                path = baseUrl.split('?')[0],
+                urlParams = self.urlParams(baseUrl);
 
             urlParams[param] = value;
-            self.ajax_init(url + '?' + $.param(urlParams));
+            self.ajax_init(path + '?' + $.param(urlParams));
         },
 
         applyFilter: function(el) {
             this.ajax_init($(el).attr('href'));
         },
 
+        stripUrlFragment: function(url) {
+            return String(url || '').split('#')[0];
+        },
+
+        normalizeFilterUrl: function(url) {
+            var normalized = decodeURIComponent(this.stripUrlFragment(String(url || '')));
+
+            if (!normalized) {
+                return window.location.origin + window.location.pathname + window.location.search;
+            }
+
+            if (normalized.indexOf('http') !== 0) {
+                return normalized;
+            }
+
+            try {
+                var parsed = new URL(normalized);
+
+                return parsed.origin + parsed.pathname + parsed.search;
+            } catch (e) {
+                return normalized;
+            }
+        },
+
+        toHistoryUrl: function(url) {
+            url = this.normalizeFilterUrl(url);
+
+            if (url.indexOf('http') === 0) {
+                try {
+                    var parsed = new URL(url);
+
+                    return parsed.pathname + parsed.search;
+                } catch (e) {
+                    return url;
+                }
+            }
+
+            return url;
+        },
+
         ajax_init: function(url) {
             var self = this;
+            url = self.normalizeFilterUrl(url);
+
             if (!this.useAjax) {
-                window.location = decodeURIComponent(url);
+                window.location = url;
                 return false;
             }
-            window.history.pushState("", "", decodeURIComponent(url));
+
+            try {
+                window.history.pushState('', '', self.toHistoryUrl(url));
+            } catch (e) {
+                // Ignore cross-origin history errors; filtering can still continue.
+            }
+
             $.ajax({
                 method: "GET",
-                url: decodeURIComponent(url),
+                url: url,
                 dataType: "json",
                 data: { is_ajax: 1 },
                 showLoader: true
@@ -272,12 +321,16 @@ define([
 
         urlParams: function(url) {
             var result = {};
-            var searchIndex = url.indexOf("?");
+            var cleanUrl = this.normalizeFilterUrl(url);
+            var searchIndex = cleanUrl.indexOf("?");
             if (searchIndex == -1 ) return result;
-            var sPageURL = url.substring(searchIndex +1);
+            var sPageURL = cleanUrl.substring(searchIndex +1);
             var sURLVariables = sPageURL.split('&');
             for (var i = 0; i < sURLVariables.length; i++) {
                 var sParameterName = sURLVariables[i].split('=');
+                if (!sParameterName[0]) {
+                    continue;
+                }
                 result[sParameterName[0]] = sParameterName[1];
             }
 
