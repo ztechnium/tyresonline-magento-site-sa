@@ -295,3 +295,20 @@ color: #fff;
   }
 
 }
+
+/* Promotions offers: keep Details pill visible beside long titles */
+.promotions-offers .offers-list .offers-list-inner .box .box-title {
+  gap: 0.5rem;
+  overflow: hidden;
+}
+
+.promotions-offers .offers-list .offers-list-inner .box .box-title > span:not(.link) {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.promotions-offers .offers-list .offers-list-inner .box .box-title .link {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
