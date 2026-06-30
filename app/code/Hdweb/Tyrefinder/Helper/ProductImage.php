@@ -180,11 +180,7 @@ class ProductImage extends AbstractHelper
         }
 
         $relative = self::BANNER_MEDIA_PATH . ltrim($filename, '/');
-        if ($this->mediaFileExists($relative)) {
-            return $this->getMediaBaseUrl() . $relative;
-        }
-
-        return $this->getContentPlaceholderUrl();
+        return $this->resolveContentMediaPath($relative);
     }
 
     public function resolveMediaUrl(?string $url): string
@@ -194,29 +190,39 @@ class ProductImage extends AbstractHelper
             return $this->getContentPlaceholderUrl();
         }
 
-        $url = $this->rewriteLegacyMediaHost($url);
-        $relative = $this->urlToMediaRelativePath($url);
-        if ($relative !== null && $this->mediaFileExists($relative)) {
-            return $url;
-        }
-
-        if ($this->isProductionMediaUrl($url)) {
-            return $url;
-        }
-
-        return $this->getContentPlaceholderUrl();
+        return $this->resolveContentMediaUrl($url);
     }
 
     /**
-     * Rewrites legacy UAE media hosts and adds onerror fallbacks to CMS/blog HTML images.
+     * Resolve a media path or absolute media URL for CMS/content images.
+     */
+    public function resolveContentMediaUrl(string $url): string
+    {
+        $url = trim($url);
+        if ($url === '' || $this->isContentPlaceholderUrl($url) || str_contains($url, 'blank.png')) {
+            return $url !== '' ? $url : $this->getContentPlaceholderUrl();
+        }
+
+        $url = $this->rewriteLegacyMediaHost($url);
+        $relative = $this->urlToMediaRelativePath($url);
+        if ($relative === null) {
+            return filter_var($url, FILTER_VALIDATE_URL) ? $url : $this->getContentPlaceholderUrl();
+        }
+
+        return $this->resolveContentMediaPath($relative);
+    }
+
+    /**
+     * Rewrites legacy UAE media hosts and fixes broken CMS media URLs (carousel, blog, etc.).
      */
     public function normalizeContentHtmlImages(string $html): string
     {
-        if ($html === '' || !str_contains($html, '<img')) {
+        if ($html === '' || !str_contains($html, 'media')) {
             return $html;
         }
 
         $html = $this->rewriteLegacyMediaHostsInHtml($html);
+        $html = $this->rewriteMediaAttributesInHtml($html);
 
         $fallback = htmlspecialchars($this->getContentJsFallbackUrl(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         if ($fallback === '') {
@@ -231,7 +237,7 @@ class ProductImage extends AbstractHelper
                     return $tag;
                 }
 
-                if (!preg_match('/\ssrc=["\']([^"\']+)["\']/i', $tag, $srcMatch)) {
+                if (!preg_match('/\s(?:data-)?src=["\']([^"\']+)["\']/i', $tag, $srcMatch)) {
                     return $tag;
                 }
 
@@ -245,6 +251,85 @@ class ProductImage extends AbstractHelper
             },
             $html
         );
+    }
+
+    private function rewriteMediaAttributesInHtml(string $html): string
+    {
+        return (string) preg_replace_callback(
+            '#\b((?:data-)?srcset|(?:data-)?src)=("|\')([^"\']*)(\2)#i',
+            function (array $matches): string {
+                $attribute = $matches[1];
+                $quote = $matches[2];
+                $value = $matches[3];
+
+                if (stripos($attribute, 'srcset') !== false) {
+                    $value = $this->rewriteSrcsetValue($value);
+                } else {
+                    $value = $this->rewriteSingleMediaAttributeUrl($value);
+                }
+
+                return $attribute . '=' . $quote . $value . $quote;
+            },
+            $html
+        );
+    }
+
+    private function rewriteSrcsetValue(string $srcset): string
+    {
+        $parts = array_map('trim', explode(',', $srcset));
+        $rewritten = [];
+
+        foreach ($parts as $part) {
+            if ($part === '') {
+                continue;
+            }
+
+            if (preg_match('/^(\S+)(\s+.+)?$/', $part, $matches)) {
+                $url = $this->rewriteSingleMediaAttributeUrl($matches[1]);
+                $rewritten[] = $url . ($matches[2] ?? '');
+            }
+        }
+
+        return implode(', ', $rewritten);
+    }
+
+    private function rewriteSingleMediaAttributeUrl(string $url): string
+    {
+        if ($url === ''
+            || $this->isContentPlaceholderUrl($url)
+            || str_contains($url, 'blank.png')
+        ) {
+            return $url;
+        }
+
+        if (!str_contains($url, '/media/') && !str_contains($url, 'wysiwyg/')) {
+            return $url;
+        }
+
+        return $this->resolveContentMediaUrl($url);
+    }
+
+    private function resolveContentMediaPath(string $relative): string
+    {
+        $relative = ltrim(str_replace('\\', '/', $relative), '/');
+        if ($relative === '') {
+            return $this->getContentPlaceholderUrl();
+        }
+
+        if ($this->mediaFileExists($relative)) {
+            return $this->getMediaBaseUrl() . $relative;
+        }
+
+        if ($this->shouldUseProductionMediaFallback($relative)) {
+            return self::PRODUCTION_MEDIA_HOST . $relative;
+        }
+
+        return $this->getContentPlaceholderUrl();
+    }
+
+    private function shouldUseProductionMediaFallback(string $relative): bool
+    {
+        return str_starts_with($relative, 'wysiwyg/');
     }
 
     public function mediaFileExists(?string $relativePath): bool
@@ -436,7 +521,7 @@ class ProductImage extends AbstractHelper
                 }
             }
 
-            return self::PRODUCTION_MEDIA_HOST . ltrim($relative, '/');
+            return $this->resolveContentMediaPath($relative);
         }
 
         $src = $this->rewriteLegacyMediaHost($src);
@@ -447,11 +532,7 @@ class ProductImage extends AbstractHelper
                 return $this->getMediaBaseUrl() . $relative;
             }
 
-            if ($this->isProductionMediaUrl($src)) {
-                return $src;
-            }
-
-            return null;
+            return $this->resolveContentMediaPath($relative);
         }
 
         if (str_starts_with($src, '/media/')) {
@@ -460,7 +541,7 @@ class ProductImage extends AbstractHelper
                 return $this->getMediaBaseUrl() . $relative;
             }
 
-            return self::PRODUCTION_MEDIA_HOST . $relative;
+            return $this->resolveContentMediaPath($relative);
         }
 
         if (filter_var($src, FILTER_VALIDATE_URL)) {

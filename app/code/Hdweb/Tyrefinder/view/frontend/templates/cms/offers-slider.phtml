@@ -1,0 +1,33 @@
+<?php
+/**
+ * Renders the blog offers carousel CMS block with broken media URL normalization.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+$contentImageHelper = $block->getData('content_image_helper');
+if (!$contentImageHelper) {
+    $contentImageHelper = $this->helper(\Hdweb\Tyrefinder\Helper\ProductImage::class);
+}
+
+$cmsBlockId = (string) ($block->getData('cms_block_id') ?: 'special_offers_slider_home');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeId = (int) $objectManager->get(\Magento\Store\Model\StoreManagerInterface::class)->getStore()->getId();
+
+/** @var \Magento\Cms\Model\Block $cmsBlock */
+$cmsBlock = $block->getData('cms_block_model');
+if (!$cmsBlock) {
+    $cmsBlock = $objectManager->create(\Magento\Cms\Model\Block::class);
+}
+
+$cmsBlock->setStoreId($storeId)->load($cmsBlockId, 'identifier');
+if (!$cmsBlock->isActive()) {
+    return;
+}
+
+$filter = $objectManager
+    ->get(\Magento\Cms\Model\Template\FilterProvider::class)
+    ->getBlockFilter()
+    ->setStoreId($storeId);
+
+$html = (string) $filter->filter((string) $cmsBlock->getContent());
+echo $contentImageHelper->normalizeContentHtmlImages($html);
