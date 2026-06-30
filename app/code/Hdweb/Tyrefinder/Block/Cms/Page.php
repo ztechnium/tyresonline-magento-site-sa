@@ -41,4 +41,45 @@ class Page extends FbuilderCmsPage
 
         return $this->productImageHelper->normalizeContentHtmlImages($html);
     }
+
+    /**
+     * @param \Magento\Cms\Model\Page $page
+     */
+    protected function _addBreadcrumbs($page)
+    {
+        if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+            $breadcrumbsBlock->addCrumb(
+                'home',
+                [
+                    'label' => __('Home'),
+                    'title' => __('Go to Home Page'),
+                    'link' => $this->_storeManager->getStore()->getBaseUrl(),
+                ]
+            );
+
+            $pageLabel = $this->resolveBreadcrumbPageLabel($page);
+            $breadcrumbsBlock->addCrumb(
+                'cms_page',
+                [
+                    'label' => $pageLabel,
+                    'title' => $pageLabel,
+                ]
+            );
+        }
+    }
+
+    private function resolveBreadcrumbPageLabel(\Magento\Cms\Model\Page $page): string
+    {
+        $heading = trim((string) $page->getContentHeading());
+        if ($heading !== '') {
+            return (string) __($heading);
+        }
+
+        $title = trim((string) $page->getTitle());
+        if ($title !== '' && str_ends_with($title, ' - Arabic')) {
+            $title = trim(substr($title, 0, -9));
+        }
+
+        return (string) __($title);
+    }
 }
