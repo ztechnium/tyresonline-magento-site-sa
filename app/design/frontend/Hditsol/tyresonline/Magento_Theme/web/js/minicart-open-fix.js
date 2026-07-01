@@ -7,22 +7,27 @@ require([
     'use strict';
 
     var minicartSelector = '[data-block="minicart"]';
+    var reloadPending = false;
 
-    function wrapperHasContent() {
+    function hasRenderedMinicart() {
         var wrapper = document.getElementById('minicart-content-wrapper');
 
         if (!wrapper) {
             return false;
         }
 
-        return !!wrapper.querySelector('.block-content, .minicart-items, .subtitle');
+        return !!wrapper.querySelector('.block-content, .minicart-items');
     }
 
-    function ensureFallback() {
+    function removeFallback() {
+        $('#minicart-content-wrapper .minicart-static-fallback').remove();
+    }
+
+    function showEmptyCartFallback() {
         var $wrapper = $('#minicart-content-wrapper');
 
-        if (!$wrapper.length || wrapperHasContent()) {
-            $wrapper.find('.minicart-static-fallback').remove();
+        if (!$wrapper.length || hasRenderedMinicart()) {
+            removeFallback();
             return;
         }
 
@@ -30,51 +35,74 @@ require([
             return;
         }
 
-        var cart = customerData.get('cart')();
-        var message = cart && cart.summary_count ?
-            $t('Loading cart...') :
-            $t('You have no items in your shopping cart.');
-
         $wrapper.prepend(
             '<div class="minicart-static-fallback">' +
-                '<strong class="subtitle empty">' + message + '</strong>' +
+                '<strong class="subtitle empty">' +
+                    $t('You have no items in your shopping cart.') +
+                '</strong>' +
             '</div>'
         );
     }
 
     function refreshMinicartContent() {
-        if (wrapperHasContent()) {
+        if (hasRenderedMinicart() || reloadPending) {
             return;
         }
 
-        customerData.invalidate(['cart']);
-        customerData.reload(['cart'], true);
-        ensureFallback();
+        reloadPending = true;
+        customerData.reload(['cart'], false).done(function () {
+            $(minicartSelector).trigger('contentUpdated');
+        }).always(function () {
+            reloadPending = false;
+            if (hasRenderedMinicart()) {
+                removeFallback();
+            }
+        });
     }
 
-    $(minicartSelector).on('dropdowndialogopen', function () {
-        ensureFallback();
+    function handleMinicartOpen() {
+        removeFallback();
+
+        if (hasRenderedMinicart()) {
+            return;
+        }
+
+        var cart = customerData.get('cart')();
+
+        if (!cart || !cart.summary_count) {
+            showEmptyCartFallback();
+            return;
+        }
+
         refreshMinicartContent();
-    });
+    }
+
+    $(minicartSelector).on('dropdowndialogopen', handleMinicartOpen);
 
     $(document).on('click', minicartSelector + ' .action.showcart', function () {
         window.setTimeout(function () {
             if ($(minicartSelector).hasClass('active')) {
-                ensureFallback();
-                refreshMinicartContent();
+                handleMinicartOpen();
             }
         }, 0);
     });
 
     $(document).on('contentUpdated', minicartSelector, function () {
-        $('#minicart-content-wrapper .minicart-static-fallback').remove();
+        removeFallback();
     });
 
     customerData.get('cart').subscribe(function () {
-        if ($('.minicart-wrapper').hasClass('active')) {
-            ensureFallback();
+        if (hasRenderedMinicart()) {
+            removeFallback();
+            return;
+        }
+
+        if ($(minicartSelector).hasClass('active')) {
+            var cart = customerData.get('cart')();
+
+            if (!cart || !cart.summary_count) {
+                showEmptyCartFallback();
+            }
         }
     });
-
-    ensureFallback();
 });
