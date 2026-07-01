@@ -147,21 +147,18 @@ define([
 
         addToolbarObservers: function() {
             var self = this;
-            $("#mode-list").off();
-            $("#mode-list").on("click", function(e) {
-                e.preventDefault();
-                e.stopPropagation(); 
-                e.stopImmediatePropagation();
-                self.applyToolbarElement('product_list_mode', 'list');
-                return false;
-            });
+            $(document).off('click.mgsAjaxToolbar', '[data-role="mode-switcher"]');
+            $(document).on('click.mgsAjaxToolbar', '[data-role="mode-switcher"]', function(e) {
+                var mode = $(this).data('value');
 
-            $("#mode-grid").off();
-            $("#mode-grid").on("click", function(e) {
+                if (!mode) {
+                    return;
+                }
+
                 e.preventDefault();
-                e.stopPropagation(); 
+                e.stopPropagation();
                 e.stopImmediatePropagation();
-                self.applyToolbarElement('product_list_mode', 'grid');
+                self.applyToolbarElement('product_list_mode', mode);
                 return false;
             });
 

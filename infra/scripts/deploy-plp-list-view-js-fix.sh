@@ -42,7 +42,7 @@ for theme in "${THEMES[@]}"; do
   sudo install -m 0644 -o www-data -g www-data /tmp/ajax-navigation.js "$dir/ajax-navigation.js"
 done
 
-echo $(date +%s) | sudo tee "$MAGENTO/pub/static/deployed_version.txt" >/dev/null
+printf '%s' "$(date +%s)" | sudo tee "$MAGENTO/pub/static/deployed_version.txt" >/dev/null
 sudo rm -rf "$MAGENTO/pub/static/_cache/merged/"*
 cd "$MAGENTO"
 sudo -u www-data php bin/magento cache:flush

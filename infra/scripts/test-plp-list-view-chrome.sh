@@ -61,4 +61,24 @@ if not ok:
 PY
 rm -f "$TMP_JSON"
 
+echo "3) Static URLs must not contain embedded newlines (breaks mage-init JSON)"
+PAGE_HTML="$(mktemp)"
+curl -fsS "$URL" -o "$PAGE_HTML"
+if python3 - <<'PY' "$PAGE_HTML"
+import sys
+html = open(sys.argv[1]).read()
+bad = [s for s in html.split("data-mage-init='") if '\n/' in s[:120] or 'version' in s[:30] and '\n' in s[:120]]
+if bad:
+    print('FAIL: embedded newline found in data-mage-init static URL')
+    sys.exit(2)
+print('PASS: no embedded newlines in static loader URLs')
+PY
+then
+  :
+else
+  rm -f "$PAGE_HTML"
+  exit 2
+fi
+rm -f "$PAGE_HTML"
+
 echo "All checks passed for $URL"
