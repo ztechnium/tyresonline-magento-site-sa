@@ -49,74 +49,66 @@ require(["jquery", "mage/cookies"], function($) {
     $(document).ready(syncFormKeysFromCookie);
     $(document).on('ajaxComplete', syncFormKeysFromCookie);
 });
-$(document).ready(function() {
-    $('.select2').select2({
-		dropdownCssClass: "dropdown-style1"
-    });
-	$('.select2-social-login-popup').select2({
-		dropdownCssClass: "dropdown-style1",
-		dropdownParent: $("#social-login-popup")
-    });
-	$('.select2-nosearch').select2({
-		dropdownCssClass: "dropdown-style2",
-		minimumResultsForSearch: -1
-	});
-	$('.select2-qty').select2({
-		dropdownCssClass: "dropdown-style2 text-center",
-		minimumResultsForSearch: -1
-	});
-	$('.select2-qty-search').select2({
-		dropdownCssClass: "dropdown-style3 text-center",
-	});
-	$('.select2-tyre-size-search').select2({
-		dropdownCssClass: "dropdown-style3 text-center",
-		placeholder: "Search Size",
-		/* language: {
-			inputTooShort: function() {
-				return 'Enter min 3 words to search';
-			}
-		}, */
-		minimumInputLength: 3,
-		maximumSelectionLength: 2,
-		matcher: matchCustom
-	});
 
-	function matchCustom(params, data) {
-		// If there are no search terms, return all of the data
-		if ($.trim(params.term) === '') {
-		  return data;
-		}
-	  
-		// Do not display the item if there is no 'text' property
-		if (typeof data.text === 'undefined') {
-		  return null;
-		}
-	  
-		// `params.term` should be the term that is used for searching
-		// `data.text` is the text that is displayed for the data object
-		if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
-		  return data;
-		}
-	  
-		// custom search using lookup data
-		if ( typeof $(data.element).data('lookup') !== 'undefined' && $(data.element).data('lookup').toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
-			return data;
-		}	
-	  
-		// Return `null` if the term should not be displayed
-		return null;
-	  }
+require(["jquery", "select2", "domReady!"], function($) {
+    $(document).ready(function() {
+        $('.select2').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
+        $('.select2-social-login-popup').select2({
+            dropdownCssClass: "dropdown-style1",
+            dropdownParent: $("#social-login-popup")
+        });
+        $('.select2-nosearch').select2({
+            dropdownCssClass: "dropdown-style2",
+            minimumResultsForSearch: -1
+        });
+        $('.select2-qty').select2({
+            dropdownCssClass: "dropdown-style2 text-center",
+            minimumResultsForSearch: -1
+        });
+        $('.select2-qty-search').select2({
+            dropdownCssClass: "dropdown-style3 text-center",
+        });
+        $('.select2-tyre-size-search').select2({
+            dropdownCssClass: "dropdown-style3 text-center",
+            placeholder: "Search Size",
+            minimumInputLength: 3,
+            maximumSelectionLength: 2,
+            matcher: matchCustom
+        });
+
+        function matchCustom(params, data) {
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+
+            if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                return data;
+            }
+
+            if (typeof $(data.element).data('lookup') !== 'undefined' &&
+                $(data.element).data('lookup').toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                return data;
+            }
+
+            return null;
+        }
+    });
+
+    $(document).ajaxStop(function () {
+        $('.checkout-index-index .vehicle-dropdown .select').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
+        $('#shipping-new-address-form .control .select').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
+    });
 });
-$(document).ajaxStop(function () {
-    /*$('.checkout-index-index .vehicle-dropdown select').addClass('select2');
-    $('.select2').select2();*/
-    $('.checkout-index-index .vehicle-dropdown .select').select2({
-      dropdownCssClass: "dropdown-style1"
-    });
-    $('#shipping-new-address-form .control .select').select2({
-      dropdownCssClass: "dropdown-style1"
-    });
-  });
 
 
 require(["jquery", "lazysizes"], function($) {

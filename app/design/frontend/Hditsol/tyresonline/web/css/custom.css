@@ -146,6 +146,21 @@
     height: auto !important;
 }
 
+.minicart-wrapper .block-minicart #minicart-content-wrapper {
+    min-height: 60px;
+}
+
+.minicart-wrapper .block-minicart .minicart-static-fallback {
+    padding: 25px 20px 20px;
+    text-align: center;
+}
+
+.minicart-wrapper .block-minicart .minicart-static-fallback .subtitle.empty {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+}
+
 .swatch-opt {
     margin: 0;
 }

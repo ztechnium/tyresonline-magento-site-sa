@@ -36,7 +36,19 @@ jQuery(window).on('scroll', function() {
   });  
 });
 
-require(["jquery", "select2"], function($) {
+require(["jquery", "mage/cookies"], function($) {
+    function syncFormKeysFromCookie() {
+        var key = $.mage.cookies.get('form_key');
+        if (!key) {
+            return;
+        }
+        $('input[name="form_key"]').val(key);
+    }
+    $(document).ready(syncFormKeysFromCookie);
+    $(document).on('ajaxComplete', syncFormKeysFromCookie);
+});
+
+require(["jquery", "select2", "domReady!"], function($) {
 $(document).ready(function() {
     $('.select2').select2({
 		dropdownCssClass: "dropdown-style1"
@@ -97,16 +109,15 @@ $(document).ready(function() {
 		return null;
 	  }
 });
-$(document).ajaxStop(function () {
-    /*$('.checkout-index-index .vehicle-dropdown select').addClass('select2');
-    $('.select2').select2();*/
-    $('.checkout-index-index .vehicle-dropdown .select').select2({
-      dropdownCssClass: "dropdown-style1"
+
+    $(document).ajaxStop(function () {
+        $('.checkout-index-index .vehicle-dropdown .select').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
+        $('#shipping-new-address-form .control .select').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
     });
-    $('#shipping-new-address-form .control .select').select2({
-      dropdownCssClass: "dropdown-style1"
-    });
-  });
 });
 
 
@@ -141,11 +152,50 @@ require(['jquery'],function($){
   });
 });
 
+require(['jquery', 'mage/loader'], function ($) {
+    var originalShow = $.mage.loader.prototype.show;
 
+    $.mage.loader.prototype.show = function () {
+        if ($('body').hasClass('checkout-index-index') && $.active === 0) {
+            return false;
+        }
 
-require(['jquery'],function($){
+        return originalShow.apply(this, arguments);
+    };
+
+    function resetStuckLoader() {
+        var $body = $('[data-container="body"]');
+        var loader = $body.data('mageLoader');
+
+        if (loader) {
+            loader.loaderStarted = 0;
+            if (loader.spinner) {
+                loader.spinner.hide();
+            }
+        }
+        $('body').trigger('processStop');
+        $('.loading-mask').hide();
+    }
+
     $(document).on('click', ".fsloaderclose", function() {
-        $('.loading-mask').css('display','none');
+        resetStuckLoader();
+    });
+
+    $(document).on('ajaxError', function () {
+        $('body').trigger('processStop');
+    });
+
+    $(window).on('load', function () {
+        setTimeout(resetStuckLoader, 500);
+        setTimeout(resetStuckLoader, 1500);
+        setTimeout(resetStuckLoader, 3000);
+        setTimeout(resetStuckLoader, 5000);
+    });
+
+    $(function () {
+        if ($('body').hasClass('checkout-index-index') || $('body').hasClass('checkout-cart-index')) {
+            setInterval(resetStuckLoader, 1000);
+        }
     });
 	$(document).on('click', ".selected-size, .tyre-search .search-wrap input", function() {
 		$(".frontWidthLabel").trigger( "click" );
