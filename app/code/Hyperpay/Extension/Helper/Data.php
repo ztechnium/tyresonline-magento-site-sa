@@ -252,7 +252,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     */
     public function isThisEnglishText($text)
     {
-        return preg_match("/^[\w\s\.\-\,]*$/", $text);      
+        if ($text === null || $text === '') {
+            return false;
+        }
+
+        return (bool) preg_match("/^[\w\s\.\-\,]*$/", (string) $text);
     }
     /**
      * Retrieve billing And shipping Address
