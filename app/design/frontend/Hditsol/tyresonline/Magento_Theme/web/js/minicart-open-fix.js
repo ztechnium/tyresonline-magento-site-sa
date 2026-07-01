@@ -57,6 +57,15 @@ require([
         refreshMinicartContent();
     });
 
+    $(document).on('click', minicartSelector + ' .action.showcart', function () {
+        window.setTimeout(function () {
+            if ($(minicartSelector).hasClass('active')) {
+                ensureFallback();
+                refreshMinicartContent();
+            }
+        }, 0);
+    });
+
     $(document).on('contentUpdated', minicartSelector, function () {
         $('#minicart-content-wrapper .minicart-static-fallback').remove();
     });
