@@ -206,6 +206,50 @@
   }
 }
 
+/* promotions offers modal popup */
+.izimodal-offersmodal .modal-content-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.izimodal-offersmodal .modal-content-wrap .modal-title,
+.izimodal-offersmodal .modal-content-wrap .modal-title .h3 {
+  width: 100%;
+  text-align: center;
+}
+
+.izimodal-offersmodal .modal-content-wrap .image-wrap {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.izimodal-offersmodal .modal-content-wrap .image-wrap.picture picture {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.izimodal-offersmodal .modal-content-wrap .image-wrap img {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.izimodal-offersmodal .modal-content-wrap .text-block {
+  width: 100%;
+  text-align: start;
+}
+
+.izimodal-offersmodal .modal-content-wrap .text-block ul {
+  padding-inline-start: 0.6956521739rem;
+  padding-inline-end: 0;
+}
+
+.izimodal-offersmodal .modal-content-wrap .shopnow {
+  width: 100%;
+}
+
 
 /* starlight-headliner-car-roof */
 
