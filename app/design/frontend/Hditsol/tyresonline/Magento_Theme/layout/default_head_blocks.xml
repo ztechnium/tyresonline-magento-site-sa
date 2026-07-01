@@ -25,6 +25,7 @@
 		<css src="css/theme.css" media="all"/>
 		<css src="css/custom-style.css" media="all"/>
 		<script src="js/custom.js"/>
+		<script src="Magento_Theme::js/minicart-open-fix.js"/>
 		<script src="js/lazysizes-init.js"/>
     </head>
 </page>

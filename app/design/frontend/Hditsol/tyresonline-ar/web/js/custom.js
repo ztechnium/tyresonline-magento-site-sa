@@ -97,16 +97,15 @@ $(document).ready(function() {
 		return null;
 	  }
 });
-$(document).ajaxStop(function () {
-    /*$('.checkout-index-index .vehicle-dropdown select').addClass('select2');
-    $('.select2').select2();*/
-    $('.checkout-index-index .vehicle-dropdown .select').select2({
-      dropdownCssClass: "dropdown-style1"
+
+    $(document).ajaxStop(function () {
+        $('.checkout-index-index .vehicle-dropdown .select').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
+        $('#shipping-new-address-form .control .select').select2({
+            dropdownCssClass: "dropdown-style1"
+        });
     });
-    $('#shipping-new-address-form .control .select').select2({
-      dropdownCssClass: "dropdown-style1"
-    });
-  });
 });
 
 
