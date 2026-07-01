@@ -59,6 +59,24 @@ done
 
 printf '%s' "$(date +%s)" | sudo tee "$MAGENTO/pub/static/deployed_version.txt" >/dev/null
 sudo rm -rf "$MAGENTO/pub/static/_cache/merged/"*
+
+# Arabic static had mage/loader.js wrongly copied over the Knockout template loader.
+SRC_LOADER="$MAGENTO/pub/static/frontend/Hditsol/tyresonline/en_US/Magento_Ui/js/lib/knockout/template/loader.min.js"
+if [ -f "$SRC_LOADER" ] && grep -q 'defaultPlugin' "$SRC_LOADER"; then
+  for locale in en_US ar_SA; do
+    for file in loader.min.js loader.js; do
+      src="$SRC_LOADER"
+      if [ "$file" = "loader.js" ]; then
+        src="${SRC_LOADER%.min.js}"
+        [ -f "$src" ] || continue
+      fi
+      dest_dir="$MAGENTO/pub/static/frontend/Hditsol/tyresonline-ar/$locale/Magento_Ui/js/lib/knockout/template"
+      sudo mkdir -p "$dest_dir"
+      sudo install -m 0644 -o www-data -g www-data "$src" "$dest_dir/$file"
+    done
+  done
+fi
+
 cd "$MAGENTO"
 sudo -u www-data php bin/magento cache:flush
 REMOTE
