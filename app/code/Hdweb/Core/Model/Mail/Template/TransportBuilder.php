@@ -434,9 +434,19 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
      */
     private function addAddressByType(string $addressType, $email,  ? string $name = null) : void
     {
+        if ($email === null || $email === '' || (is_array($email) && $email === [])) {
+            throw new InvalidArgumentException(
+                new Phrase('Invalid email address format.')
+            );
+        }
         if (is_string($email)) {
             $this->messageData[$addressType][] = $this->addressConverter->convert($email, $name);
             return;
+        }
+        if (!is_array($email)) {
+            throw new InvalidArgumentException(
+                new Phrase('Invalid email address format.')
+            );
         }
         $convertedAddressArray = $this->addressConverter->convertMany($email);
         if (isset($this->messageData[$addressType])) {
