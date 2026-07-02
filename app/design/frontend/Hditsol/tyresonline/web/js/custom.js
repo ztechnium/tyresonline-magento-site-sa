@@ -46,8 +46,13 @@ require(["jquery", "mage/cookies"], function($) {
         }
         $('input[name="form_key"]').val(key);
     }
+    // Run ASAP (not only on DOMReady) to avoid stale cached form_key
+    syncFormKeysFromCookie();
     $(document).ready(syncFormKeysFromCookie);
-    $(document).on('ajaxComplete', syncFormKeysFromCookie);
+    // Ensure the correct key is applied right before any submit
+    $(document).on('submit', 'form', syncFormKeysFromCookie);
+    $(document).on('click', 'button[type="submit"], input[type="submit"]', syncFormKeysFromCookie);
+    $(document).on('ajaxSend ajaxComplete', syncFormKeysFromCookie);
 });
 $(document).ready(function() {
     $('.select2').select2({

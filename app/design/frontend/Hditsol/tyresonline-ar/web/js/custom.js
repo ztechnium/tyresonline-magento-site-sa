@@ -36,6 +36,23 @@ jQuery(window).on('scroll', function() {
   });  
 });
 
+require(["jquery", "mage/cookies"], function($) {
+    function syncFormKeysFromCookie() {
+        var key = $.mage.cookies.get('form_key');
+        if (!key) {
+            return;
+        }
+        $('input[name="form_key"]').val(key);
+    }
+    // Run ASAP (not only on DOMReady) to avoid stale cached form_key
+    syncFormKeysFromCookie();
+    $(document).ready(syncFormKeysFromCookie);
+    // Ensure the correct key is applied right before any submit
+    $(document).on('submit', 'form', syncFormKeysFromCookie);
+    $(document).on('click', 'button[type=\"submit\"], input[type=\"submit\"]', syncFormKeysFromCookie);
+    $(document).on('ajaxSend ajaxComplete', syncFormKeysFromCookie);
+});
+
 require(["jquery", "select2"], function($) {
 $(document).ready(function() {
     $('.select2').select2({
