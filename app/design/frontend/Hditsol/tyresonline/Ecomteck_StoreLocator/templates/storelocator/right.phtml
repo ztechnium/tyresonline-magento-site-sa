@@ -279,6 +279,48 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
 <?php if ($gmapApiKey): ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
 <?php endif; ?>
+<?php $deferStoreLocatorInit = (bool)$block->getData('defer_init'); ?>
+<?php if ($deferStoreLocatorInit): ?>
+<script type="text/javascript">
+    window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
+</script>
+<script type="text/javascript">
+require(['jquery', 'ecomteck_storelocator'], function ($, initStoreLocator) {
+    'use strict';
+
+    function bootCartStoreLocator() {
+        var $modal = $('#mycartinstallerModal');
+        if (!$modal.length || $modal.data('storeLocatorReady')) {
+            return;
+        }
+        if (typeof window.checkoutStoreLocatorConfig === 'undefined') {
+            return;
+        }
+
+        initStoreLocator(window.checkoutStoreLocatorConfig);
+        $modal.data('storeLocatorReady', true);
+
+        if (window.google && window.google.maps) {
+            google.maps.event.trigger(window, 'resize');
+        }
+    }
+
+    $(function () {
+        $('#mycartinstallerModal').on('shown.bs.modal', bootCartStoreLocator);
+        $(document).on(
+            'click',
+            '#cart-installer-location, [data-bs-target="#mycartinstallerModal"], [data-target="#mycartinstallerModal"], .checkout_title[data-bs-target="#mycartinstallerModal"]',
+            function () {
+                setTimeout(bootCartStoreLocator, 400);
+            }
+        );
+    });
+});
+</script>
+<style type="text/css">
+#mycartinstallerModal #installerLoading { display: none; }
+</style>
+<?php else: ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -288,6 +330,7 @@ $noslotAvailableText = __('The installer is not available on the selected date. 
         }
     }
 </script>
+<?php endif; ?>
 <?php if(!$isDisplayDateTime) { ?>
 <style type="text/css">
 .storelocator .datetimesubmit{display: none;}

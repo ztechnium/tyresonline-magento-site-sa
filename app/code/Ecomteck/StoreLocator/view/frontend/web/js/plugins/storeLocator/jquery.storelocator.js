@@ -27,6 +27,12 @@ define(["jquery"], // Require jquery
 	var featuredset = [], locationset = [], normalset = [], markers = [];
 	var filters = {}, locationData = {}, GeoCodeCalc = {}, mappingObj = {};
 
+	function getInstallerLoader() {
+		var $loader = $('#mycartinstallerModal #installerLoading');
+
+		return $loader.length ? $loader : $('#installerLoading');
+	}
+
 	// Create the defaults once. DO NOT change these settings in this file - settings should be overridden in the plugin call
 	var defaults = {
 		'ajaxData'                   : null,
@@ -619,7 +625,7 @@ define(["jquery"], // Require jquery
 				if (this.settings.ajaxData !== null && typeof this.settings.ajaxData === 'object') {
 					$.extend(ajaxData, this.settings.ajaxData);
 				}
-				$("#installerLoading").show();
+				getInstallerLoader().show();
 				// AJAX request
 				$.ajax({
 					type         : 'GET',
@@ -630,12 +636,15 @@ define(["jquery"], // Require jquery
 					jsonpCallback: (this.settings.dataType === 'jsonp' ? this.settings.callbackJsonp : null)
 				}).done(function(p) {
 					d.resolve(p);
-					$("#installerLoading").hide();
+					getInstallerLoader().hide();
 					// Loading remove
 					if (_this.settings.loading === true) {
 						$('.' + _this.settings.formContainer + ' .' + _this.settings.loadingContainer).remove();
 					}
-				}).fail(d.reject);
+				}).fail(function () {
+					getInstallerLoader().hide();
+					d.reject();
+				});
 				return d.promise();
 			}
 		},

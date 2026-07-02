@@ -257,7 +257,52 @@ $notAvailable = 'No time slot is available.';
 
 <div id="info-video" style="display:none;"></div>
 
-<!-- End All installer in map model -->
+<?php $gmapApiKey = $block->storelocatorConfig->getApiKeySettings(); ?>
+<?php if ($gmapApiKey): ?>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeHtmlAttr($gmapApiKey) ?>&libraries=places,geometry" async defer></script>
+<?php endif; ?>
+<?php $deferStoreLocatorInit = (bool)$block->getData('defer_init'); ?>
+<?php if ($deferStoreLocatorInit): ?>
+<script type="text/javascript">
+    window.checkoutStoreLocatorConfig = <?php echo $block->getJsonConfig()?>;
+</script>
+<script type="text/javascript">
+require(['jquery', 'ecomteck_storelocator'], function ($, initStoreLocator) {
+    'use strict';
+
+    function bootCartStoreLocator() {
+        var $modal = $('#mycartinstallerModal');
+        if (!$modal.length || $modal.data('storeLocatorReady')) {
+            return;
+        }
+        if (typeof window.checkoutStoreLocatorConfig === 'undefined') {
+            return;
+        }
+
+        initStoreLocator(window.checkoutStoreLocatorConfig);
+        $modal.data('storeLocatorReady', true);
+
+        if (window.google && window.google.maps) {
+            google.maps.event.trigger(window, 'resize');
+        }
+    }
+
+    $(function () {
+        $('#mycartinstallerModal').on('shown.bs.modal', bootCartStoreLocator);
+        $(document).on(
+            'click',
+            '#cart-installer-location, [data-bs-target="#mycartinstallerModal"], [data-target="#mycartinstallerModal"], .checkout_title[data-bs-target="#mycartinstallerModal"]',
+            function () {
+                setTimeout(bootCartStoreLocator, 400);
+            }
+        );
+    });
+});
+</script>
+<style type="text/css">
+#mycartinstallerModal #installerLoading { display: none; }
+</style>
+<?php else: ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -267,6 +312,7 @@ $notAvailable = 'No time slot is available.';
         }
     }
 </script>
+<?php endif; ?>
 <?php if(!$isDisplayDateTime) { ?>
 <style type="text/css">
 .storelocator .datetimesubmit{display: none;}
@@ -284,8 +330,21 @@ $notAvailable = 'No time slot is available.';
     var todaydate='<?php echo $todaydate ?>';
     //console.log('date-'+todaydate);
     var allStoreOpeningdatetimep=<?php echo json_encode($allStoreOpeningdatetimep) ?>;
-	//console.log(allStoreOpeningdatetimep);
 
+	function whenGoogleMapsReady(callback, attempt) {
+		attempt = attempt || 0;
+		if (window.google && google.maps) {
+			callback();
+			return;
+		}
+		if (attempt >= 50) {
+			console.error('Google Maps did not load for cart fitting locations');
+			return;
+		}
+		setTimeout(function () {
+			whenGoogleMapsReady(callback, attempt + 1);
+		}, 200);
+	}
 
 	require(["jquery", "mage/calendar"], function($){
 		$( document ).ajaxComplete(function( event, xhr, settings ) {
@@ -501,33 +560,40 @@ $notAvailable = 'No time slot is available.';
          });
 		 
 		 // Start display all installer marker on the map
-		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
-		
-		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
-		  zoom: 8,
-		  center: new google.maps.LatLng(24.90, 55.55),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-		
-		var infowindow = new google.maps.InfoWindow();
+		var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>;
 
-		var marker, i;
-		
-		for (i = 0; i < allInstallerlocations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
-			map: map
-		  });
-		  
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {  
-			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
-			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
-            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
-			  infowindow.open(map, marker);
+		function initAllInstallerMap() {
+			if (!allInstallerlocations.length || !document.getElementById('map_canvas_all_installer')) {
+				return;
 			}
-		  })(marker, i));
+
+			var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+			  zoom: 8,
+			  center: new google.maps.LatLng(23.88, 45.07),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+
+			for (i = 0; i < allInstallerlocations.length; i++) {
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+				  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+							'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+							'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			}
 		}
+
+		whenGoogleMapsReady(initAllInstallerMap);
 	  // End display all installer marker on the map
 	  /*one line below is to solve design issue modal over modal*/
 	  /*jQuery('#viewAllInMap').appendTo("body");*/
@@ -538,33 +604,38 @@ $notAvailable = 'No time slot is available.';
     });
 
     function resetAllInstallerMap(){
-    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>
-		
-		var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
-		  zoom: 8,
-		  center: new google.maps.LatLng(24.90, 55.55),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-		
-		var infowindow = new google.maps.InfoWindow();
+    	var allInstallerlocations = <?php echo json_encode($allInstallerForMap); ?>;
 
-		var marker, i;
-		
-		for (i = 0; i < allInstallerlocations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
-			map: map
-		  });
-		  
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {  
-			  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
-			  			'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
-            			'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
-			  infowindow.open(map, marker);
+		whenGoogleMapsReady(function () {
+			if (!allInstallerlocations.length || !document.getElementById('map_canvas_all_installer')) {
+				return;
 			}
-		  })(marker, i));
-		}
+
+			var map = new google.maps.Map(document.getElementById('map_canvas_all_installer'), {
+			  zoom: 8,
+			  center: new google.maps.LatLng(23.88, 45.07),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+
+			for (i = 0; i < allInstallerlocations.length; i++) {
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(allInstallerlocations[i][2], allInstallerlocations[i][3]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+				  infowindow.setContent('<p>'+allInstallerlocations[i][0]+'</p>' +
+							'<p><b>Address: </b>'+allInstallerlocations[i][1]+'</p>' +
+							'<button onclick="sortInstallers('+allInstallerlocations[i][2]+','+allInstallerlocations[i][3]+')">Confirm</button>');
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			}
+		});
     }
     function sortInstallers(selectedMarkerLat,selectedMarkerLng){
 		if(selectedMarkerLat != "" && selectedMarkerLng != "") {

@@ -23,7 +23,6 @@ class ProductImage extends AbstractHelper
     private const LAZYLOAD_BLANK = 'images/section/blank.png';
     private const BANNER_MEDIA_PATH = 'mageplaza/bannerslider/banner/image/';
     private const BLOG_MEDIA_PATH = 'mgs_blog/';
-    private const UAE_BLOG_CDN_BASE = 'https://d1u7uj1o3a80t8.cloudfront.net/media/mgs_blog/';
 
     private Filesystem\Directory\ReadInterface $mediaDirectory;
 
@@ -95,6 +94,29 @@ class ProductImage extends AbstractHelper
         } catch (\Throwable) {
             return $this->getThemePlaceholderUrl();
         }
+    }
+
+    /**
+     * Resolve a placeholder when the catalog image file is missing on disk.
+     * Avoids calling the catalog image helper to prevent recursive plugin calls.
+     */
+    public function resolveMissingProductImageUrl(
+        Product $product,
+        string $imageRole = 'category_page_grid',
+        int $width = 300,
+        int $height = 300
+    ): string {
+        $brandUrl = $this->getBrandFallbackUrl($product);
+        if ($brandUrl !== null) {
+            return $brandUrl;
+        }
+
+        $mediaPlaceholder = $this->getMediaPlaceholderUrl();
+        if ($mediaPlaceholder !== null) {
+            return $mediaPlaceholder;
+        }
+
+        return $this->getThemePlaceholderUrl();
     }
 
     public function getJsFallbackUrl(): string
@@ -340,13 +362,8 @@ class ProductImage extends AbstractHelper
 
     private function getUaeBlogCdnUrl(string $filename): ?string
     {
-        $filename = preg_replace('#^' . preg_quote(self::BLOG_MEDIA_PATH, '#') . '#', '', $filename);
-        $filename = ltrim(str_replace('\\', '/', $filename), '/');
-        if ($filename === '') {
-            return null;
-        }
-
-        return self::UAE_BLOG_CDN_BASE . $filename;
+        // Legacy UAE CDN paths are not available on KSA; use local media or placeholders.
+        return null;
     }
 
     private function getFirstContentImageUrl(string $content): ?string
