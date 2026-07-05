@@ -937,3 +937,32 @@ html{
     }
   }
 }
+
+.cms-home {
+  .breadcrumbs {
+    display: none;
+  }
+
+  .page-main {
+    padding-top: 0;
+  }
+
+  .columns .column.main {
+    padding-bottom: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    .tyres-banner {
+      min-height: auto;
+      @include scssont-padding-bottom(30px);
+
+      .current-deals {
+        margin-top: get-rem(24px);
+
+        @media screen and #{$media-query} {
+          margin-top: get-vw(24px);
+        }
+      }
+    }
+  }
+}

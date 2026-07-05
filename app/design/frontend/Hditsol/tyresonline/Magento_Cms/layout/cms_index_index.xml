@@ -4,5 +4,8 @@
     <head>
         <css src="css/home.css" media="all"/>
         <remove src="css/cmspage.css" />
-    </head> 
- </page>
+    </head>
+    <body>
+        <referenceBlock name="breadcrumbs" remove="true" />
+    </body>
+</page>
