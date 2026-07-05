@@ -306,6 +306,11 @@ color: #fff;
 .cms-about-us .page-title-wrapper {
   display: none !important;
 }
+
+.cms-terms-and-conditions .breadcrumbs,
+.cms-terms-and-conditions .page-title-wrapper {
+  display: none !important;
+}
 .cms-home .page-main {
   padding-top: 0 !important;
 }
