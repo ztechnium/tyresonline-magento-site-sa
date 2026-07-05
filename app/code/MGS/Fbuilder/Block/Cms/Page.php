@@ -70,7 +70,9 @@ class Page extends \Magento\Cms\Block\Page
     protected function _prepareLayout()
     {
         $page = $this->getPage();
-        $this->_addBreadcrumbs($page);
+        if ($page->getIdentifier() !== 'home') {
+            $this->_addBreadcrumbs($page);
+        }
         $this->pageConfig->addBodyClass('cms-' . $page->getIdentifier());
         $this->pageConfig->addBodyClass('cms-page ' . $page->getId());
         

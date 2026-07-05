@@ -23,6 +23,30 @@ $googleApiKey = $loadHeaderGoogleMaps
   ? $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('ecomteck_storelocator/map/api_key')
   : '';
 ?>
+<?php if ($actionaname === 'cms_index_index'): ?>
+<style id="homepage-layout-fix">
+.cms-home .breadcrumbs,
+.cms-home .page-title-wrapper {
+  display: none !important;
+}
+.cms-home .page-main {
+  padding-top: 0 !important;
+}
+.cms-home .columns .column.main {
+  padding-bottom: 0 !important;
+}
+@media screen and (min-width: 768px) {
+  .cms-home .tyres-banner {
+    min-height: auto !important;
+    height: auto !important;
+    padding-bottom: 1.5rem !important;
+  }
+  .cms-home .tyres-banner .current-deals {
+    margin-top: 1.5rem !important;
+  }
+}
+</style>
+<?php endif; ?>
 <div class="site-header">
   <div class="mid-header">
     <div class="container-fluid">

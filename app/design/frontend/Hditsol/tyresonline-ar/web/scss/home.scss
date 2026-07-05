@@ -939,28 +939,30 @@ html{
 }
 
 .cms-home {
-  .breadcrumbs {
-    display: none;
+  .breadcrumbs,
+  .page-title-wrapper {
+    display: none !important;
   }
 
   .page-main {
-    padding-top: 0;
+    padding-top: 0 !important;
   }
 
   .columns .column.main {
-    padding-bottom: 0;
+    padding-bottom: 0 !important;
   }
 
   @include media-breakpoint-up(md) {
     .tyres-banner {
-      min-height: auto;
+      min-height: auto !important;
+      height: auto !important;
       @include scssont-padding-bottom(30px);
 
       .current-deals {
-        margin-top: get-rem(24px);
+        margin-top: get-rem(24px) !important;
 
         @media screen and #{$media-query} {
-          margin-top: get-vw(24px);
+          margin-top: get-vw(24px) !important;
         }
       }
     }
