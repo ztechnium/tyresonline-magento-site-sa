@@ -911,18 +911,27 @@
     padding-bottom: 0 !important;
   }
 
-  @include media-breakpoint-up(md) {
+  .tyres-banner {
+    min-height: auto !important;
+    height: auto !important;
+    @include scssont-padding-bottom(30px);
+
+    .current-deals {
+      margin-top: get-rem(24px) !important;
+
+      @media screen and #{$media-query} {
+        margin-top: get-vw(24px) !important;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
     .tyres-banner {
-      min-height: auto !important;
-      height: auto !important;
-      @include scssont-padding-bottom(30px);
+      @include scssont-padding-bottom(16px);
 
       .current-deals {
-        margin-top: get-rem(24px) !important;
-
-        @media screen and #{$media-query} {
-          margin-top: get-vw(24px) !important;
-        }
+        margin-top: get-rem-sm(16px) !important;
+        padding-top: get-rem-sm(10px) !important;
       }
     }
   }

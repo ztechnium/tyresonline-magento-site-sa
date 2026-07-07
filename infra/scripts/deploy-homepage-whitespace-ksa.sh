@@ -25,4 +25,4 @@ rm -rf var/view_preprocessed/* var/page_cache/* pub/static/_cache/merged/* 2>/de
 sudo rm -rf /var/cache/apache2/mod_cache_disk/* 2>/dev/null || true
 sudo -u www-data php bin/magento cache:flush 2>&1 | tail -3
 
-echo "Homepage whitespace + breadcrumb fix deployed."
+echo "Homepage whitespace + breadcrumb fix deployed (desktop + mobile)."
