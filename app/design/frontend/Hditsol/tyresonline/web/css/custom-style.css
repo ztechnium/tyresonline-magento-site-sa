@@ -311,6 +311,13 @@ color: #fff;
 .cms-terms-and-conditions .page-title-wrapper {
   display: none !important;
 }
+
+.cms-promotions-and-offers-on-tyres-uae .breadcrumbs,
+.cms-promotions-and-offers-on-tyres-uae .page-title-wrapper,
+.cms-promotions-and-offers-on-tyres-ksa .breadcrumbs,
+.cms-promotions-and-offers-on-tyres-ksa .page-title-wrapper {
+  display: none !important;
+}
 .cms-home .page-main {
   padding-top: 0 !important;
 }
