@@ -70,7 +70,15 @@ class Page extends \Magento\Cms\Block\Page
     protected function _prepareLayout()
     {
         $page = $this->getPage();
-        $this->_addBreadcrumbs($page);
+        if (!in_array($page->getIdentifier(), [
+            'home',
+            'about-us',
+            'terms-and-conditions',
+            'promotions-and-offers-on-tyres-uae',
+            'promotions-and-offers-on-tyres-ksa',
+        ], true)) {
+            $this->_addBreadcrumbs($page);
+        }
         $this->pageConfig->addBodyClass('cms-' . $page->getIdentifier());
         $this->pageConfig->addBodyClass('cms-page ' . $page->getId());
         

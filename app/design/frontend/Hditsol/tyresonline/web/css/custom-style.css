@@ -295,3 +295,49 @@ color: #fff;
   }
 
 }
+
+/* Homepage: hide breadcrumbs and tighten hero spacing */
+.cms-home .breadcrumbs,
+.cms-home .page-title-wrapper {
+  display: none !important;
+}
+
+.cms-about-us .breadcrumbs,
+.cms-about-us .page-title-wrapper {
+  display: none !important;
+}
+
+.cms-terms-and-conditions .breadcrumbs,
+.cms-terms-and-conditions .page-title-wrapper {
+  display: none !important;
+}
+
+.cms-promotions-and-offers-on-tyres-uae .breadcrumbs,
+.cms-promotions-and-offers-on-tyres-uae .page-title-wrapper,
+.cms-promotions-and-offers-on-tyres-ksa .breadcrumbs,
+.cms-promotions-and-offers-on-tyres-ksa .page-title-wrapper {
+  display: none !important;
+}
+.cms-home .page-main {
+  padding-top: 0 !important;
+}
+.cms-home .columns .column.main {
+  padding-bottom: 0 !important;
+}
+.cms-home .tyres-banner {
+  min-height: auto !important;
+  height: auto !important;
+  padding-bottom: 1.5rem !important;
+}
+.cms-home .tyres-banner .current-deals {
+  margin-top: 1.5rem !important;
+}
+@media screen and (max-width: 767px) {
+  .cms-home .tyres-banner {
+    padding-bottom: 1rem !important;
+  }
+  .cms-home .tyres-banner .current-deals {
+    margin-top: 1rem !important;
+    padding-top: 0.625rem !important;
+  }
+}
