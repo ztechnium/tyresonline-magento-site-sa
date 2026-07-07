@@ -44,6 +44,7 @@ $mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
 	->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
 $_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
 $outOfStockPhone = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('hdweb/general/call_us_contact');
+$whatsappPhone = '9668001240192';
 $bundleCollection = array();
 $isBundle = $block->isBundle();
 if ($isBundle) {
@@ -1759,7 +1760,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 					<div class="product-list grid-view regular-product-list">
 						<?php
 						// Function to render single product item
-						function renderProductItem($_product, $isOfferProduct, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem)
+						function renderProductItem($_product, $isOfferProduct, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem, $whatsappPhone)
 						{
 						try {
 							ob_start();
@@ -2226,7 +2227,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 														</div>
 													<?php else : ?>
 														<?php
-														$whatsappOosHref = 'https://api.whatsapp.com/send?phone=97180025589737&text=' . rawurlencode($product_url);
+														$whatsappOosHref = 'https://api.whatsapp.com/send?phone=' . $whatsappPhone . '&text=' . rawurlencode($product_url);
 														?>
 														<div class="buy-button qty-oos-row">
 														
@@ -2258,7 +2259,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 							</div>
 							<div class="product-list-wrapper">
 								<?php foreach ($productsWithOffers as $_product) : ?>
-									<?= renderProductItem($_product, true, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem) ?>
+									<?= renderProductItem($_product, true, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem, $whatsappPhone) ?>
 								<?php endforeach; ?>
 							</div>
 						<?php endif; ?>
@@ -2268,7 +2269,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 							</div>
 							<div class="product-list-wrapper">
 								<?php foreach ($productsWithoutOffers as $_product) : ?>
-									<?= renderProductItem($_product, true, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem) ?>
+									<?= renderProductItem($_product, true, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem, $whatsappPhone) ?>
 								<?php endforeach; ?>
 							</div>
 						<?php endif; ?>
@@ -2278,7 +2279,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 				<div class="products wrapper list products-list d-md-none">
 					<ol class="products product-list regular-product-list">
 						<?php
-						function renderMobileProductItem($_product, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem, $tabbyfourday, $tabbyinstallmentmaxvalue)
+						function renderMobileProductItem($_product, $listingHelper, $_helper, $block, $_imagehelper, $productImageHelper, $tyreImageOnError, $imageDisplayArea, $image_width, $image_height, $mediaUrl, $currency, $outOfStockPhone, $coreHelper, $param_oem, $tabbyfourday, $tabbyinstallmentmaxvalue, $whatsappPhone)
 						{
 							try {
 								ob_start();
@@ -2697,7 +2698,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 																</div>
 															<?php else : ?>
 																<?php
-																$whatsappOosHref = 'https://api.whatsapp.com/send?phone=97180025589737&text=' . rawurlencode($product_url);
+																$whatsappOosHref = 'https://api.whatsapp.com/send?phone=' . $whatsappPhone . '&text=' . rawurlencode($product_url);
 																?>
 																<div class="buy-button qty-oos-row">
 															
@@ -2848,7 +2849,8 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 										$coreHelper,
 										$param_oem,
 										$tabbyfourday,
-										$tabbyinstallmentmaxvalue
+										$tabbyinstallmentmaxvalue,
+										$whatsappPhone
 									) ?>
 								<?php endforeach; ?>
 							</div>
@@ -2876,7 +2878,8 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 										$coreHelper,
 										$param_oem,
 										$tabbyfourday,
-										$tabbyinstallmentmaxvalue
+										$tabbyinstallmentmaxvalue,
+										$whatsappPhone
 									) ?>
 								<?php endforeach; ?>
 							</div>
@@ -4041,7 +4044,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 																			</a>
 																		</div>
 																		<div class="whatsapp-qty">
-																			<a href="https://api.whatsapp.com/send?phone=97180025589737&text=Hello%20Tyres%20Online" target="_blank" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
+																			<a href="https://api.whatsapp.com/send?phone=<?= $block->escapeUrl($whatsappPhone) ?>&text=Hello%20Tyres%20Online" target="_blank" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
 																				<span>
 																					<img src="<?= $block->getViewFileUrl('images/icon/whatsapp-colored.svg'); ?>" alt="<?php echo __('Whats App'); ?>" />
 																				</span>
@@ -4228,7 +4231,7 @@ if(isset($param_width) && isset($param_height)  && isset($param_rim)){
 																			</a>
 																		</div>
 																		<div class="whatsapp-qty">
-																			<a href="https://api.whatsapp.com/send?phone=97180025589737&text=Hello%20Tyres%20Online" target="_blank" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
+																			<a href="https://api.whatsapp.com/send?phone=<?= $block->escapeUrl($whatsappPhone) ?>&text=Hello%20Tyres%20Online" target="_blank" class="button tocart button custom-size button-primary-100 button-rounded filled-slide-up">
 																				<span>
 																					<img src="<?= $block->getViewFileUrl('images/icon/whatsapp-colored.svg'); ?>" alt="<?php echo __('Whats App'); ?>" />
 																				</span>
