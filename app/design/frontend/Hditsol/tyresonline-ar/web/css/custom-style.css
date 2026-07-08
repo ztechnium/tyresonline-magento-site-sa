@@ -396,10 +396,12 @@ margin-left: 7px !important;
 .cms-promotions-and-offers-on-tyres-uae .promotions-offers .box-title > span:not(.link),
 .cms-promotions-and-offers-on-tyres-ksa .promotions-offers .box-title > span:not(.link) {
   flex: 1 1 auto;
-  display: flex;
-  align-items: center;
+  display: block;
   min-height: 2.25rem;
   line-height: 1.25;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .cms-promotions-and-offers-on-tyres-uae .promotions-offers .box-title .link,
