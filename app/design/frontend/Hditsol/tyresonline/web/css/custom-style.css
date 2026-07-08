@@ -341,3 +341,33 @@ color: #fff;
     padding-top: 0.625rem !important;
   }
 }
+
+.cms-promotions-and-offers-on-tyres-uae .promotions-offers .box-title .link,
+.cms-promotions-and-offers-on-tyres-ksa .promotions-offers .box-title .link,
+.cms-promotions-and-offers-on-tyres-uae .promotions-offers .shownow a,
+.cms-promotions-and-offers-on-tyres-ksa .promotions-offers .shownow a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+}
+
+.cms-promotions-and-offers-on-tyres-uae .promotions-offers .box-title .link,
+.cms-promotions-and-offers-on-tyres-ksa .promotions-offers .box-title .link {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+  white-space: nowrap;
+}
+
+.cms-promotions-and-offers-on-tyres-uae .promotions-offers .shownow,
+.cms-promotions-and-offers-on-tyres-ksa .promotions-offers .shownow {
+  display: flex;
+}
+
+.cms-promotions-and-offers-on-tyres-uae .promotions-offers .shownow a,
+.cms-promotions-and-offers-on-tyres-ksa .promotions-offers .shownow a {
+  width: 100%;
+  min-height: 3.75rem;
+  padding: 0.75rem 1rem;
+}
